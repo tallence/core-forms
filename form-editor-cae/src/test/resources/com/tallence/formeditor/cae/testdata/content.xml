@@ -1,0 +1,13 @@
+<content>
+  <folder id="1" name="" placeApproved="true" published="true" modificationDate="2009-06-01T20:59:42.000+01:00">
+    <folder id="3" name="Content Test">
+      <document id="2" type="FormEditor" name="TestForm" modificationDate="2009-06-01T20:59:42.000+01:00">
+        <version number="1">
+          <stringProperty name="formAction" value="default"/>
+          <markupProperty name="formData" url="2formElements.xml" grammar="coremedia-struct-2008"/>
+        </version>
+      </document>
+    </folder>
+
+  </folder>
+</content>

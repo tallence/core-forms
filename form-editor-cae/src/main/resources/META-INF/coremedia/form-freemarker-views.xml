@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:customize="http://www.coremedia.com/2007/coremedia-spring-beans-customization"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.coremedia.com/2007/coremedia-spring-beans-customization
+                           http://www.coremedia.com/2007/coremedia-spring-beans-customization.xsd">
+
+  <customize:append id="formFreemarkerSharedVariablesCustomizer" bean="freemarkerSharedVariables">
+    <map>
+      <entry key="formFreemarkerFacade" value-ref="formFreemarkerFacade"/>
+    </map>
+  </customize:append>
+
+  <bean name="formFreemarkerFacade" class="com.tallence.formeditor.cae.FormFreemarkerFacade">
+    <constructor-arg name="formElementFactory" ref="formElementFactory"/>
+  </bean>
+
+  <customize:append id="formFreemarkerConfigurerAutoImportsCustomizer" bean="freemarkerConfigurer"
+                    property="autoImports">
+    <map>
+      <entry key="form" value="/lib/form/form.ftl"/>
+    </map>
+  </customize:append>
+
+</beans>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.coremedia.com/2010/content">
+<type name="FormEditor">
+  <property name="formData" type="markup" grammar="coremedia-struct-2008"/>
+  <property name="adminMails" type="string" length="512" encodedLength="1536"/>
+  <property name="formAction" type="string" length="512" encodedLength="1536"/>
+  <property name="isSpamProtectionEnabled" type="int"/>
+</type>
+<grammar name="coremedia-richtext-1.0" root="div" systemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
+<grammar name="coremedia-struct-2008" root="div" systemId="classpath:xml/coremedia-struct-2008.xsd"/>
+<schema name="coremedia-preferences" location="classpath:xml/coremedia-preferences.dtd"/>
+</schema>

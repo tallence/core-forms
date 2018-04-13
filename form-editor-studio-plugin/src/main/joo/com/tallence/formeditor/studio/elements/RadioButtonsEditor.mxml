@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:ElementGroupBase
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns="exml:ext.config"
+    xmlns:local="com.tallence.formeditor.studio.elements.*"
+    xmlns:fields="exml:com.tallence.formeditor.studio.config">
+
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.elements.radioButtonsEditor";
+    public static const FIELD_TYPE:String = "RadioButtons";
+
+    private var config:RadioButtonsEditor;
+
+    [Bindable]
+    public var bindTo:ValueExpression;
+
+    [Bindable]
+    public var forceReadOnlyValueExpression:ValueExpression;
+
+    public native function RadioButtonsEditor(config:RadioButtonsEditor = null);
+    ]]></fx:Script>
+
+  <local:items>
+    <Container cls="content">
+      <items>
+
+        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
+                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
+                          formElement="{config.formElement}"
+                          propertyname="name"
+                          bindTo="{config.bindTo}"
+                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
+                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
+                          formElement="{config.formElement}"
+                          propertyname="hint"
+                          bindTo="{config.bindTo}"
+                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
+                              formElement="{config.formElement}"
+                              propertyName="validator.mandatory"
+                              defaultValue="false"
+                              bindTo="{config.bindTo}"
+                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:AddOptionField bindTo="{config.bindTo}"
+                               formElement="{config.formElement}"
+                               forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+      </items>
+      <layout>
+        <layout_Column/>
+      </layout>
+    </Container>
+    <fields:OptionsField bindTo="{config.bindTo}"
+                         formElement="{config.formElement}"
+                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+  </local:items>
+</local:ElementGroupBase>

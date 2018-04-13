@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:SwitchingContainer
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns="exml:ext.config"
+    xmlns:ui="exml:com.coremedia.ui.config"
+    xmlns:elements="com.tallence.formeditor.studio.elements.*"
+    activeItemValueExpression="{ValueExpressionFactory.createFromValue(config.formElement.getType())}">
+
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+    import com.coremedia.ui.data.ValueExpressionFactory;
+    import com.tallence.formeditor.studio.helper.FormElementsManager;
+    import com.tallence.formeditor.studio.model.FormElementStructWrapper;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.elements.formElementFormDispatcher";
+
+    private var config:FormElementFormDispatcher;
+
+    [Bindable]
+    public var bindTo:ValueExpression;
+
+    [Bindable]
+    public var forceReadOnlyValueExpression:ValueExpression;
+
+    [Bindable]
+    public var formElement:FormElementStructWrapper;
+
+    [Bindable]
+    public var formElementsManager:FormElementsManager;
+
+    public native function FormElementFormDispatcher(config:FormElementFormDispatcher = null);
+    ]]>
+    </fx:Script>
+
+  <ui:itemTemplate>
+    <DisplayField
+        value="{'Es ist kein Editor für das Input-Element ' + config.formElement.getType() + ' vorhanden.'}"/>
+  </ui:itemTemplate>
+
+  <ui:lazyItems>
+    <elements:TextFieldEditor itemId="{TextFieldEditor.FIELD_TYPE}"
+                              bindTo="{config.bindTo}"
+                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                              formElement="{config.formElement}"/>
+    <elements:NumberFieldEditor itemId="{NumberFieldEditor.FIELD_TYPE}"
+                                bindTo="{config.bindTo}"
+                                forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                                formElement="{config.formElement}"/>
+    <elements:TextAreaEditor itemId="{TextAreaEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:SelectBoxEditor itemId="{SelectBoxEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:CheckBoxesEditor itemId="{CheckBoxesEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:RadioButtonsEditor itemId="{RadioButtonsEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:FileUploadEditor itemId="{FileUploadEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:TextOnlyEditor itemId="{TextOnlyEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+    <elements:UsersMailEditor itemId="{UsersMailEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
+  </ui:lazyItems>
+
+</ui:SwitchingContainer>

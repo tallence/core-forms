@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:ElementGroupEntryBase
+    padding="0 0 0 100"
+    title="{config.option.getId()}"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns="exml:ext.config" xmlns:ui="exml:com.coremedia.ui.config"
+    xmlns:local="com.tallence.formeditor.studio.elements.*" xmlns:editor="exml:com.coremedia.cms.editor.sdk.config">
+
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.elements.selectBoxOption";
+
+    private var config:ElementGroupEntry;
+
+    [Bindable]
+    public var forceReadOnlyValueExpression:ValueExpression;
+
+    [Bindable]
+    public var bindTo:ValueExpression;
+
+    public native function ElementGroupEntry(config:ElementGroupEntry = null);
+    ]]></fx:Script>
+  
+  <local:header>
+    <Header titlePosition="2.0"
+            itemPosition="2"
+            enableFocusableContainer="false">
+      <items>
+        <Checkbox autoEl="{{
+                tag: 'div',
+                'data-qtip': resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_group_default_tooltip')
+            }}">
+          <plugins>
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
+                                   bindTo="{config.option.getGroupElementVE().extendBy('checkedByDefault')}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </plugins>
+        </Checkbox>
+        <ui:IconButton
+            iconAlign="right"
+            iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
+            itemId="removeButton"
+            ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_delete_option')}"
+            handler="{removeOption}">
+          <ui:plugins>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </ui:plugins>
+        </ui:IconButton>
+      </items>
+    </Header>
+  </local:header>
+  <local:layout>
+    <layout_Column/>
+  </local:layout>
+</local:ElementGroupEntryBase>

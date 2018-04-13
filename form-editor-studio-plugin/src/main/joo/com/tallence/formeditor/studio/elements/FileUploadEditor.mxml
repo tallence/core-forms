@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Container xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns="exml:ext.config"
+           xmlns:fields="exml:com.tallence.formeditor.studio.config">
+
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+    import com.tallence.formeditor.studio.model.FormElementStructWrapper;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.elements.fileUploadEditor";
+    public static const FIELD_TYPE:String = "FileUpload";
+
+    private var config:FileUploadEditor;
+
+    [Bindable]
+    public var formElement:FormElementStructWrapper;
+
+    [Bindable]
+    public var bindTo:ValueExpression;
+
+    [Bindable]
+    public var forceReadOnlyValueExpression:ValueExpression;
+
+    public native function FileUploadEditor(config:FileUploadEditor = null);
+    ]]>
+    </fx:Script>
+
+  <items>
+    <Container cls="content">
+      <items>
+        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
+                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
+                          formElement="{config.formElement}"
+                          propertyname="name"
+                          bindTo="{config.bindTo}"
+                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
+                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
+                          formElement="{config.formElement}"
+                          propertyname="hint"
+                          bindTo="{config.bindTo}"
+                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
+                              formElement="{config.formElement}"
+                              propertyName="validator.mandatory"
+                              defaultValue="false"
+                              bindTo="{config.bindTo}"
+                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+        <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_label')}"
+                            emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_emptyText')}"
+                            formElement="{config.formElement}"
+                            propertyName="validator.maxSize"
+                            bindTo="{config.bindTo}"
+                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+
+      </items>
+      <layout>
+        <layout_Column/>
+      </layout>
+    </Container>
+  </items>
+</Container>

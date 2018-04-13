@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dragdrop:FormElementDroppableBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+                                   xmlns="exml:ext.config"
+                                   xmlns:exml="http://www.jangaroo.net/exml/0.8"
+                                   xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*">
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+    import com.tallence.formeditor.studio.FormUtils;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.config.formElementDroppable";
+
+    private var config:FormElementDroppable;
+
+    /**
+     * Stores the information whether a drag and drop operation is in progress.
+     */
+    [Bindable]
+    public var dragActiveVE:ValueExpression;
+
+    [Bindable]
+    public var formElementType:String;
+
+    public native function FormElementDroppable(config:FormElementDroppable = null);
+    ]]>
+    </fx:Script>
+
+  <dragdrop:items>
+    <Container cls="inner-component"
+               height="24">
+      <items>
+        <Container cls="condition-handle"
+                   width="16"
+                   height="16"/>
+        <Label html="{FormUtils.getConditionTitle(config.formElementType)}"
+               cls="x-form-item-label"
+               flex="1"
+               margin="0 0 0 6px"/>
+      </items>
+      <layout>
+        <layout_HBox align="middle"/>
+      </layout>
+    </Container>
+  </dragdrop:items>
+
+</dragdrop:FormElementDroppableBase>

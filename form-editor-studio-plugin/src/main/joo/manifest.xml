@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<componentPackage>
+  <component class="com.tallence.formeditor.studio.FormsStudioPlugin"/>
+  <component class="com.tallence.formeditor.studio.FormEditorDocumentForm"/>
+  <component class="com.tallence.formeditor.studio.dragdrop.FormElementDroppable"/>
+  <component class="com.tallence.formeditor.studio.ApplicableElements"/>
+  <component class="com.tallence.formeditor.studio.elements.CheckBoxesEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.FileUploadEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.NumberFieldEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.RadioButtonsEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.SelectBoxEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.ElementGroupEntry"/>
+  <component class="com.tallence.formeditor.studio.elements.TextAreaEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.TextFieldEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.TextOnlyEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.UsersMailEditor"/>
+  <component class="com.tallence.formeditor.studio.studioform.FormEditorForm"/>
+  <component class="com.tallence.formeditor.studio.ApplicableElementsHelpContainer"/>
+  <component class="com.tallence.formeditor.studio.AppliedElementsContainer"/>
+  <component class="com.tallence.formeditor.studio.FormActionPanel"/>
+  <component class="com.tallence.formeditor.studio.dragdrop.FormElementDropContainer"/>
+  <component class="com.tallence.formeditor.studio.AppliedFormElementContainer"/>
+  <component class="com.tallence.formeditor.studio.elements.FormElementFormDispatcher"/>
+  <component class="com.tallence.formeditor.studio.fields.AddOptionField"/>
+  <component class="com.tallence.formeditor.studio.fields.TextField"/>
+  <component class="com.tallence.formeditor.studio.fields.NumberField"/>
+  <component class="com.tallence.formeditor.studio.fields.CheckboxField"/>
+  <component class="com.tallence.formeditor.studio.fields.OptionsField"/>
+</componentPackage>

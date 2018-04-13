@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor:CollapsiblePanel xmlns:fx="http://ns.adobe.com/mxml/2009"
+                         xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+                         xmlns="exml:ext.config"
+                         xmlns:exml="http://www.jangaroo.net/exml/0.8"
+                         xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+                         margin="10 0 0 0"
+                         title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_show_help')}">
+
+  <fx:Script><![CDATA[
+    public static const xtype:String = "com.tallence.formeditor.studio.config.applicableElementsHelpContainer";
+
+    private var config:ApplicableElementsHelpContainer;
+
+    public native function ApplicableElementsHelpContainer(config:ApplicableElementsHelpContainer = null);
+    ]]>
+    </fx:Script>
+
+  <editor:items>
+    <Button itemId="conditionHelp"
+            iconCls="flat-help-btn"
+            text="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_show_help')}">
+      <baseAction>
+        <editor:OpenReferenceWindowAction>
+          <editor:dialog>
+            <Window
+                title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_help_title')}"
+                cls="helper-window"
+                width="530"
+                minWidth="300"
+                height="300"
+                minHeight="265"
+                layout="fit"
+                autoScroll="true"
+                collapsible="false"
+                border="false"
+                closeAction="close"
+                constrain="true"
+                constrainHeader="true"
+                plain="true">
+              <items>
+                <!--TODO show help article -->
+              </items>
+            </Window>
+          </editor:dialog>
+        </editor:OpenReferenceWindowAction>
+      </baseAction>
+    </Button>
+  </editor:items>
+
+</editor:CollapsiblePanel>

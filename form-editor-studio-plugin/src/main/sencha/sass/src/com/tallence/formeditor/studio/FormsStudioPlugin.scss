@@ -1,0 +1,41 @@
+@if $formeditor-include-styles {
+
+  $_block: "forms";
+  $_group_container: $_block + "--element-group-container";
+
+  $form_element_block: "form-element-drop-container";
+  $form_element_drag_active: $form_element_block + "--drag-active";
+  $form_element_drop_active: $form_element_block + "--drop-active";
+  $form_element_empty: $form_element_block + "--empty";
+
+  .#{$_group_container} {
+    border-top: 1px solid;
+    border-color: #b3b1b1;
+    margin-top: 30px;
+    padding-top: 10px;
+  }
+
+  .#{$form_element_block} {
+    margin: 10px 15px 0 10px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 2px solid rgba(0, 0, 0, 0.04);
+    padding: 6px;
+    color: rgba(0, 0, 0, 0.27);
+  }
+
+  .#{$form_element_drag_active} {
+    border: 2px dashed rgba(0, 0, 0, 0.61);
+    color: rgba(0, 0, 0, 0.61);
+  }
+
+  .#{$form_element_drop_active} {
+    border: 2px dashed rgba(64, 137, 221, 1);
+    background: #d8e7f8;
+  }
+
+  .#{$form_element_empty} {
+    height: 150px;
+    padding-top: 60px;
+  }
+
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:FormEditorDocumentFormBase
+    xmlns:exml="http://www.jangaroo.net/exml/0.8"
+    xmlns="exml:ext.config"
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:local="com.tallence.formeditor.studio.*"
+    title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_tab_formFields_title')}"
+    layout="card"
+    region="center">
+  <fx:Metadata>
+    [ResourceBundle('com.tallence.formeditor.studio.bundles.FormEditor')]
+  </fx:Metadata>
+
+  <fx:Script><![CDATA[
+    public static const xtype:String = "com.tallence.formeditor.studio.config.formEditor";
+
+    private var config:FormEditorDocumentForm;
+
+    /*
+     * Array of Form editor configuration objects for all applicable Form element editors.
+     */
+    [Bindable]
+    public var formElements:Array;
+
+    /*
+     * A String which holds the document proerty name of the struct, where the form Elements are saved into
+     */
+    [Bindable]
+    public var structPropertyName:String;
+
+    public native function FormEditorDocumentForm(config:FormEditorDocumentForm = null);
+    ]]>
+    </fx:Script>
+
+  <local:items>
+    <Container>
+      <items>
+        <!-- left column, applicable form elements -->
+        <Container width="160">
+          <items>
+            <local:ApplicableElements formElements="{config.formElements}"
+                                      dragActiveVE="{getDragActiveVE()}"/>
+            <local:ApplicableElementsHelpContainer/>
+          </items>
+        </Container>
+        <!-- right column, applied form elements -->
+        <Container flex="1"
+                   autoScroll="true">
+          <items>
+            <!-- applied form Elements -->
+            <local:AppliedElementsContainer bindTo="{config.bindTo}"
+                                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                                            dragActiveVE="{getDragActiveVE()}"
+                                            structPropertyName="{config.structPropertyName}"/>
+          </items>
+        </Container>
+        <!-- end right column -->
+      </items>
+      <!--Hbox layout for the main content beneath the header -->
+      <layout>
+        <layout_HBox align="stretch"/>
+      </layout>
+    </Container>
+  </local:items>
+
+</local:FormEditorDocumentFormBase>

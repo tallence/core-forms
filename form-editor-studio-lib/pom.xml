@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.coremedia.blueprint</groupId>
+    <artifactId>formeditor-extension</artifactId>
+    <version>1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>form-editor-studio-lib</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <coremedia.project.extension.for>studio-lib</coremedia.project.extension.for>
+  </properties>
+
+  <dependencies>
+
+    <!-- Project -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-contentbeans-api</artifactId>
+      <version>${project.version}</version>
+      <!-- scope "provided" because only the string constants are used -->
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- CoreMedia -->
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cap-unified-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cap-rest-plugins</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-rest-plugins</artifactId>
+    </dependency>
+
+    <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+
+  </dependencies>
+
+</project>

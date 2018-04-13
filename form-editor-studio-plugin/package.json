@@ -1,0 +1,8 @@
+{
+  "studioPlugins": [
+    {
+      "mainClass": "com.tallence.formeditor.studio.FormsStudioPlugin",
+      "name": "Formeditor Extension"
+    }
+  ]
+}

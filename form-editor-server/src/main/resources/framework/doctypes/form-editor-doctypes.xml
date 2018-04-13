@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<DocumentTypeModel xmlns="http://www.coremedia.com/2008/documenttypes"
+                   Name="jh-doctypes">
+  <ImportGrammar Name="coremedia-richtext-1.0"/>
+
+  <!--- well known grammars -->
+  <ImportGrammar Name="coremedia-struct-2008"/>
+
+  <ImportDocType Name="CMTeasable"/>
+
+  <DocType Name="FormEditor" Parent="CMTeasable">
+    <StringProperty Name="formAction" Length="128"/>
+    <StringProperty Name="adminMails" Length="512"/>
+    <IntProperty Name="spamProtectionEnabled"/>
+    <XmlProperty Name="formData" Grammar="coremedia-struct-2008"/>
+  </DocType>
+
+</DocumentTypeModel>

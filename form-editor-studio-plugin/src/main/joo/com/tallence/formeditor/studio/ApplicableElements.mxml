@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:ApplicableElementsBase xmlns:fx="http://ns.adobe.com/mxml/2009"
+                              xmlns="exml:ext.config"
+                              xmlns:exml="http://www.jangaroo.net/exml/0.8"
+                              xmlns:local="com.tallence.formeditor.studio.*">
+
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.config.applicableElements";
+
+    private var config:ApplicableElements;
+
+    /*
+     * Array of objects describing groups of draggable items
+     */
+    [Bindable]
+    public var formElements:Array;
+
+    /**
+     * Stores the information whether a drag and drop operation is in progress.
+     */
+    [Bindable]
+    public var dragActiveVE:ValueExpression;
+
+    public native function ApplicableElements(config:ApplicableElements = null);
+    ]]>
+    </fx:Script>
+
+  <local:items>
+    <Container itemId="{APPLICABLE_ELEMENTS_CONTAINER_ID}"/>
+  </local:items>
+
+</local:ApplicableElementsBase>

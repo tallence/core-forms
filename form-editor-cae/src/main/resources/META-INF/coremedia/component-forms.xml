@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <import resource="form-freemarker-views.xml"/>
+  <import resource="classpath:/com/tallence/formeditor/contentbeans/formeditor-contentbeans.xml"/>
+
+  <context:component-scan base-package="com.tallence.formeditor.cae"/>
+
+  <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <description>
+      Needed for Spring-WebMVC FileUpload Forms
+    </description>
+
+    <!--Set limit to 15MB-->
+    <property name="maxUploadSize" value="15000000"/>
+  </bean>
+
+
+  <bean name="reCaptchaService" class="com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl">
+    <constructor-arg name="defaultCredentials" ref="reCaptchaDefaultCredentials"/>
+  </bean>
+
+  <bean id="reCaptchaDefaultCredentials" class="com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl$ReCaptchaAuthentication">
+    <constructor-arg value="${google.reCaptcha.website-secret}"/>
+    <constructor-arg value="${google.reCaptcha.server-secret}"/>
+  </bean>
+
+</beans>
