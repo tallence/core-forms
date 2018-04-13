@@ -21,6 +21,8 @@ Form-Actions and -fields can be customized and added by your need.
 
 The extension is built for CoreMedia 9.17.10. It will probably be compatible with older CM9 versions and with newer versions but it is not tested yet.
 
+This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [formeditor-frontend](https://github.com/tallence/tallence-formeditor-frontend)
+
 ## Integrate the Code in your CoreMedia Blueprint Workspace
 You can integrate the extension in three ways:
 
