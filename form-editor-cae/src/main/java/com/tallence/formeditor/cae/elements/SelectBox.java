@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.SelectBoxValidator;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 /**
  * Model bean for a configured SelectBox.
  */
+@FormElementDefinition
 public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> {
 
   public SelectBox() {

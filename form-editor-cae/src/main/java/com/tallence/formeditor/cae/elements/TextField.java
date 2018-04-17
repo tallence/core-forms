@@ -16,11 +16,13 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.TextValidator;
 
 /**
  * Model bean for a configured TextField.
  */
+@FormElementDefinition
 public class TextField extends AbstractFormElement<String, TextValidator> {
 
   public TextField() {

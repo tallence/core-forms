@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 
 import java.util.Collections;
@@ -24,6 +25,7 @@ import java.util.List;
 /**
  * Model bean for a configured CheckBoxesGroup.
  */
+@FormElementDefinition("CheckBoxes")
 public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> {
 
   public CheckBoxesGroup() {

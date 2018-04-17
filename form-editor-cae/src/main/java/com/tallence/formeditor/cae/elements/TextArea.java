@@ -16,11 +16,13 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.TextValidator;
 
 /**
  * Model bean for a configured TextArea.
  */
+@FormElementDefinition
 public class TextArea extends AbstractFormElement<String, TextValidator> {
 
   private Integer columns;
