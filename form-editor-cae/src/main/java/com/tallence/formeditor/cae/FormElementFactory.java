@@ -17,17 +17,21 @@
 package com.tallence.formeditor.cae;
 
 import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
+import com.tallence.formeditor.cae.elements.AbstractFormElement;
 import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.cae.factories.GenericFormElementFactory;
 import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * AutoWires all parsers from type {@link AbstractFormElementParser} and creates form elements.
- *
  */
 @Component
 public class FormElementFactory {
@@ -36,10 +40,28 @@ public class FormElementFactory {
   private static final String FORM_DATA_KEY_TYPE = "type";
 
   private final Map<String, AbstractFormElementParser<?>> typeToParser = new HashMap<>();
+  private final Map<String, GenericFormElementFactory> factories;
 
-  public FormElementFactory(List<AbstractFormElementParser> parsers) {
+  public FormElementFactory(List<AbstractFormElementParser> parsers, final ApplicationContext context) {
     parsers.forEach(p -> typeToParser.put(p.getParserKey(), p));
+
+    this.factories = context.getBeansOfType(AbstractFormElement.class).values().stream()
+        .map(AbstractFormElement::getClass)
+        .collect(Collectors.toMap(
+            this::determineKeyForElementClass,
+            type -> context.getBean(GenericFormElementFactory.class, type)
+        ));
   }
+
+
+  private String determineKeyForElementClass(Class<? extends FormElement> forClass) {
+    final FormElementDefinition annotation = forClass.getAnnotation(FormElementDefinition.class);
+    if (annotation != null && !annotation.value().isEmpty()) {
+      return annotation.value();
+    }
+    return forClass.getSimpleName();
+  }
+
 
   <T extends FormElement> T createFormElement(Struct elementData, String id) {
     return parseType(elementData, id);

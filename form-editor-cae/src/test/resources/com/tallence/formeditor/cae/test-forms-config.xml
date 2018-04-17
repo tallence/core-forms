@@ -8,8 +8,11 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-  <context:component-scan base-package="com.tallence.formeditor.cae.parser"/>
+    <context:component-scan base-package="com.tallence.formeditor.cae.parser"/>
+    <context:component-scan base-package="com.tallence.formeditor.cae.elements"/>
+    <context:component-scan base-package="com.tallence.formeditor.cae.factories"/>
 
-  <bean id="formElementFactory" class="com.tallence.formeditor.cae.FormElementFactory"/>
+    <!--suppress SpringBeanConstructorArgInspection -->
+    <bean id="formElementFactory" class="com.tallence.formeditor.cae.FormElementFactory"/>
 
 </beans>
