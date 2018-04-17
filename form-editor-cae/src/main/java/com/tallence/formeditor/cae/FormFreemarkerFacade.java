@@ -20,6 +20,7 @@ import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,10 @@ public class FormFreemarkerFacade {
   public List<FormElement> parseFormElements(FormEditor formEditor) {
 
     Struct formData = formEditor.getFormElements();
+
+    if (formData == null) {
+      return Collections.emptyList();
+    }
 
     return formData.getProperties().entrySet().stream()
         .filter(e -> e.getValue() instanceof Struct)
