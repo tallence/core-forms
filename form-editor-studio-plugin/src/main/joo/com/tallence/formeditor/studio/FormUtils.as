@@ -23,8 +23,6 @@ import ext.panel.Panel;
 
 import mx.resources.ResourceManager;
 
-use namespace editorContext;
-
 public class FormUtils {
 
   public static const SETTINGS_STRUCT_NAME:String = "formElements";
