@@ -17,7 +17,6 @@
   <component class="com.tallence.formeditor.studio.studioform.FormEditorForm"/>
   <component class="com.tallence.formeditor.studio.ApplicableElementsHelpContainer"/>
   <component class="com.tallence.formeditor.studio.AppliedElementsContainer"/>
-  <component class="com.tallence.formeditor.studio.FormActionPanel"/>
   <component class="com.tallence.formeditor.studio.dragdrop.FormElementDropContainer"/>
   <component class="com.tallence.formeditor.studio.AppliedFormElementContainer"/>
   <component class="com.tallence.formeditor.studio.elements.FormElementFormDispatcher"/>
