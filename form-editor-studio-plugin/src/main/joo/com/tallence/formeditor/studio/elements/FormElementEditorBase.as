@@ -23,8 +23,6 @@ import com.tallence.formeditor.studio.*;
 
 import ext.container.Container;
 
-use namespace editorContext;
-
 public class FormElementEditorBase extends Container {
 
   public var propertyName:String;
@@ -73,6 +71,7 @@ public class FormElementEditorBase extends Container {
   }
 
 
+  //noinspection JSMethodCanBeStatic
   /**
    * Override this method if you want to initialize the local bean with some values.
    */

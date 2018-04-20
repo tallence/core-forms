@@ -20,8 +20,6 @@ import com.tallence.formeditor.studio.model.GroupElementStructWrapper;
 
 import ext.panel.Panel;
 
-use namespace editorContext;
-
 public class ElementGroupEntryBase extends Panel {
 
   [Bindable]

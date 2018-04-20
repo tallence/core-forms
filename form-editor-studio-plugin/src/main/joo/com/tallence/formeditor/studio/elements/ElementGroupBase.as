@@ -21,10 +21,6 @@ import com.tallence.formeditor.studio.model.FormElementStructWrapper;
 import ext.Ext;
 import ext.container.Container;
 
-use namespace Ext;
-
-use namespace editorContext;
-
 public class ElementGroupBase extends Container {
 
   [Bindable]

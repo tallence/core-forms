@@ -20,8 +20,6 @@ import com.coremedia.ui.data.ValueExpression;
 
 import ext.form.field.TextField;
 
-use namespace editorContext;
-
 public class TextFieldBase extends ext.form.field.TextField {
 
   private var textVE:ValueExpression;
