@@ -18,9 +18,10 @@ package com.tallence.formeditor.studio {
 
 import com.coremedia.cms.editor.sdk.editorContext;
 import com.coremedia.cms.editor.sdk.preview.PreviewPanel;
-import com.tallence.formeditor.studio.bundles.FormEditor_properties;
 
 import ext.panel.Panel;
+
+import mx.resources.ResourceManager;
 
 use namespace editorContext;
 
@@ -42,7 +43,7 @@ public class FormUtils {
    * @return Condition title.
    */
   public static function getConditionTitle(key:String):String {
-    return FormEditor_properties.INSTANCE['FormEditor_label_element_' + key.replace('\.', '_')] || key;
+    return ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", 'FormEditor_label_element_' + key.replace('\.', '_')) || key;
   }
 }
 }
