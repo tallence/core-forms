@@ -2,6 +2,7 @@
 
   $_block: "forms";
   $_group_container: $_block + "--element-group-container";
+  $_applicable_element_container: $_block + "--applicable-element-container";
 
   $form_element_block: "form-element-drop-container";
   $form_element_drag_active: $form_element_block + "--drag-active";
@@ -36,6 +37,13 @@
   .#{$form_element_empty} {
     height: 150px;
     padding-top: 60px;
+  }
+
+  .#{$_applicable_element_container} {
+    cursor: move;
+    label {
+      cursor: inherit;
+    }
   }
 
 }
