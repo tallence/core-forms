@@ -25,12 +25,12 @@
     </fx:Script>
 
   <dragdrop:items>
-    <Container cls="inner-component"
+    <Container cls="inner-component forms--applicable-element-container"
                height="24">
       <items>
-        <Container cls="condition-handle"
-                   width="16"
-                   height="16"/>
+        <!-- "cm-draggable-item__dnd" is a class used by blueprint studio styles for draggable items -->
+        <Container cls="cm-draggable-item__dnd"
+                   width="16"/>
         <Label html="{FormUtils.getConditionTitle(config.formElementType)}"
                cls="x-form-item-label"
                flex="1"
