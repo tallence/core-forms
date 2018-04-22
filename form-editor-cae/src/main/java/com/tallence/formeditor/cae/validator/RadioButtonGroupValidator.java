@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.ComplexValue;
 import com.tallence.formeditor.cae.elements.RadioButtonGroup;
 import org.springframework.util.StringUtils;
@@ -26,11 +27,17 @@ import java.util.List;
 /**
  * Validator for elements of type {@link RadioButtonGroup}
  */
+@Configured
 public class RadioButtonGroupValidator implements Validator<String> {
 
   private final RadioButtonGroup radioButtonGroup;
 
+  @Configured
   private boolean mandatory;
+
+  private RadioButtonGroupValidator() {
+    radioButtonGroup = null;
+  }
 
   public RadioButtonGroupValidator(RadioButtonGroup radioButtonGroup) {
     this.radioButtonGroup = radioButtonGroup;

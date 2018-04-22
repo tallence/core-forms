@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.validator;
+package com.tallence.formeditor.cae.parser;
 
-import com.tallence.formeditor.cae.annotations.Configured;
+import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.cae.annotations.Configurer;
+import org.springframework.beans.BeanWrapper;
 
-/**
- * Exception which is used if an element was selected but is not available in element's config.
- */
-@Configured
-public class InvalidGroupElementException extends RuntimeException {
+import java.util.regex.Pattern;
 
-  public InvalidGroupElementException(String message) {
-    super(message);
+@Configurer(Pattern.class)
+public class PatternPropertyConfigurer implements ElementPropertyConfigurer {
+  @Override
+  public void configure(Struct configurationSource, String key, BeanWrapper wrapper, String propertyName) {
+    if (configurationSource.get(key) != null) {
+      wrapper.setPropertyValue(propertyName, Pattern.compile(configurationSource.getString(key)));
+    }
   }
 }

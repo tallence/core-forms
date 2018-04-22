@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.validator.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.MultiValueMap;
@@ -32,11 +33,20 @@ import java.util.Map;
  */
 public abstract class AbstractFormElement<T, V extends Validator<T>> implements FormElement<T> {
 
+  static final String GROUP_ELEMENTS_KEY = "groupElements";
+
   private String id;
+
+  @Configured
   private String name;
+
+  @Configured
   private String hint;
-  private T value;
+
+  @Configured
   private V validator;
+
+  private T value;
   private final Class<T> type;
 
   public AbstractFormElement(Class<T> type) {
@@ -62,8 +72,10 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
     if (values == null || values.isEmpty()) {
       setValue(null);
     } else if (getType().equals(List.class)) {
+      //noinspection unchecked
       setValue((T) values);
     } else if (values.size() == 1) {
+      //noinspection unchecked
       setValue((T) values.get(0));
     } else {
       throw new IllegalStateException("Passed multiple values for " + getName());

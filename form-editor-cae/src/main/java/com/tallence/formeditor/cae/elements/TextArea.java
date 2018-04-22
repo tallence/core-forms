@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.TextValidator;
 
@@ -25,7 +26,10 @@ import com.tallence.formeditor.cae.validator.TextValidator;
 @FormElementDefinition
 public class TextArea extends AbstractFormElement<String, TextValidator> {
 
+  @Configured
   private Integer columns;
+
+  @Configured
   private Integer rows;
 
   public TextArea() {

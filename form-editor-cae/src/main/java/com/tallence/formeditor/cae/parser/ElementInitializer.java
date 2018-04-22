@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.validator;
+package com.tallence.formeditor.cae.parser;
 
-import com.tallence.formeditor.cae.annotations.Configured;
+import com.coremedia.cap.struct.Struct;
 
 /**
- * Exception which is used if an element was selected but is not available in element's config.
+ * Base interface for initializers for elements created and configured by {@link GenericParser}.
  */
-@Configured
-public class InvalidGroupElementException extends RuntimeException {
-
-  public InvalidGroupElementException(String message) {
-    super(message);
-  }
+public interface ElementInitializer<T> {
+  void initialize(T element, Struct configurationData);
 }

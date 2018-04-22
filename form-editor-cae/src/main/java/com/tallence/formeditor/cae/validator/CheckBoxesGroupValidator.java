@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
 import com.tallence.formeditor.cae.elements.ComplexValue;
 
@@ -25,11 +26,17 @@ import java.util.List;
 /**
  * Validator for elements of type {@link CheckBoxesGroup}
  */
+@Configured
 public class CheckBoxesGroupValidator implements Validator<List> {
 
   private final CheckBoxesGroup checkBoxesGroup;
 
+  @Configured
   private boolean mandatory;
+
+  private CheckBoxesGroupValidator() {
+    checkBoxesGroup = null;
+  }
 
   public CheckBoxesGroupValidator(CheckBoxesGroup checkBoxesGroup) {
     this.checkBoxesGroup = checkBoxesGroup;

@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.FileUpload;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,14 +26,21 @@ import java.util.List;
 /**
  * Validator for elements of type {@link FileUpload}
  */
+@Configured
 public class FileUploadValidator implements Validator<MultipartFile> {
 
   private final FileUpload fileUpload;
 
+  @Configured
   private boolean mandatory;
 
+  @Configured
   //Default Value 5MB
   private int maxSize = 5 * 1024;
+
+  private FileUploadValidator() {
+    fileUpload = null;
+  }
 
   public FileUploadValidator(FileUpload fileUpload) {
     this.fileUpload = fileUpload;

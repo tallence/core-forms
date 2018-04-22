@@ -20,18 +20,29 @@ import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.elements.AbstractFormElement;
 import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.factories.GenericFormElementFactory;
-import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
-import org.springframework.context.ApplicationContext;
+import com.tallence.formeditor.cae.parser.ElementInitializer;
+import com.tallence.formeditor.cae.parser.ElementPropertyConfigurer;
+import com.tallence.formeditor.cae.parser.GenericParser;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * AutoWires all parsers from type {@link AbstractFormElementParser} and creates form elements.
+ * Factory for creating form elements from configuration.
+ *
+ * The form element factory provides a method {@link #createFormElement(Struct, String)} for creating instances of
+ * {@link FormElement} from a {@link Struct} containing the element configuration. The type of form element is
+ * determined by a type key which has to be present within the the element configuration as a string value (see
+ * {@link #FORM_DATA_KEY_TYPE}).
+ *
+ * <h3>Type Resolution</h3>
+ *
+ * Available type keys are determined when <code>FormElementFactory</code> is instantiated. For every subclass of
+ * {@link AbstractFormElement} which is available in the Spring application context at that time, a type key is
+ * associated with a {@link GenericParser} for the respective type. Type keys for form elements default to the simple
+ * class name but can be overridden via {@link FormElementDefinition}.
  */
 @Component
 public class FormElementFactory {
@@ -39,17 +50,14 @@ public class FormElementFactory {
 
   private static final String FORM_DATA_KEY_TYPE = "type";
 
-  private final Map<String, AbstractFormElementParser<?>> typeToParser = new HashMap<>();
-  private final Map<String, GenericFormElementFactory> factories;
+  private final Map<String, GenericParser> parsersByTypeKey;
 
-  public FormElementFactory(List<AbstractFormElementParser> parsers, final ApplicationContext context) {
-    parsers.forEach(p -> typeToParser.put(p.getParserKey(), p));
-
-    this.factories = context.getBeansOfType(AbstractFormElement.class).values().stream()
+  public FormElementFactory(final Collection<AbstractFormElement> formElements, final Collection<ElementPropertyConfigurer> configurers, final Collection<ElementInitializer> initializers) {
+    this.parsersByTypeKey = formElements.stream()
         .map(AbstractFormElement::getClass)
         .collect(Collectors.toMap(
             this::determineKeyForElementClass,
-            type -> context.getBean(GenericFormElementFactory.class, type)
+            type -> new GenericParser<>(type, configurers, initializers)
         ));
   }
 
@@ -72,16 +80,14 @@ public class FormElementFactory {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
 
     @SuppressWarnings("unchecked")
-    AbstractFormElementParser<T> parser = (AbstractFormElementParser<T>) this.typeToParser.get(type);
-    if (parser == null) {
-      throw new IllegalStateException("Did not find a Parser for type: " + type);
+    GenericParser<T> elementFactory = (GenericParser<T>) this.parsersByTypeKey.get(type);
+
+    if (elementFactory == null) {
+      throw new IllegalStateException("Unknown type: " + type);
     }
 
-    T formElement = parser.instantiateType(elementData);
-    parser.parseBaseFields(formElement, elementData, id);
-    parser.parseSpecialFields(formElement, elementData);
-
-    return formElement;
+    final T element = elementFactory.createElement(elementData);
+    element.setId(id);
+    return element;
   }
-
 }

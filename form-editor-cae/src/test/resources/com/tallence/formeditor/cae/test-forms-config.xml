@@ -10,7 +10,7 @@
 
     <context:component-scan base-package="com.tallence.formeditor.cae.parser"/>
     <context:component-scan base-package="com.tallence.formeditor.cae.elements"/>
-    <context:component-scan base-package="com.tallence.formeditor.cae.factories"/>
+    <context:component-scan base-package="com.tallence.formeditor.cae.validator"/>
 
     <!--suppress SpringBeanConstructorArgInspection -->
     <bean id="formElementFactory" class="com.tallence.formeditor.cae.FormElementFactory"/>

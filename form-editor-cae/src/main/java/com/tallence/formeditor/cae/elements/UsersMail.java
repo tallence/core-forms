@@ -85,7 +85,7 @@ public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, User
     CHECKBOX, NEVER, ALWAYS
   }
 
-  public class UsersMailData {
+  public static class UsersMailData {
     private final String usersMail;
     private final boolean sendCopy;
 

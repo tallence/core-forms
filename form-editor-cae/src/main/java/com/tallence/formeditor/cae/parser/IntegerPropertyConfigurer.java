@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.factories;
+package com.tallence.formeditor.cae.parser;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.cae.annotations.Configurer;
+import org.springframework.beans.BeanWrapper;
 
-@Component
-@Scope("prototype")
-public class GenericFormElementFactory<T> {
-  private final Class<T> forClass;
-
-  public GenericFormElementFactory(Class<T> forClass) {
-    this.forClass = forClass;
-  }
-
+@Configurer(Integer.class)
+public class IntegerPropertyConfigurer implements ElementPropertyConfigurer {
   @Override
-  public String toString() {
-    return "GenericFormElementFactory{" +
-        "forClass: " + forClass.getSimpleName() +
-        '}';
+  public void configure(Struct configurationSource, String key, BeanWrapper wrapper, String propertyName) {
+    if (configurationSource.get(key) != null) {
+      wrapper.setPropertyValue(propertyName, configurationSource.getInteger(key));
+    }
   }
 }

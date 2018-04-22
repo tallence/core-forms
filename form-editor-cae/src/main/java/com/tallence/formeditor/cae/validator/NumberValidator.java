@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -24,10 +25,16 @@ import java.util.List;
 /**
  * Validator for elements of type {@link com.tallence.formeditor.cae.elements.NumberField}
  */
+@Configured
 public class NumberValidator implements Validator<String> {
 
+  @Configured
   private boolean mandatory;
+
+  @Configured
   private Integer minSize;
+
+  @Configured
   private Integer maxSize;
 
   @Override

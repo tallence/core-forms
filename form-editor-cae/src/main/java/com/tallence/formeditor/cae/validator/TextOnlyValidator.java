@@ -16,12 +16,15 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
+
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Validator for elements of type {@link com.tallence.formeditor.cae.elements.TextOnly}
  */
+@Configured
 public class TextOnlyValidator implements Validator<String> {
 
   @Override
