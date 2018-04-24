@@ -33,12 +33,18 @@
       {formElementType: SelectBoxEditor.FIELD_TYPE, group: 'single'},
       {formElementType: TextAreaEditor.FIELD_TYPE, group: 'single'},
       {formElementType: TextFieldEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'group'},
-      {formElementType: UsersMailEditor.FIELD_TYPE, group: 'hint'}
+      {formElementType: UsersMailEditor.FIELD_TYPE, group: 'group'},
+      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'hint'}
     ];
     private static const FORM_ACTIONS:Array = [
-      {id: 'default', value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_default")},
-      {id: 'mailAction', value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_mail")}
+      {
+        id: 'default',
+        value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_default")
+      },
+      {
+        id: 'mailAction',
+        value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_mail")
+      }
     ];
 
     private var config:FormEditorForm;
