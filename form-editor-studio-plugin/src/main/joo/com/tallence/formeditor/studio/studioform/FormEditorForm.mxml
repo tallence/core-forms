@@ -12,7 +12,6 @@
     [ResourceBundle('com.tallence.formeditor.studio.bundles.FormEditor')]
   </fx:Metadata>
   <fx:Script><![CDATA[
-    import com.tallence.formeditor.studio.bundles.FormEditor_properties;
     import com.tallence.formeditor.studio.elements.CheckBoxesEditor;
     import com.tallence.formeditor.studio.elements.FileUploadEditor;
     import com.tallence.formeditor.studio.elements.NumberFieldEditor;
@@ -23,6 +22,8 @@
     import com.tallence.formeditor.studio.elements.TextOnlyEditor;
     import com.tallence.formeditor.studio.elements.UsersMailEditor;
 
+    import mx.resources.ResourceManager;
+
     public static const xtype:String = "com.tallence.formeditor.studio.config.formEditorForm";
     private static const APPLICABALE_FORM_ELEMENTS:Array = [
       {formElementType: CheckBoxesEditor.FIELD_TYPE, group: 'single'},
@@ -32,12 +33,18 @@
       {formElementType: SelectBoxEditor.FIELD_TYPE, group: 'single'},
       {formElementType: TextAreaEditor.FIELD_TYPE, group: 'single'},
       {formElementType: TextFieldEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'group'},
-      {formElementType: UsersMailEditor.FIELD_TYPE, group: 'hint'}
+      {formElementType: UsersMailEditor.FIELD_TYPE, group: 'group'},
+      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'hint'}
     ];
     private static const FORM_ACTIONS:Array = [
-      {id: 'default', value: FormEditor_properties.INSTANCE.FormEditor_actions_default},
-      {id: 'mailAction', value: FormEditor_properties.INSTANCE.FormEditor_actions_mail}
+      {
+        id: 'default',
+        value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_default")
+      },
+      {
+        id: 'mailAction',
+        value: ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor", "FormEditor_actions_mail")
+      }
     ];
 
     private var config:FormEditorForm;

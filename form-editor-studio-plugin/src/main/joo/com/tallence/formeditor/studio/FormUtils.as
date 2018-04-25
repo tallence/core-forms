@@ -18,15 +18,12 @@ package com.tallence.formeditor.studio {
 
 import com.coremedia.cms.editor.sdk.editorContext;
 import com.coremedia.cms.editor.sdk.preview.PreviewPanel;
-import com.tallence.formeditor.studio.bundles.FormEditor_properties;
 
 import ext.panel.Panel;
 
-use namespace editorContext;
+import mx.resources.ResourceManager;
 
 public class FormUtils {
-
-  public static const SETTINGS_STRUCT_NAME:String = "formElements";
 
   public static function reloadPreview():void {
     var premular:Panel = Panel(editorContext.getWorkArea().getActiveTab());
@@ -42,7 +39,13 @@ public class FormUtils {
    * @return Condition title.
    */
   public static function getConditionTitle(key:String):String {
-    return FormEditor_properties.INSTANCE['FormEditor_label_element_' + key.replace('\.', '_')] || key;
+    //message property keys are separated with '_' by convention and not with '.' ->
+    // If a key contains a '.' it will be replaced.
+    var keyToUse:String = key.replace('\.', '_');
+    keyToUse = keyToUse.charAt(0).toLowerCase() + keyToUse.substring(1);
+    return ResourceManager.getInstance().getString("com.tallence.formeditor.studio.bundles.FormEditor",
+            'FormEditor_label_element_' + keyToUse) || key;
   }
+
 }
 }
