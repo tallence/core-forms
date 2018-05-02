@@ -96,10 +96,6 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
-      <groupId>javax.inject</groupId>
-      <artifactId>javax.inject</artifactId>
-    </dependency>
-    <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <scope>runtime</scope>
@@ -129,6 +125,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>test-util</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>cae-base-lib</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>

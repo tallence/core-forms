@@ -3,7 +3,67 @@
   <property name="formData" type="markup" grammar="coremedia-struct-2008"/>
   <property name="adminMails" type="string" length="512" encodedLength="1536"/>
   <property name="formAction" type="string" length="512" encodedLength="1536"/>
-  <property name="isSpamProtectionEnabled" type="int"/>
+  <property name="spamProtectionEnabled" type="int"/>
+</type>
+<type name="CMChannel" parent="CMContext">
+  <property name="master" type="link" linkType="CMChannel" maxCardinality="1"/>
+  <property name="picture" type="blob" contentType="image/*"/>
+  <property name="header" type="link" linkType="CMLinkable"/>
+  <property name="footer" type="link" linkType="CMLinkable"/>
+</type>
+<type name="CMContext" abstract="true" parent="CMNavigation">
+  <property name="master" type="link" linkType="CMContext" maxCardinality="1"/>
+</type>
+<type name="CMNavigation" abstract="true" parent="CMTeasable">
+  <property name="master" type="link" linkType="CMNavigation" maxCardinality="1"/>
+  <property name="children" type="link" linkType="CMLinkable"/>
+  <property name="hidden" type="int"/>
+  <property name="hiddenInSitemap" type="int"/>
+  <property name="javaScript" type="link" linkType="CMJavaScript"/>
+  <property name="css" type="link" linkType="CMCSS"/>
+  <property name="favicon" type="blob" contentType="image/x-icon"/>
+  <property name="placement" type="markup" grammar="coremedia-struct-2008"/>
+  <property name="theme" type="link" linkType="CMTheme" maxCardinality="1"/>
+</type>
+<type name="CMTeasable" abstract="true" parent="CMHasContexts">
+  <property name="master" type="link" linkType="CMTeasable" maxCardinality="1"/>
+  <property name="teaserTitle" type="string" length="512" encodedLength="1536"/>
+  <property name="teaserText" type="markup" grammar="coremedia-richtext-1.0"/>
+  <property name="detailText" type="markup" grammar="coremedia-richtext-1.0"/>
+  <property name="pictures" type="link" linkType="CMMedia"/>
+  <property name="notSearchable" type="int"/>
+  <property name="related" type="link" linkType="CMTeasable"/>
+</type>
+<type name="CMHasContexts" abstract="true" parent="CMLinkable">
+  <property name="master" type="link" linkType="CMHasContexts" maxCardinality="1"/>
+  <property name="contexts" type="link" linkType="CMContext"/>
+</type>
+<type name="CMLinkable" abstract="true" parent="CMLocalized">
+  <property name="master" type="link" linkType="CMLinkable" maxCardinality="1"/>
+  <property name="viewtype" type="link" linkType="CMViewtype" maxCardinality="1"/>
+  <property name="localSettings" type="markup" grammar="coremedia-struct-2008"/>
+  <property name="linkedSettings" type="link" linkType="CMSettings"/>
+  <property name="validFrom" type="date"/>
+  <property name="validTo" type="date"/>
+  <property name="extDisplayedDate" type="date"/>
+  <property name="segment" type="string" length="64" encodedLength="192"/>
+  <property name="title" type="string" length="512" encodedLength="1536"/>
+  <property name="htmlTitle" type="string" length="128" encodedLength="384"/>
+  <property name="keywords" type="string" length="1024" encodedLength="3072"/>
+  <property name="htmlDescription" type="string" length="512" encodedLength="1536"/>
+  <property name="subjectTaxonomy" type="link" linkType="CMTaxonomy"/>
+  <property name="locationTaxonomy" type="link" linkType="CMLocTaxonomy"/>
+  <property name="resourceBundles2" type="link" linkType="CMResourceBundle"/>
+</type>
+<type name="CMLocalized" abstract="true" parent="CMObject">
+  <property name="locale" type="string" length="64" encodedLength="192"/>
+  <property name="master" type="link" linkType="CMLocalized" maxCardinality="1"/>
+  <property name="masterVersion" type="int"/>
+</type>
+<type name="CMObject" abstract="true"/>
+<type name="CMTeaser" parent="CMTeasable">
+  <property name="master" type="link" linkType="CMTeaser" maxCardinality="1"/>
+  <property name="target" type="link" linkType="CMLinkable" maxCardinality="1"/>
 </type>
 <grammar name="coremedia-richtext-1.0" root="div" systemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
 <grammar name="coremedia-struct-2008" root="div" systemId="classpath:xml/coremedia-struct-2008.xsd"/>

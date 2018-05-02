@@ -1,6 +1,6 @@
-# Tallence Formeditor
+# Core Forms
 
-The Tallence Formeditor is a simple and lean extension for the [CoreMedia CMS](https://www.coremedia.com/).
+Core Forms is a simple and lean extension for the [CoreMedia CMS](https://www.coremedia.com/).
 
 Build simple forms in the CoreMedia Studio by your needs using the most common form fields: 
 - TextField
@@ -21,7 +21,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 The extension is built for CoreMedia 9.17.10. It will probably be compatible with older CM9 versions and with newer versions but it is not tested yet.
 
-This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [formeditor-frontend](https://github.com/tallence/tallence-formeditor-frontend)
+This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
 ## Integrate the Code in your CoreMedia Blueprint Workspace
 You can integrate the extension in three ways:

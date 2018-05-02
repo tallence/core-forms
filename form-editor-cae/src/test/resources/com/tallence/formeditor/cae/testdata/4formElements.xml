@@ -1,0 +1,36 @@
+<Struct xmlns="http://www.coremedia.com/2008/struct">
+  <StructProperty Name="formElements">
+    <Struct>
+      <StructProperty Name="TextArea">
+        <Struct>
+          <StringProperty Name="type">TextArea</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <IntProperty Name="columns">4</IntProperty>
+          <IntProperty Name="rows">5</IntProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <IntProperty Name="maxSize">10</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="UsersMail">
+        <Struct>
+          <StringProperty Name="type">UsersMail</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Tragen Sie eine Email-Adresse ein!</StringProperty>
+          <StringProperty Name="copyType">ALWAYS</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+    </Struct>
+  </StructProperty>
+</Struct>
