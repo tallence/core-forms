@@ -241,6 +241,21 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="UsersMailLegacy">
+        <Struct>
+          <StringProperty Name="type">UsersMail</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Tragen Sie eine Email-Adresse ein!</StringProperty>
+          <BooleanProperty Name="copy">true</BooleanProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">false</BooleanProperty>
+              <IntProperty Name="maxSize">42</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
     </Struct>
   </StructProperty>
 </Struct>

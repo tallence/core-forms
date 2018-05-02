@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.elements;
+package com.tallence.formeditor.cae.parser;
 
-import com.tallence.formeditor.cae.annotations.FormElementDefinition;
-import com.tallence.formeditor.cae.validator.TextValidator;
+import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.cae.annotations.Configurer;
+import org.springframework.beans.BeanWrapper;
 
-/**
- * Model bean for a configured TextField.
- */
-@FormElementDefinition
-public class TextField extends AbstractFormElement<String, TextValidator> {
-
-  public TextField() {
-    super(String.class);
+@Configurer(String.class)
+public class StringPropertyConfigurer implements ElementPropertyConfigurer {
+  @Override
+  public void configure(Struct configurationSource, String key, BeanWrapper wrapper, String propertyName) {
+    if (configurationSource.get(key) != null) {
+      wrapper.setPropertyValue(propertyName, configurationSource.getString(key));
+    }
   }
-
 }

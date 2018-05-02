@@ -17,31 +17,15 @@
 package com.tallence.formeditor.cae.parser;
 
 import com.coremedia.cap.struct.Struct;
-import com.tallence.formeditor.cae.elements.TextOnly;
-import org.springframework.stereotype.Component;
+import com.tallence.formeditor.cae.annotations.Configurer;
+import org.springframework.beans.BeanWrapper;
 
-/**
- * Parser for elements of type {@link TextOnly}
- */
-@Component
-public class TextOnlyParser extends AbstractFormElementParser<TextOnly> {
-
-  public static final String parserKey = "TextOnly";
-
-
+@Configurer(Integer.class)
+public class IntegerPropertyConfigurer implements ElementPropertyConfigurer {
   @Override
-  public TextOnly instantiateType(Struct elementData) {
-    return new TextOnly();
-  }
-
-
-  @Override
-  public void parseSpecialFields(TextOnly formElement, Struct elementData) {
-    //Do nothing, the needed fields are already parsed by AbstractFormElementParser
-  }
-
-  @Override
-  public String getParserKey() {
-    return parserKey;
+  public void configure(Struct configurationSource, String key, BeanWrapper wrapper, String propertyName) {
+    if (configurationSource.get(key) != null) {
+      wrapper.setPropertyValue(propertyName, configurationSource.getInteger(key));
+    }
   }
 }

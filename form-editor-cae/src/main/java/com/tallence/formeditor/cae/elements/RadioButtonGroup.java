@@ -16,6 +16,9 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.Configured;
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
+import com.tallence.formeditor.cae.parser.ComplexValuePropertyConfigurer;
 import com.tallence.formeditor.cae.validator.RadioButtonGroupValidator;
 
 import java.util.List;
@@ -23,14 +26,15 @@ import java.util.List;
 /**
  * Model bean for a configured RadioButtonGroup.
  */
+@FormElementDefinition("RadioButtons")
 public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator> {
+
+  @Configured(key = GROUP_ELEMENTS_KEY, configurer = ComplexValuePropertyConfigurer.class)
+  private List<ComplexValue> radioButtons;
 
   public RadioButtonGroup() {
     super(String.class);
   }
-
-
-  private List<ComplexValue> radioButtons;
 
   public List<ComplexValue> getRadioButtons() {
     return this.radioButtons;

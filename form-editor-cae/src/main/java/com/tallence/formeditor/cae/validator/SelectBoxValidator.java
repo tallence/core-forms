@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.ComplexValue;
 import com.tallence.formeditor.cae.elements.SelectBox;
 import org.springframework.util.StringUtils;
@@ -26,11 +27,17 @@ import java.util.List;
 /**
  * Validator for elements of type {@link SelectBox}
  */
+@Configured
 public class SelectBoxValidator implements Validator<String> {
 
   private final SelectBox selectBox;
 
+  @Configured
   private boolean mandatory;
+
+  private SelectBoxValidator() {
+    selectBox = null;
+  }
 
   public SelectBoxValidator(SelectBox selectBox) {
     this.selectBox = selectBox;

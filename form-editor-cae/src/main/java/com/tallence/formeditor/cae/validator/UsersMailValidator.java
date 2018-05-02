@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.UsersMail;
 
 import java.util.ArrayList;
@@ -27,10 +28,12 @@ import static org.springframework.util.StringUtils.hasText;
 /**
  * Validator for elements of type {@link UsersMail}
  */
+@Configured
 public class UsersMailValidator implements Validator<UsersMail.UsersMailData> {
 
   private static final Pattern mailRegexp = Pattern.compile(".+@.+\\..+");
 
+  @Configured
   private boolean mandatory;
 
   @Override

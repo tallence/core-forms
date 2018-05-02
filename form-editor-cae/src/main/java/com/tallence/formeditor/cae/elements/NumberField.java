@@ -16,11 +16,13 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.NumberValidator;
 
 /**
  * Model bean for a configured NumberField.
  */
+@FormElementDefinition
 public class NumberField extends AbstractFormElement<String, NumberValidator> {
 
   public NumberField() {

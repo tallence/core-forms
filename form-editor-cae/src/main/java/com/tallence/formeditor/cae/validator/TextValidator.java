@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
 import com.tallence.formeditor.cae.elements.TextField;
 import org.springframework.util.StringUtils;
 
@@ -27,11 +28,19 @@ import java.util.regex.Pattern;
  * Validator for elements of type {@link com.tallence.formeditor.cae.elements.TextArea} and
  * {@link TextField}
  */
+@Configured
 public class TextValidator implements Validator<String> {
 
+  @Configured
   private boolean mandatory;
+
+  @Configured
   private Integer minSize;
+
+  @Configured
   private Integer maxSize;
+
+  @Configured(key = "regexpValidator")
   private Pattern regexp;
 
   @Override
@@ -86,11 +95,7 @@ public class TextValidator implements Validator<String> {
     return this.regexp;
   }
 
-  public void setRegexp(String regexp) {
-    if (regexp != null) {
-      this.regexp = Pattern.compile(regexp);
-    } else {
-      this.regexp = null;
-    }
+  public void setRegexp(Pattern regexp) {
+      this.regexp = regexp;
   }
 }

@@ -16,9 +16,12 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.annotations.Configured;
+
 /**
  * Exception which is used if an element was selected but is not available in element's config.
  */
+@Configured
 public class InvalidGroupElementException extends RuntimeException {
 
   public InvalidGroupElementException(String message) {

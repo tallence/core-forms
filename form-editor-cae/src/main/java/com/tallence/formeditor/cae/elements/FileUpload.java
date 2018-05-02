@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.FileUploadValidator;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ import java.util.Map;
 /**
  * Model bean for a configured FileUpload-Field.
  */
+@FormElementDefinition
 public class FileUpload extends AbstractFormElement<MultipartFile, FileUploadValidator> {
 
   public FileUpload() {

@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.UsersMailValidator;
 import org.springframework.util.MultiValueMap;
 
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
  * see {@link CopyBoxOption}
  *
  */
+@FormElementDefinition
 public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, UsersMailValidator> {
 
   private CopyBoxOption copyBoxOption;
@@ -83,7 +85,7 @@ public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, User
     CHECKBOX, NEVER, ALWAYS
   }
 
-  public class UsersMailData {
+  public static class UsersMailData {
     private final String usersMail;
     private final boolean sendCopy;
 

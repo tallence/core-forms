@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.elements;
+package com.tallence.formeditor.cae.parser;
 
-import com.tallence.formeditor.cae.annotations.FormElementDefinition;
-import com.tallence.formeditor.cae.validator.TextValidator;
+import com.coremedia.cap.struct.Struct;
 
 /**
- * Model bean for a configured TextField.
+ * Base interface for initializers for elements created and configured by {@link GenericParser}.
  */
-@FormElementDefinition
-public class TextField extends AbstractFormElement<String, TextValidator> {
-
-  public TextField() {
-    super(String.class);
-  }
-
+public interface ElementInitializer<T> {
+  void initialize(T element, Struct configurationData);
 }

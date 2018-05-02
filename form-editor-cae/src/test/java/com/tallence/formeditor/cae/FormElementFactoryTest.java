@@ -18,6 +18,7 @@ package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
 import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
+import com.tallence.formeditor.cae.elements.FileUpload;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.elements.NumberField;
 import com.tallence.formeditor.cae.elements.RadioButtonGroup;
@@ -25,11 +26,14 @@ import com.tallence.formeditor.cae.elements.SelectBox;
 import com.tallence.formeditor.cae.elements.TextArea;
 import com.tallence.formeditor.cae.elements.TextField;
 import com.tallence.formeditor.cae.elements.TextOnly;
+import com.tallence.formeditor.cae.elements.UsersMail;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,6 +44,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 /**
  * Tests the parsing, serialization and validation of each form field.
@@ -71,7 +76,7 @@ public class FormElementFactoryTest {
 
     assertThat(formElement, is(instanceOf(TextField.class)));
     formElement.setValue("123");
-    assertThat(formElement.getValidationResult().size(), is(1));
+    assertThat(formElement.getValidationResult().size(), is(2));
     formElement.setValue("");
     assertThat(formElement.getValidationResult().size(), is(1));
     formElement.setValue("12345");
@@ -122,7 +127,7 @@ public class FormElementFactoryTest {
 
   }
 
-  @Test (expected = InvalidGroupElementException.class)
+  @Test(expected = InvalidGroupElementException.class)
   public void testRadioButtonInvalid() {
     RadioButtonGroup formElement = getTestFormElement("RadioButtonsEmptyValidator");
     //An Exception is expected here
@@ -165,7 +170,7 @@ public class FormElementFactoryTest {
 
   }
 
-  @Test (expected = InvalidGroupElementException.class)
+  @Test(expected = InvalidGroupElementException.class)
   public void testSelectBoxesInvalid() {
     SelectBox formElement = getTestFormElement("SelectBoxEmptyValidator");
     //An Exception is expected here
@@ -191,10 +196,51 @@ public class FormElementFactoryTest {
 
   @Test
   public void testTextOnly() {
-    TextOnly formElement = getTestFormElement("TextOnly");
+    final String id = "TextOnly";
+    TextOnly formElement = getTestFormElement(id);
 
+    assertThat(formElement.getId(), is(id));
     assertThat(formElement, is(instanceOf(TextOnly.class)));
     assertThat(formElement.getHint(), is("Das ist ein langer Text zur Erklärung des Formulars"));
     assertThat(formElement.getName(), is("TestName"));
+  }
+
+  @Test
+  public void testFileUpload() {
+    FileUpload formElement = getTestFormElement("FileUpload");
+    MultipartFile fileMock = Mockito.mock(MultipartFile.class);
+
+    assertThat(formElement, notNullValue());
+    //The FileUpload is not required
+    assertThat(formElement.getValidationResult().size(), is(0));
+
+    formElement.setValue(fileMock);
+
+    when(fileMock.getSize()).thenReturn(Long.valueOf(1));
+    assertThat(formElement.getValidationResult().size(), is(0));
+    when(fileMock.getSize()).thenReturn(Long.valueOf(1337 * 1024));
+    assertThat(formElement.getValidationResult().size(), is(1));
+  }
+
+  @Test
+  public void testUsersMail() {
+    UsersMail formElement = getTestFormElement("UsersMail");
+
+    assertThat(formElement, notNullValue());
+    assertThat(formElement.getCopyBoxOption(), is(UsersMail.CopyBoxOption.ALWAYS));
+
+    assertThat(formElement.getValidationResult().size(), is(1));
+    formElement.setValue(new UsersMail.UsersMailData( "valid@mail.address", false));
+    assertThat(formElement.getValidationResult().size(), is(0));
+    formElement.setValue(new UsersMail.UsersMailData("invalidAddress", false));
+    assertThat(formElement.getValidationResult().size(), is(1));
+  }
+
+  @Test
+  public void testLegacyUsersMail() {
+    UsersMail formElement = getTestFormElement("UsersMailLegacy");
+
+    assertThat(formElement, notNullValue());
+    assertThat(formElement.getCopyBoxOption(), is(UsersMail.CopyBoxOption.CHECKBOX));
   }
 }

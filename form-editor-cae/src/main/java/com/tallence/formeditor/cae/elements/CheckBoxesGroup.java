@@ -16,6 +16,9 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.Configured;
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
+import com.tallence.formeditor.cae.parser.ComplexValuePropertyConfigurer;
 import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 
 import java.util.Collections;
@@ -24,14 +27,16 @@ import java.util.List;
 /**
  * Model bean for a configured CheckBoxesGroup.
  */
+@FormElementDefinition("CheckBoxes")
 public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> {
+
+  @Configured(key = GROUP_ELEMENTS_KEY, configurer = ComplexValuePropertyConfigurer.class)
+  private List<ComplexValue> checkBoxes;
+
 
   public CheckBoxesGroup() {
     super(List.class);
   }
-
-
-  private List<ComplexValue> checkBoxes;
 
 
   @Override

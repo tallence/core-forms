@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.annotations.FormElementDefinition;
 import com.tallence.formeditor.cae.validator.TextOnlyValidator;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ import java.util.Map;
 /**
  * Model bean for a configured TextOnly field.
  */
+@FormElementDefinition
 public class TextOnly extends AbstractFormElement<String, TextOnlyValidator> {
 
   public TextOnly() {
