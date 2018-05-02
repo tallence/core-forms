@@ -213,6 +213,34 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="UsersMail">
+        <Struct>
+          <StringProperty Name="type">UsersMail</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Tragen Sie eine Email-Adresse ein!</StringProperty>
+          <StringProperty Name="copyType">ALWAYS</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="FileUpload">
+        <Struct>
+          <StringProperty Name="type">FileUpload</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Laden Sie etwas hoch!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">false</BooleanProperty>
+              <IntProperty Name="maxSize">42</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
     </Struct>
   </StructProperty>
 </Struct>
