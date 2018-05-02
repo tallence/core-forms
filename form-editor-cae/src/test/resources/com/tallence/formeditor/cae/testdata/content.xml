@@ -10,7 +10,7 @@
       <document id="4" type="FormEditor" name="TestForm" modificationDate="2009-06-01T20:59:42.000+01:00">
         <version number="1">
           <stringProperty name="formAction" value="mailAction"/>
-          <stringProperty name="adminMails" value="admin@test.de"/>
+          <stringProperty name="adminMails" value="admin@example.com"/>
           <markupProperty name="formData" url="4formElements.xml" grammar="coremedia-struct-2008"/>
         </version>
       </document>
