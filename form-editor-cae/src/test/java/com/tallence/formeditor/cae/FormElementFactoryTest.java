@@ -16,11 +16,22 @@
 
 package com.tallence.formeditor.cae;
 
-import com.tallence.formeditor.cae.elements.*;
+import com.coremedia.blueprint.testing.ContentTestHelper;
+import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
+import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.cae.elements.NumberField;
+import com.tallence.formeditor.cae.elements.RadioButtonGroup;
+import com.tallence.formeditor.cae.elements.SelectBox;
+import com.tallence.formeditor.cae.elements.TextArea;
+import com.tallence.formeditor.cae.elements.TextField;
+import com.tallence.formeditor.cae.elements.TextOnly;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,11 +44,21 @@ import static org.junit.Assert.*;
 /**
  * Tests the parsing, serialization and validation of each form field.
  */
-public class FormElementFactoryTest extends AbstractFormTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = FormTestConfiguration.class)
+public class FormElementFactoryTest {
 
 
   @Autowired
   private FormElementFactory factory;
+
+  @Autowired
+  private ContentTestHelper contentTestHelper;
+
+
+  private  <T> T getContentBean(int id) {
+    return contentTestHelper.getContentBean(id);
+  }
 
   private <T extends FormElement> T getTestFormElement(String id) {
     FormEditor article = getContentBean(2);

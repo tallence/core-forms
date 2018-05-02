@@ -7,6 +7,18 @@
           <markupProperty name="formData" url="2formElements.xml" grammar="coremedia-struct-2008"/>
         </version>
       </document>
+      <document id="4" type="FormEditor" name="TestForm" modificationDate="2009-06-01T20:59:42.000+01:00">
+        <version number="1">
+          <stringProperty name="formAction" value="mailAction"/>
+          <stringProperty name="adminMails" value="admin@test.de"/>
+          <markupProperty name="formData" url="4formElements.xml" grammar="coremedia-struct-2008"/>
+        </version>
+      </document>
+      <document id="6" type="CMChannel" name="NavContext" modificationDate="2009-06-01T20:59:42.000+01:00">
+        <version number="1">
+          <stringProperty name="teaserTitle" value="Test Title"/>
+        </version>
+      </document>
     </folder>
 
   </folder>

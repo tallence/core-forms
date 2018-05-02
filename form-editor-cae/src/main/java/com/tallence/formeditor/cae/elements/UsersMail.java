@@ -59,7 +59,7 @@ public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, User
 
   @Override
   public void setValue(MultiValueMap<String, String> postData, HttpServletRequest request) {
-    String mail = postData.getFirst(getName());
+    String mail = postData.getFirst(getId());
     if (mail != null) {
 
       //Send a mail, if the checkBox is activated or if the mail is to be sent always

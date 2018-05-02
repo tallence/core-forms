@@ -63,7 +63,7 @@ public class FormController {
   private static final String FORMS_ROOT_URL_SEGMENT = "/dynamic/forms";
 
   private static final String PROCESS_SOCIAL_FORM_VIEW = "formEditorSubmit";
-  private static final String PROCESS_SOCIAL_FORM = FORMS_ROOT_URL_SEGMENT + "/" + PROCESS_SOCIAL_FORM_VIEW + "/{currentContext}/{target}";
+  static final String PROCESS_SOCIAL_FORM = FORMS_ROOT_URL_SEGMENT + "/" + PROCESS_SOCIAL_FORM_VIEW + "/{currentContext}/{target}";
 
   private final List<FormAction> formActions;
   private final DefaultFormAction defaultFormAction;
@@ -103,6 +103,7 @@ public class FormController {
       if (!validationResult.isEmpty()) {
         //This should not happen, since a client side validation is expected.
         LOG.warn("Validation failed for Form [{}]. Validation-Result: [{}]", target.getContentId(), validationResult);
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return new FormProcessingResult(false, SERVER_VALIDATION);
       }
     }
@@ -110,6 +111,7 @@ public class FormController {
     if (target.isSpamProtectionEnabled()) {
       if (!isHumanByReCaptcha(target, currentContext, postData)) {
         LOG.warn("Google reCaptcha detected a bot for Form " + target.getContentId());
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return new FormProcessingResult(false, RECAPTCHA);
       }
     }
