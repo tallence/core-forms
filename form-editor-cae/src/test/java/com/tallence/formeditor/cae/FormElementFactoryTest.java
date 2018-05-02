@@ -18,6 +18,7 @@ package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
 import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
+import com.tallence.formeditor.cae.elements.FileUpload;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.elements.NumberField;
 import com.tallence.formeditor.cae.elements.RadioButtonGroup;
@@ -25,6 +26,7 @@ import com.tallence.formeditor.cae.elements.SelectBox;
 import com.tallence.formeditor.cae.elements.TextArea;
 import com.tallence.formeditor.cae.elements.TextField;
 import com.tallence.formeditor.cae.elements.TextOnly;
+import com.tallence.formeditor.cae.elements.UsersMail;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.junit.Test;
@@ -209,7 +211,8 @@ public class FormElementFactoryTest {
     MultipartFile fileMock = Mockito.mock(MultipartFile.class);
 
     assertThat(formElement, notNullValue());
-    assertThat(formElement.getValidationResult().size(), is(1));
+    //The FileUpload is not required
+    assertThat(formElement.getValidationResult().size(), is(0));
 
     formElement.setValue(fileMock);
 

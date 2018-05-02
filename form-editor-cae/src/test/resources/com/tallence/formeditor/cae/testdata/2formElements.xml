@@ -249,7 +249,7 @@
           <BooleanProperty Name="copy">true</BooleanProperty>
           <StructProperty Name="validator">
             <Struct>
-              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <BooleanProperty Name="mandatory">false</BooleanProperty>
               <IntProperty Name="maxSize">42</IntProperty>
             </Struct>
           </StructProperty>
