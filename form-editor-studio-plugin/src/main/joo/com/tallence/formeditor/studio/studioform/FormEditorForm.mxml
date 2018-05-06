@@ -13,6 +13,7 @@
   </fx:Metadata>
   <fx:Script><![CDATA[
     import com.tallence.formeditor.studio.elements.CheckBoxesEditor;
+    import com.tallence.formeditor.studio.elements.ConsentFormCheckBoxEditor;
     import com.tallence.formeditor.studio.elements.FileUploadEditor;
     import com.tallence.formeditor.studio.elements.NumberFieldEditor;
     import com.tallence.formeditor.studio.elements.RadioButtonsEditor;
@@ -34,7 +35,8 @@
       {formElementType: TextAreaEditor.FIELD_TYPE, group: 'single'},
       {formElementType: TextFieldEditor.FIELD_TYPE, group: 'single'},
       {formElementType: UsersMailEditor.FIELD_TYPE, group: 'group'},
-      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'hint'}
+      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'hint'},
+      {formElementType: ConsentFormCheckBoxEditor.FIELD_TYPE, group: 'single'}
     ];
     private static const FORM_ACTIONS:Array = [
       {

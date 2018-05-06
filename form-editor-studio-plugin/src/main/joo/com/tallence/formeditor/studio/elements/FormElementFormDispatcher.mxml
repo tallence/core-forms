@@ -74,6 +74,10 @@
                              bindTo="{config.bindTo}"
                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
                              formElement="{config.formElement}"/>
+    <elements:ConsentFormCheckBoxEditor itemId="{ConsentFormCheckBoxEditor.FIELD_TYPE}"
+                             bindTo="{config.bindTo}"
+                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                             formElement="{config.formElement}"/>
   </ui:lazyItems>
 
 </ui:SwitchingContainer>
