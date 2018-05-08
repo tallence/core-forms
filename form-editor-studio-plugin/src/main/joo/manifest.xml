@@ -25,4 +25,5 @@
   <component class="com.tallence.formeditor.studio.fields.NumberField"/>
   <component class="com.tallence.formeditor.studio.fields.CheckboxField"/>
   <component class="com.tallence.formeditor.studio.fields.OptionsField"/>
+  <component class="com.tallence.formeditor.studio.fields.LinkedContentField"/>
 </componentPackage>
