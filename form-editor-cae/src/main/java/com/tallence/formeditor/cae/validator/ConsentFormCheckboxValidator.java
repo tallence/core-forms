@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Validator
+ * Validator for the {@link com.tallence.formeditor.cae.elements.ConsentFormCheckBox}
  *
  */
 public class ConsentFormCheckboxValidator implements Validator<Boolean> {
@@ -29,7 +29,7 @@ public class ConsentFormCheckboxValidator implements Validator<Boolean> {
 
   @Override
   public List<String> validate(Boolean value) {
-    if (mandatory && !value) {
+    if (mandatory && value != null && !value) {
       return Collections.singletonList("com.tallence.forms.consentForm.notChecked");
     }
     return Collections.emptyList();
