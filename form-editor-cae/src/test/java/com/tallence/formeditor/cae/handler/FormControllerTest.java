@@ -60,7 +60,18 @@ public class FormControllerTest {
   private MockMvc mvc;
   private static final URI TEST_URL = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
-  private static final String FORM_DATA_SERIALIZED = "TestName: 12345<br/>TestName: 18<br/>TestName: 12345<br/>TestName: null<br/>TestName: null<br/>TestName: [12345, ]<br/>TestName: []<br/>TestName: 12345<br/>TestName: null<br/>TestName: ist Text<br/>TestName: Das ist ein langer Text zur Erklärung des Formulars<br/>TestName: " + MAIL_ADDRESS_TEST + "<br/>";
+  private static final String FORM_DATA_SERIALIZED =
+      "TestName: 12345<br/>Alter: 18<br/>" +
+          "Radio: 12345<br/>RadioOptional: <br/>" +
+          "RadioEmptyValidator: <br/>" +
+          "CheckBoxes: [12345, ]<br/>" +
+          "CheckBoxesEmptyValidator: []<br/>" +
+          "SelectBox: 12345<br/>" +
+          "SelectBoxEmptyValidator: <br/>" +
+          "TextArea: ist Text<br/>" +
+          "TextOnly: Das ist ein langer Text zur Erklärung des Formulars<br/>" +
+          "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
+          "Data protection consent form: true<br/>";
 
   @Before
   public void setup() {
@@ -87,14 +98,15 @@ public class FormControllerTest {
         .param("SelectBoxMandatory", "12345")
         .param("TextArea", "ist Text")
         .param("UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
         .andDo(MockMvcResultHandlers.print());
 
-    assertEquals(storageAdapterMock.formData, FORM_DATA_SERIALIZED);
-    assertEquals(mailAdapterMock.usersFormData, FORM_DATA_SERIALIZED);
-    assertEquals(mailAdapterMock.usersRecipient, MAIL_ADDRESS_TEST);
+    assertEquals(FORM_DATA_SERIALIZED, storageAdapterMock.formData);
+    assertEquals(FORM_DATA_SERIALIZED, mailAdapterMock.usersFormData);
+    assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
 
   }
 
@@ -112,14 +124,15 @@ public class FormControllerTest {
         .param("SelectBoxMandatory", "12345")
         .param("TextArea", "ist Text")
         .param("UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
         .andDo(MockMvcResultHandlers.print());
 
-    assertEquals(storageAdapterMock.formData, FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>");
-    assertEquals(mailAdapterMock.usersFormData, FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>");
-    assertEquals(mailAdapterMock.usersRecipient, MAIL_ADDRESS_TEST);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", storageAdapterMock.formData);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", mailAdapterMock.usersFormData);
+    assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 
   @Test
@@ -137,10 +150,10 @@ public class FormControllerTest {
 
     //check if the storageAdapter was not called
     assertNull(storageAdapterMock.formData);
-    assertEquals(mailAdapterMock.adminFormData, "TestName: ist Text<br/>TestName: " + MAIL_ADDRESS_TEST + "<br/>");
-    assertEquals(mailAdapterMock.adminRecipient, "admin@example.com");
-    assertEquals(mailAdapterMock.usersFormData, "TestName: ist Text<br/>TestName: " + MAIL_ADDRESS_TEST + "<br/>");
-    assertEquals(mailAdapterMock.usersRecipient, MAIL_ADDRESS_TEST);
+    assertEquals("TestName: ist Text<br/>TestName: " + MAIL_ADDRESS_TEST + "<br/>", mailAdapterMock.adminFormData);
+    assertEquals("admin@example.com", mailAdapterMock.adminRecipient);
+    assertEquals("TestName: ist Text<br/>TestName: " + MAIL_ADDRESS_TEST + "<br/>", mailAdapterMock.usersFormData);
+    assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 
 

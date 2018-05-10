@@ -1,4 +1,4 @@
-<Struct xmlns="http://www.coremedia.com/2008/struct">
+<Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
   <StructProperty Name="formElements">
     <Struct>
       <StructProperty Name="TextField">
@@ -20,7 +20,7 @@
       <StructProperty Name="NumberField">
         <Struct>
           <StringProperty Name="type">NumberField</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">Alter</StringProperty>
           <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
           <StructProperty Name="validator">
             <Struct>
@@ -35,7 +35,7 @@
       <StructProperty Name="RadioButtonsMandatory">
         <Struct>
           <StringProperty Name="type">RadioButtons</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">Radio</StringProperty>
           <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
           <StructProperty Name="validator">
             <Struct>
@@ -60,7 +60,7 @@
       <StructProperty Name="RadioButtonsOptional">
         <Struct>
           <StringProperty Name="type">RadioButtons</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">RadioOptional</StringProperty>
           <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
           <StructProperty Name="groupElements">
             <Struct>
@@ -78,7 +78,7 @@
       <StructProperty Name="RadioButtonsEmptyValidator">
         <Struct>
           <StringProperty Name="type">RadioButtons</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">RadioEmptyValidator</StringProperty>
           <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
           <StructProperty Name="validator">
             <Struct>
@@ -100,7 +100,7 @@
       <StructProperty Name="CheckBoxesMandatory">
         <Struct>
           <StringProperty Name="type">CheckBoxes</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">CheckBoxes</StringProperty>
           <StringProperty Name="hint">Wählen Sie eine CheckBox!</StringProperty>
           <StructProperty Name="validator">
             <Struct>
@@ -125,7 +125,7 @@
       <StructProperty Name="CheckBoxesEmptyValidator">
         <Struct>
           <StringProperty Name="type">CheckBoxes</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">CheckBoxesEmptyValidator</StringProperty>
           <StringProperty Name="hint">Wählen Sie eine CheckBox!</StringProperty>
           <StructProperty Name="validator">
             <Struct></Struct>
@@ -146,7 +146,7 @@
       <StructProperty Name="SelectBoxMandatory">
         <Struct>
           <StringProperty Name="type">SelectBox</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">SelectBox</StringProperty>
           <StringProperty Name="hint">Wählen Sie eine Option!</StringProperty>
           <StructProperty Name="validator">
             <Struct>
@@ -171,7 +171,7 @@
       <StructProperty Name="SelectBoxEmptyValidator">
         <Struct>
           <StringProperty Name="type">SelectBox</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">SelectBoxEmptyValidator</StringProperty>
           <StringProperty Name="hint">Wählen Sie eine Option!</StringProperty>
           <StructProperty Name="validator">
             <Struct></Struct>
@@ -192,7 +192,7 @@
       <StructProperty Name="TextArea">
         <Struct>
           <StringProperty Name="type">TextArea</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">TextArea</StringProperty>
           <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
           <IntProperty Name="columns">4</IntProperty>
           <IntProperty Name="rows">5</IntProperty>
@@ -208,7 +208,7 @@
       <StructProperty Name="TextOnly">
         <Struct>
           <StringProperty Name="type">TextOnly</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">TextOnly</StringProperty>
           <StringProperty Name="hint">Das ist ein langer Text zur Erklärung des Formulars</StringProperty>
         </Struct>
       </StructProperty>
@@ -216,7 +216,7 @@
       <StructProperty Name="UsersMail">
         <Struct>
           <StringProperty Name="type">UsersMail</StringProperty>
-          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="name">UsersMail</StringProperty>
           <StringProperty Name="hint">Tragen Sie eine Email-Adresse ein!</StringProperty>
           <StringProperty Name="copyType">ALWAYS</StringProperty>
           <StructProperty Name="validator">
@@ -238,6 +238,22 @@
               <IntProperty Name="maxSize">42</IntProperty>
             </Struct>
           </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="ConsentFormCheckBox">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">Data protection consent form</StringProperty>
+          <StringProperty Name="hint">Please confirm the %data protection consent form%</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <LinkListProperty Name="linkTarget" LinkType="CMTeasable">
+            <Link xlink:href="coremedia:///cap/content/6"/>
+          </LinkListProperty>
         </Struct>
       </StructProperty>
 

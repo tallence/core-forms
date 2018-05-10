@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class ConsentFormCheckBoxParser extends AbstractFormElementParser<ConsentFormCheckBox> {
 
   private static final String FORM_LINK_TARGET = "linkTarget";
+  public static final String CONSENT_FORM_CHECK_BOX_TYPE = "ConsentFormCheckBox";
 
   private final ContentBeanFactory contentBeanFactory;
   private final DataViewFactory dataViewFactory;
@@ -34,7 +35,7 @@ public class ConsentFormCheckBoxParser extends AbstractFormElementParser<Consent
 
   @Override
   public String getParserKey() {
-    return "ConsentFormCheckBox";
+    return CONSENT_FORM_CHECK_BOX_TYPE;
   }
 
   @Override

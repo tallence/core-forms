@@ -29,7 +29,7 @@ public class ConsentFormCheckboxValidator implements Validator<Boolean> {
 
   @Override
   public List<String> validate(Boolean value) {
-    if (mandatory && value != null && !value) {
+    if (mandatory && (value == null || !value)) {
       return Collections.singletonList("com.tallence.forms.consentForm.notChecked");
     }
     return Collections.emptyList();

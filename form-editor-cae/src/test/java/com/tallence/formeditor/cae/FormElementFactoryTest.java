@@ -18,6 +18,7 @@ package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
 import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
+import com.tallence.formeditor.cae.elements.ConsentFormCheckBox;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.elements.NumberField;
 import com.tallence.formeditor.cae.elements.RadioButtonGroup;
@@ -36,6 +37,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
@@ -118,7 +121,7 @@ public class FormElementFactoryTest {
     assertThat(formElement, is(instanceOf(RadioButtonGroup.class)));
 
     formElement.setValue(null);
-    assertNull(formElement.serializeValue());
+    assertEquals("", formElement.serializeValue());
 
   }
 
@@ -195,6 +198,16 @@ public class FormElementFactoryTest {
 
     assertThat(formElement, is(instanceOf(TextOnly.class)));
     assertThat(formElement.getHint(), is("Das ist ein langer Text zur Erklärung des Formulars"));
-    assertThat(formElement.getName(), is("TestName"));
+    assertThat(formElement.getName(), is("TextOnly"));
+  }
+
+  @Test
+  public void testConsentFormCheckBox() {
+    ConsentFormCheckBox formElement = getTestFormElement(CONSENT_FORM_CHECK_BOX_TYPE);
+
+    assertThat(formElement, is(instanceOf(ConsentFormCheckBox.class)));
+    assertThat(formElement.getHint(), is("Please confirm the %data protection consent form%"));
+    assertNotNull(formElement.getLinkTarget());
+    assertThat(formElement.getLinkTarget().getContentId(), equalTo(6));
   }
 }

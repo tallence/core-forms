@@ -18,6 +18,10 @@ package com.tallence.formeditor.cae.elements;
 
 import com.coremedia.blueprint.common.contentbeans.CMTeasable;
 import com.tallence.formeditor.cae.validator.ConsentFormCheckboxValidator;
+import org.springframework.util.MultiValueMap;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Model bean for a configured Consent form checkBox.
@@ -37,5 +41,23 @@ public class ConsentFormCheckBox extends AbstractFormElement<Boolean, ConsentFor
 
   public void setLinkTarget(CMTeasable linkTarget) {
     this.linkTarget = linkTarget;
+  }
+
+  @Override
+  public void setValue(MultiValueMap<String, String> postData, HttpServletRequest request) {
+    List<String> values = postData.get(getId());
+    if (values == null || values.isEmpty()) {
+      setValue(null);
+    } else if (values.size() == 1 && values.get(0).equals("on")) {
+      setValue(true);
+    } else {
+      throw new IllegalStateException("Cannot parse value for " + getName() + " values: " + values);
+    }
+  }
+
+  @Override
+  public String serializeValue() {
+    Boolean value = getValue();
+    return value != null ? value.toString() : "";
   }
 }
