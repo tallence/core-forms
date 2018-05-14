@@ -78,7 +78,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
     } else if (value != null) {
       throw new IllegalStateException("This method should be overwritten for values which are != String!");
     }
-    return null;
+    return "";
   }
 
   @Override
