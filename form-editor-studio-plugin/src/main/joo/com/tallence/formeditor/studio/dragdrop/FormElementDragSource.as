@@ -30,9 +30,13 @@ import ext.event.Event;
 public class FormElementDragSource extends DragSource {
 
   private var dragActiveVE:ValueExpression;
+  private var readOnlyVE:ValueExpression;
   private var component:Component;
 
-  public function FormElementDragSource(component:Component, dragData:Object, dragActiveVE:ValueExpression) {
+  public function FormElementDragSource(component:Component,
+                                        dragData:Object,
+                                        dragActiveVE:ValueExpression,
+                                        readOnlyVE:ValueExpression) {
     var cfg:DragSource = DragSource({
       dragData: dragData,
       ddGroup: FormElementDropContainerBase.MOVE_TARGET_DD_GROUP,
@@ -41,12 +45,17 @@ public class FormElementDragSource extends DragSource {
     });
     this.dragActiveVE = dragActiveVE;
     this.component = component;
+    this.readOnlyVE = readOnlyVE;
     super(component.getEl(), cfg);
   }
 
   override public function onBeforeDrag(data:Object, e:Event):Boolean {
     this.resizeFrame = true;
-    return !component.disabled;
+    return dragIsPossible();
+  }
+
+  private function dragIsPossible():Boolean {
+    return !component.disabled && !readOnlyVE.getValue();
   }
 
   override public function onStartDrag(x:Number, y:Number):void {

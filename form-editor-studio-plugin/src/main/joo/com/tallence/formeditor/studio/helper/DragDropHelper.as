@@ -23,8 +23,11 @@ import ext.dd.DragSource;
 
 public class DragDropHelper {
 
-  public static function createFormDragSource(component:Component, dragData:Object, dragStateVE:ValueExpression):DragSource {
-    return new FormElementDragSource(component, dragData, dragStateVE);
+  public static function createFormDragSource(component:Component,
+                                              dragData:Object,
+                                              dragStateVE:ValueExpression,
+                                              forceReadOnlyVE:ValueExpression):DragSource {
+    return new FormElementDragSource(component, dragData, dragStateVE, forceReadOnlyVE);
   }
 
 }

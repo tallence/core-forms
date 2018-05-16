@@ -12,6 +12,8 @@
   </fx:Metadata>
 
   <fx:Script><![CDATA[
+    import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
+
     public static const xtype:String = "com.tallence.formeditor.studio.config.formEditor";
 
     private var config:FormEditorDocumentForm;
@@ -39,7 +41,8 @@
         <Container width="160">
           <items>
             <local:ApplicableElements formElements="{config.formElements}"
-                                      dragActiveVE="{getDragActiveVE()}"/>
+                                      dragActiveVE="{getDragActiveVE()}"
+                                      readOnlyVE="{PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression)}"/>
             <local:ApplicableElementsHelpContainer/>
           </items>
         </Container>
