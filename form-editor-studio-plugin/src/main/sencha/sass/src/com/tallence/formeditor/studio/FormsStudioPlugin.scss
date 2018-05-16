@@ -9,6 +9,17 @@
   $form_element_drop_active: $form_element_block + "--drop-active";
   $form_element_empty: $form_element_block + "--empty";
 
+  @font-face {
+    font-family: 'tallence-icon-font';
+    src: url(get-resource-path('fonts/tallencecme.eot'));
+    src: url(get-resource-path('fonts/tallencecme.eot?#iefix')) format('embedded-opentype'),
+    url(get-resource-path('fonts/tallencecme.woff')) format('woff'),
+    url(get-resource-path('fonts/tallencecme.ttf')) format('truetype'),
+    url(get-resource-path('fonts/tallencecme.svg#Nouveau')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   .#{$_group_container} {
     border-top: 1px solid;
     border-color: #b3b1b1;
@@ -46,9 +57,12 @@
     }
   }
 
-  .core-form-icons--type-form {
-    background-image: url(get-resource-path("images/core-forms-icon.svg"));
-    background-repeat: no-repeat;
+  .tallence-icons {
+    font-family: "tallence-icon-font";
+  }
+
+  .tallence-icons--form:before {
+    content: '\e802';
   }
 
 }
