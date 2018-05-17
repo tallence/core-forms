@@ -53,6 +53,7 @@ public class AppliedFormElementsContainerBase extends Container {
     this.formElement = config.formElement;
     this.formElementsManager = config.formElementsManager;
     this.dragActiveVE = config.formElementsManager.getDragActiveVE();
+    //create a value expression to bind the disabled state of the drag source
     this.readOnlyVE = PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression);
   }
 
