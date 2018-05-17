@@ -20,6 +20,9 @@
     [Bindable]
     public var formElementType:String;
 
+    [Bindable]
+    public var readOnlyVE:ValueExpression;
+
     public native function FormElementDroppable(config:FormElementDroppable = null);
     ]]>
     </fx:Script>

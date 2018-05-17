@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
+import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.ui.data.ValueExpression;
 import com.tallence.formeditor.studio.dragdrop.FormElementDropContainerBase;
 import com.tallence.formeditor.studio.helper.DragDropHelper;
@@ -31,6 +32,13 @@ public class AppliedFormElementsContainerBase extends Container {
   protected static const FORM_ELEMENT_PANEL:String = "form-element-collapsible-panel";
   protected static const FORM_ELEMENT_HEADER:String = "form-element-header";
 
+
+  [Bindable]
+  public var bindTo:ValueExpression;
+
+  [Bindable]
+  public var forceReadOnlyValueExpression:ValueExpression;
+
   [Bindable]
   public var formElement:FormElementStructWrapper;
 
@@ -38,18 +46,23 @@ public class AppliedFormElementsContainerBase extends Container {
   public var formElementsManager:FormElementsManager;
 
   private var dragActiveVE:ValueExpression;
+  private var readOnlyVE:ValueExpression;
 
   public function AppliedFormElementsContainerBase(config:AppliedFormElementsContainerBase = null) {
     super(config);
     this.formElement = config.formElement;
     this.formElementsManager = config.formElementsManager;
     this.dragActiveVE = config.formElementsManager.getDragActiveVE();
+    // Create a value expression to bind the disabled state of the drag source. It is necessary to use the two
+    // value expressions 'bindTo' and 'forceReadOnlyValueExpression' to create the read only value expression. If a
+    // content is checked out by another user, the read only value is not stored in the forceReadOnlyValueExpression.
+    this.readOnlyVE = PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression);
   }
 
   override protected function afterRender():void {
     super.afterRender();
     var panel:CollapsiblePanel = queryById(FORM_ELEMENT_PANEL) as CollapsiblePanel;
-    panel.addEventListener(PanelEvent.EXPAND, function(eventType:PanelEvent):void {
+    panel.addEventListener(PanelEvent.EXPAND, function (eventType:PanelEvent):void {
       formElementsManager.getCollapsedElementVE().setValue(formElement.getId());
     });
 
@@ -63,7 +76,7 @@ public class AppliedFormElementsContainerBase extends Container {
       mode: FormElementDropContainerBase.TARGET_MODE_MOVE,
       formElementId: formElementId
     };
-    DragDropHelper.createFormDragSource(panelHealder, dragData, dragActiveVE);
+    DragDropHelper.createFormDragSource(panelHealder, dragData, dragActiveVE, readOnlyVE);
   }
 
   public function collapsedTransformer(id:String):Boolean {

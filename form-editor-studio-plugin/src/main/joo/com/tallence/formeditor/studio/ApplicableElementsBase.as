@@ -30,11 +30,13 @@ public class ApplicableElementsBase extends Container {
   private var groupedFormElements:Object;
   private var groupsCt:Container;
   private var dragActiveVE:ValueExpression;
+  private var readOnlyVE:ValueExpression;
 
   public function ApplicableElementsBase(config:ApplicableElements = null) {
     super(config);
-    groupedFormElements = groupFormElements(config.formElements);
-    dragActiveVE = config.dragActiveVE;
+    this.groupedFormElements = groupFormElements(config.formElements);
+    this.dragActiveVE = config.dragActiveVE;
+    this.readOnlyVE = config.readOnlyVE;
   }
 
   override protected function afterRender():void {
@@ -55,7 +57,8 @@ public class ApplicableElementsBase extends Container {
             new FormElementDroppable(FormElementDroppable({
               width: 200,
               formElementType: formElementConfig["formElementType"],
-              dragActiveVE: dragActiveVE
+              dragActiveVE: dragActiveVE,
+              readOnlyVE: readOnlyVE
             }))
         );
       }

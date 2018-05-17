@@ -28,11 +28,13 @@ public class FormElementDroppableBase extends Container {
 
   private var formElementType:String;
   private var dragActiveVE:ValueExpression;
+  private var readOnlyVE:ValueExpression;
 
   public function FormElementDroppableBase(config:FormElementDroppable = null) {
     super(config);
     formElementType = config.formElementType;
     dragActiveVE = config.dragActiveVE;
+    readOnlyVE = config.readOnlyVE;
   }
 
   override protected function afterRender():void {
@@ -40,7 +42,7 @@ public class FormElementDroppableBase extends Container {
       mode: FormElementDropContainerBase.TARGET_MODE_ADD,
       formElementType: formElementType
     };
-    DragDropHelper.createFormDragSource(this, dragData, dragActiveVE);
+    DragDropHelper.createFormDragSource(this, dragData, dragActiveVE, readOnlyVE);
     super.afterRender();
   }
 

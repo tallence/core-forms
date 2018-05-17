@@ -12,6 +12,8 @@
   </fx:Metadata>
 
   <fx:Script><![CDATA[
+    import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
+
     public static const xtype:String = "com.tallence.formeditor.studio.config.formEditor";
 
     private var config:FormEditorDocumentForm;
@@ -38,8 +40,12 @@
         <!-- left column, applicable form elements -->
         <Container width="160">
           <items>
+            <!-- Create a value expression to bind the disabled state of the drag source. It is necessary to use the
+            two value expressions 'bindTo' and 'forceReadOnlyValueExpression' to create the read only value expression.
+            If a content is checked out by another user, the read only value is not stored in the forceReadOnlyValueExpression.-->
             <local:ApplicableElements formElements="{config.formElements}"
-                                      dragActiveVE="{getDragActiveVE()}"/>
+                                      dragActiveVE="{getDragActiveVE()}"
+                                      readOnlyVE="{PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression)}"/>
             <local:ApplicableElementsHelpContainer/>
           </items>
         </Container>

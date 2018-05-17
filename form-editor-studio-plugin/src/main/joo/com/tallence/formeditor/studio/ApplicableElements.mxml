@@ -23,6 +23,9 @@
     [Bindable]
     public var dragActiveVE:ValueExpression;
 
+    [Bindable]
+    public var readOnlyVE:ValueExpression;
+
     public native function ApplicableElements(config:ApplicableElements = null);
     ]]>
     </fx:Script>

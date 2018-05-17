@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<local:AppliedFormElementsContainerBase xmlns:fx="http://ns.adobe.com/mxml/2009"
-           xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-           xmlns="exml:ext.config"
-           xmlns:exml="http://www.jangaroo.net/exml/0.8"
-           xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-           xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
-           xmlns:elements="com.tallence.formeditor.studio.elements.*"
-           xmlns:local="com.tallence.formeditor.studio.*"
-           xmlns:ui="exml:com.coremedia.ui.config">
+<local:AppliedFormElementsContainerBase
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+    xmlns="exml:ext.config"
+    xmlns:exml="http://www.jangaroo.net/exml/0.8"
+    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+    xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
+    xmlns:elements="com.tallence.formeditor.studio.elements.*"
+    xmlns:local="com.tallence.formeditor.studio.*"
+    xmlns:ui="exml:com.coremedia.ui.config">
 
   <fx:Script><![CDATA[
-    import com.coremedia.ui.data.ValueExpression;
-
     public static const xtype:String = "com.tallence.formeditor.studio.config.appliedFormElementContainer";
 
     private var config:AppliedFormElementContainer;
-
-    [Bindable]
-    public var bindTo:ValueExpression;
-
-    [Bindable]
-    public var forceReadOnlyValueExpression:ValueExpression;
 
     public native function AppliedFormElementContainer(config:AppliedFormElementContainer = null);
     ]]>
