@@ -40,7 +40,9 @@
         <!-- left column, applicable form elements -->
         <Container width="160">
           <items>
-            <!-- the readOnlyVE is used to bind the disabled state of the drag source -->
+            <!-- Create a value expression to bind the disabled state of the drag source. It is necessary to use the
+            two value expressions 'bindTo' and 'forceReadOnlyValueExpression' to create the read only value expression.
+            If a content is checked out by another user, the read only value is not stored in the forceReadOnlyValueExpression.-->
             <local:ApplicableElements formElements="{config.formElements}"
                                       dragActiveVE="{getDragActiveVE()}"
                                       readOnlyVE="{PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression)}"/>

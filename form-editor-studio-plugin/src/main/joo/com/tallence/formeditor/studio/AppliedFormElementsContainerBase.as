@@ -53,7 +53,9 @@ public class AppliedFormElementsContainerBase extends Container {
     this.formElement = config.formElement;
     this.formElementsManager = config.formElementsManager;
     this.dragActiveVE = config.formElementsManager.getDragActiveVE();
-    //create a value expression to bind the disabled state of the drag source
+    // Create a value expression to bind the disabled state of the drag source. It is necessary to use the two
+    // value expressions 'bindTo' and 'forceReadOnlyValueExpression' to create the read only value expression. If a
+    // content is checked out by another user, the read only value is not stored in the forceReadOnlyValueExpression.
     this.readOnlyVE = PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression);
   }
 
