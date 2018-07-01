@@ -57,7 +57,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
 
   @Override
   public void setValue(MultiValueMap<String, String> postData, HttpServletRequest request) {
-    List<String> values = postData.get(getId());
+    List<String> values = postData.get(getTechnicalName());
 
     if (values == null || values.isEmpty()) {
       setValue(null);
@@ -140,5 +140,10 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   @Override
   public Class<T> getType() {
     return this.type;
+  }
+
+  @Override
+  public String getTechnicalName() {
+    return getClass().getSimpleName() + "_" + getId();
   }
 }

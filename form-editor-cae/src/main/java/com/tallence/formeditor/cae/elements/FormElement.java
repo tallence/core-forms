@@ -35,6 +35,11 @@ public interface FormElement<T> {
 
   void setName(String name);
 
+  /**
+   * @return a unique technical name for this form element which is human readable.
+   */
+  String getTechnicalName();
+
   boolean isMandatory();
 
   String getHint();

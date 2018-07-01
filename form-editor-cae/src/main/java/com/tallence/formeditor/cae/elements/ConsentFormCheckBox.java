@@ -45,7 +45,7 @@ public class ConsentFormCheckBox extends AbstractFormElement<Boolean, ConsentFor
 
   @Override
   public void setValue(MultiValueMap<String, String> postData, HttpServletRequest request) {
-    List<String> values = postData.get(getId());
+    List<String> values = postData.get(getTechnicalName());
     if (values == null || values.isEmpty()) {
       setValue(null);
     } else if (values.size() == 1 && values.get(0).equals("on")) {
