@@ -4,38 +4,32 @@
     xmlns="exml:ext.config"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:ui="exml:com.coremedia.ui.config"
-    xmlns:fields="com.tallence.formeditor.studio.fields.*"
-    margin="10 0 0 0"
-    width="100%">
+    xmlns:fields="com.tallence.formeditor.studio.fields.*">
 
   <fx:Script><![CDATA[
-    import com.coremedia.ui.data.ValueExpression;
-
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.addOptionField";
 
     private var config:AddOptionField;
-
-    [Bindable]
-    public var bindTo:ValueExpression;
-
-    [Bindable]
-    public var forceReadOnlyValueExpression:ValueExpression;
 
     public native function AddOptionField(config:AddOptionField = null);
     ]]>
     </fx:Script>
 
   <fields:items>
-    <TextField width="240"
-               fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
-      <plugins>
-        <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                                  forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-        <ui:BindPropertyPlugin bidirectional="true"
-                               skipIfUndefined="true"
-                               bindTo="{getAddOptionVE()}"/>
-      </plugins>
-    </TextField>
+    <FieldContainer fieldLabel="{config.fieldLabel}">
+      <items>
+        <TextField width="240"
+                   fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
+          <plugins>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
+                                   bindTo="{getAddOptionVE()}"/>
+          </plugins>
+        </TextField>
+      </items>
+    </FieldContainer>
     <ui:IconButton
         iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'LinkListPropertyField_icon')}"
         ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}"

@@ -17,21 +17,17 @@
 package com.tallence.formeditor.studio.fields {
 import com.coremedia.ui.data.ValueExpression;
 
-import ext.form.field.NumberField;
+public class NumberFieldBase extends FormEditorField {
 
-public class NumberFieldBase extends ext.form.field.NumberField {
+  [Bindable]
+  public var defaultValue:Number;
 
-  private var numberVE:ValueExpression;
-
-  public function NumberFieldBase(config:com.tallence.formeditor.studio.fields.NumberField = null) {
+  public function NumberFieldBase(config:NumberField = null) {
     super(config);
   }
 
-  protected function getNumberVE(config:com.tallence.formeditor.studio.fields.NumberField):ValueExpression {
-    if (!numberVE) {
-      numberVE = config.formElement.getFormElementVE().extendBy(config.propertyName);
-    }
-    return numberVE;
+  override protected function initWithDefault(ve:ValueExpression):void {
+    ve.setValue(defaultValue);
   }
 
 }

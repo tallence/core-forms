@@ -15,25 +15,19 @@
  */
 
 package com.tallence.formeditor.studio.fields {
-import com.coremedia.cms.editor.sdk.editorContext;
 import com.coremedia.ui.data.ValueExpression;
 
-import ext.form.field.TextField;
+public class TextFieldBase extends FormEditorField {
 
-public class TextFieldBase extends ext.form.field.TextField {
+  [Bindable]
+  public var defaultValue:String = "";
 
-  private var textVE:ValueExpression;
-
-  public function TextFieldBase(config:com.tallence.formeditor.studio.fields.TextField = null) {
+  public function TextFieldBase(config:TextFieldBase = null) {
     super(config);
   }
 
-  protected function getTextVE(config:com.tallence.formeditor.studio.fields.TextField):ValueExpression {
-
-    if (!textVE) {
-      textVE = config.formElement.getFormElementVE().extendBy(config.propertyname);
-    }
-    return textVE;
+  override protected function initWithDefault(ve:ValueExpression):void {
+    ve.setValue(defaultValue);
   }
 
 }

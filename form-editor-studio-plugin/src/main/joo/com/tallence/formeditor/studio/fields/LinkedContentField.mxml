@@ -2,34 +2,16 @@
 <fields:LinkedContentFieldBase
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns="exml:ext.config"
+    xmlns:exml="http://www.jangaroo.net/exml/0.8"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:fields="com.tallence.formeditor.studio.fields.*"
     xmlns:container="ext.layout.container.*"
-    margin="10 0 0 0"
     width="100%">
 
   <fx:Script><![CDATA[
-    import com.coremedia.ui.data.ValueExpression;
-    import com.tallence.formeditor.studio.model.FormElementStructWrapper;
-
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.linkedContentField";
 
     private var config:LinkedContentField;
-
-    [Bindable]
-    public var formElement:FormElementStructWrapper;
-
-    [Bindable]
-    public var bindTo:ValueExpression;
-
-    [Bindable]
-    public var forceReadOnlyValueExpression:ValueExpression;
-
-    [Bindable]
-    public var propertyname:String;
-
-    [Bindable]
-    public var linkContentType:String;
 
     public native function LinkedContentField(config:LinkedContentField = null);
     ]]>
@@ -38,9 +20,11 @@
   <!--The SingleLinkEditor needs to be wrapped in a container with AnchorLayout to be displayed correctly-->
   <fields:items>
     <editor:SingleLinkEditor linkContentType="{config.linkContentType}"
+                             fieldLabel="test"
+                             labelAlign="top"
                              bindTo="{getLinkTargetVE(config)}"
                              linkListLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_linkTarget_label')}">
-      <editor:plugins>
+      <editor:plugins exml:mode="append">
         <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                   forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
       </editor:plugins>
@@ -49,6 +33,5 @@
   <fields:layout>
     <container:AnchorLayout/>
   </fields:layout>
-
 
 </fields:LinkedContentFieldBase>

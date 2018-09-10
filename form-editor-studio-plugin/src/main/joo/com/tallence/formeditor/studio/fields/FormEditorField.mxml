@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fields:FormEditorFieldBase
+    xmlns:fx="http://ns.adobe.com/mxml/2009"
+    xmlns="exml:ext.config"
+    xmlns:fields="com.tallence.formeditor.studio.fields.*"
+    margin="10 0 0 0">
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpression;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.formEditorField";
+
+    private var config:FormEditorField;
+
+    /**
+     * A value expression that is evaluated for the associated struct of the form element.
+     */
+    [Bindable]
+    public var formElementStructVE:ValueExpression;
+
+    /**
+     * The field label for the field editor.
+     */
+    [Bindable]
+    public var fieldLabel:String;
+
+    /**
+     * The property name of the struct entry.
+     */
+    [Bindable]
+    public var propertyName:String;
+
+    /**
+     * The content bean value expression.
+     */
+    [Bindable]
+    public var bindTo:ValueExpression;
+
+    /**
+     * An optional ValueExpression which makes the component read-only if it is evaluated to true.
+     */
+    [Bindable]
+    public var forceReadOnlyValueExpression:ValueExpression;
+
+    public native function FormEditorField(config:FormEditorField = null);
+    ]]>
+  </fx:Script>
+
+</fields:FormEditorFieldBase>

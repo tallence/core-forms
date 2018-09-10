@@ -19,19 +19,15 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.tallence.formeditor.studio.FormUtils;
-import com.tallence.formeditor.studio.model.FormElementStructWrapper;
 
 import ext.MessageBox;
-import ext.container.Container;
 
-public class AddOptionFieldBase extends Container {
+public class AddOptionFieldBase extends FormEditorField {
 
   private static const GROUP_ELEMENTS_STRUCT_NAME:String = "groupElements";
 
-  [Bindable]
-  public var formElement:FormElementStructWrapper;
-
   private var addOptionVE:ValueExpression;
+  private var formElementsStruct:Struct;
 
   public function AddOptionFieldBase(config:AddOptionField = null) {
     super(config);
@@ -42,11 +38,9 @@ public class AddOptionFieldBase extends Container {
     var newOptionText:String = addOptionVE.getValue();
     if (newOptionText) {
 
-      var formElementsStruct:Struct = getFormElementsStruct(formElement);
       if (!formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME)) {
         formElementsStruct.getType().addStructProperty(GROUP_ELEMENTS_STRUCT_NAME)
       }
-
       var groupElements:Struct = formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME);
       groupElements.getType().addStructProperty(newOptionText);
 
@@ -59,8 +53,11 @@ public class AddOptionFieldBase extends Container {
     }
   }
 
-  private static function getFormElementsStruct(formElement:FormElementStructWrapper):Struct {
-    return formElement.getFormElementVE().getValue();
+  override protected function initStruct(struct:Struct):void {
+    formElementsStruct = struct;
+    if (!formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME)) {
+      formElementsStruct.getType().addStructProperty(GROUP_ELEMENTS_STRUCT_NAME)
+    }
   }
 
   public function getAddOptionVE():ValueExpression {
