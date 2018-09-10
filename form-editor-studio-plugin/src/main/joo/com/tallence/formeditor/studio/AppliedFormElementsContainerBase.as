@@ -18,10 +18,14 @@ package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
 import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.ui.data.ValueExpression;
+import com.coremedia.ui.util.ReusableComponentsServiceImpl;
 import com.tallence.formeditor.studio.dragdrop.FormElementDropContainerBase;
+import com.tallence.formeditor.studio.elements.FormElement;
 import com.tallence.formeditor.studio.helper.DragDropHelper;
 import com.tallence.formeditor.studio.helper.FormElementsManager;
 import com.tallence.formeditor.studio.model.FormElementStructWrapper;
+
+import ext.Component;
 
 import ext.container.Container;
 import ext.panel.PanelHeader;
@@ -47,6 +51,7 @@ public class AppliedFormElementsContainerBase extends Container {
 
   private var dragActiveVE:ValueExpression;
   private var readOnlyVE:ValueExpression;
+  private var panel:CollapsiblePanel;
 
   public function AppliedFormElementsContainerBase(config:AppliedFormElementsContainerBase = null) {
     super(config);
@@ -62,11 +67,31 @@ public class AppliedFormElementsContainerBase extends Container {
   override protected function afterRender():void {
     super.afterRender();
     var panel:CollapsiblePanel = queryById(FORM_ELEMENT_PANEL) as CollapsiblePanel;
+
+    var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
+    if (formElement != formElementEditor.getFormElementStructWrapper()) {
+      formElementEditor.updateFormElementStructWrapper(formElement);
+      panel.add(formElementEditor as Component);
+    }
+
+    formElementsManager.getCollapsedElementVE().addChangeListener(collapsedElementChangeListener);
+
     panel.addEventListener(PanelEvent.EXPAND, function (eventType:PanelEvent):void {
       formElementsManager.getCollapsedElementVE().setValue(formElement.getId());
     });
 
     makeFormElementDraggable();
+    this.panel = panel;
+  }
+
+  private function collapsedElementChangeListener():void {
+    if (formElementsManager.getCollapsedElementVE().getValue() == formElement.getId()) {
+      var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
+      if (formElement != formElementEditor.getFormElementStructWrapper()) {
+        formElementEditor.updateFormElementStructWrapper(formElement);
+        panel.add(formElementEditor as Component);
+      }
+    }
   }
 
   private function makeFormElementDraggable():void {
@@ -92,6 +117,8 @@ public class AppliedFormElementsContainerBase extends Container {
   }
 
   public function removeElementHandler():void {
+    formElementsManager.getCollapsedElementVE().removeChangeListener(collapsedElementChangeListener);
+    ReusableComponentsServiceImpl.getInstance().removeReusableComponentCleanly(ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()));
     formElementsManager.removeFormElement(formElement.getId());
   }
 }

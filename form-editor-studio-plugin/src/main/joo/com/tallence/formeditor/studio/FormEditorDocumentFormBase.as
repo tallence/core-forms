@@ -18,6 +18,10 @@ package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.DocumentForm;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
+import com.coremedia.ui.util.ReusableComponentsServiceImpl;
+import com.tallence.formeditor.studio.elements.AbstractFormElement;
+
+import ext.ComponentManager;
 
 public class FormEditorDocumentFormBase extends DocumentForm {
 
@@ -36,6 +40,19 @@ public class FormEditorDocumentFormBase extends DocumentForm {
       dragActiveVE = ValueExpressionFactory.createFromValue(false);
     }
     return dragActiveVE;
+  }
+
+  /**
+   * Each editor for a form element is reused. In order to use the
+   * {@link com.coremedia.ui.util.IReusableComponentsService}, the component must first be created by the
+   * {@link ext.ComponentManager}. Then the form editor component is registered and can be used afterwards.
+   */
+  protected static function initReusableComponents(formElements:Array):void {
+    for (var i:int = 0; i < formElements.length; i++) {
+      var formElement:AbstractFormElement = AbstractFormElement(ComponentManager.create(formElements[i]));
+      ReusableComponentsServiceImpl.getInstance().setReusabilityLimit(formElement.getFormElementType(), 1);
+      ReusableComponentsServiceImpl.getInstance().registerComponentForReuse(formElement.getFormElementType(), formElement);
+    }
   }
 
 }
