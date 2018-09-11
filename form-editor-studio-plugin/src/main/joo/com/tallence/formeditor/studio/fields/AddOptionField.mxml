@@ -4,7 +4,8 @@
     xmlns="exml:ext.config"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:ui="exml:com.coremedia.ui.config"
-    xmlns:fields="com.tallence.formeditor.studio.fields.*">
+    xmlns:fields="com.tallence.formeditor.studio.fields.*"
+    xmlns:elements="exml:com.tallence.formeditor.studio.config">
 
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.addOptionField";
@@ -16,32 +17,48 @@
     </fx:Script>
 
   <fields:items>
-    <FieldContainer fieldLabel="{config.fieldLabel}">
+    <Container>
       <items>
-        <TextField width="240"
-                   fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
-          <plugins>
+        <FieldContainer fieldLabel="{config.fieldLabel}">
+          <items>
+            <TextField width="240"
+                       fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
+              <plugins>
+                <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                <ui:BindPropertyPlugin bidirectional="true"
+                                       skipIfUndefined="true"
+                                       bindTo="{getAddOptionVE()}"/>
+              </plugins>
+            </TextField>
+          </items>
+        </FieldContainer>
+        <ui:IconButton
+            iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'LinkListPropertyField_icon')}"
+            ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}"
+            handler="{addGroupElement}">
+          <ui:plugins>
             <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-            <ui:BindPropertyPlugin bidirectional="true"
-                                   skipIfUndefined="true"
-                                   bindTo="{getAddOptionVE()}"/>
-          </plugins>
-        </TextField>
+          </ui:plugins>
+        </ui:IconButton>
       </items>
-    </FieldContainer>
-    <ui:IconButton
-        iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'LinkListPropertyField_icon')}"
-        ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}"
-        handler="{addGroupElement}">
-      <ui:plugins>
-        <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                                  forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-      </ui:plugins>
-    </ui:IconButton>
+      <layout>
+        <layout_HBox align="stretch"/>
+      </layout>
+    </Container>
+    <Container>
+      <plugins>
+        <ui:BindComponentsPlugin configBeanParameterName="option"
+                                 valueExpression="{getGroupElementsVE(config)}">
+          <ui:template>
+            <elements:ElementGroupEntry forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                                        bindTo="{config.bindTo}"
+                                        removeGroupElementFn="{removeGroupElement}"/>
+          </ui:template>
+        </ui:BindComponentsPlugin>
+      </plugins>
+    </Container>
   </fields:items>
-  <fields:layout>
-    <layout_HBox align="stretch"/>
-  </fields:layout>
 
 </fields:AddOptionFieldBase>

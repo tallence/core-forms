@@ -23,7 +23,6 @@
   <component class="com.tallence.formeditor.studio.fields.TextField"/>
   <component class="com.tallence.formeditor.studio.fields.NumberField"/>
   <component class="com.tallence.formeditor.studio.fields.CheckboxField"/>
-  <component class="com.tallence.formeditor.studio.fields.OptionsField"/>
   <component class="com.tallence.formeditor.studio.fields.LinkedContentField"/>
   <component class="com.tallence.formeditor.studio.fields.ComboBoxField"/>
 </componentPackage>

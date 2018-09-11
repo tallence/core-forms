@@ -19,18 +19,19 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.tallence.formeditor.studio.FormUtils;
+import com.tallence.formeditor.studio.model.GroupElementStructWrapper;
 
 import ext.MessageBox;
 
 public class AddOptionFieldBase extends FormEditorField {
 
-  private static const GROUP_ELEMENTS_STRUCT_NAME:String = "groupElements";
-
   private var addOptionVE:ValueExpression;
   private var formElementsStruct:Struct;
+  private var groupElementStructName:String;
 
   public function AddOptionFieldBase(config:AddOptionField = null) {
     super(config);
+    groupElementStructName = config.propertyName;
   }
 
   public function addGroupElement():void {
@@ -38,10 +39,10 @@ public class AddOptionFieldBase extends FormEditorField {
     var newOptionText:String = addOptionVE.getValue();
     if (newOptionText) {
 
-      if (!formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME)) {
-        formElementsStruct.getType().addStructProperty(GROUP_ELEMENTS_STRUCT_NAME)
+      if (!formElementsStruct.get(groupElementStructName)) {
+        formElementsStruct.getType().addStructProperty(groupElementStructName)
       }
-      var groupElements:Struct = formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME);
+      var groupElements:Struct = formElementsStruct.get(groupElementStructName);
       groupElements.getType().addStructProperty(newOptionText);
 
       //Reset the textField for the new GroupElement's name
@@ -55,8 +56,8 @@ public class AddOptionFieldBase extends FormEditorField {
 
   override protected function initStruct(struct:Struct):void {
     formElementsStruct = struct;
-    if (!formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME)) {
-      formElementsStruct.getType().addStructProperty(GROUP_ELEMENTS_STRUCT_NAME)
+    if (!formElementsStruct.get(groupElementStructName)) {
+      formElementsStruct.getType().addStructProperty(groupElementStructName)
     }
   }
 
@@ -65,6 +66,26 @@ public class AddOptionFieldBase extends FormEditorField {
       addOptionVE = ValueExpressionFactory.createFromValue("");
     }
     return addOptionVE;
+  }
+
+  public function getGroupElementsVE(config:FormEditorField):ValueExpression {
+    return ValueExpressionFactory.createFromFunction(function ():Array {
+      var groupsVE:ValueExpression = getPropertyVE(config);
+      if (groupsVE.getValue()) {
+        var groupElementStruct:Struct = groupsVE.getValue();
+        return groupElementStruct.getType().getPropertyNames().map(function (name:String):GroupElementStructWrapper {
+          return new GroupElementStructWrapper(groupsVE.extendBy(name), name);
+        });
+      } else {
+        return undefined;
+      }
+    });
+  }
+
+  public function removeGroupElement(value:String):void {
+    var groupElementsList:Struct = formElementsStruct.get(groupElementStructName);
+    groupElementsList.getType().removeProperty(value);
+    FormUtils.reloadPreview();
   }
 
 }
