@@ -26,6 +26,7 @@ import ext.container.Container;
 public class FormEditorFieldBase extends Container {
 
   private var propertyVE:ValueExpression;
+  private var propertyName:String;
 
   public function FormEditorFieldBase(config:FormEditorField = null) {
     super(config);
@@ -38,9 +39,10 @@ public class FormEditorFieldBase extends Container {
    */
   private function initFormEditorField(config:FormEditorField):void {
     if (!propertyVE) {
+      propertyName = config.propertyName;
       var formElementStructVE:ValueExpression = config.formElementStructVE;
       formElementStructVE.addChangeListener(onFormElementStructChange);
-      propertyVE = formElementStructVE.extendBy(config.propertyName);
+      updatePropertyVE(formElementStructVE);
     }
   }
 
@@ -61,17 +63,22 @@ public class FormEditorFieldBase extends Container {
    */
   private function onFormElementStructChange(structVE:ValueExpression):void {
     var struct:Struct = structVE.getValue();
+    //
     if (struct) {
+      updatePropertyVE(structVE);
       initStruct(struct);
-    }
-    if (propertyVE.getValue() == undefined) {
-      initWithDefault(propertyVE);
-    }
-    propertyVE.addChangeListener(function (ve:ValueExpression):void {
-      if (ve.getValue() == undefined) {
-        initWithDefault(ve);
+      if (propertyVE.getValue() == undefined) {
+        initWithDefault(propertyVE);
       }
-    })
+    }
+  }
+
+  /**
+   * As soon as the struct and the selected form element has changed, the property value expression must be updated
+   * so that the default can be set.
+   */
+  private function updatePropertyVE(formElementStructVE:ValueExpression):void {
+    propertyVE = formElementStructVE.extendBy(propertyName);
   }
 
   /**
