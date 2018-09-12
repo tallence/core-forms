@@ -3,8 +3,7 @@
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
                            formElementType="{FIELD_TYPE}"
-                           formElementIconCls="tallence-icons tallence-icons--confirm"
-                           formElementGroup="single">
+                           formElementIconCls="tallence-icons tallence-icons--confirm">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.elements.consentFormCheckBoxEditor";
     public static const FIELD_TYPE:String = "ConsentFormCheckBox";

@@ -4,7 +4,7 @@
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--input-mail"
-                           formElementGroup="single">
+                           formElementGroup="input">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.elements.usersMailEditor";
     public static const FIELD_TYPE:String = "UsersMail";

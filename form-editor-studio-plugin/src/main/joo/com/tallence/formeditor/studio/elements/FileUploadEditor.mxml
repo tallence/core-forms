@@ -3,8 +3,7 @@
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
                            formElementType="{FIELD_TYPE}"
-                           formElementIconCls="tallence-icons tallence-icons--upload"
-                           formElementGroup="single">
+                           formElementIconCls="tallence-icons tallence-icons--upload">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.elements.fileUploadEditor";
     public static const FIELD_TYPE:String = "FileUpload";

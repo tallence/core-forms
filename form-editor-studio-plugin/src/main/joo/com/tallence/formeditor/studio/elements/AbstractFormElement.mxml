@@ -20,8 +20,12 @@
     [Bindable]
     public var formElementIconCls:String;
 
+    /**
+     * The group of the element, default value "other".
+     * It will be used to group the elements in the UI
+     */
     [Bindable]
-    public var formElementGroup:String;
+    public var formElementGroup:String = "other";
 
     [Bindable]
     public var formElementEditorItems:Array;

@@ -4,13 +4,16 @@
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--input-text"
-                           formElementGroup="single">
+                           formElementGroup="input">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.elements.textFieldEditor";
 
     public static const FIELD_TYPE:String = "TextField";
 
     private var config:TextFieldEditor;
+
+    [Bindable]
+    public var defaultRegexpValidatorValue:String;
 
     public native function TextFieldEditor(config:TextFieldEditor = null);
     ]]>
@@ -54,6 +57,7 @@
                       formElementStructVE="{getFormElementStructVE()}"
                       propertyName="regexpValidator"
                       bindTo="{config.bindTo}"
+                      defaultValue="{config.defaultRegexpValidatorValue}"
                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
   </local:items>
 </local:AbstractFormElement>
