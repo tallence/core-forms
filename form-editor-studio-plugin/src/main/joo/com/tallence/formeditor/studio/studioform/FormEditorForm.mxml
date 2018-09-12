@@ -95,10 +95,10 @@
           <elements:NumberFieldEditor/>
           <elements:TextAreaEditor/>
           <elements:TextFieldEditor/>
-          <elements:TextFieldEditor formElementType="ZipField" defaultRegexpValidatorValue="\d{5}" formElementIconCls="tallence-icons tallence-icons--input-city-zip"/>
+          <elements:TextFieldEditor formElementType="ZipField" defaultRegexpValidatorValue="{'\\d{5}'}" formElementIconCls="tallence-icons tallence-icons--input-city-zip"/>
           <elements:TextFieldEditor formElementType="PhoneField" formElementIconCls="tallence-icons tallence-icons--input-phone"/>
           <elements:TextFieldEditor formElementType="FaxField" formElementIconCls="tallence-icons tallence-icons--input-fax"/>
-          <elements:TextFieldEditor formElementType="StreetNumberField" formElementIconCls="tallence-icons tallence-icons--street-nr"/>
+          <elements:TextFieldEditor formElementType="StreetNumberField" formElementIconCls="tallence-icons tallence-icons--input-street-nr"/>
           <elements:TextOnlyEditor/>
           <elements:UsersMailEditor/>
           <elements:ConsentFormCheckBoxEditor/>

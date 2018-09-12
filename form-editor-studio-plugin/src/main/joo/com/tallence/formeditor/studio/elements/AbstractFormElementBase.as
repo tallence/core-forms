@@ -38,11 +38,9 @@ public class AbstractFormElementBase extends Container implements FormElement {
       throw new Error("Config formElementType is missing.");
     }
     elementType = config.formElementType;
-    if (!config.formElementGroup) {
-      throw new Error("Config formElementGroup is missing.");
-    }
     iconCls = config.formElementIconCls;
-    group = config.formElementGroup;
+    //using the default value "other".
+    group = config.formElementGroup ? config.formElementGroup : "other";
     super(config);
   }
 
