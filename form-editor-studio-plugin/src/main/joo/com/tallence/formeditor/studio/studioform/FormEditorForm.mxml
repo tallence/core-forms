@@ -95,10 +95,19 @@
           <elements:NumberFieldEditor/>
           <elements:TextAreaEditor/>
           <elements:TextFieldEditor/>
-          <elements:TextFieldEditor formElementType="ZipField" defaultRegexpValidatorValue="{'\\d{5}'}" formElementIconCls="tallence-icons tallence-icons--input-city-zip"/>
-          <elements:TextFieldEditor formElementType="PhoneField" formElementIconCls="tallence-icons tallence-icons--input-phone"/>
-          <elements:TextFieldEditor formElementType="FaxField" formElementIconCls="tallence-icons tallence-icons--input-fax"/>
-          <elements:TextFieldEditor formElementType="StreetNumberField" formElementIconCls="tallence-icons tallence-icons--input-street-nr"/>
+          <elements:TextFieldEditor formElementType="ZipField"
+                                    defaultRegexpValidatorValue="{'\\d{5}'}"
+                                    formElementIconCls="tallence-icons tallence-icons--input-city-zip"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_zipField')}"/>
+          <elements:TextFieldEditor formElementType="PhoneField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-phone"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_phoneField')}"/>
+          <elements:TextFieldEditor formElementType="FaxField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-fax"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_faxField')}"/>
+          <elements:TextFieldEditor formElementType="StreetNumberField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-street-nr"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_streetNumberField')}"/>
           <elements:TextOnlyEditor/>
           <elements:UsersMailEditor/>
           <elements:ConsentFormCheckBoxEditor/>

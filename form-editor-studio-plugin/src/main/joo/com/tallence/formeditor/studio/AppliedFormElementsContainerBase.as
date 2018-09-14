@@ -26,7 +26,6 @@ import com.tallence.formeditor.studio.helper.FormElementsManager;
 import com.tallence.formeditor.studio.model.FormElementStructWrapper;
 
 import ext.Component;
-
 import ext.container.Container;
 import ext.panel.PanelHeader;
 import ext.panel.events.PanelEvent;
@@ -84,8 +83,8 @@ public class AppliedFormElementsContainerBase extends Container {
     this.panel = panel;
   }
 
-  private function collapsedElementChangeListener():void {
-    if (formElementsManager.getCollapsedElementVE().getValue() == formElement.getId()) {
+  private function collapsedElementChangeListener(ve:ValueExpression):void {
+    if (ve.getValue() == formElement.getId()) {
       var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
       if (formElement != formElementEditor.getFormElementStructWrapper()) {
         formElementEditor.updateFormElementStructWrapper(formElement);
