@@ -10,7 +10,6 @@ import com.coremedia.rest.cap.validation.ContentTypeValidatorBase;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
-import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +34,7 @@ public class FormActionValidator extends ContentTypeValidatorBase {
       return;
     }
 
-    if (formData.get(FormEditor.FORM_ELEMENTS) != null) {
+    if (formData != null && formData.get(FormEditor.FORM_ELEMENTS) != null) {
       Struct formElements = formData.getStruct(FormEditor.FORM_ELEMENTS);
 
       if (formElements.getProperties().values().stream().map(v -> (Struct) v).anyMatch(s -> forbiddenFormFields.contains(s.get("type").toString()))) {

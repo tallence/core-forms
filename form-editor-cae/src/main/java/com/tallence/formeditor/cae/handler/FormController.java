@@ -153,7 +153,7 @@ public class FormController {
                   target.getContentId());
         }
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-        MultipartFile file = multipartHttpServletRequest.getFile(formElement.getId());
+        MultipartFile file = multipartHttpServletRequest.getFile(formElement.getTechnicalName());
         ((FileUpload) formElement).setValue(file);
         files.add(file);
       } else {
