@@ -34,18 +34,16 @@
                           defaultValue="false"
                           bindTo="{config.bindTo}"
                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-    <fields:NumberField fieldLabel="Max. Zeichen"
-                        emptyText="Bitte maximale Zeichenanzahl eingeben."
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxSize_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxSize_text')}"
                         formElementStructVE="{getFormElementStructVE()}"
                         propertyName="validator.maxSize"
-                        defaultValue="255"
                         bindTo="{config.bindTo}"
                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-    <fields:NumberField fieldLabel="Zeilen"
-                        emptyText="Wieviele Zeilen sollen in der Textarea angezeigt werden"
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_fields_textArea_rows_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_fields_textArea_rows_text')}"
                         formElementStructVE="{getFormElementStructVE()}"
                         propertyName="rows"
-                        defaultValue="0"
                         bindTo="{config.bindTo}"
                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
   </local:items>

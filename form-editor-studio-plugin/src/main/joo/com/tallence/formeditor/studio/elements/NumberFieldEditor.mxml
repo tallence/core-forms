@@ -35,19 +35,17 @@
                           bindTo="{config.bindTo}"
                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
 
-    <fields:NumberField fieldLabel="Max. Wert"
-                        emptyText="Bitte den maximalen Wert eingeben."
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_text')}"
                         formElementStructVE="{getFormElementStructVE()}"
                         propertyName="validator.maxSize"
-                        defaultValue="255"
                         bindTo="{config.bindTo}"
                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
 
-    <fields:NumberField fieldLabel="Min. Wert"
-                        emptyText="Bitte den minimalen Wert eingeben."
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_text')}"
                         formElementStructVE="{getFormElementStructVE()}"
                         propertyName="validator.minSize"
-                        defaultValue="0"
                         bindTo="{config.bindTo}"
                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
   </local:items>
