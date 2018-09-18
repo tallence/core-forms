@@ -98,6 +98,7 @@
           <elements:TextFieldEditor formElementType="ZipField"
                                     defaultRegexpValidatorValue="{'\\d{5}'}"
                                     formElementIconCls="tallence-icons tallence-icons--input-city-zip"
+                                    defaultMandatory="{true}"
                                     defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_zipField')}"/>
           <elements:TextFieldEditor formElementType="PhoneField"
                                     formElementIconCls="tallence-icons tallence-icons--input-phone"
@@ -107,6 +108,7 @@
                                     defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_faxField')}"/>
           <elements:TextFieldEditor formElementType="StreetNumberField"
                                     formElementIconCls="tallence-icons tallence-icons--input-street-nr"
+                                    defaultMandatory="{true}"
                                     defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_streetNumberField')}"/>
           <elements:TextOnlyEditor/>
           <elements:UsersMailEditor/>

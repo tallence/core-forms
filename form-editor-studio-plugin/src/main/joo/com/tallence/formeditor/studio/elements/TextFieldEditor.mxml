@@ -16,6 +16,8 @@
     public var defaultRegexpValidatorValue:String;
     [Bindable]
     public var defaultName:String;
+    [Bindable]
+    public var defaultMandatory:Boolean;
 
     public native function TextFieldEditor(config:TextFieldEditor = null);
     ]]>
@@ -38,7 +40,7 @@
     <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
                           formElementStructVE="{getFormElementStructVE()}"
                           propertyName="validator.mandatory"
-                          defaultValue="false"
+                          defaultValue="{config.defaultMandatory}"
                           bindTo="{config.bindTo}"
                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxSize_label')}"
