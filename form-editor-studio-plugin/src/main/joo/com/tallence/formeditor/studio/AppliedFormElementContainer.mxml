@@ -45,8 +45,7 @@
       <editor:header>
         <Header titlePosition="2.0"
                 itemId="{FORM_ELEMENT_HEADER}"
-                itemPosition="2"
-                enableFocusableContainer="false">
+                itemPosition="2">
           <items>
             <ui:IconButton
                 iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
