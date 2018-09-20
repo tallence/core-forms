@@ -20,7 +20,9 @@
       <items>
         <Checkbox>
           <plugins>
+            <!-- a checkbox cannot be set to undefined, so skipIfUndefined is set to true -->
             <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
                                    bindTo="{getPropertyVE(config)}"/>
             <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
