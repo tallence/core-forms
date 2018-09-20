@@ -20,10 +20,9 @@
   <!--The SingleLinkEditor needs to be wrapped in a container with AnchorLayout to be displayed correctly-->
   <fields:items>
     <editor:SingleLinkEditor linkContentType="{config.linkContentType}"
-                             fieldLabel="test"
                              labelAlign="top"
                              bindTo="{getLinkTargetVE(config)}"
-                             linkListLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_linkTarget_label')}">
+                             fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_linkTarget_label')}">
       <editor:plugins exml:mode="append">
         <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                   forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
