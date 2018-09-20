@@ -83,6 +83,11 @@ public class AppliedFormElementsContainerBase extends Container {
     this.panel = panel;
   }
 
+  override public function destroy(...params):void {
+    removeReusableFormElement();
+    super.destroy(params);
+  }
+
   private function collapsedElementChangeListener(ve:ValueExpression):void {
     if (ve.getValue() == formElement.getId()) {
       var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
@@ -116,9 +121,17 @@ public class AppliedFormElementsContainerBase extends Container {
   }
 
   public function removeElementHandler():void {
+    removeReusableFormElement();
+    formElementsManager.removeFormElement(formElement.getId());
+  }
+
+  /**
+   * Before the applied form elements container is destroyed, the reusable form element must be removed from the
+   * container. This means that the component can still be reused and is not destroyed itself.
+   */
+  private function removeReusableFormElement():void {
     formElementsManager.getCollapsedElementVE().removeChangeListener(collapsedElementChangeListener);
     ReusableComponentsServiceImpl.getInstance().removeReusableComponentCleanly(ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()));
-    formElementsManager.removeFormElement(formElement.getId());
   }
 }
 }
