@@ -18,6 +18,7 @@ package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.DocumentForm;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
+import com.coremedia.ui.util.IReusableComponentsService;
 import com.coremedia.ui.util.ReusableComponentsServiceImpl;
 import com.tallence.formeditor.studio.elements.AbstractFormElement;
 
@@ -48,10 +49,15 @@ public class FormEditorDocumentFormBase extends DocumentForm {
    * {@link ext.ComponentManager}. Then the form editor component is registered and can be used afterwards.
    */
   protected static function initReusableComponents(formElements:Array):void {
+    var reusableComponentsSerice:IReusableComponentsService = ReusableComponentsServiceImpl.getInstance();
     for (var i:int = 0; i < formElements.length; i++) {
       var formElement:AbstractFormElement = AbstractFormElement(ComponentManager.create(formElements[i]));
-      ReusableComponentsServiceImpl.getInstance().setReusabilityLimit(formElement.getFormElementType(), 1);
-      ReusableComponentsServiceImpl.getInstance().registerComponentForReuse(formElement.getFormElementType(), formElement);
+
+      var key:String = formElement.getFormElementType();
+      if (!reusableComponentsSerice.isReusabilityEnabled(key)) {
+        reusableComponentsSerice.setReusabilityLimit(key, 1);
+        reusableComponentsSerice.registerComponentForReuse(key, formElement);
+      }
     }
   }
 
