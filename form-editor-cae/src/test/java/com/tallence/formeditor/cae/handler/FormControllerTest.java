@@ -91,14 +91,14 @@ public class FormControllerTest {
   public void testValidPost() throws Exception {
 
     mvc.perform(fileUpload(TEST_URL)
-        .param("TextField", "12345")
-        .param("NumberField", "18")
-        .param("RadioButtonsMandatory", "12345")
-        .param("CheckBoxesMandatory", "12345")
-        .param("SelectBoxMandatory", "12345")
-        .param("TextArea", "ist Text")
-        .param("UsersMail", MAIL_ADDRESS_TEST)
-        .param("ConsentFormCheckBox", "on")
+        .param("TextField_TextField", "12345")
+        .param("NumberField_NumberField", "18")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
+        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("TextArea_TextArea", "ist Text")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
@@ -113,25 +113,25 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithFile() throws Exception {
 
-    MockMultipartFile firstFile = new MockMultipartFile("FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
+    MockMultipartFile firstFile = new MockMultipartFile("FileUpload_FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
 
     mvc.perform(fileUpload(TEST_URL)
         .file(firstFile)
-        .param("TextField", "12345")
-        .param("NumberField", "18")
-        .param("RadioButtonsMandatory", "12345")
-        .param("CheckBoxesMandatory", "12345")
-        .param("SelectBoxMandatory", "12345")
-        .param("TextArea", "ist Text")
-        .param("UsersMail", MAIL_ADDRESS_TEST)
-        .param("ConsentFormCheckBox", "on")
+        .param("TextField_TextField", "12345")
+        .param("NumberField_NumberField", "18")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
+        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("TextArea_TextArea", "ist Text")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
         .andDo(MockMvcResultHandlers.print());
 
-    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", storageAdapterMock.formData);
-    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", mailAdapterMock.usersFormData);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload_FileUpload: filename.txt<br/>", storageAdapterMock.formData);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload_FileUpload: filename.txt<br/>", mailAdapterMock.usersFormData);
     assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 
@@ -141,8 +141,8 @@ public class FormControllerTest {
     URI mailTestUrl = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "4").toUri();
 
     mvc.perform(post(mailTestUrl)
-        .param("TextArea", "ist Text")
-        .param("UsersMail", MAIL_ADDRESS_TEST)
+        .param("TextArea_TextArea", "ist Text")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
     )
         .andExpect(status().is2xxSuccessful())
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
@@ -161,7 +161,7 @@ public class FormControllerTest {
   public void testInValidPost() throws Exception {
 
     //Performing a post with only the TextField given will cause a validation error, because other mandatory fields are missing.
-    mvc.perform(fileUpload(TEST_URL).param("TextField", "12345"))
+    mvc.perform(fileUpload(TEST_URL).param("TextField_TextField", "12345"))
         .andExpect(status().is4xxClientError())
         .andExpect(content().string("{\"success\":false,\"error\":\"server-validation-failed\"}"))
         .andDo(MockMvcResultHandlers.print());
