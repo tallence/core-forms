@@ -17,6 +17,20 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="ZipFieldTest">
+        <Struct>
+          <StringProperty Name="type">ZipField</StringProperty>
+          <StringProperty Name="name">Postleitzahl</StringProperty>
+          <StringProperty Name="hint">Bitte Ihre Postleitzahl eingeben</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <StringProperty Name="regexpValidator">\d{5}</StringProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
       <StructProperty Name="NumberField">
         <Struct>
           <StringProperty Name="type">NumberField</StringProperty>

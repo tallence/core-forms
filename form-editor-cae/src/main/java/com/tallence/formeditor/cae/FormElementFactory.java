@@ -33,12 +33,12 @@ import java.util.Map;
 public class FormElementFactory {
 
 
-  private static final String FORM_DATA_KEY_TYPE = "type";
+  public static final String FORM_DATA_KEY_TYPE = "type";
 
-  private final Map<String, AbstractFormElementParser<?>> typeToParser = new HashMap<>();
+  private final Map<String, AbstractFormElementParser<? extends FormElement>> typeToParser = new HashMap<>();
 
-  public FormElementFactory(List<AbstractFormElementParser> parsers) {
-    parsers.forEach(p -> typeToParser.put(p.getParserKey(), p));
+  public FormElementFactory(List<AbstractFormElementParser<? extends FormElement>> parsers) {
+    parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
   <T extends FormElement> T createFormElement(Struct elementData, String id) {

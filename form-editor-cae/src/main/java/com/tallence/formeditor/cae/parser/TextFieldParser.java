@@ -18,21 +18,46 @@ package com.tallence.formeditor.cae.parser;
 
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.TextField;
+import com.tallence.formeditor.cae.elements.ZipField;
 import com.tallence.formeditor.cae.validator.TextValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
+
 /**
- * Parser for elements of type {@link TextField}
+ * Parser for elements of type {@link TextField} and some subTypes, e.g ZipField.
+ * They do not currently use extra fields -> no extra parser is used for them.
  */
 @Component
 public class TextFieldParser extends AbstractFormElementParser<TextField> {
 
-  public static final String parserKey = "TextField";
+  private static final String KEY_TEXT_FIELD = "TextField";
+  private static final String KEY_ZIP_FIELD = "ZipField";
+  private static final String KEY_PHONE_FIELD = "PhoneField";
+  private static final String KEY_FAX_FIELD = "FaxField";
+  private static final String KEY_STREET_NUMBER_FIELD = "StreetNumberField";
 
 
   @Override
   public TextField instantiateType(Struct elementData) {
-    return new TextField();
+    String type = elementData.getString(FORM_DATA_KEY_TYPE);
+    switch (type) {
+      case KEY_TEXT_FIELD:
+        return new TextField();
+      case KEY_ZIP_FIELD:
+        return new ZipField();
+      case KEY_PHONE_FIELD:
+        return new ZipField();
+      case KEY_FAX_FIELD:
+        return new ZipField();
+      case KEY_STREET_NUMBER_FIELD:
+        return new ZipField();
+      default:
+        throw new IllegalStateException("Cannot instantiate a field for type " + type);
+    }
   }
 
 
@@ -44,14 +69,14 @@ public class TextFieldParser extends AbstractFormElementParser<TextField> {
       textValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
       textValidator.setMinSize(parseInteger(validator, FORM_VALIDATOR_MINSIZE));
       textValidator.setMaxSize(parseInteger(validator, FORM_VALIDATOR_MAXSIZE));
-      textValidator.setRegexp(parseString(elementData, FORM_VALIDATOR_REGEXP));
+      textValidator.setRegexp(parseString(validator, FORM_VALIDATOR_REGEXP));
 
       formElement.setValidator(textValidator);
     });
   }
 
   @Override
-  public String getParserKey() {
-    return parserKey;
+  public List<String> getParserKeys() {
+    return Arrays.asList(KEY_TEXT_FIELD, KEY_ZIP_FIELD, KEY_PHONE_FIELD, KEY_FAX_FIELD, KEY_STREET_NUMBER_FIELD);
   }
 }
