@@ -58,7 +58,7 @@
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_regexp_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_regexp_emptyText')}"
                       formElementStructVE="{getFormElementStructVE()}"
-                      propertyName="regexpValidator"
+                      propertyName="validator.regexpValidator"
                       bindTo="{config.bindTo}"
                       defaultValue="{config.defaultRegexpValidatorValue}"
                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
