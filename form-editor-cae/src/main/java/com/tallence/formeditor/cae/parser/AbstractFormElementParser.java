@@ -20,6 +20,7 @@ import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.ComplexValue;
 import com.tallence.formeditor.cae.elements.FormElement;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
  * <p>
  * Implementations have to implement:
  * {@link #instantiateType(Struct)}
- * {@link #getParserKey()}
+ * {@link #getParserKey()} or {@link #getParserKeys()}
  * {@link #parseSpecialFields(FormElement, Struct)}
  */
 public abstract class AbstractFormElementParser<T extends FormElement> {
@@ -52,9 +53,24 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
   public abstract T instantiateType(Struct elementData);
 
   /**
-   * @return the string key of the concrete parser, e.g. "CheckBoxes".
+   * @return the string keys of the concrete parser, e.g. "CheckBoxes". One parser can be responsible for multiple
+   * FormFieldTypes, e.g. NumberField and RatingField.
    */
-  public abstract String getParserKey();
+  public List<String> getParserKeys() {
+    String key = getParserKey();
+    if (key == null) {
+      throw new IllegalStateException("Either getParserKeys() or getParserKey() must be overwritten in subClass and must not return null!");
+    }
+    return Collections.singletonList(key);
+  }
+
+  /**
+   * @return the string key of the concrete parser, e.g. "CheckBoxes". If {@link AbstractFormElementParser#getParserKeys()}
+   * is implemented in subClass, this method is not required.
+   */
+  String getParserKey() {
+    return null;
+  }
 
   /**
    * The parsing process uses two steps:

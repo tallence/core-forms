@@ -17,15 +17,7 @@
 package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
-import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
-import com.tallence.formeditor.cae.elements.ConsentFormCheckBox;
-import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.elements.NumberField;
-import com.tallence.formeditor.cae.elements.RadioButtonGroup;
-import com.tallence.formeditor.cae.elements.SelectBox;
-import com.tallence.formeditor.cae.elements.TextArea;
-import com.tallence.formeditor.cae.elements.TextField;
-import com.tallence.formeditor.cae.elements.TextOnly;
+import com.tallence.formeditor.cae.elements.*;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.junit.Test;
@@ -38,9 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
@@ -73,9 +63,14 @@ public class FormElementFactoryTest {
     TextField formElement = getTestFormElement("TextField");
 
     assertThat(formElement, is(instanceOf(TextField.class)));
+    //123 is too short and does not match the regex validator
     formElement.setValue("123");
-    assertThat(formElement.getValidationResult().size(), is(1));
+    assertThat(formElement.getValidationResult().size(), is(2));
     formElement.setValue("");
+    assertThat(formElement.getValidationResult().size(), is(1));
+
+    //12346 ist not valid, because of the regex validator ("12345")
+    formElement.setValue("12346");
     assertThat(formElement.getValidationResult().size(), is(1));
     formElement.setValue("12345");
     assertTrue(formElement.getValidationResult().isEmpty());
@@ -209,5 +204,19 @@ public class FormElementFactoryTest {
     assertThat(formElement.getHint(), is("Please confirm the %data protection consent form%"));
     assertNotNull(formElement.getLinkTarget());
     assertThat(formElement.getLinkTarget().getContentId(), equalTo(6));
+  }
+
+  @Test
+  public void testZipField() {
+    ZipField formElement = getTestFormElement("ZipFieldTest");
+
+    assertThat(formElement.getHint(), is("Bitte Ihre Postleitzahl eingeben"));
+    assertThat(formElement.getValidator().getRegexp().toString(), equalTo("\\d{5}"));
+
+    //the field is mandatory -> an error without a value
+    assertThat(formElement.getValidationResult().size(), is(1));
+
+    formElement.setValue("22945");
+    assertTrue(formElement.getValidationResult().isEmpty());
   }
 }

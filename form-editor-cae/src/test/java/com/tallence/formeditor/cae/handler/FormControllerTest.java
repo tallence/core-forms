@@ -61,7 +61,9 @@ public class FormControllerTest {
   private static final URI TEST_URL = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
   private static final String FORM_DATA_SERIALIZED =
-      "TestName: 12345<br/>Alter: 18<br/>" +
+      "TestName: 12345<br/>" +
+          "Postleitzahl: 22945<br/>" +
+          "Alter: 18<br/>" +
           "Radio: 12345<br/>RadioOptional: <br/>" +
           "RadioEmptyValidator: <br/>" +
           "CheckBoxes: [12345, ]<br/>" +
@@ -97,6 +99,7 @@ public class FormControllerTest {
         .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
         .param("SelectBox_SelectBoxMandatory", "12345")
         .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
@@ -123,6 +126,7 @@ public class FormControllerTest {
         .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
         .param("SelectBox_SelectBoxMandatory", "12345")
         .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
