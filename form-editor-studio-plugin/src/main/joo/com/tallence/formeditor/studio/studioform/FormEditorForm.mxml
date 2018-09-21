@@ -5,6 +5,7 @@
     xmlns="exml:ext.config"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:formeditor="exml:com.tallence.formeditor.studio.config"
+    xmlns:elements="com.tallence.formeditor.studio.elements.*"
     xmlns:bpforms="exml:com.coremedia.blueprint.studio.config"
     xmlns:media="com.coremedia.blueprint.studio.forms.media.*" xmlns:ui="exml:com.coremedia.ui.config">
   <fx:Metadata>
@@ -12,32 +13,9 @@
     [ResourceBundle('com.tallence.formeditor.studio.bundles.FormEditor')]
   </fx:Metadata>
   <fx:Script><![CDATA[
-    import com.tallence.formeditor.studio.elements.CheckBoxesEditor;
-    import com.tallence.formeditor.studio.elements.ConsentFormCheckBoxEditor;
-    import com.tallence.formeditor.studio.elements.FileUploadEditor;
-    import com.tallence.formeditor.studio.elements.NumberFieldEditor;
-    import com.tallence.formeditor.studio.elements.RadioButtonsEditor;
-    import com.tallence.formeditor.studio.elements.SelectBoxEditor;
-    import com.tallence.formeditor.studio.elements.TextAreaEditor;
-    import com.tallence.formeditor.studio.elements.TextFieldEditor;
-    import com.tallence.formeditor.studio.elements.TextOnlyEditor;
-    import com.tallence.formeditor.studio.elements.UsersMailEditor;
-
     import mx.resources.ResourceManager;
 
     public static const xtype:String = "com.tallence.formeditor.studio.config.formEditorForm";
-    private static const APPLICABALE_FORM_ELEMENTS:Array = [
-      {formElementType: CheckBoxesEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: FileUploadEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: NumberFieldEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: RadioButtonsEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: SelectBoxEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: TextAreaEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: TextFieldEditor.FIELD_TYPE, group: 'single'},
-      {formElementType: UsersMailEditor.FIELD_TYPE, group: 'group'},
-      {formElementType: TextOnlyEditor.FIELD_TYPE, group: 'hint'},
-      {formElementType: ConsentFormCheckBoxEditor.FIELD_TYPE, group: 'single'}
-    ];
     private static const FORM_ACTIONS:Array = [
       {
         id: 'default',
@@ -112,8 +90,35 @@
     </editor:DocumentForm>
     <formeditor:FormEditorDocumentForm bindTo="{config.bindTo}"
                                        forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
-                                       structPropertyName="formData"
-                                       formElements="{APPLICABALE_FORM_ELEMENTS}"/>
+                                       structPropertyName="formData">
+        <formeditor:formElements>
+          <elements:NumberFieldEditor/>
+          <elements:TextAreaEditor/>
+          <elements:TextFieldEditor/>
+          <elements:TextFieldEditor formElementType="ZipField"
+                                    defaultRegexpValidatorValue="{'\\d{5}'}"
+                                    formElementIconCls="tallence-icons tallence-icons--input-city-zip"
+                                    defaultMandatory="{true}"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_zipField')}"/>
+          <elements:TextFieldEditor formElementType="PhoneField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-phone"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_phoneField')}"/>
+          <elements:TextFieldEditor formElementType="FaxField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-fax"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_faxField')}"/>
+          <elements:TextFieldEditor formElementType="StreetNumberField"
+                                    formElementIconCls="tallence-icons tallence-icons--input-street-nr"
+                                    defaultMandatory="{true}"
+                                    defaultName="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_label_element_streetNumberField')}"/>
+          <elements:TextOnlyEditor/>
+          <elements:UsersMailEditor/>
+          <elements:ConsentFormCheckBoxEditor/>
+          <elements:FileUploadEditor/>
+          <elements:SelectBoxEditor/>
+          <elements:CheckBoxesEditor/>
+          <elements:RadioButtonsEditor/>
+        </formeditor:formElements>
+    </formeditor:FormEditorDocumentForm>
     <bpforms:MultiLanguageDocumentForm bindTo="{config.bindTo}"/>
     <media:MetaDataDocumentForm/>
     <editor:DocumentForm title="{resourceManager.getString('com.coremedia.blueprint.studio.BlueprintTabs', 'Tab_system_title')}"

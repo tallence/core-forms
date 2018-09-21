@@ -18,8 +18,10 @@ package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
 import com.coremedia.ui.data.ValueExpression;
 import com.tallence.formeditor.studio.dragdrop.FormElementDroppable;
+import com.tallence.formeditor.studio.elements.FormElement;
 
 import ext.Component;
+import ext.ComponentManager;
 import ext.container.Container;
 import ext.panel.Panel;
 
@@ -52,11 +54,12 @@ public class ApplicableElementsBase extends Container {
       }));
 
       for (var i:Number = 0; i < groupedFormElements[group].length; i++) {
-        var formElementConfig:Object = groupedFormElements[group][i];
+        var formElement:FormElement = groupedFormElements[group][i];
         groupPanel.add(
             new FormElementDroppable(FormElementDroppable({
               width: 200,
-              formElementType: formElementConfig["formElementType"],
+              formElementType: formElement.getFormElementType(),
+              formElementIconCls: formElement.getFormElementIconCls(),
               dragActiveVE: dragActiveVE,
               readOnlyVE: readOnlyVE
             }))
@@ -79,17 +82,17 @@ public class ApplicableElementsBase extends Container {
   }
 
   private static function groupFormElements(formElements:Array):Object {
-    var config:Object = {};
+    var formElement:FormElement;
     var group:String;
     var groupedElements:Object = {};
 
     for (var i:Number = 0; i < formElements.length; i++) {
-      config = formElements[i];
-      group = config["group"];
+      formElement = ComponentManager.create(formElements[i]) as FormElement;
+      group = formElement.getFormElementGroup();
       if (!groupedElements[group]) {
         groupedElements[group] = [];
       }
-      groupedElements[group].push(config);
+      groupedElements[group].push(formElement);
     }
 
     return groupedElements;

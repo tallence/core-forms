@@ -15,25 +15,14 @@
  */
 
 package com.tallence.formeditor.studio.elements {
-import com.coremedia.cms.editor.sdk.editorContext;
-import com.tallence.formeditor.studio.model.FormElementStructWrapper;
-
-import ext.Ext;
-import ext.container.Container;
-
-public class ElementGroupBase extends Container {
-
-  [Bindable]
-  public var formElement:FormElementStructWrapper;
+public class ElementGroupBase extends AbstractFormElement {
 
   protected var multipleDefaultValuesAllowed:Boolean;
 
   public function ElementGroupBase(config:ElementGroupBase = null) {
     super(config);
     multipleDefaultValuesAllowed = config.multipleDefaultValuesAllowed;
-    formElement = config.formElement;
   }
-
 
 /*
   TODO check if multiple defaultValues are set

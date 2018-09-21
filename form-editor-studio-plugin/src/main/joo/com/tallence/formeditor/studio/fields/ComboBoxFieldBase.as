@@ -15,19 +15,10 @@
  */
 
 package com.tallence.formeditor.studio.fields {
-import com.coremedia.ui.data.ValueExpression;
+public class ComboBoxFieldBase extends FormEditorField {
 
-public class NumberFieldBase extends FormEditorField {
-
-  [Bindable]
-  public var defaultValue:Number;
-
-  public function NumberFieldBase(config:NumberField = null) {
+  public function ComboBoxFieldBase(config:TextFieldBase = null) {
     super(config);
-  }
-
-  override protected function initWithDefault(ve:ValueExpression):void {
-    ve.setValue(defaultValue);
   }
 
 }

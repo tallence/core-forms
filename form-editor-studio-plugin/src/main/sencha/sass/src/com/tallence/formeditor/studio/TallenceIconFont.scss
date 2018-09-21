@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'tallence-icon-font';
+  src: url(get-resource-path('fonts/tallencecme.eot'));
+  src: url(get-resource-path('fonts/tallencecme.eot?#iefix')) format('embedded-opentype'),
+  url(get-resource-path('fonts/tallencecme.woff')) format('woff'),
+  url(get-resource-path('fonts/tallencecme.ttf')) format('truetype'),
+  url(get-resource-path('fonts/tallencecme.svg#Nouveau')) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.tallence-icons {
+  font-family: "tallence-icon-font";
+}
+
+.tallence-icons--form:before {
+  content: '\e802';
+}
+
+.tallence-icons--input-text:before {
+  content: '\e823';
+}
+
+.tallence-icons--input-number:before {
+  content: '\e824';
+}
+
+.tallence-icons--input-phone:before {
+  content: '\e825';
+}
+
+.tallence-icons--input-fax:before {
+  content: '\e826';
+}
+
+.tallence-icons--input-mail:before {
+  content: '\e827';
+}
+
+.tallence-icons--input-street-nr:before {
+  content: '\e828';
+}
+
+.tallence-icons--input-city-zip:before {
+  content: '\e829';
+}
+
+.tallence-icons--text-area:before {
+  content: '\e82a';
+}
+
+.tallence-icons--radio-group:before {
+  content: '\e82b';
+}
+
+.tallence-icons--checkbox-group:before {
+  content: '\e82c';
+}
+
+.tallence-icons--select-dropdown:before {
+  content: '\e82d';
+}
+
+.tallence-icons--upload:before {
+  content: '\e82e';
+}
+
+.tallence-icons--confirm:before {
+  content: '\e82f';
+}
+
+.tallence-icons--infotext:before {
+  content: '\e830';
+}

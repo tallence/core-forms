@@ -2,7 +2,8 @@
 <dragdrop:FormElementDroppableBase xmlns:fx="http://ns.adobe.com/mxml/2009"
                                    xmlns="exml:ext.config"
                                    xmlns:exml="http://www.jangaroo.net/exml/0.8"
-                                   xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*">
+                                   xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
+                                   xmlns:ui="com.coremedia.ui.components.*">
   <fx:Script><![CDATA[
     import com.coremedia.ui.data.ValueExpression;
     import com.tallence.formeditor.studio.FormUtils;
@@ -21,6 +22,9 @@
     public var formElementType:String;
 
     [Bindable]
+    public var formElementIconCls:String;
+
+    [Bindable]
     public var readOnlyVE:ValueExpression;
 
     public native function FormElementDroppable(config:FormElementDroppable = null);
@@ -31,13 +35,8 @@
     <Container cls="inner-component forms--applicable-element-container"
                height="24">
       <items>
-        <!-- "cm-draggable-item__dnd" is a class used by blueprint studio styles for draggable items -->
-        <Container cls="cm-draggable-item__dnd"
-                   width="16"/>
-        <Label html="{FormUtils.getConditionTitle(config.formElementType)}"
-               cls="x-form-item-label"
-               flex="1"
-               margin="0 0 0 6px"/>
+        <ui:IconDisplayField iconCls="{config.formElementIconCls}"
+                             value="{FormUtils.getConditionTitle(config.formElementType)}"/>
       </items>
       <layout>
         <layout_HBox align="middle"/>

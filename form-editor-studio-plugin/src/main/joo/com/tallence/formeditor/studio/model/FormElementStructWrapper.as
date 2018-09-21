@@ -25,11 +25,13 @@ public class FormElementStructWrapper {
   private var formElementStruct:StructSubBean;
   private var id:String;
   private var formElementVE:ValueExpression;
+  private var type:String;
 
   public function FormElementStructWrapper(formElementStruct:StructSubBean, id:String, formElementVE:ValueExpression) {
     this.formElementStruct = formElementStruct;
     this.id = id;
     this.formElementVE = formElementVE;
+    this.type = getString(TYPE_PROPERTY);
   }
 
   public function getId():String {
@@ -41,7 +43,7 @@ public class FormElementStructWrapper {
   }
 
   public function getType():String {
-    return getString(TYPE_PROPERTY);
+    return type;
   }
 
   private function getString(propertyName:String):String {

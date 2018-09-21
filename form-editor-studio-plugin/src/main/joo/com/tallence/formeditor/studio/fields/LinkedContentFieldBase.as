@@ -17,16 +17,17 @@
 package com.tallence.formeditor.studio.fields {
 import com.coremedia.cap.common.SESSION;
 import com.coremedia.cap.content.ContentType;
+import com.coremedia.cap.struct.Struct;
 import com.coremedia.cap.struct.StructType;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
-import com.tallence.formeditor.studio.model.FormElementStructWrapper;
 
-import ext.container.Container;
-
-public class LinkedContentFieldBase extends Container {
+public class LinkedContentFieldBase extends FormEditorField {
 
   private var linkTargetVE:ValueExpression;
+
+  [Bindable]
+  public var linkContentType:String;
 
   public function LinkedContentFieldBase(config:LinkedContentField = null) {
     super(config);
@@ -44,20 +45,21 @@ public class LinkedContentFieldBase extends Container {
   protected function getLinkTargetVE(config:LinkedContentField):ValueExpression {
     return ValueExpressionFactory.createFromFunction(function ():* {
       if (!linkTargetVE) {
-        linkTargetVE = config.formElement.getFormElementVE().extendBy(config.propertyname);
-        if (!linkTargetVE.getValue()) {
-          initStruct(config);
-        }
+        linkTargetVE = getPropertyVE(config);
       }
       return new SingleLinkValueExpressionHolder(linkTargetVE);
     });
   }
 
-  private static function initStruct(config:LinkedContentField):void {
-    var formElement:FormElementStructWrapper = config.formElement;
-    var contentType:ContentType = SESSION.getConnection().getContentRepository().getContentType(config.linkContentType);
-    var formElementsStruct:StructType = formElement.getFormElementVE().getValue().getType();
-    formElementsStruct.addLinkListProperty(config.propertyname, contentType);
+  /**
+   * Initializes the struct for the form element and and adds a link list property to the struct. The link list
+   * property field can not automatically add this property.
+   * @param struct
+   */
+  override protected function initStruct(struct:Struct):void {
+    var contentType:ContentType = SESSION.getConnection().getContentRepository().getContentType(linkContentType);
+    var formElementsStruct:StructType = struct.getType();
+    formElementsStruct.addLinkListProperty(propertyName, contentType);
   }
 
 }

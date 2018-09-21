@@ -3,60 +3,41 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns="exml:ext.config"
     xmlns:local="com.tallence.formeditor.studio.elements.*"
-    xmlns:fields="exml:com.tallence.formeditor.studio.config">
-
+    xmlns:fields="exml:com.tallence.formeditor.studio.config"
+    formElementType="{FIELD_TYPE}"
+    formElementIconCls="tallence-icons tallence-icons--checkbox-group"
+    formElementGroup="multiple">
   <fx:Script><![CDATA[
-    import com.coremedia.ui.data.ValueExpression;
-
     public static const xtype:String = "com.tallence.formeditor.studio.elements.checkBoxesEditor";
     public static const FIELD_TYPE:String = "CheckBoxes";
 
     private var config:CheckBoxesEditor;
 
-    [Bindable]
-    public var bindTo:ValueExpression;
-
-    [Bindable]
-    public var forceReadOnlyValueExpression:ValueExpression;
-
     public native function CheckBoxesEditor(config:CheckBoxesEditor = null);
     ]]></fx:Script>
 
   <local:items>
-    <Container cls="content">
-      <items>
-
-        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
-                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
-                          formElement="{config.formElement}"
-                          propertyname="name"
+    <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
+                      emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
+                      formElementStructVE="{getFormElementStructVE()}"
+                      propertyName="name"
+                      bindTo="{config.bindTo}"
+                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+    <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
+                      emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
+                      formElementStructVE="{getFormElementStructVE()}"
+                      propertyName="hint"
+                      bindTo="{config.bindTo}"
+                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+    <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
+                          formElementStructVE="{getFormElementStructVE()}"
+                          propertyName="validator.mandatory"
+                          defaultValue="false"
                           bindTo="{config.bindTo}"
                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-
-        <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
-                          emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
-                          formElement="{config.formElement}"
-                          propertyname="hint"
-                          bindTo="{config.bindTo}"
-                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-
-        <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
-                              formElement="{config.formElement}"
-                              propertyName="validator.mandatory"
-                              defaultValue="false"
-                              bindTo="{config.bindTo}"
-                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-
-        <fields:AddOptionField bindTo="{config.bindTo}"
-                               formElement="{config.formElement}"
-                               forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-      </items>
-      <layout>
-        <layout_Column/>
-      </layout>
-    </Container>
-    <fields:OptionsField bindTo="{config.bindTo}"
-                         formElement="{config.formElement}"
-                         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+    <fields:AddOptionField bindTo="{config.bindTo}"
+                           formElementStructVE="{getFormElementStructVE()}"
+                           propertyName="groupElements"
+                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
   </local:items>
 </local:ElementGroupBase>
