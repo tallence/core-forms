@@ -18,6 +18,7 @@ package com.tallence.formeditor.cae.mocks;
 import com.tallence.formeditor.cae.actions.FormEditorMailAdapter;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +30,7 @@ import java.util.List;
  *
  */
 @Component
+@Primary
 public class MailAdapterMock implements FormEditorMailAdapter {
 
   public String usersFormData;
