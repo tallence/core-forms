@@ -87,7 +87,7 @@ public class TextValidator implements Validator<String> {
   }
 
   public void setRegexp(String regexp) {
-    if (regexp != null) {
+    if (StringUtils.hasText(regexp)) {
       this.regexp = Pattern.compile(regexp);
     } else {
       this.regexp = null;

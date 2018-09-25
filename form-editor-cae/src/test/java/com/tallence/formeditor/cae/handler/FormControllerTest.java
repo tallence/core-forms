@@ -62,7 +62,9 @@ public class FormControllerTest {
   private static final URI TEST_URL = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
   private static final String FORM_DATA_SERIALIZED =
-      "TestName: 12345<br/>Alter: 18<br/>" +
+      "TestName: 12345<br/>" +
+          "Postleitzahl: 22945<br/>" +
+          "Alter: 18<br/>" +
           "Radio: 12345<br/>RadioOptional: <br/>" +
           "RadioEmptyValidator: <br/>" +
           "CheckBoxes: [12345, ]<br/>" +
@@ -98,6 +100,7 @@ public class FormControllerTest {
         .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
         .param("SelectBox_SelectBoxMandatory", "12345")
         .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
@@ -114,7 +117,7 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithFile() throws Exception {
 
-    MockMultipartFile firstFile = new MockMultipartFile("FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
+    MockMultipartFile firstFile = new MockMultipartFile("FileUpload_FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
 
     mvc.perform(fileUpload(TEST_URL)
         .file(firstFile)
@@ -124,6 +127,7 @@ public class FormControllerTest {
         .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
         .param("SelectBox_SelectBoxMandatory", "12345")
         .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
@@ -131,8 +135,8 @@ public class FormControllerTest {
         .andExpect(content().string("{\"success\":true,\"error\":null}"))
         .andDo(MockMvcResultHandlers.print());
 
-    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", storageAdapterMock.formData);
-    assertEquals(FORM_DATA_SERIALIZED + "FileUpload: filename.txt<br/>", mailAdapterMock.usersFormData);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload_FileUpload: filename.txt<br/>", storageAdapterMock.formData);
+    assertEquals(FORM_DATA_SERIALIZED + "FileUpload_FileUpload: filename.txt<br/>", mailAdapterMock.usersFormData);
     assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 

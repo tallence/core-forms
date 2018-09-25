@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.studio.fields {
-import com.coremedia.ui.data.ValueExpression;
+package com.tallence.formeditor.cae.elements;
 
-public class NumberFieldBase extends FormEditorField {
+/**
+ * Model bean for a configured PhoneField.
+ * It extends the {@link TextField} with all possible configuration values -> no extra Parser and Validator and no
+ * extra Template is required for this field.
+ */
+public class PhoneField extends TextField {
 
-  [Bindable]
-  public var defaultValue:Number;
-
-  public function NumberFieldBase(config:NumberField = null) {
-    super(config);
-  }
-
-  override protected function initWithDefault(ve:ValueExpression):void {
-    ve.setValue(defaultValue);
-  }
-
-}
 }

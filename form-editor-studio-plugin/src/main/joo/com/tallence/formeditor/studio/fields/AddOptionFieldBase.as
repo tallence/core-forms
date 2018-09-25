@@ -19,22 +19,19 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.tallence.formeditor.studio.FormUtils;
-import com.tallence.formeditor.studio.model.FormElementStructWrapper;
+import com.tallence.formeditor.studio.model.GroupElementStructWrapper;
 
 import ext.MessageBox;
-import ext.container.Container;
 
-public class AddOptionFieldBase extends Container {
-
-  private static const GROUP_ELEMENTS_STRUCT_NAME:String = "groupElements";
-
-  [Bindable]
-  public var formElement:FormElementStructWrapper;
+public class AddOptionFieldBase extends FormEditorField {
 
   private var addOptionVE:ValueExpression;
+  private var formElementsStruct:Struct;
+  private var groupElementStructName:String;
 
   public function AddOptionFieldBase(config:AddOptionField = null) {
     super(config);
+    groupElementStructName = config.propertyName;
   }
 
   public function addGroupElement():void {
@@ -42,12 +39,10 @@ public class AddOptionFieldBase extends Container {
     var newOptionText:String = addOptionVE.getValue();
     if (newOptionText) {
 
-      var formElementsStruct:Struct = getFormElementsStruct(formElement);
-      if (!formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME)) {
-        formElementsStruct.getType().addStructProperty(GROUP_ELEMENTS_STRUCT_NAME)
+      if (!formElementsStruct.get(groupElementStructName)) {
+        formElementsStruct.getType().addStructProperty(groupElementStructName)
       }
-
-      var groupElements:Struct = formElementsStruct.get(GROUP_ELEMENTS_STRUCT_NAME);
+      var groupElements:Struct = formElementsStruct.get(groupElementStructName);
       groupElements.getType().addStructProperty(newOptionText);
 
       //Reset the textField for the new GroupElement's name
@@ -59,8 +54,11 @@ public class AddOptionFieldBase extends Container {
     }
   }
 
-  private static function getFormElementsStruct(formElement:FormElementStructWrapper):Struct {
-    return formElement.getFormElementVE().getValue();
+  override protected function initStruct(struct:Struct):void {
+    formElementsStruct = struct;
+    if (!formElementsStruct.get(groupElementStructName)) {
+      formElementsStruct.getType().addStructProperty(groupElementStructName)
+    }
   }
 
   public function getAddOptionVE():ValueExpression {
@@ -68,6 +66,26 @@ public class AddOptionFieldBase extends Container {
       addOptionVE = ValueExpressionFactory.createFromValue("");
     }
     return addOptionVE;
+  }
+
+  public function getGroupElementsVE(config:FormEditorField):ValueExpression {
+    return ValueExpressionFactory.createFromFunction(function ():Array {
+      var groupsVE:ValueExpression = getPropertyVE(config);
+      if (groupsVE.getValue()) {
+        var groupElementStruct:Struct = groupsVE.getValue();
+        return groupElementStruct.getType().getPropertyNames().map(function (name:String):GroupElementStructWrapper {
+          return new GroupElementStructWrapper(groupsVE.extendBy(name), name);
+        });
+      } else {
+        return undefined;
+      }
+    });
+  }
+
+  public function removeGroupElement(value:String):void {
+    var groupElementsList:Struct = formElementsStruct.get(groupElementStructName);
+    groupElementsList.getType().removeProperty(value);
+    FormUtils.reloadPreview();
   }
 
 }

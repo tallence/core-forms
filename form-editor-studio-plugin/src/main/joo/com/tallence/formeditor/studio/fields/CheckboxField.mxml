@@ -3,44 +3,33 @@
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns="exml:ext.config"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns:ui="exml:com.coremedia.ui.config" xmlns:fields="com.tallence.formeditor.studio.fields.*"
-    margin="10 0 0 0"
-    width="100%">
+    xmlns:ui="exml:com.coremedia.ui.config"
+    xmlns:fields="com.tallence.formeditor.studio.fields.*">
 
   <fx:Script><![CDATA[
-    import com.coremedia.ui.data.ValueExpression;
-    import com.tallence.formeditor.studio.model.FormElementStructWrapper;
-
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.checkboxField";
 
     private var config:CheckboxField;
-
-    [Bindable]
-    public var formElement:FormElementStructWrapper;
-
-    [Bindable]
-    public var bindTo:ValueExpression;
-
-    [Bindable]
-    public var forceReadOnlyValueExpression:ValueExpression;
-
-    [Bindable]
-    public var propertyName:String;
-
-    [Bindable]
-    public var defaultValue:Boolean;
 
     public native function CheckboxField(config:CheckboxField = null);
     ]]>
     </fx:Script>
 
-  <fields:plugins>
-    <ui:BindPropertyPlugin bidirectional="true"
-                           skipIfUndefined="true"
-                           bindTo="{getBooleanVE(config)}"/>
-    <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-  </fields:plugins>
-
+  <fields:items>
+    <FieldContainer fieldLabel="{config.fieldLabel}">
+      <items>
+        <Checkbox>
+          <plugins>
+            <!-- a checkbox cannot be set to undefined, so skipIfUndefined is set to true -->
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
+                                   bindTo="{getPropertyVE(config)}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </plugins>
+        </Checkbox>
+      </items>
+    </FieldContainer>
+  </fields:items>
 
 </fields:CheckboxFieldBase>

@@ -17,21 +17,17 @@
 package com.tallence.formeditor.studio.fields {
 import com.coremedia.ui.data.ValueExpression;
 
-import ext.form.field.Checkbox;
+public class CheckboxFieldBase extends FormEditorField {
 
-public class CheckboxFieldBase extends Checkbox {
-
-  private var booleanVE:ValueExpression;
+  [Bindable]
+  public var defaultValue:Boolean = false;
 
   public function CheckboxFieldBase(config:CheckboxField = null) {
     super(config);
   }
 
-  protected function getBooleanVE(config:CheckboxField):ValueExpression {
-    if (!booleanVE) {
-      booleanVE = config.formElement.getFormElementVE().extendBy(config.propertyName);
-    }
-    return booleanVE;
+  override protected function initWithDefault(ve:ValueExpression):void {
+    ve.setValue(defaultValue);
   }
 
 }

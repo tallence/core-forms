@@ -30,6 +30,11 @@
     [Bindable]
     public var structPropertyName:String;
 
+    // called by generated constructor code
+    private function __initialize__(config:FormEditorDocumentForm):void {
+      initReusableComponents(config.formElements);
+    }
+
     public native function FormEditorDocumentForm(config:FormEditorDocumentForm = null);
     ]]>
     </fx:Script>

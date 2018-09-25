@@ -6,7 +6,6 @@
     xmlns:exml="http://www.jangaroo.net/exml/0.8"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
-    xmlns:elements="com.tallence.formeditor.studio.elements.*"
     xmlns:local="com.tallence.formeditor.studio.*"
     xmlns:ui="exml:com.coremedia.ui.config">
 
@@ -37,10 +36,8 @@
                                bindTo="{config.formElement.getFormElementVE().extendBy('name')}"/>
       </editor:plugins>
       <editor:items>
-        <elements:FormElementFormDispatcher bindTo="{config.bindTo}"
-                                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
-                                            formElement="{config.formElement}"
-                                            formElementsManager="{config.formElementsManager}"/>
+        <!-- The form element editor is added dynamically bye the
+        {@link com.coremedia.ui.util.IReusableComponentsService} -->
       </editor:items>
       <editor:header>
         <Header titlePosition="2.0"
