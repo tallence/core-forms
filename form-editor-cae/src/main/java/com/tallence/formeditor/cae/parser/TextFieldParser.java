@@ -17,8 +17,7 @@
 package com.tallence.formeditor.cae.parser;
 
 import com.coremedia.cap.struct.Struct;
-import com.tallence.formeditor.cae.elements.TextField;
-import com.tallence.formeditor.cae.elements.ZipField;
+import com.tallence.formeditor.cae.elements.*;
 import com.tallence.formeditor.cae.validator.TextValidator;
 import org.springframework.stereotype.Component;
 
@@ -50,11 +49,11 @@ public class TextFieldParser extends AbstractFormElementParser<TextField> {
       case KEY_ZIP_FIELD:
         return new ZipField();
       case KEY_PHONE_FIELD:
-        return new ZipField();
+        return new PhoneField();
       case KEY_FAX_FIELD:
-        return new ZipField();
+        return new FaxField();
       case KEY_STREET_NUMBER_FIELD:
-        return new ZipField();
+        return new StreetNumberField();
       default:
         throw new IllegalStateException("Cannot instantiate a field for type " + type);
     }
