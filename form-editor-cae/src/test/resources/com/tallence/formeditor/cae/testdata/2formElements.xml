@@ -31,6 +31,27 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="PhoneFieldTest">
+        <Struct>
+          <StringProperty Name="type">PhoneField</StringProperty>
+          <StringProperty Name="name">Phone</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="FaxFieldTest">
+        <Struct>
+          <StringProperty Name="type">FaxField</StringProperty>
+          <StringProperty Name="name">Fax</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="StreetFieldTest">
+        <Struct>
+          <StringProperty Name="type">StreetNumberField</StringProperty>
+          <StringProperty Name="name">Street and number</StringProperty>
+        </Struct>
+      </StructProperty>
+
       <StructProperty Name="NumberField">
         <Struct>
           <StringProperty Name="type">NumberField</StringProperty>

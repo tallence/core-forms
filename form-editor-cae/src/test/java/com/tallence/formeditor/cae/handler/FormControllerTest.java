@@ -63,6 +63,9 @@ public class FormControllerTest {
   private static final String FORM_DATA_SERIALIZED =
       "TestName: 12345<br/>" +
           "Postleitzahl: 22945<br/>" +
+          "Phone: <br/>" +
+          "Fax: <br/>" +
+          "Street and number: <br/>" +
           "Alter: 18<br/>" +
           "Radio: 12345<br/>RadioOptional: <br/>" +
           "RadioEmptyValidator: <br/>" +

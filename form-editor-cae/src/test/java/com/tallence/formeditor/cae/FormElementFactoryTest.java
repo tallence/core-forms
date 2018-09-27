@@ -219,4 +219,22 @@ public class FormElementFactoryTest {
     formElement.setValue("22945");
     assertTrue(formElement.getValidationResult().isEmpty());
   }
+
+  @Test
+  public void testPhoneField() {
+    PhoneField formElement = getTestFormElement("PhoneFieldTest");
+    assertEquals(formElement.getName(), "Phone");
+  }
+
+  @Test
+  public void testFaxField() {
+    FaxField formElement = getTestFormElement("FaxFieldTest");
+    assertEquals(formElement.getName(), "Fax");
+  }
+
+  @Test
+  public void testStreetNumberField() {
+    StreetNumberField formElement = getTestFormElement("StreetFieldTest");
+    assertEquals(formElement.getName(), "Street and number");
+  }
 }
