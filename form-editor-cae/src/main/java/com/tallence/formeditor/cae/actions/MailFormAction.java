@@ -55,7 +55,7 @@ public class MailFormAction extends AbstractFormAction {
 
     if (!files.isEmpty()) {
       throw new IllegalStateException("A MailAction is not responsible for forms with file upload fields. " +
-        "A studio validator should take care of this: de.hamburg.studio.rest.validators.FormActionValidator");
+        "A studio validator should take care of this: com.tallence.formeditor.studio.validator.FormActionValidator");
     }
 
     String formData = serializeFormElements(target, formElements, files);

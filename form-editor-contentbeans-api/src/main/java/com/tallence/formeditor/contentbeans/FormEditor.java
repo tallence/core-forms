@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * ContentBean for JH specific Products.
+ * ContentBean for Form Configuration documents.
  *
  */
 public interface FormEditor extends CMTeasable {
