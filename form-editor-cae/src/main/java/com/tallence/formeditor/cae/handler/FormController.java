@@ -27,16 +27,15 @@ import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -46,6 +45,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.tallence.formeditor.cae.handler.FormErrors.RECAPTCHA;
 import static com.tallence.formeditor.cae.handler.FormErrors.SERVER_VALIDATION;
@@ -62,30 +62,34 @@ public class FormController {
 
   private static final String FORMS_ROOT_URL_SEGMENT = "/dynamic/forms";
 
-  private static final String PROCESS_SOCIAL_FORM_VIEW = "formEditorSubmit";
-  static final String PROCESS_SOCIAL_FORM = FORMS_ROOT_URL_SEGMENT + "/" + PROCESS_SOCIAL_FORM_VIEW + "/{currentContext}/{target}";
+  private static final String FORM_EDITOR_SUBMIT_VIEW = "formEditorSubmit";
+  static final String FORM_EDITOR_SUBMIT_URL = FORMS_ROOT_URL_SEGMENT + "/" + FORM_EDITOR_SUBMIT_VIEW + "/{currentContext}/{target}";
 
   private final List<FormAction> formActions;
   private final DefaultFormAction defaultFormAction;
   private final ReCaptchaService recaptchaService;
   private final FormFreemarkerFacade formFreemarkerFacade;
   private final CurrentContextService currentContextService;
+  private final boolean encodeFormData;
 
-  public FormController(List<FormAction> formActions, DefaultFormAction defaultFormAction, ReCaptchaService recaptchaService, FormFreemarkerFacade formFreemarkerFacade, CurrentContextService currentContextService) {
+  public FormController(List<FormAction> formActions, DefaultFormAction defaultFormAction, ReCaptchaService recaptchaService,
+                        FormFreemarkerFacade formFreemarkerFacade, CurrentContextService currentContextService,
+                        @Value("${formEditor.cae.encodeData:true}") boolean encodeFormData) {
     this.formActions = formActions;
     this.defaultFormAction = defaultFormAction;
     this.recaptchaService = recaptchaService;
     this.formFreemarkerFacade = formFreemarkerFacade;
     this.currentContextService = currentContextService;
+    this.encodeFormData = encodeFormData;
   }
 
-  @Link (type = FormEditor.class, view = PROCESS_SOCIAL_FORM_VIEW, uri = PROCESS_SOCIAL_FORM)
+  @Link (type = FormEditor.class, view = FORM_EDITOR_SUBMIT_VIEW, uri = FORM_EDITOR_SUBMIT_URL)
   public UriComponents buildLinkForSocialForm(FormEditor form, UriComponentsBuilder uriComponentsBuilder) {
     return uriComponentsBuilder.buildAndExpand(currentContextService.getContext().getContentId(), form.getContentId());
   }
 
   @ResponseBody
-  @RequestMapping(value = PROCESS_SOCIAL_FORM, method = RequestMethod.POST)
+  @RequestMapping(value = FORM_EDITOR_SUBMIT_URL, method = RequestMethod.POST)
   public FormProcessingResult socialFormAction(@PathVariable CMChannel currentContext,
                                                @PathVariable FormEditor target,
                                                @RequestParam MultiValueMap<String, String> postData,
@@ -114,6 +118,18 @@ public class FormController {
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return new FormProcessingResult(false, RECAPTCHA);
       }
+    }
+
+    //If not disabled by property, encode the formData before serializing. This might cause field values with length
+    // greater than configured in the field's validator.max!
+    //The encoding does not happen before the validation, because escaped inputs are longer and might cause a validation
+    // failure, which does not match the frontend-validation behaviour.
+    if (encodeFormData) {
+      //Html-escape the input data to prevent security issues
+      MultiValueMap<String, String> escapedPostData = new LinkedMultiValueMap<>();
+      postData.forEach((key, value) ->
+          escapedPostData.put(key, value.stream().map(HtmlUtils::htmlEscape).collect(Collectors.toList())));
+      parseFormData(target, escapedPostData, request, formElements, files);
     }
 
     //Default for an empty actionKey: the DefaultAction

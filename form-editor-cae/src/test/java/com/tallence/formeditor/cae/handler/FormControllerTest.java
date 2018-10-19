@@ -31,11 +31,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 
-import static com.tallence.formeditor.cae.handler.FormController.PROCESS_SOCIAL_FORM;
+import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -58,7 +59,7 @@ public class FormControllerTest {
   private MailAdapterMock mailAdapterMock;
 
   private MockMvc mvc;
-  private static final URI TEST_URL = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "2").toUri();
+  private static final URI TEST_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("6", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
   private static final String FORM_DATA_SERIALIZED =
       "TestName: 12345<br/>" +
@@ -116,6 +117,31 @@ public class FormControllerTest {
 
   }
 
+
+  @Test
+  public void testValidPostWithJavascript() throws Exception {
+
+    mvc.perform(fileUpload(TEST_URL)
+        .param("TextField_TextField", "12345")
+        .param("NumberField_NumberField", "18")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
+        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("TextArea_TextArea", "<script>")
+        .param("ZipField_ZipFieldTest", "22945")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
+    )
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andDo(MockMvcResultHandlers.print());
+
+    assertTrue(storageAdapterMock.formData.contains("TextArea"));
+    assertTrue(storageAdapterMock.formData.contains(HtmlUtils.htmlEscape("<script>")));
+    assertFalse(storageAdapterMock.formData.contains("<script>"));
+
+  }
+
   @Test
   public void testValidPostWithFile() throws Exception {
 
@@ -145,7 +171,7 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithMailAction() throws Exception {
 
-    URI mailTestUrl = UriComponentsBuilder.fromUriString(PROCESS_SOCIAL_FORM).buildAndExpand("6", "4").toUri();
+    URI mailTestUrl = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("6", "4").toUri();
 
     mvc.perform(post(mailTestUrl)
         .param("TextArea_TextArea", "ist Text")
