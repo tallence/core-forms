@@ -42,7 +42,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -98,8 +98,7 @@ public class FormController {
 
     List<FormElement> formElements = getFormElements(target);
 
-    List<MultipartFile> files = new ArrayList<>();
-    parseFormData(target, postData, request, formElements, files);
+    parseInputFormData(postData, request, formElements);
 
     //After all values are set: handle validationResult
     for (FormElement<?> formElement : formElements) {
@@ -129,8 +128,10 @@ public class FormController {
       MultiValueMap<String, String> escapedPostData = new LinkedMultiValueMap<>();
       postData.forEach((key, value) ->
           escapedPostData.put(key, value.stream().map(HtmlUtils::htmlEscape).collect(Collectors.toList())));
-      parseFormData(target, escapedPostData, request, formElements, files);
+      parseInputFormData(escapedPostData, request, formElements);
     }
+
+    List<MultipartFile> files = parseFileFormData(target, request, formElements);
 
     //Default for an empty actionKey: the DefaultAction
     String actionKey = target.getFormAction();
@@ -158,24 +159,33 @@ public class FormController {
   }
 
 
-  private void parseFormData(FormEditor target, MultiValueMap<String, String> postData, HttpServletRequest request,
-                             List<FormElement> formElements, List<MultipartFile> files) {
-    for (FormElement formElement : formElements) {
-      //Special Handling for FileUploads
-      if (formElement instanceof FileUpload) {
-        if (!(request instanceof MultipartHttpServletRequest)) {
-          throw new IllegalStateException(
-              "Request is no instance of org.springframework.web.multipart.MultipartHttpServletRequest, cannot handle MultipartFile Upload for form " +
-                  target.getContentId());
-        }
-        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
-        MultipartFile file = multipartHttpServletRequest.getFile(formElement.getTechnicalName());
-        ((FileUpload) formElement).setValue(file);
-        files.add(file);
-      } else {
-        formElement.setValue(postData, request);
+  private void parseInputFormData(MultiValueMap<String, String> postData, HttpServletRequest request,
+                                  List<FormElement> formElements) {
+    formElements.stream().filter(f -> !(f instanceof FileUpload))
+        .forEach(f -> f.setValue(postData, request));
+  }
+
+
+  private List<MultipartFile> parseFileFormData(FormEditor target, HttpServletRequest request, List<FormElement> formElements) {
+
+    List<FormElement> fileFields = formElements.stream().filter(e -> e instanceof FileUpload).collect(Collectors.toList());
+    if (!fileFields.isEmpty()) {
+      if (!(request instanceof MultipartHttpServletRequest)) {
+        throw new IllegalStateException(
+            "Request is no instance of org.springframework.web.multipart.MultipartHttpServletRequest, cannot handle MultipartFile Upload for form " +
+                target.getContentId());
       }
+      MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+      return fileFields.stream().map(e -> processFileInput(multipartRequest, e)).collect(Collectors.toList());
+    } else {
+      return Collections.emptyList();
     }
+  }
+
+  private MultipartFile processFileInput(MultipartHttpServletRequest multipartRequest, FormElement e) {
+    MultipartFile file = multipartRequest.getFile(e.getTechnicalName());
+    ((FileUpload) e).setValue(file);
+    return file;
   }
 
 
