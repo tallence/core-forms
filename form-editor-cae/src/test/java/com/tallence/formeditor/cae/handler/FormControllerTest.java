@@ -36,7 +36,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 import static com.tallence.formeditor.cae.handler.FormController.PROCESS_SOCIAL_FORM;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;

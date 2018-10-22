@@ -1,71 +1,366 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.coremedia.com/2010/content">
-<type name="FormEditor">
-  <property name="formData" type="markup" grammar="coremedia-struct-2008"/>
-  <property name="adminMails" type="string" length="512" encodedLength="1536"/>
-  <property name="formAction" type="string" length="512" encodedLength="1536"/>
-  <property name="spamProtectionEnabled" type="int"/>
-</type>
-<type name="CMChannel" parent="CMContext">
-  <property name="master" type="link" linkType="CMChannel" maxCardinality="1"/>
-  <property name="picture" type="blob" contentType="image/*"/>
-  <property name="header" type="link" linkType="CMLinkable"/>
-  <property name="footer" type="link" linkType="CMLinkable"/>
-</type>
-<type name="CMContext" abstract="true" parent="CMNavigation">
-  <property name="master" type="link" linkType="CMContext" maxCardinality="1"/>
-</type>
-<type name="CMNavigation" abstract="true" parent="CMTeasable">
-  <property name="master" type="link" linkType="CMNavigation" maxCardinality="1"/>
-  <property name="children" type="link" linkType="CMLinkable"/>
-  <property name="hidden" type="int"/>
-  <property name="hiddenInSitemap" type="int"/>
-  <property name="javaScript" type="link" linkType="CMJavaScript"/>
-  <property name="css" type="link" linkType="CMCSS"/>
-  <property name="favicon" type="blob" contentType="image/x-icon"/>
-  <property name="placement" type="markup" grammar="coremedia-struct-2008"/>
-  <property name="theme" type="link" linkType="CMTheme" maxCardinality="1"/>
-</type>
-<type name="CMTeasable" abstract="true" parent="CMHasContexts">
-  <property name="master" type="link" linkType="CMTeasable" maxCardinality="1"/>
-  <property name="teaserTitle" type="string" length="512" encodedLength="1536"/>
-  <property name="teaserText" type="markup" grammar="coremedia-richtext-1.0"/>
-  <property name="detailText" type="markup" grammar="coremedia-richtext-1.0"/>
-  <property name="pictures" type="link" linkType="CMMedia"/>
-  <property name="notSearchable" type="int"/>
-  <property name="related" type="link" linkType="CMTeasable"/>
-</type>
-<type name="CMHasContexts" abstract="true" parent="CMLinkable">
-  <property name="master" type="link" linkType="CMHasContexts" maxCardinality="1"/>
-  <property name="contexts" type="link" linkType="CMContext"/>
-</type>
-<type name="CMLinkable" abstract="true" parent="CMLocalized">
-  <property name="master" type="link" linkType="CMLinkable" maxCardinality="1"/>
-  <property name="viewtype" type="link" linkType="CMViewtype" maxCardinality="1"/>
-  <property name="localSettings" type="markup" grammar="coremedia-struct-2008"/>
-  <property name="linkedSettings" type="link" linkType="CMSettings"/>
-  <property name="validFrom" type="date"/>
-  <property name="validTo" type="date"/>
-  <property name="extDisplayedDate" type="date"/>
-  <property name="segment" type="string" length="64" encodedLength="192"/>
-  <property name="title" type="string" length="512" encodedLength="1536"/>
-  <property name="htmlTitle" type="string" length="128" encodedLength="384"/>
-  <property name="keywords" type="string" length="1024" encodedLength="3072"/>
-  <property name="htmlDescription" type="string" length="512" encodedLength="1536"/>
-  <property name="subjectTaxonomy" type="link" linkType="CMTaxonomy"/>
-  <property name="locationTaxonomy" type="link" linkType="CMLocTaxonomy"/>
-  <property name="resourceBundles2" type="link" linkType="CMResourceBundle"/>
-</type>
-<type name="CMLocalized" abstract="true" parent="CMObject">
-  <property name="locale" type="string" length="64" encodedLength="192"/>
-  <property name="master" type="link" linkType="CMLocalized" maxCardinality="1"/>
-  <property name="masterVersion" type="int"/>
-</type>
-<type name="CMObject" abstract="true"/>
-<type name="CMTeaser" parent="CMTeasable">
-  <property name="master" type="link" linkType="CMTeaser" maxCardinality="1"/>
-  <property name="target" type="link" linkType="CMLinkable" maxCardinality="1"/>
-</type>
-<grammar name="coremedia-richtext-1.0" root="div" systemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
-<grammar name="coremedia-struct-2008" root="div" systemId="classpath:xml/coremedia-struct-2008.xsd"/>
-<schema name="coremedia-preferences" location="classpath:xml/coremedia-preferences.dtd"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.coremedia.com/2010/content">
+  <type name="FormEditor">
+    <property name="formData" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="adminMails" type="string" length="512" encodedLength="1536"/>
+    <property name="formAction" type="string" length="512" encodedLength="1536"/>
+    <property name="spamProtectionEnabled" type="int"/>
+  </type>
+  <type name="AMAsset" abstract="true">
+    <property name="original" type="blob" contentType="*/*"/>
+    <property name="thumbnail" type="blob" contentType="image/*"/>
+    <property name="state" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="metadata" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="keywords" type="string" length="1024" encodedLength="3072"/>
+    <property name="subjectTaxonomy" type="link" linkType="CMTaxonomy"/>
+    <property name="locationTaxonomy" type="link" linkType="CMLocTaxonomy"/>
+    <property name="assetTaxonomy" type="link" linkType="AMTaxonomy"/>
+  </type>
+  <type name="AMDocumentAsset" parent="AMAsset">
+    <property name="download" type="blob" contentType="*/*"/>
+  </type>
+  <type name="AMPictureAsset" parent="AMAsset">
+    <property name="web" type="blob" contentType="image/*"/>
+    <property name="print" type="blob" contentType="image/*"/>
+  </type>
+  <type name="AMTaxonomy" parent="CMTaxonomy">
+    <property name="assetThumbnail" type="link" linkType="AMAsset" maxCardinality="1"/>
+  </type>
+  <type name="AMVideoAsset" parent="AMAsset">
+    <property name="web" type="blob" contentType="video/*"/>
+  </type>
+  <type name="CMALXBaseList" abstract="true" parent="CMDynamicList">
+    <property name="timeRange" type="int"/>
+    <property name="analyticsProvider" type="string" length="64" encodedLength="192"/>
+  </type>
+  <type name="CMALXEventList" parent="CMALXBaseList">
+    <property name="master" type="link" linkType="CMALXEventList" maxCardinality="1"/>
+    <property name="category" type="string" length="512" encodedLength="1536"/>
+    <property name="action" type="string" length="512" encodedLength="1536"/>
+  </type>
+  <type name="CMALXPageList" parent="CMALXBaseList">
+    <property name="master" type="link" linkType="CMALXPageList" maxCardinality="1"/>
+    <property name="documentType" type="string" length="256" encodedLength="768"/>
+    <property name="baseChannel" type="link" linkType="CMNavigation" maxCardinality="1"/>
+    <property name="defaultContent" type="link" linkType="CMTeasable"/>
+  </type>
+  <type name="CMAbstractCategory" abstract="true" parent="CMChannel">
+    <property name="pdpPagegrid" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="CMAbstractCode" abstract="true" parent="CMLocalized">
+    <property name="master" type="link" linkType="CMAbstractCode" maxCardinality="1"/>
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+    <property name="code" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="ieExpression" type="string" length="64" encodedLength="192"/>
+    <property name="ieRevealed" type="int"/>
+    <property name="include" type="link" linkType="CMAbstractCode"/>
+    <property name="dataUrl" type="string" length="1024" encodedLength="3072"/>
+    <property name="disableCompress" type="int"/>
+  </type>
+  <type name="CMAction" parent="CMPlaceholder">
+    <property name="type" type="string" length="512" encodedLength="1536"/>
+    <property name="master" type="link" linkType="CMAction" maxCardinality="1"/>
+  </type>
+  <type name="CMArticle" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMArticle" maxCardinality="1"/>
+  </type>
+  <type name="CMAudio" parent="CMMedia">
+    <property name="master" type="link" linkType="CMAudio" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="audio/*"/>
+    <property name="dataUrl" type="string" length="1024" encodedLength="3072"/>
+  </type>
+  <type name="CMCSS" parent="CMAbstractCode">
+    <property name="master" type="link" linkType="CMCSS" maxCardinality="1"/>
+    <property name="media" type="string" length="64" encodedLength="192"/>
+    <property name="include" type="link" linkType="CMCSS"/>
+  </type>
+  <type name="CMCategory" parent="CMAbstractCategory">
+    <property name="master" type="link" linkType="CMCategory" maxCardinality="1"/>
+    <property name="categoryName" type="string" length="256" encodedLength="768"/>
+    <property name="displayName" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMChannel" parent="CMContext">
+    <property name="master" type="link" linkType="CMChannel" maxCardinality="1"/>
+    <property name="picture" type="blob" contentType="image/*"/>
+    <property name="header" type="link" linkType="CMLinkable"/>
+    <property name="footer" type="link" linkType="CMLinkable"/>
+  </type>
+  <type name="CMCollection" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMCollection" maxCardinality="1"/>
+    <property name="items" type="link" linkType="CMTeasable"/>
+    <property name="extendedItems" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="CMContext" abstract="true" parent="CMNavigation">
+    <property name="master" type="link" linkType="CMContext" maxCardinality="1"/>
+  </type>
+  <type name="CMDownload" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMDownload" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="*/*"/>
+    <property name="filename" type="string" Length="128"/>
+  </type>
+  <type name="CMDynamicList" abstract="true" parent="CMCollection">
+    <property name="maxLength" type="int"/>
+  </type>
+  <type name="CMExternalChannel" parent="CMAbstractCategory">
+    <property name="master" type="link" linkType="CMExternalChannel" maxCardinality="1"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMExternalProduct" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMExternalProduct" maxCardinality="1"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+    <property name="pdpPagegrid" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="CMExternalLink" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMExternalLink" maxCardinality="1"/>
+    <property name="url" type="string" length="1024" encodedLength="3072"/>
+  </type>
+  <type name="CMExternalPage" parent="CMChannel">
+    <property name="master" type="link" linkType="CMExternalPage" maxCardinality="1"/>
+    <property name="externalUriPath" type="string" length="256" encodedLength="768"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMFolderProperties" parent="CMLocalized">
+    <property name="contexts" type="link" linkType="CMContext"/>
+    <property name="master" type="link" linkType="CMFolderProperties" maxCardinality="1"/>
+  </type>
+  <type name="CMGallery" parent="CMCollection">
+    <property name="master" type="link" linkType="CMGallery" maxCardinality="1"/>
+    <property name="items" type="link" linkType="CMMedia"/>
+  </type>
+  <type name="CMHTML" parent="CMMedia">
+    <property name="master" type="link" linkType="CMHTML" maxCardinality="1"/>
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+    <property name="data" type="markup" grammar="coremedia-richtext-1.0"/>
+  </type>
+  <type name="CMHasContexts" abstract="true" parent="CMLinkable">
+    <property name="master" type="link" linkType="CMHasContexts" maxCardinality="1"/>
+    <property name="contexts" type="link" linkType="CMContext"/>
+  </type>
+  <type name="CMImage" parent="CMLocalized">
+    <property name="master" type="link" linkType="CMImage" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="*/*"/>
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+  </type>
+  <type name="CMImageMap" parent="CMTeaser"/>
+  <type name="CMInteractive" parent="CMVisual">
+    <property name="master" type="link" linkType="CMInteractive" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="application/*"/>
+  </type>
+  <type name="CMJavaScript" parent="CMAbstractCode">
+    <property name="master" type="link" linkType="CMJavaScript" maxCardinality="1"/>
+    <property name="inHead" type="int"/>
+    <property name="include" type="link" linkType="CMJavaScript"/>
+  </type>
+  <type name="CMTheme" parent="CMLocalized">
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+    <property name="icon" type="blob" contentType="image/*"/>
+    <property name="master" type="link" linkType="CMTheme" maxCardinality="1"/>
+    <property name="detailText" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="javaScriptLibs" type="link" linkType="CMJavaScript"/>
+    <property name="javaScripts" type="link" linkType="CMJavaScript"/>
+    <property name="css" type="link" linkType="CMCSS"/>
+    <property name="viewRepositoryName" type="string" length="128" encodedLength="384"/>
+    <property name="localSettings" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="linkedSettings" type="link" linkType="CMSettings"/>
+    <property name="resourceBundles" type="link" linkType="CMResourceBundle"/>
+    <property name="templateSets" type="link" linkType="CMTemplateSet"/>
+  </type>
+  <type name="CMLinkable" abstract="true" parent="CMLocalized">
+    <property name="master" type="link" linkType="CMLinkable" maxCardinality="1"/>
+    <property name="viewtype" type="link" linkType="CMViewtype" maxCardinality="1"/>
+    <property name="localSettings" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="linkedSettings" type="link" linkType="CMSettings"/>
+    <property name="validFrom" type="date"/>
+    <property name="validTo" type="date"/>
+    <property name="extDisplayedDate" type="date"/>
+    <property name="segment" type="string" length="64" encodedLength="192"/>
+    <property name="title" type="string" length="512" encodedLength="1536"/>
+    <property name="htmlTitle" type="string" length="128" encodedLength="384"/>
+    <property name="keywords" type="string" length="1024" encodedLength="3072"/>
+    <property name="htmlDescription" type="string" length="512" encodedLength="1536"/>
+    <property name="subjectTaxonomy" type="link" linkType="CMTaxonomy"/>
+    <property name="locationTaxonomy" type="link" linkType="CMLocTaxonomy"/>
+    <property name="resourceBundles2" type="link" linkType="CMResourceBundle"/>
+  </type>
+  <type name="CMLocTaxonomy" parent="CMTaxonomy">
+    <property name="postcode" type="string" length="10" encodedLength="30"/>
+    <property name="latitudeLongitude" type="string" length="100" encodedLength="300"/>
+    <property name="children" type="link" linkType="CMLocTaxonomy"/>
+  </type>
+  <type name="CMLocalized" abstract="true" parent="CMObject">
+    <property name="locale" type="string" length="64" encodedLength="192"/>
+    <property name="master" type="link" linkType="CMLocalized" maxCardinality="1"/>
+    <property name="masterVersion" type="int"/>
+  </type>
+  <type name="CMMail" parent="CMHasContexts">
+    <property name="master" type="link" linkType="CMMail" maxCardinality="1"/>
+    <property name="subject" type="string" length="255" encodedLength="765"/>
+    <property name="from" type="string" length="255" encodedLength="765"/>
+    <property name="text" type="blob" contentType="text/plain"/>
+    <property name="contentType" type="string" length="255" encodedLength="765"/>
+  </type>
+  <type name="CMMarketingSpot" parent="CMDynamicList">
+    <property name="master" type="link" linkType="CMMarketingSpot" maxCardinality="1"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMProductList" parent="CMDynamicList">
+    <property name="master" type="link" linkType="CMProductList" maxCardinality="1"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMMedia" abstract="true" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMMedia" maxCardinality="1"/>
+    <property name="caption" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="alt" type="string" length="128" encodedLength="384"/>
+    <property name="copyright" type="string" length="128" encodedLength="384"/>
+  </type>
+  <type name="CMNavigation" abstract="true" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMNavigation" maxCardinality="1"/>
+    <property name="children" type="link" linkType="CMLinkable"/>
+    <property name="hidden" type="int"/>
+    <property name="hiddenInSitemap" type="int"/>
+    <property name="javaScript" type="link" linkType="CMJavaScript"/>
+    <property name="css" type="link" linkType="CMCSS"/>
+    <property name="favicon" type="blob" contentType="image/x-icon"/>
+    <property name="placement" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="theme" type="link" linkType="CMTheme" maxCardinality="1"/>
+  </type>
+  <type name="CMObject" abstract="true"/>
+  <type name="CMP13NSearch" parent="CMDynamicList">
+    <property name="documentType" type="string" length="256" encodedLength="768"/>
+    <property name="searchContext" type="link" linkType="CMNavigation"/>
+    <property name="searchQuery" type="blob" contentType="text/plain"/>
+    <property name="defaultContent" type="link" linkType="CMTeasable"/>
+  </type>
+  <type name="CMPicture" parent="CMVisual">
+    <property name="master" type="link" linkType="CMPicture" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="image/*"/>
+    <property name="asset" type="link" linkType="AMAsset" maxCardinality="1"/>
+  </type>
+  <type name="CMPlaceholder" parent="CMTeasable">
+    <property name="id" type="string" length="512" encodedLength="1536"/>
+    <property name="master" type="link" linkType="CMPlaceholder" maxCardinality="1"/>
+  </type>
+  <type name="CMProduct" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMProduct" maxCardinality="1"/>
+    <property name="contexts" type="link" linkType="CMCategory"/>
+    <property name="downloads" type="link" linkType="CMDownload"/>
+    <property name="productCode" type="string" length="128" encodedLength="384"/>
+    <property name="productName" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMProductTeaser" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMProductTeaser" maxCardinality="1"/>
+    <property name="externalId" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMQueryList" parent="CMDynamicList">
+    <property name="master" type="link" linkType="CMQueryList" maxCardinality="1"/>
+  </type>
+  <type name="CMSegment" parent="CMLocalized">
+    <property name="description" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="conditions" type="markup" grammar="coremedia-selectionrules-1.0"/>
+    <property name="master" type="link" linkType="CMSegment" maxCardinality="1"/>
+  </type>
+  <type name="CMSelectionRules" parent="CMDynamicList">
+    <property name="master" type="link" linkType="CMSelectionRules" maxCardinality="1"/>
+    <property name="text" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="altText" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="rules" type="markup" grammar="coremedia-selectionrules-1.0"/>
+    <property name="defaultContent" type="link" linkType="CMTeasable"/>
+  </type>
+  <type name="CMSettings" parent="CMLocalized">
+    <property name="master" type="link" linkType="CMSettings" maxCardinality="1"/>
+    <property name="settings" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="identifier" type="string" length="100" encodedLength="300"/>
+  </type>
+  <type name="CMResourceBundle" parent="CMLocalized">
+    <property name="master" type="link" linkType="CMResourceBundle" maxCardinality="1"/>
+    <property name="localizations" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="CMSite" parent="CMLocalized">
+    <property name="id" type="string" length="32" encodedLength="96"/>
+    <property name="name" type="string" length="64" encodedLength="192"/>
+    <property name="master" type="link" linkType="CMSite" maxCardinality="1"/>
+    <property name="root" type="link" linkType="CMNavigation" maxCardinality="1"/>
+    <property name="siteManagerGroup" type="string" length="64" encodedLength="192"/>
+    <property name="localSettings" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="linkedSettings" type="link" linkType="CMSettings"/>
+  </type>
+  <type name="CMSitemap" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMSitemap" maxCardinality="1"/>
+    <property name="root" type="link" linkType="CMNavigation" maxCardinality="1"/>
+  </type>
+  <type name="CMSpinner" parent="CMVisual">
+    <property name="master" type="link" linkType="CMSpinner" maxCardinality="1"/>
+    <property name="sequence" type="link" linkType="CMPicture"/>
+  </type>
+  <type name="CMSymbol" parent="CMLocalized">
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+    <property name="icon" type="blob" contentType="image/*"/>
+    <property name="master" type="link" linkType="CMSymbol" maxCardinality="1"/>
+  </type>
+  <type name="CMTaxonomy" parent="CMTeasable">
+    <property name="value" type="string" length="256" encodedLength="768"/>
+    <property name="children" type="link" linkType="CMTaxonomy"/>
+    <property name="externalReference" type="string" length="256" encodedLength="768"/>
+  </type>
+  <type name="CMTeasable" abstract="true" parent="CMHasContexts">
+    <property name="master" type="link" linkType="CMTeasable" maxCardinality="1"/>
+    <property name="teaserTitle" type="string" length="512" encodedLength="1536"/>
+    <property name="teaserText" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="detailText" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="pictures" type="link" linkType="CMMedia"/>
+    <property name="notSearchable" type="int"/>
+    <property name="related" type="link" linkType="CMTeasable"/>
+  </type>
+  <type name="CMTeaser" parent="CMTeasable">
+    <property name="master" type="link" linkType="CMTeaser" maxCardinality="1"/>
+    <property name="target" type="link" linkType="CMLinkable" maxCardinality="1"/>
+    <property name="targets" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="CMTemplateSet">
+    <property name="description" type="string" length="512" encodedLength="1536"/>
+    <property name="archive" type="blob" contentType="*/*"/>
+  </type>
+  <type name="CMUserProfile" parent="CMLocalized">
+    <property name="profileSettings" type="blob" contentType="text/plain"/>
+    <property name="profileExtensions" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="master" type="link" linkType="CMUserProfile" maxCardinality="1"/>
+  </type>
+  <type name="CMVideo" parent="CMVisual">
+    <property name="master" type="link" linkType="CMVideo" maxCardinality="1"/>
+    <property name="data" type="blob" contentType="video/*"/>
+    <property name="timeLine" type="markup" grammar="coremedia-struct-2008"/>
+    <property name="asset" type="link" linkType="AMAsset" maxCardinality="1"/>
+  </type>
+  <type name="CMViewtype" parent="CMSymbol">
+    <property name="layout" type="string" length="64" encodedLength="192"/>
+  </type>
+  <type name="CMVisual" abstract="true" parent="CMMedia">
+    <property name="master" type="link" linkType="CMVisual" maxCardinality="1"/>
+    <property name="dataUrl" type="string" length="1024" encodedLength="3072"/>
+    <property name="width" type="int"/>
+    <property name="height" type="int"/>
+  </type>
+  <type name="Dictionary">
+    <property name="Data" type="markup" grammar="coremedia-dictionary"/>
+  </type>
+  <type name="ESDynamicList" parent="CMDynamicList">
+    <property name="channel" type="link" linkType="CMChannel" maxCardinality="1"/>
+    <property name="type" type="string" length="50" encodedLength="150"/>
+    <property name="interval" type="string" length="50" encodedLength="150"/>
+    <property name="aggregationType" type="string" length="50" encodedLength="150"/>
+  </type>
+  <type name="EditorPreferences">
+    <property name="data" type="markup" grammar="coremedia-struct-2008"/>
+  </type>
+  <type name="Preferences">
+    <property name="Data" type="markup" grammar="coremedia-preferences"/>
+  </type>
+  <type name="Query">
+    <property name="Description" type="string" length="100" encodedLength="300"/>
+    <property name="Comment" type="markup" grammar="coremedia-richtext-1.0"/>
+    <property name="Expression" type="markup" grammar="coremedia-query"/>
+  </type>
+  <grammar name="coremedia-richtext-1.0" root="div" systemId="classpath:xml/coremedia-richtext-1.0.dtd"/>
+  <grammar name="coremedia-struct-2008" root="div" systemId="classpath:xml/coremedia-struct-2008.xsd"/>
+  <schema name="coremedia-preferences" location="classpath:xml/coremedia-preferences.dtd"/>
 </schema>
