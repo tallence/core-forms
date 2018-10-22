@@ -24,6 +24,7 @@
   
   <local:header>
     <Header titlePosition="2.0"
+            focusableContainer="false"
             itemPosition="2">
       <items>
         <Checkbox autoEl="{{

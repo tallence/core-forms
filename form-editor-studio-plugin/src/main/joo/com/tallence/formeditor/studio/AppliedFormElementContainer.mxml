@@ -42,6 +42,7 @@
       <editor:header>
         <Header titlePosition="2.0"
                 itemId="{FORM_ELEMENT_HEADER}"
+                focusableContainer="false"
                 itemPosition="2">
           <items>
             <ui:IconButton

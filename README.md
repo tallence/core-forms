@@ -19,7 +19,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension is built for CoreMedia 9.17.10. It will probably be compatible with older CM9 versions and with newer versions but it is not tested yet.
+The extension is built for CoreMedia 9.18.07. But it is compatible with older CM9-Versions, only two studio-components have to be changed, see [#25](https://github.com/tallence/core-forms/issues/25) 
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
@@ -58,8 +58,9 @@ You need to change the groupId "com.coremedia.blueprint" and the version "1-SNAP
 **2. Create Implementations for the Action-Adapters**
 The FormEditor already contains two Actions: the DefaultAction and the MailAction. They are based on sending the form request data to at least one of the two adapters.
 The module form-editor-cae contains the adapters as interfaces, you need to create implementations for them. 
+Be aware of the 2 Void-Adapters, they were created to let you have a frustration-free first integration-experience with the formEditor: Your Adapter-Implementations need to use a Primary-Annotation. Otherwise, Spring will not be able to choose the right one for your project.  
 
-The com.tallence.formeditor.cae.actions.FormEditorMailAdapter is used to send mails to the user and the form admin. You might want to send the mails directly via JavaMailSender or via the CoreMedia elastic queue.
-The com.tallence.formeditor.cae.actions.FormEditorStorageAdapter is used to store the form data in a storage of your choice, e.g. the elastic social mongoDB or a custom DB or CRM. 
+* The [FormEditorMailAdapter](https://github.com/tallence/core-forms/blob/master/form-editor-cae/src/main/java/com/tallence/formeditor/cae/actions/FormEditorMailAdapter.java) is used to send mails to the user and the form admin. You might want to send the mails directly via JavaMailSender or via the CoreMedia elastic queue.
+* The [FormEditorStorageAdapter](https://github.com/tallence/core-forms/blob/master/form-editor-cae/src/main/java/com/tallence/formeditor/cae/actions/FormEditorStorageAdapter.java) is used to store the form data in a storage of your choice, e.g. the elastic social mongoDB or a custom DB or CRM. 
 
 That's it. Have fun ;) If you have any problems, questions, ideas, critics please contact us or create an issue. 
