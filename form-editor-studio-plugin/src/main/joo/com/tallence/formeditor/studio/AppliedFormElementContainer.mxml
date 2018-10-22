@@ -7,6 +7,7 @@
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
     xmlns:local="com.tallence.formeditor.studio.*"
+    xmlns:u="exml:untyped"
     xmlns:ui="exml:com.coremedia.ui.config">
 
   <fx:Script><![CDATA[
@@ -42,7 +43,7 @@
       <editor:header>
         <Header titlePosition="2.0"
                 itemId="{FORM_ELEMENT_HEADER}"
-                focusableContainer="false"
+                u:focusableContainer="false"
                 itemPosition="2">
           <items>
             <ui:IconButton
