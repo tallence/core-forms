@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CMSettings folder="/Sites/Demo/Germany/German/Options/Settings" name="Preview" xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+<locale>de-DE</locale>
+<master/>
+<settings><Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+<StructProperty Name="sliderMetaData">
+<Struct>
+<StructProperty Name="cm_responsiveDevices">
+<Struct>
+<StructProperty Name="mobile_portrait">
+<Struct>
+<IntProperty Name="width">375</IntProperty>
+<IntProperty Name="height">667</IntProperty>
+<IntProperty Name="order">1</IntProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="mobile_landscape">
+<Struct>
+<IntProperty Name="width">667</IntProperty>
+<IntProperty Name="height">375</IntProperty>
+<IntProperty Name="order">2</IntProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="tablet_portrait">
+<Struct>
+<IntProperty Name="width">768</IntProperty>
+<IntProperty Name="height">1024</IntProperty>
+<IntProperty Name="order">3</IntProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="tablet_landscape">
+<Struct>
+<IntProperty Name="width">1024</IntProperty>
+<IntProperty Name="height">768</IntProperty>
+<IntProperty Name="order">5</IntProperty>
+</Struct>
+</StructProperty>
+</Struct>
+</StructProperty>
+<IntProperty Name="cm_preferredWidth">1280</IntProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="fragmentPreview">
+<Struct>
+<StructListProperty Name="CMTeasable">
+<Struct>
+<StringProperty Name="titleKey">preview_label_default</StringProperty>
+<StringProperty Name="viewName">DEFAULT</StringProperty>
+</Struct>
+<Struct>
+<StringProperty Name="titleKey">preview_label_teaser</StringProperty>
+<StringProperty Name="viewName">asTeaser</StringProperty>
+</Struct>
+</StructListProperty>
+</Struct>
+</StructProperty>
+<LinkListProperty Name="studioPreviewCss" LinkType="coremedia:///cap/contenttype/CMCSS">
+</LinkListProperty>
+<LinkListProperty Name="studioPreviewJs" LinkType="coremedia:///cap/contenttype/CMJavaScript">
+</LinkListProperty>
+<LinkListProperty Name="previewCss" LinkType="coremedia:///cap/contenttype/CMCSS">
+<Link xlink:href="coremedia:///cap/resources/../../../../../../Themes/formeditor/css/preview%2Ecss.xml" cmexport:path="/Themes/formeditor/css/preview%2Ecss"/>
+</LinkListProperty>
+<LinkListProperty Name="previewJs" LinkType="coremedia:///cap/contenttype/CMJavaScript">
+<Link xlink:href="coremedia:///cap/resources/../../../../../../Themes/formeditor/js/preview%2Ejs.xml" cmexport:path="/Themes/formeditor/js/preview%2Ejs"/>
+</LinkListProperty>
+<LinkListProperty Name="fragmentPreviewCss" LinkType="coremedia:///cap/contenttype/CMCSS">
+</LinkListProperty>
+<LinkListProperty Name="fragmentPreviewJs" LinkType="coremedia:///cap/contenttype/CMJavaScript">
+</LinkListProperty>
+</Struct></settings>
+<identifier></identifier>
+</CMSettings>

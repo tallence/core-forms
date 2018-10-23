@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<FormEditor folder="/Sites/Demo/Germany/German/Content/Forms" name="Complex Form" xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+<locale>de-DE</locale>
+<master/>
+<viewtype/>
+<linkedSettings/>
+<resourceBundles2/>
+<segment></segment>
+<title></title>
+<htmlTitle></htmlTitle>
+<keywords></keywords>
+<htmlDescription></htmlDescription>
+<subjectTaxonomy/>
+<locationTaxonomy/>
+<contexts/>
+<teaserTitle></teaserTitle>
+<pictures/>
+<related/>
+<formAction></formAction>
+<adminMails></adminMails>
+<formData><Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+<StructProperty Name="formElements">
+<Struct>
+<StructProperty Name="1460420855">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">false</BooleanProperty>
+<IntProperty Name="maxSize">12</IntProperty>
+<IntProperty Name="minSize">1</IntProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">NumberField</StringProperty>
+<StringProperty Name="name">Geburtsmonat</StringProperty>
+<StringProperty Name="hint">Als Zahl, 1-12</StringProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="86036295">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">true</BooleanProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">RadioButtons</StringProperty>
+<StructProperty Name="groupElements">
+<Struct>
+<StructProperty Name="50 und älter">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="26 - 49">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="13 - 25">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="0 - 12">
+<Struct>
+</Struct>
+</StructProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="name">Alter</StringProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="937044018">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">true</BooleanProperty>
+<IntProperty Name="maxSize"/>
+<IntProperty Name="minSize"/>
+<StringProperty Name="regexpValidator">0\d{2,4}\s?[\-]?\s?\d{3,4}\s?\d{3,4}</StringProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">PhoneField</StringProperty>
+<StringProperty Name="name">Telefon</StringProperty>
+<StringProperty Name="hint">(Vorwahl) - (Rufnummer) z.B. 040 - 1123 123</StringProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="1190752037">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">false</BooleanProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">CheckBoxes</StringProperty>
+<StructProperty Name="groupElements">
+<Struct>
+<StructProperty Name="Computer">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="Sport">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="Foto">
+<Struct>
+</Struct>
+</StructProperty>
+<StructProperty Name="Lesen">
+<Struct>
+<BooleanProperty Name="checkedByDefault">false</BooleanProperty>
+</Struct>
+</StructProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="name">Intressen</StringProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="1148129663">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">true</BooleanProperty>
+<IntProperty Name="maxSize">40</IntProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">TextArea</StringProperty>
+<IntProperty Name="rows">4</IntProperty>
+<StringProperty Name="name">Nachricht</StringProperty>
+</Struct>
+</StructProperty>
+<StructProperty Name="1504235918">
+<Struct>
+<StructProperty Name="validator">
+<Struct>
+<BooleanProperty Name="mandatory">true</BooleanProperty>
+</Struct>
+</StructProperty>
+<StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+<LinkListProperty Name="linkTarget" LinkType="coremedia:///cap/contenttype/Content_">
+<Link xlink:href="coremedia:///cap/resources/../Articles/Einverstanden.xml" cmexport:path="/Sites/Demo/Germany/German/Content/Articles/Einverstanden"/>
+</LinkListProperty>
+<StringProperty Name="hint">%Einverständniserklärung% gelesen</StringProperty>
+<StringProperty Name="name">Datenschutz</StringProperty>
+</Struct>
+</StructProperty>
+</Struct>
+</StructProperty>
+</Struct></formData>
+</FormEditor>
