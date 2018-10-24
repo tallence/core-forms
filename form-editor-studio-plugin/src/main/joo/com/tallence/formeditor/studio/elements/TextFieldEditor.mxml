@@ -26,41 +26,23 @@
   <local:items>
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
-                      formElementStructVE="{getFormElementStructVE()}"
                       propertyName="name"
-                      defaultValue="{config.defaultName}"
-                      bindTo="{config.bindTo}"
-                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                      defaultValue="{config.defaultName}"/>
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
-                      formElementStructVE="{getFormElementStructVE()}"
-                      propertyName="hint"
-                      bindTo="{config.bindTo}"
-                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                      propertyName="hint"/>
     <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
-                          formElementStructVE="{getFormElementStructVE()}"
                           propertyName="validator.mandatory"
-                          defaultValue="{config.defaultMandatory}"
-                          bindTo="{config.bindTo}"
-                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                          defaultValue="{config.defaultMandatory}"/>
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxSize_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxSize_text')}"
-                        formElementStructVE="{getFormElementStructVE()}"
-                        propertyName="validator.maxSize"
-                        bindTo="{config.bindTo}"
-                        forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                        propertyName="validator.maxSize"/>
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minSize_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minSize_text')}"
-                        formElementStructVE="{getFormElementStructVE()}"
-                        propertyName="validator.minSize"
-                        bindTo="{config.bindTo}"
-                        forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                        propertyName="validator.minSize"/>
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_regexp_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_regexp_emptyText')}"
-                      formElementStructVE="{getFormElementStructVE()}"
                       propertyName="validator.regexpValidator"
-                      bindTo="{config.bindTo}"
-                      defaultValue="{config.defaultRegexpValidatorValue}"
-                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                      defaultValue="{config.defaultRegexpValidatorValue}"/>
   </local:items>
 </local:AbstractFormElement>

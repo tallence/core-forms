@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.studio.fields {
 import com.coremedia.cap.struct.Struct;
+import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.ui.data.ValueExpression;
 
 import ext.container.Container;
@@ -26,6 +27,8 @@ import ext.container.Container;
 public class FormEditorFieldBase extends Container {
 
   private var propertyVE:ValueExpression;
+  private var bindTo:ValueExpression;
+  private var forceReadOnlyVE:ValueExpression;
   private var propertyName:String;
 
   public function FormEditorFieldBase(config:FormEditorField = null) {
@@ -40,6 +43,8 @@ public class FormEditorFieldBase extends Container {
   private function initFormEditorField(config:FormEditorField):void {
     if (!propertyVE) {
       propertyName = config.propertyName;
+      bindTo = config.bindTo;
+      forceReadOnlyVE = config.forceReadOnlyValueExpression;
       var formElementStructVE:ValueExpression = config.formElementStructVE;
       formElementStructVE.addChangeListener(onFormElementStructChange);
       updatePropertyVE(formElementStructVE);
@@ -66,8 +71,10 @@ public class FormEditorFieldBase extends Container {
     //
     if (struct) {
       updatePropertyVE(structVE);
-      initStruct(struct);
-      if (propertyVE.getValue() == undefined) {
+      if (!isReadOnly()) {
+        initStruct(struct);
+      }
+      if (propertyVE.getValue() == undefined && !isReadOnly()) {
         initWithDefault(propertyVE);
       }
     }
@@ -79,6 +86,20 @@ public class FormEditorFieldBase extends Container {
    */
   private function updatePropertyVE(formElementStructVE:ValueExpression):void {
     propertyVE = formElementStructVE.extendBy(propertyName);
+  }
+
+  /**
+   * If the document is checked by another use or the forceReadOnlyValueExpression is evaluated to true, the default
+   * values in the struct can not be set.
+   */
+  private function isReadOnly():Boolean {
+    if (forceReadOnlyVE && forceReadOnlyVE.getValue()) {
+      return true;
+    }
+    if (!bindTo) {
+      return false;
+    }
+    return PropertyEditorUtil.isReadOnly(bindTo.getValue());
   }
 
   /**

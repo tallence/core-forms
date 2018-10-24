@@ -31,15 +31,20 @@ public class FormElementsManager {
   private static const PROPERTIES:String = 'properties';
 
   private var contentVE:ValueExpression;
+  private var forceReadOnlyValueExpression:ValueExpression;
   private var collapsedElementVE:ValueExpression;
   private var dragActiveVE:ValueExpression;
   private var formDataStructPropertyName:String;
   private var formElementsStructVE:ValueExpression;
 
-  public function FormElementsManager(contentVE:ValueExpression, formDataStructPropertyName:String, dragActiveVE:ValueExpression) {
+  public function FormElementsManager(contentVE:ValueExpression,
+                                      forceReadOnlyValueExpression:ValueExpression,
+                                      formDataStructPropertyName:String,
+                                      dragActiveVE:ValueExpression) {
     this.contentVE = contentVE;
     this.formDataStructPropertyName = formDataStructPropertyName;
     this.dragActiveVE = dragActiveVE;
+    this.forceReadOnlyValueExpression = forceReadOnlyValueExpression;
   }
 
   public function addFormElement(afterFormElementId:String, formElementType:String):void {
@@ -96,7 +101,12 @@ public class FormElementsManager {
     if (formStruct.get(FORM_ELEMENTS_PROPERTY)) {
       var formElementsStruct:Struct = formStruct.get(FORM_ELEMENTS_PROPERTY) as Struct;
       elements = formElementsStruct.getType().getPropertyNames().map(function (id:String):FormElementStructWrapper {
-        return new FormElementStructWrapper(StructSubBean(formElementsStruct.get(id)), id, getFormElementsStructVE().extendBy(FORM_ELEMENTS_PROPERTY + "." + id));
+        return new FormElementStructWrapper(
+            StructSubBean(formElementsStruct.get(id)),
+            id,
+            getFormElementsStructVE().extendBy(FORM_ELEMENTS_PROPERTY + "." + id),
+            contentVE,
+            forceReadOnlyValueExpression);
       });
     }
     return elements;

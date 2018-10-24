@@ -32,6 +32,8 @@ public class AbstractFormElementBase extends Container implements FormElement {
   private var iconCls:String;
   private var structWrapper:FormElementStructWrapper;
   private var formElementStructVE:ValueExpression;
+  private var bindTo:ValueExpression;
+  private var forceReadOnlyValueExpression:ValueExpression;
 
   public function AbstractFormElementBase(config:AbstractFormElement = null) {
     if (!config.formElementType) {
@@ -59,6 +61,8 @@ public class AbstractFormElementBase extends Container implements FormElement {
   public function updateFormElementStructWrapper(wrapper:FormElementStructWrapper):void {
     structWrapper = wrapper;
     formElementStructVE = wrapper.getFormElementVE();
+    bindTo = wrapper.getBindTo();
+    forceReadOnlyValueExpression = wrapper.getForceReadOnlyValueExpression();
     fireEvent(FORM_ELEMENT_UPDATE_EVT);
   }
 
@@ -79,6 +83,39 @@ public class AbstractFormElementBase extends Container implements FormElement {
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
       DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(formElementStructVE);
+    });
+  }
+
+  /**
+   * Since the editors for form elements are reused, the component is created without a bindTo value expression. As
+   * soon as the method updateFormElementStructWrapper is called and the form element is updated, a new
+   * value expression is returned. This is necessary so that the binding to the correct bindTo works after the update.
+   */
+  public function getBindTo():ValueExpression {
+    if (!bindTo) {
+      bindTo = ValueExpressionFactory.createFromValue();
+    }
+    var self:AbstractFormElementBase = this;
+    return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
+      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      return new ValueExpressionValueHolder(bindTo);
+    });
+  }
+
+  /**
+   * Since the editors for form elements are reused, the component is created without a forceReadOnlyValueExpression
+   * value expression. As soon as the method updateFormElementStructWrapper is called and the form element is updated,
+   * a new value expression is returned. This is necessary so that the binding to the correct
+   * forceReadOnlyValueExpression works after the update.
+   */
+  public function getForceReadOnlyVE():ValueExpression {
+    if (!forceReadOnlyValueExpression) {
+      forceReadOnlyValueExpression = ValueExpressionFactory.createFromValue();
+    }
+    var self:AbstractFormElementBase = this;
+    return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
+      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      return new ValueExpressionValueHolder(forceReadOnlyValueExpression);
     });
   }
 }

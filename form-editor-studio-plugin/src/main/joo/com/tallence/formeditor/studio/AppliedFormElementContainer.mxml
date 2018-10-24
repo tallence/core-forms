@@ -52,7 +52,12 @@
                 iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
                 itemId="removeButton"
                 ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_tooltip_deletethis')}"
-                handler="{removeElementHandler}"/>
+                handler="{removeElementHandler}">
+                <ui:plugins>
+                  <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                </ui:plugins>
+            </ui:IconButton>
           </items>
         </Header>
       </editor:header>
