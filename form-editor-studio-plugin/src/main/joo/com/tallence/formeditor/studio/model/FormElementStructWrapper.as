@@ -26,12 +26,20 @@ public class FormElementStructWrapper {
   private var id:String;
   private var formElementVE:ValueExpression;
   private var type:String;
+  private var bindTo:ValueExpression;
+  private var forceReadOnlyValueExpression:ValueExpression;
 
-  public function FormElementStructWrapper(formElementStruct:StructSubBean, id:String, formElementVE:ValueExpression) {
+  public function FormElementStructWrapper(formElementStruct:StructSubBean,
+                                           id:String,
+                                           formElementVE:ValueExpression,
+                                           bindTo:ValueExpression,
+                                           forceReadOnlyValueExpression:ValueExpression) {
     this.formElementStruct = formElementStruct;
     this.id = id;
     this.formElementVE = formElementVE;
     this.type = getString(TYPE_PROPERTY);
+    this.bindTo = bindTo;
+    this.forceReadOnlyValueExpression = forceReadOnlyValueExpression;
   }
 
   public function getId():String {
@@ -40,6 +48,14 @@ public class FormElementStructWrapper {
 
   public function getFormElementVE():ValueExpression {
     return formElementVE;
+  }
+
+  public function getBindTo():ValueExpression {
+    return bindTo;
+  }
+
+  public function getForceReadOnlyValueExpression():ValueExpression {
+    return forceReadOnlyValueExpression;
   }
 
   public function getType():String {

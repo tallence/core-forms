@@ -19,6 +19,7 @@
   <component class="com.tallence.formeditor.studio.AppliedElementsContainer"/>
   <component class="com.tallence.formeditor.studio.dragdrop.FormElementDropContainer"/>
   <component class="com.tallence.formeditor.studio.AppliedFormElementContainer"/>
+  <component class="com.tallence.formeditor.studio.fields.FormEditorField"/>
   <component class="com.tallence.formeditor.studio.fields.AddOptionField"/>
   <component class="com.tallence.formeditor.studio.fields.TextField"/>
   <component class="com.tallence.formeditor.studio.fields.NumberField"/>

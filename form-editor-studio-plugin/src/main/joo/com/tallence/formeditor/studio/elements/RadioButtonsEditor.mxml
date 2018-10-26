@@ -20,25 +20,13 @@
   <local:items>
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_emptyText')}"
-                      formElementStructVE="{getFormElementStructVE()}"
-                      propertyName="name"
-                      bindTo="{config.bindTo}"
-                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                      propertyName="name"/>
     <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
-                      formElementStructVE="{getFormElementStructVE()}"
-                      propertyName="hint"
-                      bindTo="{config.bindTo}"
-                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                      propertyName="hint"/>
     <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
-                          formElementStructVE="{getFormElementStructVE()}"
                           propertyName="validator.mandatory"
-                          defaultValue="false"
-                          bindTo="{config.bindTo}"
-                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-    <fields:AddOptionField bindTo="{config.bindTo}"
-                           formElementStructVE="{getFormElementStructVE()}"
-                           propertyName="groupElements"
-                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                          defaultValue="false"/>
+    <fields:AddOptionField propertyName="groupElements"/>
   </local:items>
 </local:ElementGroupBase>

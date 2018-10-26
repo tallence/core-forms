@@ -29,16 +29,22 @@ public class AppliedElementsContainerBase extends Container {
     super(config);
   }
 
-  protected function getFormElementsManager(bindTo:ValueExpression, propertyName:String, dragActiveVE:ValueExpression):FormElementsManager {
+  protected function getFormElementsManager(bindTo:ValueExpression,
+                                            forceReadOnlyValueExpression:ValueExpression,
+                                            propertyName:String,
+                                            dragActiveVE:ValueExpression):FormElementsManager {
     if (!formElementsManager) {
-      formElementsManager = new FormElementsManager(bindTo, propertyName, dragActiveVE);
+      formElementsManager = new FormElementsManager(bindTo, forceReadOnlyValueExpression, propertyName, dragActiveVE);
     }
     return formElementsManager;
   }
 
-  protected function getFormElementsVE(bindTo:ValueExpression, propertyName:String, dragActiveVE:ValueExpression):ValueExpression {
+  protected function getFormElementsVE(bindTo:ValueExpression,
+                                       forceReadOnlyValueExpression:ValueExpression,
+                                       propertyName:String,
+                                       dragActiveVE:ValueExpression):ValueExpression {
     return ValueExpressionFactory.createFromFunction(function ():Array {
-      return getFormElementsManager(bindTo, propertyName, dragActiveVE).getFormElements();
+      return getFormElementsManager(bindTo, forceReadOnlyValueExpression, propertyName, dragActiveVE).getFormElements();
     });
   }
 
