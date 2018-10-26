@@ -4,7 +4,9 @@
     title="{config.option.getId()}"
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns="exml:ext.config" xmlns:ui="exml:com.coremedia.ui.config"
-    xmlns:local="com.tallence.formeditor.studio.elements.*" xmlns:editor="exml:com.coremedia.cms.editor.sdk.config">
+    xmlns:local="com.tallence.formeditor.studio.elements.*"
+    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+    xmlns:u="exml:untyped">
 
   <fx:Script><![CDATA[
     import com.coremedia.ui.data.ValueExpression;
@@ -21,11 +23,13 @@
 
     public native function ElementGroupEntry(config:ElementGroupEntry = null);
     ]]></fx:Script>
-  
+
+  <!--Using focusableContainer(cm9-17 style) and enableFocusableContainer(cm9-18 style) to be compatible with all cm9-versions-->
   <local:header>
     <Header titlePosition="2.0"
-            itemPosition="2"
-            enableFocusableContainer="false">
+            u:focusableContainer="false"
+            u:enableFocusableContainer="false"
+            itemPosition="2">
       <items>
         <Checkbox autoEl="{{
                 tag: 'div',

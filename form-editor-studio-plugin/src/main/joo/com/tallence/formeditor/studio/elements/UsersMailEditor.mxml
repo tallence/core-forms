@@ -22,25 +22,15 @@
   <local:items>
         <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_name_label')}"
                           emptyText="z.B.: Ihre E-Mail Adresse"
-                          formElementStructVE="{getFormElementStructVE()}"
-                          propertyName="name"
-                          bindTo="{config.bindTo}"
-                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                          propertyName="name"/>
         <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
                           emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
-                          formElementStructVE="{getFormElementStructVE()}"
-                          propertyName="hint"
-                          bindTo="{config.bindTo}"
-                          forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                          propertyName="hint"/>
         <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
-                              formElementStructVE="{getFormElementStructVE()}"
                               propertyName="validator.mandatory"
-                              defaultValue="false"
-                              bindTo="{config.bindTo}"
-                              forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                              defaultValue="false"/>
         <fields:ComboBoxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_label')}"
                               emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_label')}"
-                              formElementStructVE="{getFormElementStructVE()}"
                               propertyName="copyType"
                               store="{[
                                 [ COMBO_VALUE_CHECKBOX, resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_checkbox') ],

@@ -49,17 +49,17 @@
   <studio:items>
 
     <dragdrop:FormElementDropContainer
-        formElementsManager="{getFormElementsManager(config.bindTo, config.structPropertyName, config.dragActiveVE)}"
+        formElementsManager="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}"
         forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
 
     <Container>
       <plugins>
         <ui:BindComponentsPlugin configBeanParameterName="formElement"
-                                 valueExpression="{getFormElementsVE(config.bindTo, config.structPropertyName, config.dragActiveVE)}">
+                                 valueExpression="{getFormElementsVE(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}">
           <ui:template>
             <studio:AppliedFormElementContainer bindTo="{config.bindTo}"
                                                 forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
-                                                formElementsManager="{getFormElementsManager(config.bindTo, config.structPropertyName, config.dragActiveVE)}"/>
+                                                formElementsManager="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}"/>
           </ui:template>
         </ui:BindComponentsPlugin>
       </plugins>

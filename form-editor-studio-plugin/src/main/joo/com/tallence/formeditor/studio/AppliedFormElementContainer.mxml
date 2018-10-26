@@ -7,6 +7,7 @@
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
     xmlns:local="com.tallence.formeditor.studio.*"
+    xmlns:u="exml:untyped"
     xmlns:ui="exml:com.coremedia.ui.config">
 
   <fx:Script><![CDATA[
@@ -40,16 +41,23 @@
         {@link com.coremedia.ui.util.IReusableComponentsService} -->
       </editor:items>
       <editor:header>
+        <!--Using focusableContainer(cm9-17 style) and enableFocusableContainer(cm9-18 style) to be compatible with all cm9-versions-->
         <Header titlePosition="2.0"
                 itemId="{FORM_ELEMENT_HEADER}"
-                itemPosition="2"
-                enableFocusableContainer="false">
+                u:focusableContainer="false"
+                u:enableFocusableContainer="false"
+                itemPosition="2">
           <items>
             <ui:IconButton
                 iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
                 itemId="removeButton"
                 ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_tooltip_deletethis')}"
-                handler="{removeElementHandler}"/>
+                handler="{removeElementHandler}">
+                <ui:plugins>
+                  <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                </ui:plugins>
+            </ui:IconButton>
           </items>
         </Header>
       </editor:header>

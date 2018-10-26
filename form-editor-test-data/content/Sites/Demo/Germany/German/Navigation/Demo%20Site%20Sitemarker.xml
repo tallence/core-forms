@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CMSite folder="/Sites/Demo/Germany/German/Navigation" name="Demo Site Sitemarker"
+        xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+    <locale>de-DE</locale>
+    <master/>
+    <id>5b639647fc0d076903badd379b215a9d</id>
+    <name>Demo</name>
+    <root>
+        <link href="Demo%20Seite.xml" path="/Sites/Demo/Germany/German/Navigation/Demo%20Page"/>
+    </root>
+    <siteManagerGroup></siteManagerGroup>
+    <linkedSettings/>
+</CMSite>
