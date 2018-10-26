@@ -47,23 +47,6 @@
                                     </resources>
                                 </configuration>
                             </execution>
-<!--
-                            <execution>
-                                <id>formeditor-copy-users-resources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${basedir}/target/users</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>users</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
--->
                         </executions>
                     </plugin>
                     <plugin>

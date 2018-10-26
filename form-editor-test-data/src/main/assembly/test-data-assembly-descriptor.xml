@@ -11,11 +11,5 @@
       <directory>${project.basedir}/target/content</directory>
       <outputDirectory>/content</outputDirectory>
     </fileSet>
-<!--
-    <fileSet>
-      <directory>${project.basedir}/target/users</directory>
-      <outputDirectory>/users</outputDirectory>
-    </fileSet>
--->
   </fileSets>
 </assembly>

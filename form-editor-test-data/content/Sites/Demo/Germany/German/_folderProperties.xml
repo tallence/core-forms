@@ -2,5 +2,5 @@
 <CMFolderProperties folder="/Sites/Demo/Germany/German" name="_folderProperties" xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
 <locale>de-DE</locale>
 <master/>
-<contexts><link href="Navigation/Demo%20Seite.xml" path="/Sites/Demo/Germany/German/Navigation/Demo%20Seite"/></contexts>
+<contexts><link href="Navigation/Demo%20Page.xml" path="/Sites/Demo/Germany/German/Navigation/Demo%20Page"/></contexts>
 </CMFolderProperties>

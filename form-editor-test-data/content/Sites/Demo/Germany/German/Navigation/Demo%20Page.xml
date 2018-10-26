@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CMChannel folder="/Sites/Demo/Germany/German/Navigation" name="Demo Page"
+           xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+    <locale>de-DE</locale>
+    <master/>
+    <viewtype/>
+    <localSettings>
+        <Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <StructProperty Name="teaserOverlay">
+                <Struct>
+                    <LinkProperty Name="style" LinkType="coremedia:///cap/contenttype/Content_"
+                                  xlink:href="coremedia:///cap/resources/../../../../../Settings/Options/Settings/Teaser%20Styles/Default.xml"
+                                  cmexport:path="/Settings/Options/Settings/Teaser%20Styles/Default"/>
+                    <BooleanProperty Name="enabled">true</BooleanProperty>
+                </Struct>
+            </StructProperty>
+        </Struct>
+    </localSettings>
+    <linkedSettings>
+        <link href="../Options/Settings/Preview.xml" path="/Sites/Demo/Germany/German/Options/Settings/Preview"/>
+    </linkedSettings>
+    <resourceBundles2/>
+    <segment>demo</segment>
+    <title>Demo Startseite</title>
+    <htmlTitle></htmlTitle>
+    <keywords></keywords>
+    <htmlDescription></htmlDescription>
+    <subjectTaxonomy/>
+    <locationTaxonomy/>
+    <contexts/>
+    <teaserTitle></teaserTitle>
+    <pictures/>
+    <related/>
+    <children>
+        <link href="../Content/Articles/Consent%20Form.xml"
+              path="/Sites/Demo/Germany/German/Content/Articles/Consent%20Form"/>
+    </children>
+    <javaScript/>
+    <css/>
+    <theme>
+        <link href="../../../../../Themes/formeditor/Formeditor%20Theme.xml"
+              path="/Themes/formeditor/Formeditor%20Theme"/>
+    </theme>
+    <header/>
+    <footer/>
+</CMChannel>

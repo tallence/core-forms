@@ -1,141 +1,144 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<FormEditor folder="/Sites/Demo/Germany/German/Content/Forms" name="Simple Form" xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
-<locale>de-DE</locale>
-<master/>
-<viewtype/>
-<linkedSettings/>
-<resourceBundles2/>
-<segment></segment>
-<title></title>
-<htmlTitle></htmlTitle>
-<keywords></keywords>
-<htmlDescription></htmlDescription>
-<subjectTaxonomy/>
-<locationTaxonomy/>
-<contexts/>
-<teaserTitle></teaserTitle>
-<pictures/>
-<related/>
-<formAction>default</formAction>
-<adminMails></adminMails>
-<formData><Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
-<StructProperty Name="formElements">
-<Struct>
-<StructProperty Name="1024922744">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">SelectBox</StringProperty>
-<StructProperty Name="groupElements">
-<Struct>
-<StructProperty Name="Frau">
-<Struct>
-</Struct>
-</StructProperty>
-<StructProperty Name="Herr">
-<Struct>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="name">Anrede</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1355717284">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">false</BooleanProperty>
-<IntProperty Name="maxSize"/>
-<IntProperty Name="minSize"/>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Vorname</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="100233331">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-<IntProperty Name="maxSize"/>
-<IntProperty Name="minSize"/>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Nachname</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="223954504">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">false</BooleanProperty>
-<IntProperty Name="maxSize"/>
-<IntProperty Name="minSize">3</IntProperty>
-<StringProperty Name="regexpValidator">[a-zA-ZäöüÄÖÜ \.]+ [0-9]+[a-zA-Z]?</StringProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">StreetNumberField</StringProperty>
-<StringProperty Name="name">Straße &amp; Haus-Nr.</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="678321190">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-<IntProperty Name="maxSize"/>
-<IntProperty Name="minSize"/>
-<StringProperty Name="regexpValidator">\d{5}</StringProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">ZipField</StringProperty>
-<StringProperty Name="name">Postleitzahl</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1562243067">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-<IntProperty Name="maxSize"/>
-<IntProperty Name="minSize"/>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Ort</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1393609367">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">UsersMail</StringProperty>
-<StringProperty Name="name">E-Mail</StringProperty>
-<StringProperty Name="copyType">NEVER</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1615045126">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">false</BooleanProperty>
-<IntProperty Name="maxSize">300</IntProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">FileUpload</StringProperty>
-<StringProperty Name="name">Bild</StringProperty>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-</Struct></formData>
+<FormEditor folder="/Sites/Demo/Germany/German/Content/Forms" name="Simple Form"
+            xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+    <locale>de-DE</locale>
+    <master/>
+    <viewtype/>
+    <linkedSettings/>
+    <resourceBundles2/>
+    <segment></segment>
+    <title></title>
+    <htmlTitle></htmlTitle>
+    <keywords></keywords>
+    <htmlDescription></htmlDescription>
+    <subjectTaxonomy/>
+    <locationTaxonomy/>
+    <contexts/>
+    <teaserTitle></teaserTitle>
+    <pictures/>
+    <related/>
+    <formAction>default</formAction>
+    <adminMails></adminMails>
+    <formData>
+        <Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <StructProperty Name="formElements">
+                <Struct>
+                    <StructProperty Name="1024922744">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">true</BooleanProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">SelectBox</StringProperty>
+                            <StructProperty Name="groupElements">
+                                <Struct>
+                                    <StructProperty Name="Herr">
+                                        <Struct>
+                                        </Struct>
+                                    </StructProperty>
+                                    <StructProperty Name="Frau">
+                                        <Struct>
+                                        </Struct>
+                                    </StructProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="name">Anrede</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="1355717284">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">false</BooleanProperty>
+                                    <IntProperty Name="maxSize"/>
+                                    <IntProperty Name="minSize"/>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">TextField</StringProperty>
+                            <StringProperty Name="name">Vorname</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="100233331">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">true</BooleanProperty>
+                                    <IntProperty Name="maxSize"/>
+                                    <IntProperty Name="minSize"/>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">TextField</StringProperty>
+                            <StringProperty Name="name">Nachname</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="223954504">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">false</BooleanProperty>
+                                    <IntProperty Name="maxSize"/>
+                                    <IntProperty Name="minSize">3</IntProperty>
+                                    <StringProperty Name="regexpValidator">[a-zA-ZäöüÄÖÜ \.]+ [0-9]+[a-zA-Z]?</StringProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">StreetNumberField</StringProperty>
+                            <StringProperty Name="name">Strasse &amp; Hausnummer</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="678321190">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">true</BooleanProperty>
+                                    <IntProperty Name="maxSize"/>
+                                    <IntProperty Name="minSize"/>
+                                    <StringProperty Name="regexpValidator">\d{5}</StringProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">ZipField</StringProperty>
+                            <StringProperty Name="name">Postleitzahl</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="1562243067">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">true</BooleanProperty>
+                                    <IntProperty Name="maxSize"/>
+                                    <IntProperty Name="minSize"/>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">TextField</StringProperty>
+                            <StringProperty Name="name">Ort</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="1393609367">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">true</BooleanProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">UsersMail</StringProperty>
+                            <StringProperty Name="name">E-Mail</StringProperty>
+                            <StringProperty Name="copyType">NEVER</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                    <StructProperty Name="1615045126">
+                        <Struct>
+                            <StructProperty Name="validator">
+                                <Struct>
+                                    <BooleanProperty Name="mandatory">false</BooleanProperty>
+                                    <IntProperty Name="maxSize">300</IntProperty>
+                                </Struct>
+                            </StructProperty>
+                            <StringProperty Name="type">FileUpload</StringProperty>
+                            <StringProperty Name="name">Profilbild</StringProperty>
+                        </Struct>
+                    </StructProperty>
+                </Struct>
+            </StructProperty>
+        </Struct>
+    </formData>
 </FormEditor>
