@@ -196,9 +196,8 @@ public class FormController {
    * @return true, if google says, the token is valid
    */
   private boolean isHumanByReCaptcha(FormEditor target, CMChannel currentContext, MultiValueMap<String, String> postData) {
-    String googleReCaptchaResponse = postData.get("g-recaptcha-response").get(0);
-
     try {
+      String googleReCaptchaResponse = postData.get("g-recaptcha-response").get(0);
       return recaptchaService.isHuman(googleReCaptchaResponse, currentContext);
     } catch (Exception ex) {
       LOG.error("Failed to verify reCapture via google for form " + target.getContentId(), ex);
