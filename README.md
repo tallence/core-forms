@@ -19,7 +19,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension is built for CoreMedia 9.17.10 but it is compatible with newer CM9-Versions (tested for 9.18.07). 
+The extension is built for CoreMedia 9.17.10 but it is compatible with newer CM-Versions (tested for 9.18.10). If you have any further information e.g. "it works for CM 10" or "it does not work for CM 10 because of the class ..." feel free to create an issue or contact us.  
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
