@@ -19,7 +19,7 @@
 
   <!--The SingleLinkEditor needs to be wrapped in a container with AnchorLayout to be displayed correctly-->
   <fields:items>
-    <editor:SingleLinkEditor linkContentType="{config.linkContentType}"
+    <editor:SingleLinkEditor linkContentType="{config.linkContentType ? config.linkContentType : DEFAULT_LINK_CONTENT_TYPE}"
                              labelAlign="top"
                              bindTo="{getLinkTargetVE(config)}"
                              fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_linkTarget_label')}">

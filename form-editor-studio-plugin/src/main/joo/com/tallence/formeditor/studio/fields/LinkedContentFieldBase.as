@@ -24,6 +24,8 @@ import com.coremedia.ui.data.ValueExpressionFactory;
 
 public class LinkedContentFieldBase extends FormEditorField {
 
+  protected static const DEFAULT_LINK_CONTENT_TYPE:String = "CMLinkable";
+
   private var linkTargetVE:ValueExpression;
 
   [Bindable]
@@ -57,7 +59,7 @@ public class LinkedContentFieldBase extends FormEditorField {
    * @param struct
    */
   override protected function initStruct(struct:Struct):void {
-    var contentType:ContentType = SESSION.getConnection().getContentRepository().getContentType(linkContentType);
+    var contentType:ContentType = SESSION.getConnection().getContentRepository().getContentType(linkContentType ? linkContentType : DEFAULT_LINK_CONTENT_TYPE);
     var formElementsStruct:StructType = struct.getType();
     formElementsStruct.addLinkListProperty(propertyName, contentType);
   }
