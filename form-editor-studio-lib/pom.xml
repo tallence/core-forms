@@ -55,8 +55,16 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>coremedia-rest-plugins</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.blueprint.base</groupId>
+      <artifactId>bpbase-uapi-util</artifactId>
+    </dependency>
 
     <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -67,6 +75,11 @@
     </dependency>
 
     <!-- Testing -->
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-spring</artifactId>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

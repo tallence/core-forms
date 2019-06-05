@@ -37,6 +37,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Collections;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.*;
@@ -86,6 +90,40 @@ public class FormEditorValidatorTest {
     assertEquals(1, issues.getByProperty().get(FormEditor.FORM_ELEMENTS).size());
     Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ELEMENTS, "form_action_mail_file", null);
     assertThat(issues.getByProperty().get(FormEditor.FORM_ELEMENTS), hasItem(issue2));
+  }
+
+  @Test
+  public void testEmptyOptions() {
+    Content testContent = contentRepository.getContent("10");
+    IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
+    formEditorValidator.validate(testContent, issues);
+
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ELEMENTS, "missing_options", Collections.singletonList("without buttons"));
+    Set<Issue<Content>> formElementIssues = issues.getByProperty().get(FormEditor.FORM_ELEMENTS);
+    assertThat(formElementIssues, hasItem(issue1));
+
+    assertThat(formElementIssues.size(), equalTo(1));
+  }
+
+  @Test
+  public void testConsentForm() {
+    Content testContent = contentRepository.getContent("12");
+    IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
+    formEditorValidator.validate(testContent, issues);
+
+    Set<Issue<Content>> formElementIssues = issues.getByProperty().get(FormEditor.FORM_ELEMENTS);
+
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_linkTarget", Collections.singletonList("ConsentForm missing target"));
+    assertThat(formElementIssues, hasItem(issue1));
+
+    Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_hint", Collections.singletonList("ConsentForm missing hint"));
+    assertThat(formElementIssues, hasItem(issue2));
+
+    Issue<Content> issue3 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_invalid_hint", Collections.singletonList("ConsentForm invalid hint"));
+    assertThat(formElementIssues, hasItem(issue3));
+
+
+    assertThat(formElementIssues.size(), equalTo(3));
   }
 
   @Test

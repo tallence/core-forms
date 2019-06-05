@@ -22,26 +22,34 @@ import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Validates, that all form elements have a name.
+ * Validates, that CheckBoxes, DropDowns and RadioButtons have at least one groupElement.
  */
 @Component
-public class NameNotEmptyValidator implements FieldValidator {
+public class OptionsNotEmptyValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
-    return Arrays.asList("TextField", "NumberField", "RadioButtons", "CheckBoxes", "SelectBox", "TextArea", "UsersMail",
-            "FileUpload", "ConsentFormCheckBox");
+    return Arrays.asList("RadioButtons", "CheckBoxes", "SelectBox");
   }
 
   @Override
   public void validateField(Struct fieldData, String action, Issues issues) {
-    if (!StringUtils.hasText(StructUtil.getString(fieldData, "name"))) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formField_missing_name", fieldData.get("type"));
+
+    boolean noElements = Optional.ofNullable(StructUtil.getSubstruct(fieldData, "groupElements"))
+        .map(s -> s.getProperties().isEmpty())
+        .orElse(true);
+    if (noElements) {
+
+      String messageKey = fieldData.getString("type").toLowerCase() + "_missing_options";
+
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, messageKey, fieldData.getString("name"));
     }
+
   }
+
 }

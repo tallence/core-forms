@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
+import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
@@ -44,7 +45,7 @@ public class TextFieldValidator implements FieldValidator {
 
   @Override
   public void validateField(Struct fieldData, String action, Issues issues) {
-    Struct validator = (Struct) fieldData.get(VALIDATOR);
+    Struct validator = StructUtil.getSubstruct(fieldData, VALIDATOR);
     if (validator != null) {
       validateFieldValidators(validator, issues);
     }
@@ -52,13 +53,13 @@ public class TextFieldValidator implements FieldValidator {
 
   private void validateFieldValidators(Struct validator, Issues issues) {
     // Size constraints
-    Integer minSize = (Integer) validator.get("minSize");
-    Integer maxSize = (Integer) validator.get("maxSize");
+    Integer minSize = StructUtil.getInteger(validator, "minSize");
+    Integer maxSize = StructUtil.getInteger(validator, "maxSize");
     validateMinSize(minSize, issues);
     validateMaxSize(maxSize, minSize, issues);
 
     // Regex
-    String regex = (String) validator.get(REGEX);
+    String regex = StructUtil.getString(validator, REGEX);
     if (StringUtils.hasLength(regex)) {
       validateRegex(regex, issues);
     }
@@ -66,15 +67,15 @@ public class TextFieldValidator implements FieldValidator {
 
   private void validateMinSize(Integer minSize, Issues issues) {
     if (minSize != null && minSize < 0) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "invalid_minsize");
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_minsize", minSize);
     }
   }
 
   private void validateMaxSize(Integer maxSize, Integer minSize, Issues issues) {
     if (maxSize != null && maxSize < 0) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "invalid_maxsize");
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_maxsize", maxSize);
     } else if (maxSize != null && minSize != null && maxSize < minSize) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "maxsize_smaller_minsize");
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_maxsize_smaller_minsize");
     }
   }
 
@@ -82,7 +83,7 @@ public class TextFieldValidator implements FieldValidator {
     try {
       Pattern.compile(regex);
     } catch (PatternSyntaxException e) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "form_action_invalid_regexp");
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_regexp");
     }
   }
 

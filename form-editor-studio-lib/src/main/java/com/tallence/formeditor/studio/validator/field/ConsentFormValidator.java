@@ -24,24 +24,32 @@ import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
- * Validates, that all form elements have a name.
+ * Validates, that ConsentFormCheckBoxes have a text and a link.
  */
 @Component
-public class NameNotEmptyValidator implements FieldValidator {
+public class ConsentFormValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
-    return Arrays.asList("TextField", "NumberField", "RadioButtons", "CheckBoxes", "SelectBox", "TextArea", "UsersMail",
-            "FileUpload", "ConsentFormCheckBox");
+    return Collections.singletonList("ConsentFormCheckBox");
   }
 
   @Override
   public void validateField(Struct fieldData, String action, Issues issues) {
-    if (!StringUtils.hasText(StructUtil.getString(fieldData, "name"))) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formField_missing_name", fieldData.get("type"));
+
+    String name = StructUtil.getString(fieldData, "name");
+    if (fieldData.get("linkTarget") == null) {
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_linkTarget", name);
+    }
+
+    String hint = StructUtil.getString(fieldData, "hint");
+    if (StringUtils.isEmpty(hint)) {
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_hint", name);
+    } else if (!hint.matches(".*%.+%.*")) {
+      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_invalid_hint", name);
     }
   }
 }

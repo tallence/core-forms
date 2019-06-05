@@ -52,6 +52,18 @@
             <markupProperty name="formData" url="8formElements.xml" grammar="coremedia-struct-2008"/>
           </version>
         </document>
+        <document id="10" type="FormEditor" name="TestForm10" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="10formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="12" type="FormEditor" name="TestForm12" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="12formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
       </folder>
     </folder>
   </content>
