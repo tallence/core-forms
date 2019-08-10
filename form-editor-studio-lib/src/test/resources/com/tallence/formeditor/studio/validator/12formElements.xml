@@ -22,7 +22,9 @@
           <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
           <StringProperty Name="name">ConsentForm valid</StringProperty>
           <StringProperty Name="hint">That is the %target%</StringProperty>
-          <LinkProperty Name="linkTarget" LinkType="CMLinkable" xlink:href="coremedia:///cap/content/2"/>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
         </Struct>
       </StructProperty>
       <StructProperty Name="ConsentForm missing target">
@@ -36,14 +38,18 @@
         <Struct>
           <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
           <StringProperty Name="name">ConsentForm missing hint</StringProperty>
-          <LinkProperty Name="linkTarget" LinkType="CMLinkable" xlink:href="coremedia:///cap/content/2"/>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
         </Struct>
       </StructProperty>
       <StructProperty Name="ConsentForm invalid hint">
         <Struct>
           <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
           <StringProperty Name="name">ConsentForm invalid hint</StringProperty>
-          <LinkProperty Name="linkTarget" LinkType="CMLinkable" xlink:href="coremedia:///cap/content/2"/>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
           <StringProperty Name="hint">Hint without placeholder</StringProperty>
         </Struct>
       </StructProperty>

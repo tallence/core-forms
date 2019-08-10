@@ -17,10 +17,9 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.blueprint.base.util.StructUtil;
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -31,25 +30,25 @@ import java.util.List;
  * Validates, that ConsentFormCheckBoxes have a text and a link.
  */
 @Component
-public class ConsentFormValidator implements FieldValidator {
+public class ConsentFormValidator extends AbstractFormValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
     return Collections.singletonList("ConsentFormCheckBox");
   }
 
   @Override
-  public void validateField(Struct fieldData, String action, Issues issues) {
+  public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
     String name = StructUtil.getString(fieldData, "name");
-    if (fieldData.get("linkTarget") == null) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_linkTarget", name);
+    if (fieldData.get("linkTarget") == null || ((List<Content>) fieldData.get("linkTarget")).isEmpty()) {
+      addErrorIssue(issues, id, "linkTarget", "consentForm_missing_linkTarget", name);
     }
 
     String hint = StructUtil.getString(fieldData, "hint");
     if (StringUtils.isEmpty(hint)) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_missing_hint", name);
+      addErrorIssue(issues, id, "hint", "consentForm_missing_hint", name);
     } else if (!hint.matches(".*%.+%.*")) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "consentForm_invalid_hint", name);
+      addErrorIssue(issues, id, "hint", "consentForm_invalid_hint", name);
     }
   }
 }

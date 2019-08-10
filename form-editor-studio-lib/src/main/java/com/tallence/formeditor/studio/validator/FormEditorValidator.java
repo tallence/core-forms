@@ -27,11 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Validates, that a form with form action "mailAction" does not have a fileUpload-field and has a mail-address entered.
@@ -45,14 +41,12 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
   @PostConstruct
   public void init() {
-    fieldValidators.forEach(validator -> {
-      validator.resonsibleFor().forEach(type -> {
-        if (!fieldValidatorsByType.containsKey(type)) {
-          fieldValidatorsByType.put(type, new ArrayList<>());
-        }
-        fieldValidatorsByType.get(type).add(validator);
-      });
-    });
+    fieldValidators.forEach(validator -> validator.resonsibleFor().forEach(type -> {
+      if (!fieldValidatorsByType.containsKey(type)) {
+        fieldValidatorsByType.put(type, new ArrayList<>());
+      }
+      fieldValidatorsByType.get(type).add(validator);
+    }));
   }
 
   @Override
@@ -65,15 +59,16 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     if (formData.get(FormEditor.FORM_ELEMENTS) != null) {
       Struct formElements = formData.getStruct(FormEditor.FORM_ELEMENTS);
 
-      formElements.getProperties().values()
+      formElements.getProperties().entrySet()
               .stream()
-              .filter(Struct.class::isInstance)
-              .map(Struct.class::cast)
-              .forEach(fieldStruct -> {
+              .filter(set -> set.getValue() instanceof Struct)
+              .forEach(set -> {
+                String key = set.getKey();
+                Struct fieldStruct = (Struct) set.getValue();
                 String type = (String) fieldStruct.get("type");
                 Optional.ofNullable(fieldValidatorsByType.get(type)).ifPresent(fieldValidatorsForType -> {
                   for (FieldValidator fieldValidator : fieldValidatorsForType) {
-                    fieldValidator.validateField(fieldStruct, action, issues);
+                    fieldValidator.validateField(key, fieldStruct, action, issues);
                   }
                 });
               });

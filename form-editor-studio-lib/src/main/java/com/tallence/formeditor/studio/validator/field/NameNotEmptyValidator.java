@@ -19,8 +19,6 @@ package com.tallence.formeditor.studio.validator.field;
 import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -31,7 +29,7 @@ import java.util.List;
  * Validates, that all form elements have a name.
  */
 @Component
-public class NameNotEmptyValidator implements FieldValidator {
+public class NameNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
     return Arrays.asList("TextField", "NumberField", "RadioButtons", "CheckBoxes", "SelectBox", "TextArea", "UsersMail",
@@ -39,9 +37,9 @@ public class NameNotEmptyValidator implements FieldValidator {
   }
 
   @Override
-  public void validateField(Struct fieldData, String action, Issues issues) {
+  public void validateField(String id, Struct fieldData, String action, Issues issues) {
     if (!StringUtils.hasText(StructUtil.getString(fieldData, "name"))) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formField_missing_name", fieldData.get("type"));
+      addErrorIssue(issues, id, "name", "formField_missing_name", fieldData.get("type"));
     }
   }
 }

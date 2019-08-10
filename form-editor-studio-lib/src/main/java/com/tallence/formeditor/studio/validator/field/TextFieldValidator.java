@@ -19,8 +19,6 @@ package com.tallence.formeditor.studio.validator.field;
 import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -33,7 +31,7 @@ import java.util.regex.PatternSyntaxException;
  * Validates, that regular expressions in a text field are parseable and size limits make sense.
  */
 @Component
-public class TextFieldValidator implements FieldValidator {
+public class TextFieldValidator extends AbstractFormValidator implements FieldValidator {
 
   private static final String VALIDATOR = "validator";
   private static final String REGEX = "regexpValidator";
@@ -44,46 +42,46 @@ public class TextFieldValidator implements FieldValidator {
   }
 
   @Override
-  public void validateField(Struct fieldData, String action, Issues issues) {
+  public void validateField(String id, Struct fieldData, String action, Issues issues) {
     Struct validator = StructUtil.getSubstruct(fieldData, VALIDATOR);
     if (validator != null) {
-      validateFieldValidators(validator, issues);
+      validateFieldValidators(validator, issues, id, (String) fieldData.get("name"));
     }
   }
 
-  private void validateFieldValidators(Struct validator, Issues issues) {
+  private void validateFieldValidators(Struct validator, Issues issues, String formElementId, String name) {
     // Size constraints
     Integer minSize = StructUtil.getInteger(validator, "minSize");
     Integer maxSize = StructUtil.getInteger(validator, "maxSize");
-    validateMinSize(minSize, issues);
-    validateMaxSize(maxSize, minSize, issues);
+    validateMinSize(minSize, issues, formElementId, name);
+    validateMaxSize(maxSize, minSize, issues, formElementId, name);
 
     // Regex
     String regex = StructUtil.getString(validator, REGEX);
     if (StringUtils.hasLength(regex)) {
-      validateRegex(regex, issues);
+      validateRegex(regex, issues, formElementId);
     }
   }
 
-  private void validateMinSize(Integer minSize, Issues issues) {
+  private void validateMinSize(Integer minSize, Issues issues, String formElementId, String name) {
     if (minSize != null && minSize < 0) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_minsize", minSize);
+      addErrorIssue(issues, formElementId, "validator.minSize", "formfield_validator_invalid_minsize", name, minSize);
     }
   }
 
-  private void validateMaxSize(Integer maxSize, Integer minSize, Issues issues) {
+  private void validateMaxSize(Integer maxSize, Integer minSize, Issues issues, String formElementId, String name) {
     if (maxSize != null && maxSize < 0) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_maxsize", maxSize);
+      addErrorIssue(issues, formElementId, "validator.maxSize", "formfield_validator_invalid_maxsize", name, maxSize);
     } else if (maxSize != null && minSize != null && maxSize < minSize) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_maxsize_smaller_minsize");
+      addErrorIssue(issues, formElementId, "validator.maxSize", "formfield_validator_maxsize_smaller_minsize", name, maxSize);
     }
   }
 
-  private void validateRegex(String regex, Issues issues) {
+  private void validateRegex(String regex, Issues issues, String formElementId) {
     try {
       Pattern.compile(regex);
     } catch (PatternSyntaxException e) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, "formfield_validator_invalid_regexp");
+      addErrorIssue(issues, formElementId, "validator.maxSize", "formfield_validator_invalid_regexp");
     }
   }
 

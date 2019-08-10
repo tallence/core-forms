@@ -16,29 +16,14 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
+import com.coremedia.rest.validation.Severity;
+import com.tallence.formeditor.contentbeans.FormEditor;
 
-import java.util.List;
+abstract class AbstractFormValidator {
 
-/**
- * Defines a common interface for form editor fild validators.
- */
-public interface FieldValidator {
-
-  /**
-   * Returns the field type(s) this validator acts on.
-   */
-  List<String> resonsibleFor();
-
-  /**
-   * Validate a single field configuration.
-   *
-   * @param id        the id of the form element
-   * @param fieldData the sub struct of formElements for a field.
-   * @param action    the current action of the form (some validators need this).
-   * @param issues    the Issues object for the current validation request.
-   */
-  void validateField(String id, Struct fieldData, String action, Issues issues);
-
+  void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
+    String property = "localSettings." + FormEditor.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
+    issues.addIssue(Severity.ERROR, property, errorCode, objects);
+  }
 }

@@ -19,8 +19,6 @@ package com.tallence.formeditor.studio.validator.field;
 import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -31,23 +29,22 @@ import java.util.Optional;
  * Validates, that CheckBoxes, DropDowns and RadioButtons have at least one groupElement.
  */
 @Component
-public class OptionsNotEmptyValidator implements FieldValidator {
+public class OptionsNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
     return Arrays.asList("RadioButtons", "CheckBoxes", "SelectBox");
   }
 
   @Override
-  public void validateField(Struct fieldData, String action, Issues issues) {
+  public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
     boolean noElements = Optional.ofNullable(StructUtil.getSubstruct(fieldData, "groupElements"))
-        .map(s -> s.getProperties().isEmpty())
-        .orElse(true);
+            .map(s -> s.getProperties().isEmpty())
+            .orElse(true);
     if (noElements) {
 
       String messageKey = fieldData.getString("type").toLowerCase() + "_missing_options";
-
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ELEMENTS, messageKey, fieldData.getString("name"));
+      addErrorIssue(issues, id, "groupElements", messageKey, fieldData.get("name"));
     }
 
   }
