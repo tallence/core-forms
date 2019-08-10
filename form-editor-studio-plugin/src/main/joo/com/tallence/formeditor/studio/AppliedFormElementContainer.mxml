@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:AppliedFormElementsContainerBase
-    xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns="exml:ext.config"
-    xmlns:exml="http://www.jangaroo.net/exml/0.8"
-    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
-    xmlns:local="com.tallence.formeditor.studio.*"
-    xmlns:u="exml:untyped"
-    xmlns:ui="exml:com.coremedia.ui.config">
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns="exml:ext.config"
+        xmlns:exml="http://www.jangaroo.net/exml/0.8"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
+        xmlns:local="com.tallence.formeditor.studio.*"
+        xmlns:u="exml:untyped"
+        xmlns:ui="exml:com.coremedia.ui.config"
+        xmlns:plugins="com.tallence.formeditor.studio.plugins.*"
+        xmlns:components="com.tallence.formeditor.studio.components.*">
 
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.config.appliedFormElementContainer";
@@ -21,11 +23,11 @@
 
   <local:items>
     <!-- We need to overwrite the collapsedCls. Otherwise the header would have a transparent background.  -->
-    <editor:CollapsiblePanel margin="10 15 0 10"
+    <components:StateFulCollapsiblePanel margin="10 15 0 10"
                              itemId="{FORM_ELEMENT_PANEL}"
                              collapsedCls="collapsed-form-element"
                              animCollapse="false">
-      <editor:plugins>
+      <components:plugins>
         <ui:BindPropertyPlugin bidirectional="false"
                                componentProperty="collapsed"
                                transformer="{collapsedTransformer}"
@@ -35,12 +37,13 @@
                                ifUndefined="{getTitleUndefinedValue(config.formElement)}"
                                transformer="{titleTransformer}"
                                bindTo="{config.formElement.getFormElementVE().extendBy('name')}"/>
-      </editor:plugins>
-      <editor:items>
+        <plugins:ShowFormIssuesPlugin issuesVE="{config.formElement.getFormIssuesVE()}"/>
+      </components:plugins>
+      <components:items>
         <!-- The form element editor is added dynamically bye the
         {@link com.coremedia.ui.util.IReusableComponentsService} -->
-      </editor:items>
-      <editor:header>
+      </components:items>
+      <components:header>
         <!--Using focusableContainer(cm9-17 style) and enableFocusableContainer(cm9-18 style) to be compatible with all cm9-versions-->
         <Header titlePosition="2.0"
                 itemId="{FORM_ELEMENT_HEADER}"
@@ -60,8 +63,8 @@
             </ui:IconButton>
           </items>
         </Header>
-      </editor:header>
-    </editor:CollapsiblePanel>
+      </components:header>
+    </components:StateFulCollapsiblePanel>
     <dragdrop:FormElementDropContainer formElementsManager="{config.formElementsManager}"
                                        formElementId="{config.formElement.getId()}"
                                        forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>

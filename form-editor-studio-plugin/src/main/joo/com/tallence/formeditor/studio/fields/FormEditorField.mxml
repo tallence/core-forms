@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fields:FormEditorFieldBase
-    xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns="exml:ext.config"
-    xmlns:fields="com.tallence.formeditor.studio.fields.*"
-    margin="10 0 0 0">
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns="exml:ext.config"
+        xmlns:fields="com.tallence.formeditor.studio.fields.*"
+        margin="10 0 0 0">
   <fx:Script><![CDATA[
     import com.coremedia.ui.data.ValueExpression;
 
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.formEditorField";
-
-    private var config:FormEditorField;
 
     /**
      * A value expression that is evaluated for the associated struct of the form element.
@@ -40,6 +38,13 @@
      */
     [Bindable]
     public var forceReadOnlyValueExpression:ValueExpression;
+
+    /**
+     * A value expression which contains all issues for the form element. This value expression is used by the
+     * {@link com.tallence.formeditor.studio.plugins.ShowFormIssuesPlugin} to display validation states and messages.
+     */
+    [Bindable]
+    public var formIssuesVE:ValueExpression;
 
     public native function FormEditorField(config:FormEditorField = null);
     ]]>

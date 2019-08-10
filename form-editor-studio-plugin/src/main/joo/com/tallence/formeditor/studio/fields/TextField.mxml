@@ -4,6 +4,7 @@
     xmlns="exml:ext.config"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
     xmlns:ui="exml:com.coremedia.ui.config"
+    xmlns:plugins="com.tallence.formeditor.studio.plugins.*"
     xmlns:fields="com.tallence.formeditor.studio.fields.*">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.textField";
@@ -20,16 +21,18 @@
   <fields:items>
     <FieldContainer fieldLabel="{config.fieldLabel}">
       <items>
-        <TextField
+        <ui:StatefulTextField
             emptyText="{config.emptyText ? config.emptyText : resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_textField_emptyText')}"
             width="100%">
-          <plugins>
+          <ui:plugins>
+            <plugins:ShowFormIssuesPlugin issuesVE="{config.formIssuesVE}"
+                                          propertyName="{config.propertyName}"/>
             <ui:BindPropertyPlugin bidirectional="true"
                                    bindTo="{getPropertyVE(config)}"/>
             <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-          </plugins>
-        </TextField>
+          </ui:plugins>
+        </ui:StatefulTextField>
       </items>
     </FieldContainer>
   </fields:items>

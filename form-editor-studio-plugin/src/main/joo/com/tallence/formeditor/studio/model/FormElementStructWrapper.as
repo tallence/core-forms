@@ -17,6 +17,7 @@
 package com.tallence.formeditor.studio.model {
 import com.coremedia.cap.common.impl.StructSubBean;
 import com.coremedia.ui.data.ValueExpression;
+import com.coremedia.ui.data.ValueExpressionFactory;
 
 public class FormElementStructWrapper {
 
@@ -28,6 +29,7 @@ public class FormElementStructWrapper {
   private var type:String;
   private var bindTo:ValueExpression;
   private var forceReadOnlyValueExpression:ValueExpression;
+  private var formIssuesVE:ValueExpression;
 
   public function FormElementStructWrapper(formElementStruct:StructSubBean,
                                            id:String,
@@ -60,6 +62,15 @@ public class FormElementStructWrapper {
 
   public function getType():String {
     return type;
+  }
+
+  public function getFormIssuesVE():ValueExpression {
+    if (!formIssuesVE) {
+      formIssuesVE = ValueExpressionFactory.createFromFunction(function ():FormIssues {
+        return new FormIssues(formElementStruct.getType().getPropertyNames(), bindTo, id);
+      });
+    }
+    return formIssuesVE;
   }
 
   private function getString(propertyName:String):String {

@@ -27,7 +27,7 @@ public class TextFieldBase extends FormEditorField {
   }
 
   override protected function initWithDefault(ve:ValueExpression):void {
-    if (defaultValue) {
+    if (defaultValue != undefined) {
       ve.setValue(defaultValue);
     }
   }

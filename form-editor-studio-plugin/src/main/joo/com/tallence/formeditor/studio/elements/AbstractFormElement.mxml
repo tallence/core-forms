@@ -30,15 +30,14 @@
     [Bindable]
     public var formElement:FormElementStructWrapper;
 
-    private var config:AbstractFormElement;
-
     public native function AbstractFormElement(config:AbstractFormElement = null);
     ]]>
     </fx:Script>
   <local:defaults>
     <fields:FormEditorField bindTo="{getBindTo()}"
                             forceReadOnlyValueExpression="{getForceReadOnlyVE()}"
-                            formElementStructVE="{getFormElementStructVE()}"/>
+                            formElementStructVE="{getFormElementStructVE()}"
+                            formIssuesVE="{getFormIssuesVE()}"/>
   </local:defaults>
 
 </local:AbstractFormElementBase>

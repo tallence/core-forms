@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fields:NumberFieldBase
-    xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns="exml:ext.config"
-    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns:ui="exml:com.coremedia.ui.config"
-    xmlns:fields="com.tallence.formeditor.studio.fields.*">
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns="exml:ext.config"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns:ui="exml:com.coremedia.ui.config"
+        xmlns:fields="com.tallence.formeditor.studio.fields.*"
+        xmlns:plugins="com.tallence.formeditor.studio.plugins.*">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.numberField";
 
@@ -20,16 +21,18 @@
   <fields:items>
     <FieldContainer fieldLabel="{config.fieldLabel}">
       <items>
-        <NumberField
-            emptyText="{config.emptyText ? config.emptyText : resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_numberField_emptyText')}"
-            width="100%">
-          <plugins>
+        <ui:StatefulNumberField
+                emptyText="{config.emptyText ? config.emptyText : resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_numberField_emptyText')}"
+                width="100%">
+          <ui:plugins>
             <ui:BindPropertyPlugin bidirectional="true"
                                    bindTo="{getPropertyVE(config)}"/>
             <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-          </plugins>
-        </NumberField>
+            <plugins:ShowFormIssuesPlugin issuesVE="{config.formIssuesVE}"
+                                          propertyName="{config.propertyName}"/>
+          </ui:plugins>
+        </ui:StatefulNumberField>
       </items>
     </FieldContainer>
   </fields:items>
