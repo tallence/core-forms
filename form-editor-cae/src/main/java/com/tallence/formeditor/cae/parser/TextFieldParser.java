@@ -33,11 +33,11 @@ import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 @Component
 public class TextFieldParser extends AbstractFormElementParser<TextField> {
 
-  private static final String KEY_TEXT_FIELD = "TextField";
-  private static final String KEY_ZIP_FIELD = "ZipField";
-  private static final String KEY_PHONE_FIELD = "PhoneField";
-  private static final String KEY_FAX_FIELD = "FaxField";
-  private static final String KEY_STREET_NUMBER_FIELD = "StreetNumberField";
+  public static final String KEY_TEXT_FIELD = "TextField";
+  public static final String KEY_ZIP_FIELD = "ZipField";
+  public static final String KEY_PHONE_FIELD = "PhoneField";
+  public static final String KEY_FAX_FIELD = "FaxField";
+  public static final String KEY_STREET_NUMBER_FIELD = "StreetNumberField";
 
 
   @Override

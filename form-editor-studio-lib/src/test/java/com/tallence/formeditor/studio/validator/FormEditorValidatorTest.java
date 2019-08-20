@@ -72,15 +72,15 @@ public class FormEditorValidatorTest {
     IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
     formEditorValidator.validate(testContent, issues);
     // Ensure, all expected validation errors occurred.
-    assertEquals(1, issues.getByProperty().get("localSettings.formElements.TextField.validator.minSize").size());
-    assertEquals(2, issues.getByProperty().get("localSettings.formElements.TextField.validator.maxSize").size());
-    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.TextField.validator.minSize", "formfield_validator_invalid_minsize", Arrays.asList("TextField", -1));
-    Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.TextField.validator.maxSize", "formfield_validator_invalid_maxsize", Arrays.asList("TextField", -1));
-    Issue<Content> issue3 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.TextField.validator.maxSize", "formfield_validator_invalid_regexp", Collections.emptyList());
-    assertEquals(issues.getByProperty().get("localSettings.formElements.TextField.validator.minSize").iterator().next(), issue1);
-    Iterator iterator = issues.getByProperty().get("localSettings.formElements.TextField.validator.maxSize").iterator();
-    assertEquals(iterator.next(), issue3);
-    assertEquals(iterator.next(), issue2);
+    assertEquals(1, issues.getByProperty().get("formData.formElements.TextField.validator.minSize").size());
+    assertEquals(1, issues.getByProperty().get("formData.formElements.TextField.validator.maxSize").size());
+    assertEquals(1, issues.getByProperty().get("formData.formElements.TextField.validator.regexpValidator").size());
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.TextField.validator.minSize", "formfield_validator_invalid_minsize", Arrays.asList("TextField", -1));
+    Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.TextField.validator.maxSize", "formfield_validator_invalid_maxsize", Arrays.asList("TextField", -1));
+    Issue<Content> issue3 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.TextField.validator.regexpValidator", "formfield_validator_invalid_regexp", Collections.emptyList());
+    assertEquals(issues.getByProperty().get("formData.formElements.TextField.validator.minSize").iterator().next(), issue1);
+    assertEquals(issues.getByProperty().get("formData.formElements.TextField.validator.maxSize").iterator().next(), issue2);
+    assertEquals(issues.getByProperty().get("formData.formElements.TextField.validator.regexpValidator").iterator().next(), issue3);
   }
 
   @Test
@@ -93,7 +93,7 @@ public class FormEditorValidatorTest {
     Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ACTION, "form_action_mail", null);
     assertThat(issues.getByProperty().get(FormEditor.FORM_ACTION), hasItem(issue1));
 
-    String key = "localSettings.formElements.FileUpload.name";
+    String key = "formData.formElements.FileUpload.name";
     assertEquals(1, issues.getByProperty().get(key).size());
     Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, key, "form_action_mail_file", Collections.emptyList());
     assertThat(issues.getByProperty().get(key), hasItem(issue2));
@@ -105,7 +105,7 @@ public class FormEditorValidatorTest {
     IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
     formEditorValidator.validate(testContent, issues);
 
-    String key = "localSettings.formElements.Test Buttons without options.groupElements";
+    String key = "formData.formElements.Test Buttons without options.groupElements";
     Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, key, "radiobuttons_missing_options", Collections.singletonList("without buttons"));
     Set<Issue<Content>> formElementIssues = issues.getByProperty().get(key);
     assertEquals(formElementIssues.iterator().next(), issue1);
@@ -120,14 +120,14 @@ public class FormEditorValidatorTest {
     formEditorValidator.validate(testContent, issues);
 
 
-    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.ConsentForm missing hint.hint", "consentForm_missing_hint", Collections.singletonList("ConsentForm missing hint"));
-    assertEquals(issues.getByProperty().get("localSettings.formElements.ConsentForm missing hint.hint").iterator().next(), issue1);
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.ConsentForm missing hint.hint", "consentForm_missing_hint", Collections.singletonList("ConsentForm missing hint"));
+    assertEquals(issues.getByProperty().get("formData.formElements.ConsentForm missing hint.hint").iterator().next(), issue1);
 
-    Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.ConsentForm missing target.linkTarget", "consentForm_missing_linkTarget", Collections.singletonList("ConsentForm missing target"));
-    assertEquals(issues.getByProperty().get("localSettings.formElements.ConsentForm missing target.linkTarget").iterator().next(), issue2);
+    Issue<Content> issue2 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.ConsentForm missing target.linkTarget", "consentForm_missing_linkTarget", Collections.singletonList("ConsentForm missing target"));
+    assertEquals(issues.getByProperty().get("formData.formElements.ConsentForm missing target.linkTarget").iterator().next(), issue2);
 
-    Issue<Content> issue3 = new Issue<>(testContent, Severity.ERROR, "localSettings.formElements.ConsentForm invalid hint.hint", "consentForm_invalid_hint", Collections.singletonList("ConsentForm invalid hint"));
-    assertEquals(issues.getByProperty().get("localSettings.formElements.ConsentForm invalid hint.hint").iterator().next(), issue3);
+    Issue<Content> issue3 = new Issue<>(testContent, Severity.ERROR, "formData.formElements.ConsentForm invalid hint.hint", "consentForm_invalid_hint", Collections.singletonList("ConsentForm invalid hint"));
+    assertEquals(issues.getByProperty().get("formData.formElements.ConsentForm invalid hint.hint").iterator().next(), issue3);
   }
 
   @Test
@@ -136,7 +136,7 @@ public class FormEditorValidatorTest {
     IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
     formEditorValidator.validate(testContent, issues);
     // Ensure, all expected validation errors occurred.
-    String key = "localSettings.formElements.TextField.name";
+    String key = "formData.formElements.TextField.name";
 
     assertEquals(1, issues.getByProperty().get(key).size());
     Issue<Content> issue = new Issue<>(testContent, Severity.ERROR, key, "formField_missing_name", Collections.singletonList("TextField"));

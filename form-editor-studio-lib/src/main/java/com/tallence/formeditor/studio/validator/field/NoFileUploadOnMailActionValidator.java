@@ -18,11 +18,14 @@ package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
+import com.tallence.formeditor.cae.parser.FileUploadParser;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
 
 /**
  * Validates, that forms where the mail action is selected have no file upload field.
@@ -32,13 +35,13 @@ public class NoFileUploadOnMailActionValidator extends AbstractFormValidator imp
 
   @Override
   public List<String> resonsibleFor() {
-    return Collections.singletonList("FileUpload");
+    return Collections.singletonList(FileUploadParser.parserKey);
   }
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
     if (FormEditor.MAIL_ACTION.equals(action)) {
-      addErrorIssue(issues, id, "name", "form_action_mail_file");
+      addErrorIssue(issues, id, FORM_DATA_NAME, "form_action_mail_file");
     }
   }
 }

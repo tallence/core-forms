@@ -16,16 +16,7 @@
 package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
-import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
-import com.tallence.formeditor.cae.elements.ConsentFormCheckBox;
-import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.elements.NumberField;
-import com.tallence.formeditor.cae.elements.RadioButtonGroup;
-import com.tallence.formeditor.cae.elements.SelectBox;
-import com.tallence.formeditor.cae.elements.TextArea;
-import com.tallence.formeditor.cae.elements.TextField;
-import com.tallence.formeditor.cae.elements.TextOnly;
-import com.tallence.formeditor.cae.elements.ZipField;
+import com.tallence.formeditor.cae.elements.*;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.junit.Test;

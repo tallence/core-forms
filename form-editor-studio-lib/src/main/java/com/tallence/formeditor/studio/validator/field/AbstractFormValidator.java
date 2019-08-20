@@ -20,10 +20,12 @@ import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
+import static com.tallence.formeditor.contentbeans.FormEditor.FORM_DATA;
+
 abstract class AbstractFormValidator {
 
   void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
-    String property = "localSettings." + FormEditor.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
+    String property = FORM_DATA + "." + FormEditor.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
     issues.addIssue(Severity.ERROR, property, errorCode, objects);
   }
 }

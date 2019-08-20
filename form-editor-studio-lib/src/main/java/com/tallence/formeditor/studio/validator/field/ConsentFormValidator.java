@@ -17,7 +17,6 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.blueprint.base.util.StructUtil;
-import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
 import org.springframework.stereotype.Component;
@@ -26,6 +25,11 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.List;
 
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_HINT;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
+import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.FORM_LINK_TARGET;
+
 /**
  * Validates, that ConsentFormCheckBoxes have a text and a link.
  */
@@ -33,22 +37,22 @@ import java.util.List;
 public class ConsentFormValidator extends AbstractFormValidator implements FieldValidator {
   @Override
   public List<String> resonsibleFor() {
-    return Collections.singletonList("ConsentFormCheckBox");
+    return Collections.singletonList(CONSENT_FORM_CHECK_BOX_TYPE);
   }
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
-    String name = StructUtil.getString(fieldData, "name");
-    if (fieldData.get("linkTarget") == null || ((List<Content>) fieldData.get("linkTarget")).isEmpty()) {
-      addErrorIssue(issues, id, "linkTarget", "consentForm_missing_linkTarget", name);
+    String name = StructUtil.getString(fieldData, FORM_DATA_NAME);
+    if (StructUtil.getLinks(fieldData, FORM_LINK_TARGET).isEmpty()) {
+      addErrorIssue(issues, id, FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
     }
 
-    String hint = StructUtil.getString(fieldData, "hint");
+    String hint = StructUtil.getString(fieldData, FORM_DATA_HINT);
     if (StringUtils.isEmpty(hint)) {
-      addErrorIssue(issues, id, "hint", "consentForm_missing_hint", name);
+      addErrorIssue(issues, id, FORM_DATA_HINT, "consentForm_missing_hint", name);
     } else if (!hint.matches(".*%.+%.*")) {
-      addErrorIssue(issues, id, "hint", "consentForm_invalid_hint", name);
+      addErrorIssue(issues, id, FORM_DATA_HINT, "consentForm_invalid_hint", name);
     }
   }
 }
