@@ -48,6 +48,12 @@
     }
   }
 
+  /**
+   * The validation state is used to display mark the applied form element containers. If the panel is collapsed, the
+   * container is not bordered in red. The following css block is needed to display coremedias components correctly in
+   * case the form element is invalid.
+   *
+   */
   .x-panel-card-200.cm-validation-state-error .x-panel-header {
     z-index: 1;
     position: relative;
