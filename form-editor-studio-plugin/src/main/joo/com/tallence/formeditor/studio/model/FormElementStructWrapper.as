@@ -24,6 +24,7 @@ public class FormElementStructWrapper {
   private static const TYPE_PROPERTY:String = "type";
 
   private var formElementStruct:StructSubBean;
+  private var structPropertyName:String;
   private var id:String;
   private var formElementVE:ValueExpression;
   private var type:String;
@@ -32,11 +33,13 @@ public class FormElementStructWrapper {
   private var formIssuesVE:ValueExpression;
 
   public function FormElementStructWrapper(formElementStruct:StructSubBean,
+                                           structPropertyName:String,
                                            id:String,
                                            formElementVE:ValueExpression,
                                            bindTo:ValueExpression,
                                            forceReadOnlyValueExpression:ValueExpression) {
     this.formElementStruct = formElementStruct;
+    this.structPropertyName = structPropertyName;
     this.id = id;
     this.formElementVE = formElementVE;
     this.type = getString(TYPE_PROPERTY);
@@ -67,7 +70,7 @@ public class FormElementStructWrapper {
   public function getFormIssuesVE():ValueExpression {
     if (!formIssuesVE) {
       formIssuesVE = ValueExpressionFactory.createFromFunction(function ():FormIssues {
-        return new FormIssues(formElementStruct.getType().getPropertyNames(), bindTo, id);
+        return new FormIssues(formElementStruct.getType().getPropertyNames(), structPropertyName, bindTo, id);
       });
     }
     return formIssuesVE;

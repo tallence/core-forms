@@ -19,8 +19,8 @@ import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.impl.BeanImpl;
 
 /**
- * Bean which contains all form issues for the respective form element. Used by the {@link ShowFormIssuesPlugin} plugin
- * to display error messages.
+ * Bean which contains all form issues for the respective form element. Used by the
+ * {@link com.tallence.formeditor.studio.plugins.ShowFormIssuesPlugin} plugin to display error messages.
  */
 public class FormIssues extends BeanImpl {
 
@@ -30,10 +30,15 @@ public class FormIssues extends BeanImpl {
    * Creates a new bean containing all form issues.
    *
    * @param propertyNames the property names of the form element
+   * @param structPropertyName a string which holds the document property name of the struct, where the form elements
+   * are saved into.
    * @param bindTo the value expression evaluating to the content
    * @param formElementId the id of the form element
    */
-  public function FormIssues(propertyNames:Array, bindTo:ValueExpression, formElementId:String) {
+  public function FormIssues(propertyNames:Array,
+                             structPropertyName:String,
+                             bindTo:ValueExpression,
+                             formElementId:String) {
     if (propertyNames) {
       propertyNames.forEach(function (propertyName:String):void {
         set(PROPERTY_NAMES, propertyNames);
@@ -41,7 +46,7 @@ public class FormIssues extends BeanImpl {
           var ve:ValueExpression = bindTo.extendBy([
             "issues",
             "byProperty",
-            "localSettings.formElements." + formElementId + "." + propertyName
+            structPropertyName + ".formElements." + formElementId + "." + propertyName
           ]);
 
           set(propertyName, ve.getValue() ? ve.getValue() : []);
