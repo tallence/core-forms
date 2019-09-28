@@ -37,9 +37,12 @@ import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_
  */
 @Component
 public class OptionsNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
+
+  private static final List<String> RESPONSIBLE_FIELD_TYPES = Arrays.asList(RadioButtonParser.parserKey, CheckBoxesParser.parserKey, SelectBoxParser.parserKey);
+
   @Override
-  public List<String> resonsibleFor() {
-    return Arrays.asList(RadioButtonParser.parserKey, CheckBoxesParser.parserKey, SelectBoxParser.parserKey);
+  public boolean responsibleFor(String fieldType, Struct formElementData) {
+    return RESPONSIBLE_FIELD_TYPES.contains(fieldType);
   }
 
   @Override

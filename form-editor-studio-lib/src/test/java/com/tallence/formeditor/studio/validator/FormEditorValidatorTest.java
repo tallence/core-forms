@@ -39,12 +39,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.hasItems;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)

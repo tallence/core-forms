@@ -26,8 +26,8 @@ import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Validates, that a form with form action "mailAction" does not have a fileUpload-field and has a mail-address entered.
@@ -36,18 +36,6 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
   @Autowired
   private List<FieldValidator> fieldValidators;
-
-  private Map<String, List<FieldValidator>> fieldValidatorsByType = new HashMap<>();
-
-  @PostConstruct
-  public void init() {
-    fieldValidators.forEach(validator -> validator.resonsibleFor().forEach(type -> {
-      if (!fieldValidatorsByType.containsKey(type)) {
-        fieldValidatorsByType.put(type, new ArrayList<>());
-      }
-      fieldValidatorsByType.get(type).add(validator);
-    }));
-  }
 
   @Override
   public void validate(Content content, Issues issues) {
@@ -62,21 +50,23 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
       formElements.getProperties().entrySet()
               .stream()
               .filter(set -> set.getValue() instanceof Struct)
-              .forEach(set -> {
-                String key = set.getKey();
-                Struct fieldStruct = (Struct) set.getValue();
-                String type = (String) fieldStruct.get("type");
-                Optional.ofNullable(fieldValidatorsByType.get(type)).ifPresent(fieldValidatorsForType -> {
-                  for (FieldValidator fieldValidator : fieldValidatorsForType) {
-                    fieldValidator.validateField(key, fieldStruct, action, issues);
-                  }
-                });
-              });
+              .forEach(formElementEntry -> validateFormElement(issues, action, formElementEntry));
     }
 
     // Further validations
     if (FormEditor.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditor.ADMIN_MAILS))) {
       issues.addIssue(Severity.ERROR, FormEditor.FORM_ACTION, "form_action_mail");
     }
+  }
+
+  private void validateFormElement(Issues issues, String action, Map.Entry<String, Object> formElementEntry) {
+    String formElementKey = formElementEntry.getKey();
+    Struct formElementData = (Struct) formElementEntry.getValue();
+    String type = (String) formElementData.get("type");
+
+    //Apply the responsible validators to the current form-key and -data
+    fieldValidators.stream()
+        .filter(v -> v.responsibleFor(type, formElementData))
+        .forEach(fieldValidator -> fieldValidator.validateField(formElementKey, formElementData, action, issues));
   }
 }

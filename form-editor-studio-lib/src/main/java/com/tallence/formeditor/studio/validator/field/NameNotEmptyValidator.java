@@ -19,27 +19,24 @@ package com.tallence.formeditor.studio.validator.field;
 import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
-import static com.tallence.formeditor.cae.parser.TextFieldParser.*;
+import static com.tallence.formeditor.cae.parser.TextFieldParser.FORM_DATA_NAME;
 
 /**
  * Validates, that all form elements have a name.
  */
 @Component
 public class NameNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
+
+  /**
+   * Every formField needs a name.
+   */
   @Override
-  public List<String> resonsibleFor() {
-    return Arrays.asList(KEY_TEXT_FIELD, KEY_ZIP_FIELD, KEY_PHONE_FIELD, KEY_FAX_FIELD, KEY_STREET_NUMBER_FIELD,
-        NumberFieldParser.parserKey, RadioButtonParser.parserKey, CheckBoxesParser.parserKey, SelectBoxParser.parserKey,
-        TextAreaParser.parserKey, UsersMailParser.parserKey, FileUploadParser.parserKey, CONSENT_FORM_CHECK_BOX_TYPE);
+  public boolean responsibleFor(String fieldType, Struct formElementData) {
+    return true;
   }
 
   @Override

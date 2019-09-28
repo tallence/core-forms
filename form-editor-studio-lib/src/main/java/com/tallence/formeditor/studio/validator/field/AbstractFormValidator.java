@@ -16,16 +16,50 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
+import com.coremedia.blueprint.base.util.StructUtil;
+import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
 import static com.tallence.formeditor.contentbeans.FormEditor.FORM_DATA;
 
 abstract class AbstractFormValidator {
 
-  void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
+  private static final String FULLPATH_MIN_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MINSIZE;
+  private static final String FULLPATH_MAX_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MAXSIZE;
+
+  protected void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
+    addIssue(issues, formElementId, propertyName, errorCode, Severity.ERROR, objects);
+  }
+
+  protected void addIssue(Issues issues, String formElementId, String propertyName, String errorCode, Severity severity, Object... objects) {
     String property = FORM_DATA + "." + FormEditor.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
     issues.addIssue(Severity.ERROR, property, errorCode, objects);
+  }
+
+  protected void validateMinSize(Integer minSize, Issues issues, String formElementId, String name) {
+    if (minSize != null && minSize < 0) {
+      addErrorIssue(issues, formElementId, FULLPATH_MIN_SIZE, "formfield_validator_invalid_minsize", name, minSize);
+    }
+  }
+
+  protected void validateMaxSize(Integer maxSize, Integer minSize, Issues issues, String formElementId, String name) {
+    if (maxSize != null && maxSize < 0) {
+      addErrorIssue(issues, formElementId, FULLPATH_MAX_SIZE, "formfield_validator_invalid_maxsize", name, maxSize);
+    } else if (maxSize != null && minSize != null && maxSize < minSize) {
+      addErrorIssue(issues, formElementId, FULLPATH_MAX_SIZE, "formfield_validator_maxsize_smaller_minsize", name, maxSize);
+    }
+  }
+
+  protected void validateMaxAndMinSize(Struct validator, Issues issues, String formElementId, String name) {
+    // Size constraints
+    Integer minSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MINSIZE);
+    Integer maxSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MAXSIZE);
+    validateMinSize(minSize, issues, formElementId, name);
+    validateMaxSize(maxSize, minSize, issues, formElementId, name);
   }
 }

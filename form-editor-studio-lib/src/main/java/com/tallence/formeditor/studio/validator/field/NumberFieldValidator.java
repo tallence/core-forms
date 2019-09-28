@@ -16,29 +16,31 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
+import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.FileUploadParser;
-import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.cae.parser.NumberFieldParser;
 import org.springframework.stereotype.Component;
 
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
 
 /**
- * Validates, that forms where the mail action is selected have no file upload field.
+ * Validates, that sizeLimits in a numberField make sense.
  */
 @Component
-public class NoFileUploadOnMailActionValidator extends AbstractFormValidator implements FieldValidator {
+public class NumberFieldValidator extends AbstractFormValidator implements FieldValidator {
 
   @Override
   public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return FileUploadParser.parserKey.equals(fieldType);
+    return NumberFieldParser.parserKey.equals(fieldType);
   }
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    if (FormEditor.MAIL_ACTION.equals(action)) {
-      addErrorIssue(issues, id, FORM_DATA_NAME, "form_action_mail_file");
+    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+    if (validator != null) {
+      validateMaxAndMinSize(validator, issues, id, (String) fieldData.get(FORM_DATA_NAME));
     }
   }
+
 }

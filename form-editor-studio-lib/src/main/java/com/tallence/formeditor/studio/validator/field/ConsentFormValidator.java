@@ -22,9 +22,6 @@ import com.coremedia.rest.validation.Issues;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.List;
-
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_HINT;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
 import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
@@ -36,8 +33,8 @@ import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.FORM_
 @Component
 public class ConsentFormValidator extends AbstractFormValidator implements FieldValidator {
   @Override
-  public List<String> resonsibleFor() {
-    return Collections.singletonList(CONSENT_FORM_CHECK_BOX_TYPE);
+  public boolean responsibleFor(String fieldType, Struct formElementData) {
+    return CONSENT_FORM_CHECK_BOX_TYPE.equals(fieldType);
   }
 
   @Override
