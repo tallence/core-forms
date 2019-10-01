@@ -70,7 +70,7 @@ public class FormElementStructWrapper {
   public function getFormIssuesVE():ValueExpression {
     if (!formIssuesVE) {
       formIssuesVE = ValueExpressionFactory.createFromFunction(function ():FormIssues {
-        return new FormIssues(formElementStruct.getType().getPropertyNames(), structPropertyName, bindTo, id);
+        return new FormIssues(formElementStruct, structPropertyName, bindTo, id);
       });
     }
     return formIssuesVE;

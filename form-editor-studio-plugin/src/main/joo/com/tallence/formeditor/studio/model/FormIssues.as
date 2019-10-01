@@ -15,6 +15,9 @@
  */
 
 package com.tallence.formeditor.studio.model {
+import com.coremedia.cap.common.CapPropertyDescriptor;
+import com.coremedia.cap.common.CapPropertyDescriptorType;
+import com.coremedia.cap.struct.Struct;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.impl.BeanImpl;
 
@@ -29,16 +32,18 @@ public class FormIssues extends BeanImpl {
   /**
    * Creates a new bean containing all form issues.
    *
-   * @param propertyNames the property names of the form element
+   * @param formElementStruct the form element struct
    * @param structPropertyName a string which holds the document property name of the struct, where the form elements
    * are saved into.
    * @param bindTo the value expression evaluating to the content
    * @param formElementId the id of the form element
    */
-  public function FormIssues(propertyNames:Array,
+  public function FormIssues(formElementStruct:Struct,
                              structPropertyName:String,
                              bindTo:ValueExpression,
                              formElementId:String) {
+    var propertyNames:Array = resolveFormElementPropertyNames(formElementStruct);
+
     if (propertyNames) {
       propertyNames.forEach(function (propertyName:String):void {
         set(PROPERTY_NAMES, propertyNames);
@@ -72,6 +77,70 @@ public class FormIssues extends BeanImpl {
       });
     }
     return allIssues;
+  }
+
+  /**
+   * Returns an array of property names. The complete path to the property inside the struct is returned. The path is
+   * required by the {@link com.tallence.formeditor.studio.plugins.ShowFormIssuesPlugin} to display the error messages
+   * correctly.
+   *
+   * Example: [
+   *  "path",
+   *  "path.to",
+   *  "path.to.property",
+   *  "validator",
+   *  "validator.mandatory",
+   *  "validator.maxSize",
+   *  "validator.minSize",
+   *  "type",
+   *  "name",
+   *  "hint"
+   * ]
+   */
+  private function resolveFormElementPropertyNames(struct:Struct):Array {
+    var propertyNames:Array = [];
+    struct.getType().getDescriptors().forEach(function (descriptor:CapPropertyDescriptor):void {
+      if (isStructDescriptor(descriptor)) {
+        propertyNames = propertyNames.concat(getPropertyNames(struct, descriptor.name, descriptor.name));
+      } else {
+        propertyNames.push(descriptor.name);
+      }
+    });
+    return propertyNames;
+  }
+
+  private function getPropertyNames(struct:Struct, subStructPropertyName:String, prefix:String):Array {
+    var propertyNames:Array = [];
+
+    // add current property path
+    propertyNames.push(prefix);
+
+    // add paths to sub properties
+    prefix = prefix + ".";
+    var subStruct:Struct = struct.get(subStructPropertyName);
+
+    subStruct.getType().getDescriptors().forEach(function (descriptor:CapPropertyDescriptor):void {
+      if (isStructDescriptor(descriptor)) {
+        propertyNames = propertyNames.concat(getPropertyNames(subStruct, descriptor.name, prefix + descriptor.name));
+      } else {
+        propertyNames.push(prefix + descriptor.name);
+      }
+    });
+
+    return propertyNames;
+
+  }
+
+  /**
+   * Returns true if the descriptor is a struct property descriptor. Since struct lists are also descriptors of type
+   * {@link CapPropertyDescriptorType.STRUCT}, the maxCardinality and minCardinality are additionally checked.
+   * @param descriptor the descriptor to be checked
+   * @return true, if it is a struct property descriptor
+   */
+  private static function isStructDescriptor(descriptor:CapPropertyDescriptor):Boolean {
+    return descriptor.type == CapPropertyDescriptorType.STRUCT &&
+            descriptor.maxCardinality == 1 &&
+            descriptor.minCardinality == 1;
   }
 
 

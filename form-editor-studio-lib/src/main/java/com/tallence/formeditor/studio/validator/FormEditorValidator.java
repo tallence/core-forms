@@ -44,7 +44,7 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     String action = content.getString(FormEditor.FORM_ACTION);
 
     // Validate form fields
-    if (formData.get(FormEditor.FORM_ELEMENTS) != null) {
+    if (formData != null && formData.get(FormEditor.FORM_ELEMENTS) != null) {
       Struct formElements = formData.getStruct(FormEditor.FORM_ELEMENTS);
 
       formElements.getProperties().entrySet()
