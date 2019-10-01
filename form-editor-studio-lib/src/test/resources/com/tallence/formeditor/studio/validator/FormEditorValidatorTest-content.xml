@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2018 Tallence AG
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<contentRepository xmlns="http://www.coremedia.com/2010/content">
+  <schema>
+    <type name="FormEditor">
+      <property name="formData" type="markup" grammar="coremedia-struct-2008"/>
+      <property name="adminMails" type="string" length="512" encodedLength="1536"/>
+      <property name="formAction" type="string" length="512" encodedLength="1536"/>
+      <property name="spamProtectionEnabled" type="int"/>
+    </type>
+  </schema>
+
+  <content>
+    <folder id="1" name="" placeApproved="true" published="true" modificationDate="2009-06-01T20:59:42.000+01:00">
+      <folder id="3" name="Content Test">
+        <document id="2" type="FormEditor" name="TestForm" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="2formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="4" type="FormEditor" name="TestForm2" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="4formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="6" type="FormEditor" name="TestForm3" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="mailAction"/>
+            <markupProperty name="formData" url="6formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="8" type="FormEditor" name="TestForm4" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="mailAction"/>
+            <markupProperty name="formData" url="8formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="10" type="FormEditor" name="TestForm10" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="10formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+        <document id="12" type="FormEditor" name="TestForm12" modificationDate="2009-06-01T20:59:42.000+01:00">
+          <version number="1">
+            <stringProperty name="formAction" value="default"/>
+            <markupProperty name="formData" url="12formElements.xml" grammar="coremedia-struct-2008"/>
+          </version>
+        </document>
+      </folder>
+    </folder>
+  </content>
+
+  <rules>
+    <rule resourceId="1" group="0" doctype="Document_">
+      <right value="ALL"/>
+    </rule>
+    <rule resourceId="1" group="0" doctype="Folder_">
+      <right value="ALL"/>
+    </rule>
+  </rules>
+</contentRepository>

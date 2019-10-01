@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright 2018 Tallence AG
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <StructProperty Name="formElements">
+    <Struct>
+      <StructProperty Name="ConsentForm valid">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">ConsentForm valid</StringProperty>
+          <StringProperty Name="hint">That is the %target%</StringProperty>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
+        </Struct>
+      </StructProperty>
+      <StructProperty Name="ConsentForm missing target">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">ConsentForm missing target</StringProperty>
+          <StringProperty Name="hint">That is the %target%</StringProperty>
+        </Struct>
+      </StructProperty>
+      <StructProperty Name="ConsentForm missing hint">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">ConsentForm missing hint</StringProperty>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
+        </Struct>
+      </StructProperty>
+      <StructProperty Name="ConsentForm invalid hint">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">ConsentForm invalid hint</StringProperty>
+          <LinkListProperty Name="linkTarget" LinkType="CMLinkable">
+            <Link xlink:href="coremedia:///cap/content/2"/>
+          </LinkListProperty>
+          <StringProperty Name="hint">Hint without placeholder</StringProperty>
+        </Struct>
+      </StructProperty>
+    </Struct>
+  </StructProperty>
+</Struct>

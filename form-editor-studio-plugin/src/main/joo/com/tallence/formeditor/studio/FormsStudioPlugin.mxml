@@ -8,6 +8,8 @@
     xmlns:local="com.tallence.formeditor.studio.*"
     xmlns:bpb-components="exml:com.coremedia.blueprint.base.components.config" xmlns:ui="exml:com.coremedia.ui.config">
   <fx:Metadata>
+    [ResourceBundle('com.tallence.formeditor.studio.bundles.FormContentTypes')]
+    [ResourceBundle('com.coremedia.blueprint.base.queryeditor.QueryEditor')]
     [ResourceBundle('com.coremedia.cms.editor.ContentTypes')]
     [ResourceBundle('com.coremedia.cms.editor.sdk.validation.Validators')]
     [ResourceBundle('com.coremedia.cms.editor.sdk.actions.Actions')]
@@ -17,12 +19,6 @@
     import mx.resources.ResourceManager;
 
     public static const xtype:String = "com.tallence.formeditor.studio.config.formsStudioPlugin";
-
-    private var config:FormsStudioPlugin;
-
-    // called by generated constructor code
-    private function __initialize__(config:FormsStudioPlugin):void {
-    }
 
     public native function FormsStudioPlugin(config:FormsStudioPlugin = null);
     ]]></fx:Script>

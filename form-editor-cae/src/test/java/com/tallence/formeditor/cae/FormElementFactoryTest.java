@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
@@ -30,7 +29,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 

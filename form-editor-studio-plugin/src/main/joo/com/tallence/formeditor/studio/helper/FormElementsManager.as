@@ -78,7 +78,8 @@ public class FormElementsManager {
   }
 
   /**
-   * Moves the struct of the given formElementId to the new position. The element is moved after the struct of the given afterFormElementId.
+   * Moves the struct of the given formElementId to the new position. The element is moved after the struct of the
+   * given afterFormElementId.
    */
   private static function rearrangeProperties(formElementsStruct:Struct, afterFormElementId:String, formElementId:String):void {
     if (formElementId != afterFormElementId) {
@@ -102,11 +103,12 @@ public class FormElementsManager {
       var formElementsStruct:Struct = formStruct.get(FORM_ELEMENTS_PROPERTY) as Struct;
       elements = formElementsStruct.getType().getPropertyNames().map(function (id:String):FormElementStructWrapper {
         return new FormElementStructWrapper(
-            StructSubBean(formElementsStruct.get(id)),
-            id,
-            getFormElementsStructVE().extendBy(FORM_ELEMENTS_PROPERTY + "." + id),
-            contentVE,
-            forceReadOnlyValueExpression);
+                StructSubBean(formElementsStruct.get(id)),
+                formDataStructPropertyName,
+                id,
+                getFormElementsStructVE().extendBy(FORM_ELEMENTS_PROPERTY + "." + id),
+                contentVE,
+                forceReadOnlyValueExpression);
       });
     }
     return elements;
