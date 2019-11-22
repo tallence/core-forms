@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:FormsStudioPluginBase
-    xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns="exml:ext.config"
-    xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
-    xmlns:formeditor="exml:com.tallence.formeditor.studio.config"
-    xmlns:local="com.tallence.formeditor.studio.*"
-    xmlns:bpb-components="exml:com.coremedia.blueprint.base.components.config" xmlns:ui="exml:com.coremedia.ui.config">
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns="exml:ext.config"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns:formeditor="exml:com.tallence.formeditor.studio.config"
+        xmlns:local="com.tallence.formeditor.studio.*"
+        xmlns:quickcreate="com.coremedia.cms.editor.sdk.quickcreate.*"
+        xmlns:ui="exml:com.coremedia.ui.config">
   <fx:Metadata>
     [ResourceBundle('com.tallence.formeditor.studio.bundles.FormContentTypes')]
     [ResourceBundle('com.coremedia.blueprint.base.queryeditor.QueryEditor')]
@@ -39,7 +40,7 @@
       <editor:plugins>
         <ui:AddItemsPlugin index="0">
           <ui:items>
-            <bpb-components:QuickCreateMenuItem contentType="FormEditor"/>
+            <quickcreate:QuickCreateMenuItem contentType="FormEditor"/>
           </ui:items>
         </ui:AddItemsPlugin>
       </editor:plugins>
@@ -50,14 +51,14 @@
   <local:configuration>
 
     <editor:CopyResourceBundleProperties
-        destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.blueprint.base.queryeditor.QueryEditor')}"
-        source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.QueryEditor')}"/>
+            destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.blueprint.base.queryeditor.QueryEditor')}"
+            source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.QueryEditor')}"/>
     <editor:CopyResourceBundleProperties
-        destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.cms.editor.ContentTypes')}"
-        source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.FormContentTypes')}"/>
+            destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.cms.editor.ContentTypes')}"
+            source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.FormContentTypes')}"/>
     <editor:CopyResourceBundleProperties
-        destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.cms.editor.sdk.validation.Validators')}"
-        source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.FormValidation')}"/>
+            destination="{ResourceManager.getInstance().getResourceBundle(null, 'com.coremedia.cms.editor.sdk.validation.Validators')}"
+            source="{ResourceManager.getInstance().getResourceBundle(null, 'com.tallence.formeditor.studio.bundles.FormValidation')}"/>
 
   </local:configuration>
 
