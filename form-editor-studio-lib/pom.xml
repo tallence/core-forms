@@ -20,12 +20,12 @@
 
   <parent>
     <groupId>com.coremedia.blueprint</groupId>
-    <artifactId>formeditor-extension</artifactId>
+    <artifactId>studio-server.extensions</artifactId>
     <version>1-SNAPSHOT</version>
+    <relativePath>../../../../apps/studio-server/modules/extensions/pom.xml</relativePath>
   </parent>
 
   <artifactId>form-editor-studio-lib</artifactId>
-  <packaging>jar</packaging>
 
   <properties>
     <coremedia.project.extension.for>studio-lib</coremedia.project.extension.for>
@@ -63,8 +63,8 @@
       <artifactId>coremedia-rest-plugins</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.coremedia.blueprint.base</groupId>
-      <artifactId>bpbase-uapi-util</artifactId>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cap-unified-api-util</artifactId>
     </dependency>
 
     <!-- Spring -->

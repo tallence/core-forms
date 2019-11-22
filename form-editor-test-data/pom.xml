@@ -1,73 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>formeditor-extension</artifactId>
-        <groupId>com.coremedia.blueprint</groupId>
-        <version>1-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>formeditor-test-data</artifactId>
-    <packaging>pom</packaging>
+  <parent>
+    <groupId>com.coremedia.blueprint</groupId>
+    <artifactId>content.extensions</artifactId>
+    <version>1-SNAPSHOT</version>
+    <relativePath>../../../../content/modules/extensions/pom.xml</relativePath>
+  </parent>
 
-    <properties>
-        <coremedia.project.extension.for>content</coremedia.project.extension.for>
-    </properties>
+  <artifactId>form-editor-test-data</artifactId>
+  <packaging>pom</packaging>
 
-    <!-- use -DskipContent to ignore content creation -->
-    <profiles>
-        <profile>
-            <id>create-test-data</id>
-            <activation>
-                <property>
-                    <name>!skipContent</name>
-                    <value>!true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- copy content to target folder -->
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>formeditor-copy-content-resources</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${basedir}/target/content</outputDirectory>
-                                    <resources>
-                                        <resource>
-                                            <directory>content</directory>
-                                        </resource>
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>create-tallence-formeditor-test-data-zip</id>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly/test-data-assembly-descriptor.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+  <properties>
+    <coremedia.project.extension.for>content</coremedia.project.extension.for>
+  </properties>
+
+  <!-- use -DskipContent to ignore content creation -->
+  <build>
+    <plugins>
+      <!-- Copy Content to target folder -->
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>formeditor-copy-content-resources</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/content</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>content</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Build testdata zip -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>create-formeditor-test-data-zip</id>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/test-data-assembly-descriptor.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

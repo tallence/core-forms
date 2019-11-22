@@ -19,7 +19,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension runs with CoreMedia 9 (v19.04) and is compatible with the versions 17.10 and 18.10. If you have any further information e.g. "it works for CM 10" or "it does not work for CM 10 because of the class ..." feel free to create an issue or contact us.
+The extension runs with CoreMedia 10 (v1907.02). The extension also runs with CoreMedia 9 (v19.04) and is compatible with the versions 17.10 and 18.10. The branch for CoreMedia 9 support can be found here: https://github.com/tallence/core-forms/tree/1904.2-compatible.
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
@@ -33,6 +33,16 @@ Add this repo or your fork as a Git Submodule to your existing CoreMedia Bluepri
 This way, you will be able to merge new commits made in this repo back to your fork.
 
 This is the recommended approach because you will also be able to develop quickly, performing a make on the sources with a running studio- or cae-webapp.
+
+From the project's root folder, clone this repository as submodule into the extensions folder. Make sure to use the branch name that matches your workspace version. 
+```
+git submodule add  https://github.com/tallence/core-forms.git modules/extensions/core-forms
+```
+
+- Use the extension tool in the root folder of the project to link the modules into your workspace.
+ ```
+mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-plugin:LATEST:sync -Denable=formeditor-extension
+```
  
 **2. Copy files**
 

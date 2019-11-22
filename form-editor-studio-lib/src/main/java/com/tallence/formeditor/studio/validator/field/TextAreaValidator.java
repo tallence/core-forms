@@ -16,8 +16,8 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
+import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.tallence.formeditor.cae.parser.TextAreaParser;
 import org.springframework.stereotype.Component;

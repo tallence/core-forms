@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <!-- Enter the groupId, version of your CoreMedia workspace here-->
-    <groupId>com.coremedia.blueprint</groupId>
-    <artifactId>extensions</artifactId>
-    <version>1-SNAPSHOT</version>
-    <!-- enter the path of the extensions pom here if this code is not integrated in the blueprint-workspace -->
-    <relativePath>../pom.xml</relativePath>
-  </parent>
-
+  <!-- Enter the groupId, version of your CoreMedia workspace here-->
+  <groupId>com.coremedia.blueprint</groupId>
   <artifactId>formeditor-extension</artifactId>
   <packaging>pom</packaging>
-
-  <properties>
-    <workspace.configuration.dir>../../../../workspace-configuration</workspace.configuration.dir>
-  </properties>
+  <version>1-SNAPSHOT</version>
 
   <modules>
     <module>form-editor-cae</module>
