@@ -84,8 +84,8 @@ public class FormTestConfiguration {
 
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory) {
-    return new FormFreemarkerFacade(formElementFactory);
+  public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService reCaptchaService) {
+    return new FormFreemarkerFacade(formElementFactory, reCaptchaService);
   }
 
 }
