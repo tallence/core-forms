@@ -140,6 +140,17 @@
       <artifactId>cap-client-xml</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>image-transformation</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cap-transform</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 </project>

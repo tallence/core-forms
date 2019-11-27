@@ -16,13 +16,15 @@
 
 package com.tallence.formeditor.cae;
 
+import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.contentbeans.FormEditor;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.inject.Inject;
 
 /**
  * FreemarkerFacade for Form elements.
@@ -32,8 +34,14 @@ public class FormFreemarkerFacade {
 
   private final FormElementFactory formElementFactory;
 
-  public FormFreemarkerFacade(FormElementFactory formElementFactory) {
+  private final ReCaptchaService reCaptchaService;
+
+  private CurrentContextService currentContextService;
+
+  public FormFreemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService pReCaptchaService, CurrentContextService currentContextService) {
+    this.reCaptchaService = pReCaptchaService;
     this.formElementFactory = formElementFactory;
+    this.currentContextService = currentContextService;
   }
 
   public List<FormElement> parseFormElements(FormEditor formEditor) {
@@ -48,6 +56,10 @@ public class FormFreemarkerFacade {
         .filter(e -> e.getValue() instanceof Struct)
         .map(e -> parseElement((Struct) e.getValue(), e.getKey()))
         .collect(Collectors.toList());
+  }
+
+  public String getReCaptchaWebsiteSecretForSite() {
+    return reCaptchaService.getWebsiteSecretForSite(currentContextService.getContext());
   }
 
   private FormElement parseElement(Struct value, String key) {

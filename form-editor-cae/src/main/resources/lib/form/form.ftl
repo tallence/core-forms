@@ -4,3 +4,7 @@
 <#function parseFormElements formEditor>
   <#return formFreemarkerFacade.parseFormElements(formEditor)>
 </#function>
+
+<#function reCaptchaWebsiteSecret>
+  <#return formFreemarkerFacade.getReCaptchaWebsiteSecretForSite()>
+</#function>
