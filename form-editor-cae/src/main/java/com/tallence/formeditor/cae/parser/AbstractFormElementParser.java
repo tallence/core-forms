@@ -37,8 +37,6 @@ import java.util.stream.Collectors;
 public abstract class AbstractFormElementParser<T extends FormElement> {
 
   public static final String FORM_DATA_VALIDATOR = "validator";
-  public static final String FORM_DATA_ADVANCED_SETTINGS = "advancedSettings";
-  public static final String FORM_DATA_CUSTOM_ID = "customId";
   public static final String FORM_DATA_NAME = "name";
   public static final String FORM_DATA_HINT = "hint";
   public static final String FORM_VALIDATOR_MINSIZE = "minSize";
