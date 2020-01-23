@@ -82,6 +82,18 @@ public class FormEditorValidatorTest {
   }
 
   @Test
+  public void testMissingConsentForm() {
+    Content testContent = contentRepository.getContent("4");
+    IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
+    formEditorValidator.validate(testContent, issues);
+
+    // Ensure, all expected validation errors occurred.
+    assertEquals(1, issues.getByProperty().get("formData.formElements").size());
+    Issue<Content> consentFormIssue = new Issue<>(testContent, Severity.WARN, "formData.formElements", "consentForm_missing_field", Collections.emptyList());
+    assertEquals(issues.getByProperty().get("formData.formElements").iterator().next(), consentFormIssue);
+  }
+
+  @Test
   public void testInvaildMailAction() {
     Content testContent = contentRepository.getContent("6");
     IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
