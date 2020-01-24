@@ -36,12 +36,15 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
   @Autowired
   private List<FieldValidator> fieldValidators;
+  //Can be overwritten, see the setters below
+  private String formDataProperty = FormEditor.FORM_DATA;
+  private String formActionProperty = FormEditor.FORM_ACTION;
 
   @Override
   public void validate(Content content, Issues issues) {
 
-    Struct formData = content.getStruct(FormEditor.FORM_DATA);
-    String action = content.getString(FormEditor.FORM_ACTION);
+    Struct formData = content.getStruct(formDataProperty);
+    String action = content.getString(formActionProperty);
 
     // Validate form fields
     if (formData != null && formData.get(FormEditor.FORM_ELEMENTS) != null) {
@@ -68,5 +71,13 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     fieldValidators.stream()
         .filter(v -> v.responsibleFor(type, formElementData))
         .forEach(fieldValidator -> fieldValidator.validateField(formElementKey, formElementData, action, issues));
+  }
+
+  public void setFormDataProperty(String formDataProperty) {
+    this.formDataProperty = formDataProperty;
+  }
+
+  public void setFormActionProperty(String formActionProperty) {
+    this.formActionProperty = formActionProperty;
   }
 }

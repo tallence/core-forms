@@ -20,7 +20,7 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
 
 /**
- * Defines a common interface for form editor fild validators.
+ * Defines a common interface for form editor field validators.
  */
 public interface FieldValidator {
 
