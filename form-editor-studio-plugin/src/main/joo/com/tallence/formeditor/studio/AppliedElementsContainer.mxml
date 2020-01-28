@@ -55,7 +55,7 @@
     <Container>
       <plugins>
         <ui:BindComponentsPlugin configBeanParameterName="formElement"
-                                 valueExpression="{getFormElementsVE(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}">
+                                 valueExpression="{initFormElementsVE(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}">
           <ui:template>
             <studio:AppliedFormElementContainer bindTo="{config.bindTo}"
                                                 forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"

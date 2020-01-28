@@ -2,6 +2,7 @@
 <local:AbstractFormElement xmlns:fx="http://ns.adobe.com/mxml/2009"
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
+                           xmlns:advancedsettings="com.tallence.formeditor.studio.fields.advancedsettings.*"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--input-mail"
                            formElementGroup="input">
@@ -12,8 +13,6 @@
     protected static var COMBO_VALUE_CHECKBOX:String = 'CHECKBOX';
     protected static var COMBO_VALUE_ALWAYS:String = 'ALWAYS';
     protected static var COMBO_VALUE_NEVER:String = 'NEVER';
-
-    private var config:UsersMailEditor;
 
     public native function UsersMailEditor(config:UsersMailEditor = null);
     ]]>
@@ -36,5 +35,6 @@
                                 [ COMBO_VALUE_CHECKBOX, resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_checkbox') ],
                                 [ COMBO_VALUE_NEVER, resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_never') ],
                                 [ COMBO_VALUE_ALWAYS, resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_usersMail_mailType_always')]/**/]}"/>
+        <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>

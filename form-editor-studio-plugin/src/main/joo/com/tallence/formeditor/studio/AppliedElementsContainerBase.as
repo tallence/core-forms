@@ -24,6 +24,7 @@ import ext.container.Container;
 public class AppliedElementsContainerBase extends Container {
 
   private var formElementsManager:FormElementsManager;
+  private var ve:ValueExpression;
 
   public function AppliedElementsContainerBase(config:AppliedElementsContainer = null) {
     super(config);
@@ -39,13 +40,35 @@ public class AppliedElementsContainerBase extends Container {
     return formElementsManager;
   }
 
-  protected function getFormElementsVE(bindTo:ValueExpression,
-                                       forceReadOnlyValueExpression:ValueExpression,
-                                       propertyName:String,
-                                       dragActiveVE:ValueExpression):ValueExpression {
-    return ValueExpressionFactory.createFromFunction(function ():Array {
-      return getFormElementsManager(bindTo, forceReadOnlyValueExpression, propertyName, dragActiveVE).getFormElements();
-    });
+  /**
+   * Initializes and returns the value expression evaluating to the list of form elements.
+   *
+   * @param bindTo the value expression evaluating to the content
+   * @param forceReadOnlyValueExpression if this value expression evaluates to true, the form element can not be edited
+   * @param propertyName the property name of the form elements
+   * @param dragActiveVE the value expression hold the information about the drag status
+   * @return the form elements value expression containing a lis of struct wrappers
+   * {@link com.tallence.formeditor.studio.model.FormElementStructWrapper}.
+   */
+  public function initFormElementsVE(bindTo:ValueExpression,
+                                     forceReadOnlyValueExpression:ValueExpression,
+                                     propertyName:String,
+                                     dragActiveVE:ValueExpression):ValueExpression {
+    if (!ve) {
+      ve = ValueExpressionFactory.createFromFunction(function ():Array {
+        return getFormElementsManager(bindTo, forceReadOnlyValueExpression, propertyName, dragActiveVE).getFormElements();
+      });
+    }
+    return ve;
+  }
+
+  /**
+   * Returns the value expression evaluating to the list of form elements.
+   * @return the form elements value expression containing a lis of struct wrappers
+   * {@link com.tallence.formeditor.studio.model.FormElementStructWrapper}.
+   */
+  public function getFormElementsVE():ValueExpression {
+    return ve;
   }
 
 }
