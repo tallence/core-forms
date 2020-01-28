@@ -2,6 +2,7 @@
 <local:AbstractFormElement xmlns:fx="http://ns.adobe.com/mxml/2009"
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
+                           xmlns:advancedsettings="com.tallence.formeditor.studio.fields.advancedsettings.*"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--input-text"
                            formElementGroup="input">
@@ -44,5 +45,6 @@
                       emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_regexp_emptyText')}"
                       propertyName="validator.regexpValidator"
                       defaultValue="{config.defaultRegexpValidatorValue}"/>
+    <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>

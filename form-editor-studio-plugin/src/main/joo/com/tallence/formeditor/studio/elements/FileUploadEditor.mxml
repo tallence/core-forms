@@ -2,6 +2,7 @@
 <local:AbstractFormElement xmlns:fx="http://ns.adobe.com/mxml/2009"
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
+                           xmlns:advancedsettings="com.tallence.formeditor.studio.fields.advancedsettings.*"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--upload">
   <fx:Script><![CDATA[
@@ -27,5 +28,6 @@
         <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_label')}"
                             emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_emptyText')}"
                             propertyName="validator.maxSize"/>
+        <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>

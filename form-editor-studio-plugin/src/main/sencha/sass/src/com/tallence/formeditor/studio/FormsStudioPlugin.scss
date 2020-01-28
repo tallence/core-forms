@@ -62,6 +62,15 @@
     padding-left: 8px;
   }
 
+  .form-field-advanced-settings .x-panel-header {
+    border: none!important;
+    padding-left: 0!important;
+  }
+
+  .form-field-advanced-settings .advanced-settings-panel {
+    border: 1px solid #b3b1b1;
+  }
+
   .x-panel-card-200.cm-validation-state-error .x-panel-body-card-200 {
     border-top: 0;
   }
