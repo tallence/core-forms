@@ -68,7 +68,7 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
    * @return the string key of the concrete parser, e.g. "CheckBoxes". If {@link AbstractFormElementParser#getParserKeys()}
    * is implemented in subClass, this method is not required.
    */
-  String getParserKey() {
+  protected String getParserKey() {
     return null;
   }
 
@@ -98,29 +98,29 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
     formElement.setId(id);
   }
 
-  void doForStructElement(Struct parent, String key, Consumer<Struct> callback) {
+  protected void doForStructElement(Struct parent, String key, Consumer<Struct> callback) {
     if (parent.get(key) != null) {
       Struct struct = parent.getStruct(key);
       callback.accept(struct);
     }
   }
 
-  static List<ComplexValue> parseComplexValues(Struct values) {
+  protected static List<ComplexValue> parseComplexValues(Struct values) {
     return values.getProperties().entrySet().stream()
             .filter(e -> e.getValue() instanceof Struct)
             .map(e -> new ComplexValue(e.getKey(), (Struct) e.getValue()))
             .collect(Collectors.toList());
   }
 
-  static String parseString(Struct elementData, String key) {
+  protected static String parseString(Struct elementData, String key) {
     return elementData.get(key) != null ? elementData.getString(key) : null;
   }
 
-  static boolean parseBoolean(Struct elementData, String key) {
+  protected static boolean parseBoolean(Struct elementData, String key) {
     return elementData.get(key) != null && elementData.getBoolean(key);
   }
 
-  static Integer parseInteger(Struct elementData, String key) {
+  protected static Integer parseInteger(Struct elementData, String key) {
     return elementData.get(key) != null ? elementData.getInt(key) : null;
   }
 }
