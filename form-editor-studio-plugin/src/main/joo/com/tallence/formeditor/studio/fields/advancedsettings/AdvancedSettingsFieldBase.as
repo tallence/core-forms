@@ -22,6 +22,7 @@ public class AdvancedSettingsFieldBase extends FormEditorField {
 
   public static const CUSTOM_ID:String = "customId";
   public static const COLUMN_WIDTH:String = "columnWidth";
+  public static const BREAK_AFTER_ELEMENT:String = "breakAfterElement";
   public static const VISIBILITY:String = "visibility";
   public static const VISIBILITY_ELEMENT_ID:String = "elementId";
   public static const VISIBILITY_ACTIVATED:String = "activated";
@@ -45,6 +46,7 @@ public class AdvancedSettingsFieldBase extends FormEditorField {
     var advancedSettings:Object = {};
     advancedSettings[VISIBILITY] = visibility;
     advancedSettings[COLUMN_WIDTH] = 0;
+    advancedSettings[BREAK_AFTER_ELEMENT] = false;
     advancedSettings[CUSTOM_ID] = "";
     struct.getType().addStructProperty(propertyName, advancedSettings);
   }

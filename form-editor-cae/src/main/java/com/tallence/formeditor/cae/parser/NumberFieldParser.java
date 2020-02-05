@@ -22,6 +22,9 @@ import com.tallence.formeditor.cae.elements.TextField;
 import com.tallence.formeditor.cae.validator.NumberValidator;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.*;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link TextField}
  */
@@ -39,12 +42,12 @@ public class NumberFieldParser extends AbstractFormElementParser<NumberField> {
 
   @Override
   public void parseSpecialFields(NumberField formElement, Struct elementData) {
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, validator -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
       NumberValidator numberValidator = new NumberValidator();
 
-      numberValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
-      numberValidator.setMinSize(parseInteger(validator, FORM_VALIDATOR_MINSIZE));
-      numberValidator.setMaxSize(parseInteger(validator, FORM_VALIDATOR_MAXSIZE));
+      numberValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      numberValidator.setMinSize(getInteger(validator, FORM_VALIDATOR_MINSIZE));
+      numberValidator.setMaxSize(getInteger(validator, FORM_VALIDATOR_MAXSIZE));
 
       formElement.setValidator(numberValidator);
     });

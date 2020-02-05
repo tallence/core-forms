@@ -37,6 +37,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   private String hint;
   private T value;
   private V validator;
+  private AdvancedSettings settings;
   private final Class<T> type;
 
   public AbstractFormElement(Class<T> type) {
@@ -48,6 +49,19 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
     return this.validator != null ? this.validator.validate(getValue()) : Collections.emptyList();
   }
 
+  @Override
+  public boolean dependencyFulfilled(List<FormElement> allElements) {
+    if (settings != null && settings.getVisibilityDependent()) {
+      return allElements.stream().anyMatch(this::dependentFieldMatch);
+    }
+    return true;
+  }
+
+  protected boolean dependentFieldMatch(FormElement candidate) {
+    return candidate.getId().equals(settings.getDependentElementId())
+            && candidate.getValue() != null
+            && candidate.getValue().toString().equals(settings.getDependentElementValue());
+  }
 
   @Override
   public boolean isMandatory() {
@@ -145,5 +159,15 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   @Override
   public String getTechnicalName() {
     return getClass().getSimpleName() + "_" + getId();
+  }
+
+  @Override
+  public AdvancedSettings getAdvancedSettings() {
+    return settings;
+  }
+
+  @Override
+  public void setAdvancedSettings(AdvancedSettings settings) {
+    this.settings = settings;
   }
 }

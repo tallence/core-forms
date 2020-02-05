@@ -10,6 +10,7 @@
   <fx:Script><![CDATA[
     import com.tallence.formeditor.studio.elements.CheckBoxesEditor;
     import com.tallence.formeditor.studio.elements.RadioButtonsEditor;
+    import com.tallence.formeditor.studio.elements.SelectBoxEditor;
 
     public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.advancedsettings.tabs.advancedVisibilitySettingsTab";
 
@@ -61,6 +62,11 @@
                                            elementsVE="{getAvailableOptionsVE(config)}"
                                            selectedVE="{getVisibilityValueVE(config)}"/>
             <local:VisibilityComboBoxField itemId="{CheckBoxesEditor.FIELD_TYPE}"
+                                           bindTo="{config.bindTo}"
+                                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                                           elementsVE="{getAvailableOptionsVE(config)}"
+                                           selectedVE="{getVisibilityValueVE(config)}"/>
+            <local:VisibilityComboBoxField itemId="{SelectBoxEditor.FIELD_TYPE}"
                                            bindTo="{config.bindTo}"
                                            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
                                            elementsVE="{getAvailableOptionsVE(config)}"

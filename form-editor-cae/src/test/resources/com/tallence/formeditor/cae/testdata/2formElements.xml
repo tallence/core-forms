@@ -92,6 +92,32 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="DependentField">
+        <Struct>
+          <StringProperty Name="type">TextField</StringProperty>
+          <StringProperty Name="name">DependentField</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="advancedSettings">
+            <Struct>
+              <StructProperty Name="visibility">
+                <Struct>
+                  <BooleanProperty Name="activated">true</BooleanProperty>
+                  <StringProperty Name="elementId">RadioButtonsOptional</StringProperty>
+                  <StringProperty Name="value">123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <IntProperty Name="columnWidth">3</IntProperty>
+              <BooleanProperty Name="breakAfterElement">true</BooleanProperty>
+              <StringProperty Name="customId">myComplexCustomId</StringProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
       <StructProperty Name="RadioButtonsOptional">
         <Struct>
           <StringProperty Name="type">RadioButtons</StringProperty>

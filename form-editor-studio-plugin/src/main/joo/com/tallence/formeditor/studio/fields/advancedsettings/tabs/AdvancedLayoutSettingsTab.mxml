@@ -19,10 +19,10 @@
     </fx:Script>
   <local:items>
     <FieldContainer
-            fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_layout_fieldLabel')}">
+            fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_layout_columnWidth_fieldLabel')}">
       <items>
         <ui:StatefulNumberField
-                emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_layout_emptyText')}"
+                emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText')}"
                 width="100%">
           <ui:plugins>
             <ui:BindPropertyPlugin bidirectional="true"
@@ -31,6 +31,20 @@
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
           </ui:plugins>
         </ui:StatefulNumberField>
+      </items>
+    </FieldContainer>
+    <FieldContainer
+            fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel')}">
+      <items>
+        <ui:StatefulCheckbox>
+          <ui:plugins>
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
+                                   bindTo="{config.advancedSettingsVE.extendBy(AdvancedSettingsFieldBase.BREAK_AFTER_ELEMENT)}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </ui:plugins>
+        </ui:StatefulCheckbox>
       </items>
     </FieldContainer>
   </local:items>

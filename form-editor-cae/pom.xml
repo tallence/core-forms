@@ -53,6 +53,10 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cae-contentbeanservices-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.blueprint.base</groupId>
+      <artifactId>bpbase-uapi-util</artifactId>
+    </dependency>
 
     <!-- Spring -->
     <dependency>

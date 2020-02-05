@@ -79,11 +79,13 @@ public class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
       });
       if (selected && selected.length > 0) {
         var options:Struct = (selected[0] as FormElementStructWrapper).getFormElementVE().extendBy("groupElements").getValue();
-        return options.getType().getPropertyNames().map(function (value:String):Object {
-          return createComboBoxEntry(value, value);
-        });
+        if (options) {
+          return options.getType().getPropertyNames().map(function (value:String):Object {
+            return createComboBoxEntry(value, value);
+          });
+        }
       }
-
+      return [];
     });
   }
 
