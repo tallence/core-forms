@@ -43,6 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,6 +100,13 @@ public class FormController {
     List<FormElement> formElements = getFormElements(target);
 
     parseInputFormData(postData, request, formElements);
+
+    //Remove elements with unfulfilled dependencies, e.g. dependencies on other elements.
+    for (Iterator<FormElement> iterator = formElements.iterator(); iterator.hasNext(); ) {
+      if (!iterator.next().dependencyFulfilled(formElements)) {
+        iterator.remove();
+      }
+    }
 
     //After all values are set: handle validationResult
     for (FormElement<?> formElement : formElements) {

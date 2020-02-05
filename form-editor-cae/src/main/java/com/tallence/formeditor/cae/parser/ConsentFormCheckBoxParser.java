@@ -24,6 +24,10 @@ import com.tallence.formeditor.cae.validator.ConsentFormCheckboxValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
+import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link ConsentFormCheckBox}
  *
@@ -61,10 +65,10 @@ public class ConsentFormCheckBoxParser extends AbstractFormElementParser<Consent
       formElement.setLinkTarget(dataViewFactory.loadCached(linkTarget, null));
     }
 
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, struct -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(struct -> {
       ConsentFormCheckboxValidator validator = new ConsentFormCheckboxValidator();
 
-      validator.setMandatory(parseBoolean(struct, FORM_VALIDATOR_MANDATORY));
+      validator.setMandatory(getBoolean(struct, FORM_VALIDATOR_MANDATORY));
       formElement.setValidator(validator);
     });
   }

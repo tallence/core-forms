@@ -21,6 +21,10 @@ import com.tallence.formeditor.cae.elements.UsersMail;
 import com.tallence.formeditor.cae.validator.UsersMailValidator;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
+import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link UsersMail}
  */
@@ -47,10 +51,10 @@ public class UsersMailParser extends AbstractFormElementParser<UsersMail> {
       formElement.setCopyBoxOption(UsersMail.CopyBoxOption.CHECKBOX);
     }
 
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, validator -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
       UsersMailValidator usersMailValidator = new UsersMailValidator();
 
-      usersMailValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      usersMailValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
       formElement.setValidator(usersMailValidator);
     });

@@ -18,6 +18,7 @@
   <advancedsettings:items>
     <editor:CollapsiblePanel
             title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_title')}"
+            collapsed="true"
             cls="form-field-advanced-settings">
       <editor:items>
         <!-- #b3b1b1 -->

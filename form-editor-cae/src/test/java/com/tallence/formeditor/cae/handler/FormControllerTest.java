@@ -34,6 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
@@ -199,6 +200,55 @@ public class FormControllerTest {
         .andExpect(content().string("{\"success\":false,\"error\":\"server-validation-failed\"}"))
         .andDo(MockMvcResultHandlers.print());
 
+  }
+
+  @Test
+  public void testPostWithDependentFieldNegative() throws Exception {
+    mvc.perform(fileUpload(TEST_URL)
+        .param("TextField_TextField", "12345")
+        .param("NumberField_NumberField", "18")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsOptional", "123")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
+        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
+    )
+        .andExpect(status().is(HttpServletResponse.SC_BAD_REQUEST))
+        .andExpect(content().string("{\"success\":false,\"error\":\"server-validation-failed\"}"))
+        .andDo(MockMvcResultHandlers.print());
+
+    assertNull(storageAdapterMock.formData);
+    assertNull(mailAdapterMock.usersFormData);
+    assertNull(mailAdapterMock.usersRecipient);
+  }
+
+  @Test
+  public void testPostWithDependentFieldPositive() throws Exception {
+    mvc.perform(fileUpload(TEST_URL)
+        .param("TextField_TextField", "12345")
+        .param("NumberField_NumberField", "18")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsOptional", "123")
+        .param("TextField_DependentField", "testValue")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
+        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("TextArea_TextArea", "ist Text")
+        .param("ZipField_ZipFieldTest", "22945")
+        .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
+    )
+        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andDo(MockMvcResultHandlers.print());
+
+    String withNewField = FORM_DATA_SERIALIZED.replace("RadioOptional: <br/>", "DependentField: testValue<br/>RadioOptional: 123<br/>");
+
+    assertEquals(withNewField, storageAdapterMock.formData);
+    assertEquals(withNewField, mailAdapterMock.usersFormData);
+    assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 
 }

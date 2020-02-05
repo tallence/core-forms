@@ -21,6 +21,10 @@ import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
 import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
+import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link CheckBoxesGroup}
  */
@@ -39,19 +43,19 @@ public class CheckBoxesParser extends AbstractFormElementParser<CheckBoxesGroup>
 
   @Override
   public void parseSpecialFields(CheckBoxesGroup formElement, Struct elementData) {
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, validator -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
       CheckBoxesGroupValidator checkBoxesValidator = new CheckBoxesGroupValidator(formElement);
 
-      checkBoxesValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      checkBoxesValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
       formElement.setValidator(checkBoxesValidator);
     });
 
-    doForStructElement(elementData, CHECK_BOXES, options -> formElement.setCheckBoxes(parseComplexValues(options)));
+    ofNullable(getSubstruct(elementData, CHECK_BOXES)).ifPresent(options -> formElement.setCheckBoxes(parseComplexValues(options)));
   }
 
   @Override
   public String getParserKey() {
-    return this.parserKey;
+    return parserKey;
   }
 }
