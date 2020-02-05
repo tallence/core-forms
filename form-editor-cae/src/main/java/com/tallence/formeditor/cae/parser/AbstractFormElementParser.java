@@ -80,7 +80,7 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
    * @return the string key of the concrete parser, e.g. "CheckBoxes". If {@link AbstractFormElementParser#getParserKeys()}
    * is implemented in subClass, this method is not required.
    */
-  String getParserKey() {
+  protected String getParserKey() {
     return null;
   }
 
@@ -130,7 +130,7 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
     });
   }
 
-  static List<ComplexValue> parseComplexValues(Struct values) {
+  protected static List<ComplexValue> parseComplexValues(Struct values) {
     return values.getProperties().entrySet().stream()
             .filter(e -> e.getValue() instanceof Struct)
             .map(e -> new ComplexValue(e.getKey(), (Struct) e.getValue()))
