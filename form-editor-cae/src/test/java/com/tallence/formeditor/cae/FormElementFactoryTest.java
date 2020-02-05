@@ -116,10 +116,10 @@ public class FormElementFactoryTest {
 
     assertEquals("myComplexCustomId", formElement.getAdvancedSettings().getCustomId());
     assertEquals(Integer.valueOf(3), formElement.getAdvancedSettings().getColumnWidth());
-    assertEquals(true, formElement.getAdvancedSettings().getBreakAfterElement());
+    assertEquals(true, formElement.getAdvancedSettings().isBreakAfterElement());
     assertEquals("RadioButtonsOptional", formElement.getAdvancedSettings().getDependentElementId());
     assertEquals("123", formElement.getAdvancedSettings().getDependentElementValue());
-    assertEquals(true, formElement.getAdvancedSettings().getVisibilityDependent());
+    assertEquals(true, formElement.getAdvancedSettings().isVisibilityDependent());
   }
 
   @Test

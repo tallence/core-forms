@@ -8,8 +8,8 @@ public class AdvancedSettings {
 
   private String customId;
   private Integer columnWidth;
-  private Boolean breakAfterElement;
-  private Boolean visibilityDependent;
+  private boolean breakAfterElement;
+  private boolean visibilityDependent;
   private String dependentElementId;
   private String dependentElementValue;
 
@@ -29,19 +29,19 @@ public class AdvancedSettings {
     this.columnWidth = columnWidth;
   }
 
-  public Boolean getBreakAfterElement() {
+  public boolean isBreakAfterElement() {
     return breakAfterElement;
   }
 
-  public void setBreakAfterElement(Boolean breakAfterElement) {
+  public void setBreakAfterElement(boolean breakAfterElement) {
     this.breakAfterElement = breakAfterElement;
   }
 
-  public Boolean getVisibilityDependent() {
+  public boolean isVisibilityDependent() {
     return visibilityDependent;
   }
 
-  public void setVisibilityDependent(Boolean visibilityDependent) {
+  public void setVisibilityDependent(boolean visibilityDependent) {
     this.visibilityDependent = visibilityDependent;
   }
 
