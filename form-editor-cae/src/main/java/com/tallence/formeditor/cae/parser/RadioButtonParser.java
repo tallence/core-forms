@@ -21,6 +21,10 @@ import com.tallence.formeditor.cae.elements.RadioButtonGroup;
 import com.tallence.formeditor.cae.validator.RadioButtonGroupValidator;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
+import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link RadioButtonGroup}
  */
@@ -39,15 +43,15 @@ public class RadioButtonParser extends AbstractFormElementParser<RadioButtonGrou
 
   @Override
   public void parseSpecialFields(RadioButtonGroup formElement, Struct elementData) {
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, validator -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
       RadioButtonGroupValidator radioValidator = new RadioButtonGroupValidator(formElement);
 
-      radioValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      radioValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
       formElement.setValidator(radioValidator);
     });
 
-    doForStructElement(elementData, RADIO_BUTTONS, options -> formElement.setRadioButtons(parseComplexValues(options)));
+    ofNullable(getSubstruct(elementData, RADIO_BUTTONS)).ifPresent(options -> formElement.setRadioButtons(parseComplexValues(options)));
   }
 
   @Override

@@ -2,14 +2,13 @@
 <local:AbstractFormElement xmlns:fx="http://ns.adobe.com/mxml/2009"
                            xmlns:local="com.tallence.formeditor.studio.elements.*"
                            xmlns:fields="exml:com.tallence.formeditor.studio.config"
+                           xmlns:advancedsettings="com.tallence.formeditor.studio.fields.advancedsettings.*"
                            formElementType="{FIELD_TYPE}"
                            formElementIconCls="tallence-icons tallence-icons--input-number"
                            formElementGroup="input">
   <fx:Script><![CDATA[
     public static const xtype:String = "com.tallence.formeditor.studio.elements.numberFieldEditor";
     public static const FIELD_TYPE:String = "NumberField";
-
-    private var config:NumberFieldEditor;
 
     public native function NumberFieldEditor(config:NumberFieldEditor = null);
     ]]></fx:Script>
@@ -31,5 +30,6 @@
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_text')}"
                         propertyName="validator.minSize"/>
+    <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>

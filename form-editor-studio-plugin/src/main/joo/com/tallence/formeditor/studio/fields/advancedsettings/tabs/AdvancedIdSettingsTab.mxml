@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:AdvancedSettingsTab xmlns:fx="http://ns.adobe.com/mxml/2009"
+                           xmlns:exml="http://www.jangaroo.net/exml/0.8"
+                           xmlns="exml:ext.config"
+                           xmlns:local="com.tallence.formeditor.studio.fields.advancedsettings.tabs.*"
+                           xmlns:ui="exml:com.coremedia.ui.config"
+                           xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+                           title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_id_title')}"
+                           description="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_id_description')}">
+  <fx:Script><![CDATA[
+    import com.tallence.formeditor.studio.fields.advancedsettings.AdvancedSettingsFieldBase;
+
+    public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.advancedsettings.tabs.advancedIdSettingsTab";
+
+    private var config:AdvancedIdSettingsTab;
+
+    public native function AdvancedIdSettingsTab(config:AdvancedIdSettingsTab = null);
+    ]]>
+    </fx:Script>
+  <local:items>
+    <FieldContainer
+            fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_id_fieldLabel')}">
+      <items>
+        <ui:StatefulTextField
+                emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_tabs_id_emptyText')}"
+                width="100%">
+          <ui:plugins>
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   bindTo="{config.advancedSettingsVE.extendBy(AdvancedSettingsFieldBase.CUSTOM_ID)}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </ui:plugins>
+        </ui:StatefulTextField>
+      </items>
+    </FieldContainer>
+  </local:items>
+
+</local:AdvancedSettingsTab>

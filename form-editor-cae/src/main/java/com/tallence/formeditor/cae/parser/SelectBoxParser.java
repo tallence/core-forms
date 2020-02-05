@@ -21,6 +21,10 @@ import com.tallence.formeditor.cae.elements.SelectBox;
 import com.tallence.formeditor.cae.validator.SelectBoxValidator;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
+import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static java.util.Optional.ofNullable;
+
 /**
  * Parser for elements of type {@link SelectBox}
  */
@@ -39,15 +43,15 @@ public class SelectBoxParser extends AbstractFormElementParser<SelectBox> {
 
   @Override
   public void parseSpecialFields(SelectBox formElement, Struct elementData) {
-    doForStructElement(elementData, FORM_DATA_VALIDATOR, validator -> {
+    ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
       SelectBoxValidator selectBoxValidator = new SelectBoxValidator(formElement);
 
-      selectBoxValidator.setMandatory(parseBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      selectBoxValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
       formElement.setValidator(selectBoxValidator);
     });
 
-    doForStructElement(elementData, OPTIONS, options -> formElement.setOptions(parseComplexValues(options)));
+    ofNullable(getSubstruct(elementData, OPTIONS)).ifPresent(options -> formElement.setOptions(parseComplexValues(options)));
   }
 
   @Override

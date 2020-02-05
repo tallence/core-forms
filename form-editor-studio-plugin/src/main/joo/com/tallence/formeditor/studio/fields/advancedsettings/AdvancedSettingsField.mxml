@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<advancedsettings:AdvancedSettingsFieldBase
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:exml="http://www.jangaroo.net/exml/0.8"
+        xmlns="exml:ext.config"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        xmlns:advancedsettings="com.tallence.formeditor.studio.fields.advancedsettings.*"
+        xmlns:tabs="com.tallence.formeditor.studio.fields.advancedsettings.tabs.*">
+  <fx:Script><![CDATA[
+    public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.advancedsettings.advancedSettingsField";
+
+    private var config:AdvancedSettingsField;
+
+    public native function AdvancedSettingsField(config:AdvancedSettingsField = null);
+    ]]>
+    </fx:Script>
+
+  <advancedsettings:items>
+    <editor:CollapsiblePanel
+            title="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_advancedSettings_title')}"
+            collapsed="true"
+            cls="form-field-advanced-settings">
+      <editor:items>
+        <!-- #b3b1b1 -->
+        <TabPanel cls="advanced-settings-panel"
+                  bodyPadding="20">
+          <items>
+            <tabs:AdvancedVisibilitySettingsTab/>
+            <tabs:AdvancedIdSettingsTab/>
+            <tabs:AdvancedLayoutSettingsTab/>
+          </items>
+          <defaults>
+            <tabs:AdvancedSettingsTab bindTo="{config.bindTo}"
+                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
+                                      advancedSettingsVE="{getPropertyVE(config)}"/>
+          </defaults>
+        </TabPanel>
+      </editor:items>
+    </editor:CollapsiblePanel>
+  </advancedsettings:items>
+
+</advancedsettings:AdvancedSettingsFieldBase>
