@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Model bean for a configured RadioButtonGroup.
  */
-public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator> {
+public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator> implements FieldWithOptions {
 
   public RadioButtonGroup() {
     super(String.class);
@@ -32,7 +32,15 @@ public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGro
 
   private List<ComplexValue> radioButtons;
 
+  /**
+   * @deprecated use {@link #getOptions()}
+   */
   public List<ComplexValue> getRadioButtons() {
+    return this.radioButtons;
+  }
+
+  @Override
+  public List<ComplexValue> getOptions() {
     return this.radioButtons;
   }
 

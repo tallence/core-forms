@@ -28,6 +28,9 @@
         <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_label')}"
                             emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_max_size_file_emptyText')}"
                             propertyName="validator.maxSize"/>
+        <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_min_size_file_label')}"
+                            emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_min_size_file_emptyText')}"
+                            propertyName="validator.minSize"/>
         <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>

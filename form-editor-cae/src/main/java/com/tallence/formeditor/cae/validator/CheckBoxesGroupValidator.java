@@ -43,7 +43,7 @@ public class CheckBoxesGroupValidator implements Validator<List> {
     if (value != null && !value.isEmpty()) {
 
       List<String> values = new ArrayList<>();
-      for (ComplexValue complexValue : this.checkBoxesGroup.getCheckBoxes()) {
+      for (ComplexValue complexValue : this.checkBoxesGroup.getOptions()) {
         values.add(complexValue.getValue());
       }
 

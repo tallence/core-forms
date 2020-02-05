@@ -16,7 +16,6 @@
 
 package com.tallence.formeditor.cae.parser;
 
-import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.FileUpload;
 import com.tallence.formeditor.cae.validator.FileUploadValidator;
@@ -46,14 +45,14 @@ public class FileUploadParser extends AbstractFormElementParser<FileUpload> {
       FileUploadValidator fileUploadValidator = new FileUploadValidator(formElement);
       fileUploadValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
-      Integer maxSize = getInteger(validator, FORM_VALIDATOR_MAXSIZE);
-      fileUploadValidator.setMaxSize(maxSize != null ? maxSize : fileUploadValidator.getMaxSize());
+      ofNullable(getInteger(validator, FORM_VALIDATOR_MINSIZE)).ifPresent(fileUploadValidator::setMinSize);
+      ofNullable(getInteger(validator, FORM_VALIDATOR_MAXSIZE)).ifPresent(fileUploadValidator::setMaxSize);
       formElement.setValidator(fileUploadValidator);
     });
   }
 
   @Override
   public String getParserKey() {
-    return this.parserKey;
+    return parserKey;
   }
 }
