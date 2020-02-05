@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Validator for elements of type {@link FileUpload}
  */
-public class FileUploadValidator implements Validator<MultipartFile> {
+public class FileUploadValidator implements Validator<MultipartFile>, SizeValidator {
 
   private final FileUpload fileUpload;
 
@@ -33,6 +33,7 @@ public class FileUploadValidator implements Validator<MultipartFile> {
 
   //Default Value 5MB
   private int maxSize = 5 * 1024;
+  private Integer minSize = 0;
 
   public FileUploadValidator(FileUpload fileUpload) {
     this.fileUpload = fileUpload;
@@ -62,11 +63,21 @@ public class FileUploadValidator implements Validator<MultipartFile> {
     this.mandatory = mandatory;
   }
 
-  public int getMaxSize() {
+  @Override
+  public Integer getMaxSize() {
     return this.maxSize;
   }
 
-  public void setMaxSize(int maxSize) {
+  @Override
+  public Integer getMinSize() {
+    return minSize;
+  }
+
+  public void setMinSize(Integer minSize) {
+    this.minSize = minSize;
+  }
+
+  public void setMaxSize(Integer maxSize) {
     this.maxSize = maxSize;
   }
 }

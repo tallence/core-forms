@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Model bean for a configured CheckBoxesGroup.
  */
-public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> {
+public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> implements FieldWithOptions {
 
   public CheckBoxesGroup() {
     super(List.class);
@@ -48,7 +48,16 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
     return sb.toString();
   }
 
+  /**
+   * @deprecated use {@link #getOptions()}
+   */
+  @Deprecated
   public List<ComplexValue> getCheckBoxes() {
+    return this.checkBoxes;
+  }
+
+  @Override
+  public List<ComplexValue> getOptions() {
     return this.checkBoxes;
   }
 

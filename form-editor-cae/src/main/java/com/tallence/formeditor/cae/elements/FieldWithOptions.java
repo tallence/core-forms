@@ -13,30 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.tallence.formeditor.cae.elements;
-
-import com.tallence.formeditor.cae.validator.SelectBoxValidator;
 
 import java.util.List;
 
 /**
- * Model bean for a configured SelectBox.
+ * Interface for fields with options to chose. e.g. {@link CheckBoxesGroup}
+ *
  */
-public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> implements FieldWithOptions {
+public interface FieldWithOptions {
 
-  public SelectBox() {
-    super(String.class);
-  }
-
-  private List<ComplexValue> options;
-
-  @Override
-  public List<ComplexValue> getOptions() {
-    return this.options;
-  }
-
-  public void setOptions(List<ComplexValue> options) {
-    this.options = options;
-  }
+  List<ComplexValue> getOptions();
 }

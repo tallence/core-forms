@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Validator for elements of type {@link com.tallence.formeditor.cae.elements.NumberField}
  */
-public class NumberValidator implements Validator<String> {
+public class NumberValidator implements Validator<String>, SizeValidator {
 
   private boolean mandatory;
   private Integer minSize;
@@ -63,6 +63,7 @@ public class NumberValidator implements Validator<String> {
     this.mandatory = mandatory;
   }
 
+  @Override
   public Integer getMinSize() {
     return this.minSize;
   }
@@ -71,6 +72,7 @@ public class NumberValidator implements Validator<String> {
     this.minSize = minSize;
   }
 
+  @Override
   public Integer getMaxSize() {
     return this.maxSize;
   }

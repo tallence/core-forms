@@ -13,30 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.tallence.formeditor.cae.elements;
-
-import com.tallence.formeditor.cae.validator.SelectBoxValidator;
-
-import java.util.List;
+package com.tallence.formeditor.cae.validator;
 
 /**
- * Model bean for a configured SelectBox.
+ * Interface for validators with min- or maxSizes. e.g. {@link NumberValidator}
+ *
  */
-public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> implements FieldWithOptions {
+public interface SizeValidator {
 
-  public SelectBox() {
-    super(String.class);
-  }
+  Integer getMinSize();
 
-  private List<ComplexValue> options;
-
-  @Override
-  public List<ComplexValue> getOptions() {
-    return this.options;
-  }
-
-  public void setOptions(List<ComplexValue> options) {
-    this.options = options;
-  }
+  Integer getMaxSize();
 }

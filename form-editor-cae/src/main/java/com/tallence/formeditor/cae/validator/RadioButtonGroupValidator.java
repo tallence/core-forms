@@ -44,7 +44,7 @@ public class RadioButtonGroupValidator implements Validator<String> {
     if (StringUtils.hasText(value)) {
 
       List<String> values = new ArrayList<>();
-      for (ComplexValue complexValue : this.radioButtonGroup.getRadioButtons()) {
+      for (ComplexValue complexValue : this.radioButtonGroup.getOptions()) {
         values.add(complexValue.getValue());
       }
 

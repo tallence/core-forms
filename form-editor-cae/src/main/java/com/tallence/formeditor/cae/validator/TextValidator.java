@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * Validator for elements of type {@link com.tallence.formeditor.cae.elements.TextArea} and
  * {@link TextField}
  */
-public class TextValidator implements Validator<String> {
+public class TextValidator implements Validator<String>, SizeValidator {
 
   private boolean mandatory;
   private Integer minSize;
@@ -66,6 +66,7 @@ public class TextValidator implements Validator<String> {
     this.mandatory = mandatory;
   }
 
+  @Override
   public Integer getMinSize() {
     return this.minSize;
   }
@@ -74,6 +75,7 @@ public class TextValidator implements Validator<String> {
     this.minSize = minSize;
   }
 
+  @Override
   public Integer getMaxSize() {
     return this.maxSize;
   }
