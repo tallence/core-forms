@@ -232,7 +232,7 @@ public class FormControllerTest {
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
         .param("RadioButtonGroup_RadioButtonsOptional", "123")
-        .param("TextField_DependentField", "testValue")
+        .param("TextField_myComplexCustomId", "testValue")
         .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
         .param("SelectBox_SelectBoxMandatory", "12345")
         .param("TextArea_TextArea", "ist Text")

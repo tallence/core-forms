@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Abstract Element used by all {@link FormElement}s.
@@ -105,7 +106,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
 
   @Override
   public String getId() {
-    return this.id;
+    return Optional.ofNullable(getAdvancedSettings()).map(AdvancedSettings::getCustomId).orElse(this.id);
   }
 
   @Override
