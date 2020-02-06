@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import edu.umd.cs.findbugs.annotations.Nullable;
 import org.springframework.util.MultiValueMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,10 +47,12 @@ public interface FormElement<T> {
 
   void setHint(String hint);
 
+  @Nullable
   AdvancedSettings getAdvancedSettings();
 
   void setAdvancedSettings(AdvancedSettings settings);
 
+  @Nullable
   T getValue();
 
   void setValue(T value);
