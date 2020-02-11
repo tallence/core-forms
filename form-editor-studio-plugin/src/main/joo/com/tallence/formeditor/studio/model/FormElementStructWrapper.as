@@ -18,6 +18,7 @@ package com.tallence.formeditor.studio.model {
 import com.coremedia.cap.common.impl.StructSubBean;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
+import com.tallence.formeditor.studio.fields.advancedsettings.AdvancedSettingsFieldBase;
 
 public class FormElementStructWrapper {
 
@@ -51,6 +52,10 @@ public class FormElementStructWrapper {
     return id;
   }
 
+  public function getCustomId(): String {
+    return getAdvancedSettingsString(AdvancedSettingsFieldBase.CUSTOM_ID);
+  }
+
   public function getFormElementVE():ValueExpression {
     return formElementVE;
   }
@@ -79,6 +84,14 @@ public class FormElementStructWrapper {
   private function getString(propertyName:String):String {
     if (formElementStruct && formElementStruct.get(propertyName)) {
       return formElementStruct.get(propertyName);
+    }
+    return "";
+  }
+
+  private function getAdvancedSettingsString(propertyName:String):String {
+    if (formElementStruct && formElementStruct.get("advancedSettings")) {
+      var advancedSettings:StructSubBean = StructSubBean(formElementStruct.get("advancedSettings"));
+      return advancedSettings.get(propertyName);
     }
     return "";
   }
