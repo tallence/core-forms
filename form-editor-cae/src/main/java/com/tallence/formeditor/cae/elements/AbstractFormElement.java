@@ -106,7 +106,10 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
 
   @Override
   public String getId() {
-    return Optional.ofNullable(getAdvancedSettings()).map(AdvancedSettings::getCustomId).orElse(this.id);
+    return Optional.ofNullable(getAdvancedSettings())
+            .map(AdvancedSettings::getCustomId)
+            .filter(StringUtils::isNotBlank)
+            .orElse(this.id);
   }
 
   @Override
