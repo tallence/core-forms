@@ -47,7 +47,7 @@ public class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
 
       var el:Array = [];
       elements.forEach(function (wrapper:FormElementStructWrapper):void {
-        el.push(createComboBoxEntry(wrapper.getId(), getFormElementTitle(wrapper)));
+        el.push(createElementComboBoxEntry(wrapper, getFormElementTitle(wrapper)));
       });
 
       return el;
@@ -125,7 +125,8 @@ public class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
    * Returns true, if the selected id belongs to the given wrapper.
    */
   private static function isSelected(wrapper:FormElementStructWrapper, selectedId:String):Boolean {
-    return wrapper.getId() == selectedId;
+    var customId:String = wrapper.getCustomId();
+    return (customId ? customId : wrapper.getId()) == selectedId;
   }
 
   /**
@@ -164,6 +165,12 @@ public class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
     obj[VisibilityComboBoxField.FIELD_ID] = id;
     obj[VisibilityComboBoxField.FIELD_VALUE] = value;
     return obj;
+  }
+
+  private static function createElementComboBoxEntry(wrapper:FormElementStructWrapper, value:String):Object {
+    var customId:String = wrapper.getCustomId();
+
+    return createComboBoxEntry(customId ? customId : wrapper.getId(), value);
   }
 
 }
