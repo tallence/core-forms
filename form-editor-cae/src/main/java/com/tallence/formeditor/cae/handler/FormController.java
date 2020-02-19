@@ -100,6 +100,8 @@ public class FormController {
     List<FormElement> formElements = getFormElements(target);
 
     parseInputFormData(postData, request, formElements);
+    //parse the files here already, before the validator runs
+    List<MultipartFile> files = parseFileFormData(target, request, formElements);
 
     //Remove elements with unfulfilled dependencies, e.g. dependencies on other elements.
     for (Iterator<FormElement> iterator = formElements.iterator(); iterator.hasNext(); ) {
@@ -139,8 +141,6 @@ public class FormController {
       parseInputFormData(escapedPostData, request, formElements);
     }
 
-    List<MultipartFile> files = parseFileFormData(target, request, formElements);
-
     //Default for an empty actionKey: the DefaultAction
     String actionKey = target.getFormAction();
     if (!StringUtils.hasText(actionKey)) {
@@ -176,7 +176,10 @@ public class FormController {
 
   private List<MultipartFile> parseFileFormData(FormEditor target, HttpServletRequest request, List<FormElement> formElements) {
 
-    List<FormElement> fileFields = formElements.stream().filter(e -> e instanceof FileUpload).collect(Collectors.toList());
+    List<FileUpload> fileFields = formElements.stream()
+            .filter(FileUpload.class::isInstance)
+            .map(FileUpload.class::cast)
+            .collect(Collectors.toList());
     if (!fileFields.isEmpty()) {
       if (!(request instanceof MultipartHttpServletRequest)) {
         throw new IllegalStateException(
@@ -190,9 +193,9 @@ public class FormController {
     }
   }
 
-  private MultipartFile processFileInput(MultipartHttpServletRequest multipartRequest, FormElement e) {
-    MultipartFile file = multipartRequest.getFile(e.getTechnicalName());
-    ((FileUpload) e).setValue(file);
+  private MultipartFile processFileInput(MultipartHttpServletRequest multipartRequest, FileUpload fileUpload) {
+    MultipartFile file = multipartRequest.getFile(fileUpload.getTechnicalName());
+    fileUpload.setValue(file);
     return file;
   }
 
