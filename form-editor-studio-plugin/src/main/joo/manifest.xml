@@ -4,6 +4,7 @@
   <component class="com.tallence.formeditor.studio.FormEditorDocumentForm"/>
   <component class="com.tallence.formeditor.studio.dragdrop.FormElementDroppable"/>
   <component class="com.tallence.formeditor.studio.ApplicableElements"/>
+  <component class="com.tallence.formeditor.studio.elements.AbstractFormElement"/>
   <component class="com.tallence.formeditor.studio.elements.CheckBoxesEditor"/>
   <component class="com.tallence.formeditor.studio.elements.FileUploadEditor"/>
   <component class="com.tallence.formeditor.studio.elements.NumberFieldEditor"/>
