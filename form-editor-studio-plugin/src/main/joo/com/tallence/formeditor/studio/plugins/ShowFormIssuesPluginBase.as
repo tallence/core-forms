@@ -17,14 +17,17 @@
 package com.tallence.formeditor.studio.plugins {
 import com.coremedia.cms.editor.sdk.validation.ValidationUtil;
 import com.coremedia.ui.data.ValueExpression;
+import com.coremedia.ui.data.ValueExpressionFactory;
 import com.coremedia.ui.data.validation.Issue;
+import com.coremedia.ui.data.validation.Issues;
 import com.coremedia.ui.data.validation.Severity;
 import com.coremedia.ui.mixins.IValidationStateMixin;
 import com.coremedia.ui.mixins.ValidationState;
 import com.coremedia.ui.mixins.ValidationStateMixin;
 import com.coremedia.ui.plugins.BindPlugin;
 import com.coremedia.ui.util.EncodingUtil;
-import com.tallence.formeditor.studio.model.FormIssues;
+
+import ext.StringUtil;
 
 import mx.resources.ResourceManager;
 
@@ -35,7 +38,7 @@ import mx.resources.ResourceManager;
  * <ul>
  * <li>form input fields implementing the {@link IValidationStateMixin} interface to show errors on form element
  * propertiers</li>
- * <li>form elements {@link com.tallence.formeditor.studio.AppliedFormElementsContainer} to indicate that the form
+ * <li>form elements {@link com.tallence.formeditor.studio.AppliedFormElementContainer} to indicate that the form
  * element contains a property with an error</li>
  * </ul>
  *
@@ -44,8 +47,7 @@ import mx.resources.ResourceManager;
 public class ShowFormIssuesPluginBase extends BindPlugin {
 
   /**
-   * A ValueExpression evaluation to a {@link com.tallence.formeditor.studio.model.FormIssues} bean that contains all
-   * issues for all form elements of the content.
+   * A ValueExpression evaluation to the issues of the content.
    */
   [Bindable]
   public var issuesVE:ValueExpression;
@@ -57,28 +59,41 @@ public class ShowFormIssuesPluginBase extends BindPlugin {
   [Bindable]
   public var propertyName:String;
 
+  [Bindable]
+  public var propertyPathVE:ValueExpression;
+
   public function ShowFormIssuesPluginBase(config:ShowFormIssuesPlugin = null) {
     propertyName = config.propertyName;
+    propertyPathVE = config.propertyPathVE;
     super(config);
   }
 
-  protected function issuesChanged():void {
-    var formIssues:FormIssues = bindTo.getValue() as FormIssues;
-    var issues:Array;
-    if (formIssues === null) {
-      issues = [];
-    } else if (!propertyName) {
-      issues = formIssues.getAllIssues();
-    } else {
-      issues = formIssues.getIssues(propertyName);
-    }
-    if (issues) {
-      // Find the highest severity level.
-      var maxSeverity:String = ValidationUtil.computeMaximumSeverity(issues);
+  protected function getIssuesVE(config:ShowFormIssuesPlugin):ValueExpression {
+    return ValueExpressionFactory.createFromFunction(function ():Array {
+      if (!config.propertyPathVE || !propertyPathVE.getValue()) {
+        return [];
+      }
+      if (config.propertyName) {
+        return config.issuesVE.extendBy([config.propertyPathVE.getValue() + "." + config.propertyName]).getValue();
+      } else {
+        // if the plugin is added to the {@link AppliedFormElementContainer}, all issues that belong to the form
+        // element must be filtered
+        var issues:Issues = config.issuesVE.getValue();
+        var path:String = config.propertyPathVE.getValue();
+        return issues.getAll().filter(function (issue:Issue):Boolean {
+          return StringUtil.startsWith(issue.property, path, true);
+        });
+      }
+    });
+  }
 
-      //set the severity on the component
-      this.setSeverityOnComponent(maxSeverity, issues);
-    }
+  protected function issuesChanged():void {
+    var issues:Array = bindTo.getValue() ? bindTo.getValue() : [];
+    // Find the highest severity level.
+    var maxSeverity:String = ValidationUtil.computeMaximumSeverity(issues);
+
+    //set the severity on the component
+    this.setSeverityOnComponent(maxSeverity, issues);
   }
 
   /**

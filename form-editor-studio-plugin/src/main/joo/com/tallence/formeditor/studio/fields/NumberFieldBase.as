@@ -27,7 +27,9 @@ public class NumberFieldBase extends FormEditorField {
   }
 
   override protected function initWithDefault(ve:ValueExpression):void {
-    ve.setValue(defaultValue);
+    if (!isNaN(defaultValue)) {
+      ve.setValue(defaultValue);
+    }
   }
 
 }

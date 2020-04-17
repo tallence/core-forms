@@ -63,6 +63,10 @@ public class AppliedFormElementsContainerBase extends Container {
     this.readOnlyVE = PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression);
   }
 
+  public function getFormElementsVE():ValueExpression {
+    return formElementsManager.getFormElementsVE();
+  }
+
   override protected function afterRender():void {
     super.afterRender();
     var panel:CollapsiblePanel = queryById(FORM_ELEMENT_PANEL) as CollapsiblePanel;

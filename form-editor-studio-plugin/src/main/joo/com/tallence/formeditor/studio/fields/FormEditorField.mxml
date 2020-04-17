@@ -46,6 +46,13 @@
     [Bindable]
     public var formIssuesVE:ValueExpression;
 
+    /**
+     * A value expression evaluating to the property path of the applied form element.
+     * e.g. 'formData.formElements.320798398'
+     */
+    [Bindable]
+    public var propertyPathVE:ValueExpression;
+
     public native function FormEditorField(config:FormEditorField = null);
     ]]>
   </fx:Script>

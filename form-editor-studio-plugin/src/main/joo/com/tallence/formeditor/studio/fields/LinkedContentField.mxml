@@ -28,7 +28,8 @@
         <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                   forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
         <plugins:ShowFormIssuesPlugin issuesVE="{config.formIssuesVE}"
-                                      propertyName="{config.propertyName}"/>
+                                      propertyName="{config.propertyName}"
+                                      propertyPathVE="{config.propertyPathVE}"/>
       </editor:plugins>
     </editor:SingleLinkEditor>
   </fields:items>

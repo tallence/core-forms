@@ -38,6 +38,7 @@ public class AdvancedSettingsFieldBase extends FormEditorField {
    * @param struct the parent struct of the form element
    */
   override protected function initStruct(struct:Struct):void {
+    super.initStruct(struct);
     var visibility:Object = {};
     visibility[VISIBILITY_ACTIVATED] = false;
     visibility[VISIBILITY_ELEMENT_ID] = "";

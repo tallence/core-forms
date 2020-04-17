@@ -37,6 +37,7 @@
     <fields:FormEditorField bindTo="{getBindTo()}"
                             forceReadOnlyValueExpression="{getForceReadOnlyVE()}"
                             formElementStructVE="{getFormElementStructVE()}"
+                            propertyPathVE="{getPropertyPathVE()}"
                             formIssuesVE="{getFormIssuesVE()}"/>
   </local:defaults>
 

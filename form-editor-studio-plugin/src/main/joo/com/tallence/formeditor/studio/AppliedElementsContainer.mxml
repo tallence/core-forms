@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<studio:AppliedElementsContainerBase
-    xmlns:fx="http://ns.adobe.com/mxml/2009"
-    xmlns:exml="http://www.jangaroo.net/exml/0.8"
-    xmlns="exml:ext.config"
-    xmlns:ui="exml:com.coremedia.ui.config"
-    xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*" xmlns:studio="com.tallence.formeditor.studio.*">
+<Container xmlns:fx="http://ns.adobe.com/mxml/2009"
+           xmlns:exml="http://www.jangaroo.net/exml/0.8"
+           xmlns="exml:ext.config"
+           xmlns:ui="exml:com.coremedia.ui.config"
+           xmlns:dragdrop="com.tallence.formeditor.studio.dragdrop.*"
+           xmlns:studio="com.tallence.formeditor.studio.*">
   <fx:Metadata>
     [ResourceBundle('com.tallence.formeditor.studio.bundles.FormEditor')]
     [ResourceBundle('com.coremedia.cms.editor.Editor')]
@@ -12,6 +12,7 @@
 
   <fx:Script><![CDATA[
     import com.coremedia.ui.data.ValueExpression;
+    import com.tallence.formeditor.studio.helper.FormElementsManager;
 
     public static const xtype:String = "com.tallence.formeditor.studio.config.appliedElementsContainer";
 
@@ -29,41 +30,33 @@
     [Bindable]
     public var forceReadOnlyValueExpression:ValueExpression;
 
-    /*
-     * A String which holds the document proerty name of the struct, where the form Elements are saved into
-     */
-    [Bindable]
-    public var structPropertyName:String;
-
     /**
-     * Stores the information whether a drag and drop operation is in progress.
+     * The form elements manager contains the value expression evaluating to the applied form elements. The value
+     * expression that controls whether a drag/drop operation is active can also be accessed via this manager.
      */
     [Bindable]
-    public var dragActiveVE:ValueExpression;
-
+    public var formElementsManager:FormElementsManager;
 
     public native function AppliedElementsContainer(config:AppliedElementsContainer = null);
     ]]>
       </fx:Script>
 
-  <studio:items>
-
+  <items>
     <dragdrop:FormElementDropContainer
-        formElementsManager="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}"
-        forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-
+            formElementsManager="{config.formElementsManager}"
+            forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
     <Container>
       <plugins>
         <ui:BindComponentsPlugin configBeanParameterName="formElement"
-                                 valueExpression="{initFormElementsVE(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}">
+                                 valueExpression="{config.formElementsManager.getFormElementsVE()}">
           <ui:template>
             <studio:AppliedFormElementContainer bindTo="{config.bindTo}"
                                                 forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
-                                                formElementsManager="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName, config.dragActiveVE)}"/>
+                                                formElementsManager="{config.formElementsManager}"/>
           </ui:template>
         </ui:BindComponentsPlugin>
       </plugins>
     </Container>
-  </studio:items>
+  </items>
 
-</studio:AppliedElementsContainerBase>
+</Container>

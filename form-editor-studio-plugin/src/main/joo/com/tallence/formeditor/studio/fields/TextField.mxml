@@ -26,7 +26,8 @@
             width="100%">
           <ui:plugins>
             <plugins:ShowFormIssuesPlugin issuesVE="{config.formIssuesVE}"
-                                          propertyName="{config.propertyName}"/>
+                                          propertyName="{config.propertyName}"
+                                          propertyPathVE="{config.propertyPathVE}"/>
             <ui:BindPropertyPlugin bidirectional="true"
                                    bindTo="{getPropertyVE(config)}"/>
             <editor:BindDisablePlugin bindTo="{config.bindTo}"

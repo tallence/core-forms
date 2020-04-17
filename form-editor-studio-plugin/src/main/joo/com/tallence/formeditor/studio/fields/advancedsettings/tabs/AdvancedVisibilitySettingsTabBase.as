@@ -19,7 +19,7 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.coremedia.ui.util.createComponentSelector;
-import com.tallence.formeditor.studio.AppliedElementsContainer;
+import com.tallence.formeditor.studio.AppliedFormElementContainer;
 import com.tallence.formeditor.studio.FormUtils;
 import com.tallence.formeditor.studio.fields.advancedsettings.*;
 import com.tallence.formeditor.studio.model.FormElementStructWrapper;
@@ -140,8 +140,8 @@ public class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
    * Returns the parent applied form elements container. The container is used to get the value expression evaluation
    * to all form elements of the form.
    */
-  private function getAppliedElementsContainer():AppliedElementsContainer {
-    return AppliedElementsContainer(findParentByType(AppliedElementsContainer.xtype));
+  private function getAppliedElementsContainer():AppliedFormElementContainer {
+    return AppliedFormElementContainer(findParentByType(AppliedFormElementContainer.xtype));
   }
 
   /**

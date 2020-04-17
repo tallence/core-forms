@@ -110,11 +110,15 @@ public class FormEditorFieldBase extends Container {
   }
 
   /**
-   * Override this method to perform operations directly on the struct. The struct contains the values of the form
-   * element. If the editor for the field inside the form element must store values in a sub-struct, the struct can be
+   * Override this method to perform operations directly on the struct. If this method is overwritten, this method
+   * should also be called to init the validator sub struct. Otherwise a null pointer will occur for the validator
+   * binding. The struct contains the values of the form element. If the editor for the field inside the form element must store values in a sub-struct, the struct can be
    * initialized by this method.
    */
   protected function initStruct(struct:Struct):void {
+    if (!struct.get("validator")) {
+      struct.getType().addStructProperty("validator")
+    }
   }
 }
 }
