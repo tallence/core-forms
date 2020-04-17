@@ -30,7 +30,8 @@
             <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                       forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
             <plugins:ShowFormIssuesPlugin issuesVE="{config.formIssuesVE}"
-                                          propertyName="{config.propertyName}"/>
+                                          propertyName="{config.propertyName}"
+                                          propertyPathVE="{config.propertyPathVE}"/>
           </ui:plugins>
         </ui:StatefulNumberField>
       </items>

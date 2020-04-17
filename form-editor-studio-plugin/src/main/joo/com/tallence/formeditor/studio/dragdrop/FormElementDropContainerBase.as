@@ -68,7 +68,7 @@ public class FormElementDropContainerBase extends Container {
       if (getDropActiveVE().getValue()) {
         modifiers.push("drop-active");
       }
-      if (config.formElementsManager.getFormElements().length == 0) {
+      if ((config.formElementsManager.getFormElementsVE().getValue() as Array).length == 0) {
         modifiers.push("empty");
       }
       return modifiers;

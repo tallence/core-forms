@@ -13,6 +13,8 @@
         xmlns:components="com.tallence.formeditor.studio.components.*">
 
   <fx:Script><![CDATA[
+    import com.coremedia.ui.data.ValueExpressionFactory;
+
     public static const xtype:String = "com.tallence.formeditor.studio.config.appliedFormElementContainer";
 
     private var config:AppliedFormElementContainer;
@@ -37,7 +39,8 @@
                                ifUndefined="{getTitleUndefinedValue(config.formElement)}"
                                transformer="{titleTransformer}"
                                bindTo="{config.formElement.getFormElementVE().extendBy('name')}"/>
-        <plugins:ShowFormIssuesPlugin issuesVE="{config.formElement.getFormIssuesVE()}"/>
+        <plugins:ShowFormIssuesPlugin issuesVE="{config.bindTo.extendBy(['issues'])}"
+                                      propertyPathVE="{ValueExpressionFactory.createFromValue(config.formElement.getPropertyPath())}"/>
       </components:plugins>
       <components:items>
         <!-- The form element editor is added dynamically bye the
