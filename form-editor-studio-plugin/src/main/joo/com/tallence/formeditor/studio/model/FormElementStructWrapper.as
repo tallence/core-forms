@@ -15,45 +15,45 @@
  */
 
 package com.tallence.formeditor.studio.model {
-import com.coremedia.cap.common.impl.StructSubBean;
+import com.coremedia.cap.content.ContentPropertyNames;
+import com.coremedia.cap.struct.Struct;
+import com.coremedia.cms.editor.sdk.premular.fields.struct.StructTreeNode;
+import com.coremedia.ui.data.PropertyPathExpression;
 import com.coremedia.ui.data.ValueExpression;
-import com.coremedia.ui.data.ValueExpressionFactory;
 import com.tallence.formeditor.studio.fields.advancedsettings.AdvancedSettingsFieldBase;
 
 public class FormElementStructWrapper {
 
+  public static const FORM_ELEMENTS_PROPERTY:String = "formElements";
   private static const TYPE_PROPERTY:String = "type";
 
-  private var formElementStruct:StructSubBean;
   private var structPropertyName:String;
   private var id:String;
   private var formElementVE:ValueExpression;
   private var type:String;
   private var bindTo:ValueExpression;
   private var forceReadOnlyValueExpression:ValueExpression;
-  private var formIssuesVE:ValueExpression;
+  private var node:StructTreeNode;
 
-  public function FormElementStructWrapper(formElementStruct:StructSubBean,
+  public function FormElementStructWrapper(node:StructTreeNode,
                                            structPropertyName:String,
-                                           id:String,
-                                           formElementVE:ValueExpression,
                                            bindTo:ValueExpression,
                                            forceReadOnlyValueExpression:ValueExpression) {
-    this.formElementStruct = formElementStruct;
+    this.node = node;
     this.structPropertyName = structPropertyName;
-    this.id = id;
-    this.formElementVE = formElementVE;
-    this.type = getString(TYPE_PROPERTY);
+    this.id = node.getPropertyName();
+    this.formElementVE = bindTo.extendBy(ContentPropertyNames.PROPERTIES, structPropertyName, FORM_ELEMENTS_PROPERTY, this.id);
+    this.type = getStructStringProperty(node.getValueAsStruct(), TYPE_PROPERTY);
     this.bindTo = bindTo;
     this.forceReadOnlyValueExpression = forceReadOnlyValueExpression;
   }
 
   public function getId():String {
-    return id;
+    return node.getPropertyName();
   }
 
-  public function getCustomId(): String {
-    return getAdvancedSettingsString(AdvancedSettingsFieldBase.CUSTOM_ID);
+  public function getCustomId():String {
+    return getStructStringProperty(getSubStruct("advancedSettings"), AdvancedSettingsFieldBase.CUSTOM_ID);
   }
 
   public function getFormElementVE():ValueExpression {
@@ -72,28 +72,21 @@ public class FormElementStructWrapper {
     return type;
   }
 
-  public function getFormIssuesVE():ValueExpression {
-    if (!formIssuesVE) {
-      formIssuesVE = ValueExpressionFactory.createFromFunction(function ():FormIssues {
-        return new FormIssues(formElementStruct, structPropertyName, bindTo, id);
-      });
-    }
-    return formIssuesVE;
+  /**
+   * Returns the property path of the applied form element.
+   * e.g. 'formData.formElements.320798398'
+   */
+  public function getPropertyPath():String {
+    var path:String = (getFormElementVE() as PropertyPathExpression).getPropertyPath();
+    return path.replace("value.properties.", "");
   }
 
-  private function getString(propertyName:String):String {
-    if (formElementStruct && formElementStruct.get(propertyName)) {
-      return formElementStruct.get(propertyName);
-    }
-    return "";
+  private function getSubStruct(propertyName:String):Struct {
+    return node.getValueAsStruct() && node.getValueAsStruct().get(propertyName);
   }
 
-  private function getAdvancedSettingsString(propertyName:String):String {
-    if (formElementStruct && formElementStruct.get("advancedSettings")) {
-      var advancedSettings:StructSubBean = StructSubBean(formElementStruct.get("advancedSettings"));
-      return advancedSettings.get(propertyName);
-    }
-    return "";
+  private static function getStructStringProperty(struct:Struct, propertyName:String):String {
+    return struct ? struct.get(propertyName) : "";
   }
 
 }

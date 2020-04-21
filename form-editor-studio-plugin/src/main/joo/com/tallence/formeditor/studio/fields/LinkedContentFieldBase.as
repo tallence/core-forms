@@ -59,6 +59,7 @@ public class LinkedContentFieldBase extends FormEditorField {
    * @param struct
    */
   override protected function initStruct(struct:Struct):void {
+    super.initStruct(struct);
     var contentType:ContentType = SESSION.getConnection().getContentRepository().getContentType(linkContentType ? linkContentType : DEFAULT_LINK_CONTENT_TYPE);
     var formElementsStruct:StructType = struct.getType();
     formElementsStruct.addLinkListProperty(propertyName, contentType);

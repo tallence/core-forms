@@ -17,30 +17,19 @@
 package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.DocumentForm;
 import com.coremedia.ui.data.ValueExpression;
-import com.coremedia.ui.data.ValueExpressionFactory;
 import com.coremedia.ui.util.IReusableComponentsService;
 import com.coremedia.ui.util.ReusableComponentsServiceImpl;
 import com.tallence.formeditor.studio.elements.AbstractFormElement;
+import com.tallence.formeditor.studio.helper.FormElementsManager;
 
 import ext.ComponentManager;
 
 public class FormEditorDocumentFormBase extends DocumentForm {
 
-  private var dragActiveVE:ValueExpression;
+  private var formElementsManager:FormElementsManager;
 
   public function FormEditorDocumentFormBase(config:FormEditorDocumentForm = null) {
     super(config);
-  }
-
-  /**
-   * Stores the information whether a drag and drop operation is in progress. The ValueExpression must be created in
-   * the document form, because the drag/drop state must also be updated for the applicable elements.
-   */
-  protected function getDragActiveVE():ValueExpression {
-    if (!dragActiveVE) {
-      dragActiveVE = ValueExpressionFactory.createFromValue(false);
-    }
-    return dragActiveVE;
   }
 
   /**
@@ -59,6 +48,15 @@ public class FormEditorDocumentFormBase extends DocumentForm {
         reusableComponentsSerice.registerComponentForReuse(key, formElement);
       }
     }
+  }
+
+  protected function getFormElementsManager(bindTo:ValueExpression,
+                                            forceReadOnlyValueExpression:ValueExpression,
+                                            propertyName:String):FormElementsManager {
+    if (!formElementsManager) {
+      formElementsManager = new FormElementsManager(bindTo, forceReadOnlyValueExpression, propertyName);
+    }
+    return formElementsManager;
   }
 
 }

@@ -49,7 +49,7 @@
             two value expressions 'bindTo' and 'forceReadOnlyValueExpression' to create the read only value expression.
             If a content is checked out by another user, the read only value is not stored in the forceReadOnlyValueExpression.-->
             <local:ApplicableElements formElements="{config.formElements}"
-                                      dragActiveVE="{getDragActiveVE()}"
+                                      dragActiveVE="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName).getDragActiveVE()}"
                                       readOnlyVE="{PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression)}"/>
             <local:ApplicableElementsHelpContainer/>
           </items>
@@ -61,8 +61,7 @@
             <!-- applied form Elements -->
             <local:AppliedElementsContainer bindTo="{config.bindTo}"
                                             forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
-                                            dragActiveVE="{getDragActiveVE()}"
-                                            structPropertyName="{config.structPropertyName}"/>
+                                            formElementsManager="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName)}"/>
           </items>
         </Container>
         <!-- end right column -->

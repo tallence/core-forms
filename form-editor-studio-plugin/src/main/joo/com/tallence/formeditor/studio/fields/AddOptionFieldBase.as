@@ -55,6 +55,7 @@ public class AddOptionFieldBase extends FormEditorField {
   }
 
   override protected function initStruct(struct:Struct):void {
+    super.initStruct(struct);
     formElementsStruct = struct;
     if (!formElementsStruct.get(groupElementStructName)) {
       formElementsStruct.getType().addStructProperty(groupElementStructName)
