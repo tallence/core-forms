@@ -71,12 +71,12 @@ public class FormElementsManager {
    */
   public function moveFormElement(afterFormElementId:String, formElementId:String):void {
     if (formElementId != afterFormElementId) {
-      var root:StructType = (formElementsWrapperStore.getRoot() as StructTreeNode).getValueAsStruct().getType();
-      var formElementIds:Array = root.getPropertyNames();
+      var formElements:StructType = getRootNodeStruct().getType();
+      var formElementIds:Array = formElements.getPropertyNames();
       formElementIds.splice(formElementIds.indexOf(formElementId), 1);
       var position:Number = afterFormElementId != undefined ? formElementIds.indexOf(afterFormElementId) + 1 : 0;
       formElementIds.splice(position, 0, formElementId);
-      root.rearrangeProperties(formElementIds);
+      formElements.rearrangeProperties(formElementIds);
     }
   }
 
