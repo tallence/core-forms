@@ -78,7 +78,7 @@ public class FormElementStructWrapper {
    */
   public function getPropertyPath():String {
     var path:String = (getFormElementVE() as PropertyPathExpression).getPropertyPath();
-    return path.replace("value.properties.", "");
+    return path.replace("content.properties.", "");
   }
 
   private function getSubStruct(propertyName:String):Struct {
