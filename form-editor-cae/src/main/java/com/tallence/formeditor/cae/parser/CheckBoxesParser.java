@@ -21,8 +21,7 @@ import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
 import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 import org.springframework.stereotype.Component;
 
-import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
-import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static com.coremedia.blueprint.base.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -34,12 +33,10 @@ public class CheckBoxesParser extends AbstractFormElementParser<CheckBoxesGroup>
   public static final String parserKey = "CheckBoxes";
   private static final String CHECK_BOXES = FORM_GROUP_ELEMENTS_PROPERTY_NAME;
 
-
   @Override
   public CheckBoxesGroup instantiateType(Struct elementData) {
     return new CheckBoxesGroup();
   }
-
 
   @Override
   public void parseSpecialFields(CheckBoxesGroup formElement, Struct elementData) {
@@ -47,6 +44,8 @@ public class CheckBoxesParser extends AbstractFormElementParser<CheckBoxesGroup>
       CheckBoxesGroupValidator checkBoxesValidator = new CheckBoxesGroupValidator(formElement);
 
       checkBoxesValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      checkBoxesValidator.setMinSize(getInteger(validator, FORM_VALIDATOR_MINSIZE));
+      checkBoxesValidator.setMaxSize(getInteger(validator, FORM_VALIDATOR_MAXSIZE));
 
       formElement.setValidator(checkBoxesValidator);
     });

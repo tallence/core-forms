@@ -29,8 +29,8 @@ import static com.tallence.formeditor.contentbeans.FormEditor.FORM_DATA;
 
 abstract class AbstractFormValidator {
 
-  private static final String FULLPATH_MIN_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MINSIZE;
-  private static final String FULLPATH_MAX_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MAXSIZE;
+  public static final String FULLPATH_MIN_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MINSIZE;
+  public static final String FULLPATH_MAX_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MAXSIZE;
 
   protected void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
     addIssue(issues, formElementId, propertyName, errorCode, Severity.ERROR, objects);

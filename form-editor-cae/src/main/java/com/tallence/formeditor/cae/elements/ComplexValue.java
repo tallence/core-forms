@@ -24,7 +24,7 @@ import com.coremedia.cap.struct.Struct;
  */
 public class ComplexValue {
 
-  private static final String CHECKED_BY_DEFAULT = "checkedByDefault";
+  public static final String CHECKED_BY_DEFAULT = "checkedByDefault";
 
   private final String value;
   private final boolean selectedByDefault;

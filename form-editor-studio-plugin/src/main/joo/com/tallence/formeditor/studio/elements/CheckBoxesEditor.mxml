@@ -26,6 +26,18 @@
                           propertyName="validator.mandatory"
                           defaultValue="false"/>
     <fields:AddOptionField propertyName="groupElements"/>
+
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_minSize_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_minSize_text')}"
+                        propertyName="validator.minSize"
+                        minValue="0"
+                        maxValue="9" />
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_maxSize_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_maxSize_text')}"
+                        propertyName="validator.maxSize"
+                        minValue="0"/>
+                        maxValue="9" />
+
     <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:ElementGroupBase>
