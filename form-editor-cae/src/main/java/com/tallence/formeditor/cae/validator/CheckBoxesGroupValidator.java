@@ -25,11 +25,13 @@ import java.util.List;
 /**
  * Validator for elements of type {@link CheckBoxesGroup}
  */
-public class CheckBoxesGroupValidator implements Validator<List> {
+public class CheckBoxesGroupValidator implements Validator<List>, SizeValidator {
 
   private final CheckBoxesGroup checkBoxesGroup;
 
   private boolean mandatory;
+  private Integer minSize;
+  private Integer maxSize;
 
   public CheckBoxesGroupValidator(CheckBoxesGroup checkBoxesGroup) {
     this.checkBoxesGroup = checkBoxesGroup;
@@ -50,6 +52,15 @@ public class CheckBoxesGroupValidator implements Validator<List> {
       if (!values.containsAll(value)) {
         throw new InvalidGroupElementException("A CheckBox was chosen, which does not exist in Form Element!");
       }
+
+      if (this.minSize != null && this.minSize != 0  && values.size() < this.minSize) {
+        errors.add("com.tallence.forms.checkboxes.min");
+      }
+
+      if (this.maxSize != null && this.maxSize != 0  && values.size() < this.maxSize) {
+        errors.add("com.tallence.forms.checkboxes.max");
+      }
+
     } else if (this.mandatory) {
       errors.add("com.tallence.forms.checkboxes.empty");
     }
@@ -64,5 +75,23 @@ public class CheckBoxesGroupValidator implements Validator<List> {
 
   public void setMandatory(boolean mandatory) {
     this.mandatory = mandatory;
+  }
+
+  @Override
+  public Integer getMinSize() {
+    return this.minSize;
+  }
+
+  public void setMinSize(Integer minSize) {
+    this.minSize = minSize;
+  }
+
+  @Override
+  public Integer getMaxSize() {
+    return this.maxSize;
+  }
+
+  public void setMaxSize(Integer maxSize) {
+    this.maxSize = maxSize;
   }
 }

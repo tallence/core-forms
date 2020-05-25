@@ -14,6 +14,12 @@
     [Bindable]
     public var emptyText:String;
 
+    [Bindable]
+    public var minValue:Number;
+
+    [Bindable]
+    public var maxValue:Number;
+
     public native function NumberField(config:NumberField = null);
     ]]>
   </fx:Script>
@@ -21,8 +27,16 @@
   <fields:items>
     <FieldContainer fieldLabel="{config.fieldLabel}">
       <items>
+        <!--
+          - optional parameters for min and max added.
+          - cannot use the constant Number.MIN_VALUE as default for minValue, this will cause an error in Studio.
+            according to the documentation of Number.MIN_VALUE: "The smallest representable number overall is actually <code>-Number.MAX_VALUE</code>."
+            that's why we are using -Number.MAX_VALUE as default here.
+        -->
         <ui:StatefulNumberField
                 emptyText="{config.emptyText ? config.emptyText : resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_numberField_emptyText')}"
+                minValue="{config.minValue ? config.minValue : -Number.MAX_VALUE}"
+                maxValue="{config.maxValue ? config.maxValue : Number.MAX_VALUE}"
                 width="100%">
           <ui:plugins>
             <ui:BindPropertyPlugin bidirectional="true"

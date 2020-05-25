@@ -24,12 +24,12 @@
     <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
                           propertyName="validator.mandatory"
                           defaultValue="false"/>
-    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_label')}"
-                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_text')}"
-                        propertyName="validator.maxSize"/>
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_minValue_text')}"
                         propertyName="validator.minSize"/>
+    <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_label')}"
+                        emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_maxValue_text')}"
+                        propertyName="validator.maxSize"/>
     <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
 </local:AbstractFormElement>
