@@ -27,17 +27,14 @@
                           defaultValue="false"/>
     <fields:AddOptionField propertyName="groupElements"/>
 
-    <!-- restricting input to a max value of 9, higher values might not be displayable in the view -->
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_minSize_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_minSize_text')}"
                         propertyName="validator.minSize"
-                        minValue="0"
-                        maxValue="9" />
+                        minValue="0" />
     <fields:NumberField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_maxSize_label')}"
                         emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_validator_checkboxes_maxSize_text')}"
                         propertyName="validator.maxSize"
-                        minValue="0"
-                        maxValue="9" />
+                        minValue="0" />
 
     <advancedsettings:AdvancedSettingsField propertyName="advancedSettings"/>
   </local:items>
