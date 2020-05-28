@@ -19,12 +19,21 @@ import com.coremedia.ui.data.ValueExpression;
 
 public class GroupElementStructWrapper {
 
+  public static const PROP_CHECKED:String = "checkedByDefault";
+  private static const PROP_VALUE:String = "value";
+
   private var groupElementVE:ValueExpression;
   private var id:String;
 
-  public function GroupElementStructWrapper(groupElementVE:ValueExpression, name:String) {
+  public function GroupElementStructWrapper(groupElementVE:ValueExpression, name:String, onSelectionChangeCallback:Function) {
     this.groupElementVE = groupElementVE;
     this.id = name;
+
+    getOptionSelectedByDefaultVE().addChangeListener(function():void {
+        if (onSelectionChangeCallback) {
+          onSelectionChangeCallback.call(NaN, name, getOptionSelectedByDefaultVE().getValue())
+        }
+    });
   }
 
   public function getId():String {
@@ -34,6 +43,15 @@ public class GroupElementStructWrapper {
   public function getGroupElementVE():ValueExpression {
     return groupElementVE;
   }
+
+  public function getOptionSelectedByDefaultVE():ValueExpression {
+    return getGroupElementVE().extendBy(PROP_CHECKED);
+  }
+
+  public function getOptionValueVE():ValueExpression {
+    return getGroupElementVE().extendBy(PROP_VALUE);
+  }
+
 
 }
 }

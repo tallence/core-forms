@@ -18,12 +18,15 @@
     </fx:Script>
 
   <fields:items>
-    <Container>
+
+    <FieldContainer fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_label_option')}">
       <items>
-        <FieldContainer fieldLabel="{config.fieldLabel}">
+
+        <Container>
           <items>
-            <ui:StatefulTextField width="240"
-                                  fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
+            <ui:StatefulTextField
+                    flex="1"
+                    emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}">
               <ui:plugins>
                 <editor:BindDisablePlugin bindTo="{config.bindTo}"
                                           forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
@@ -35,34 +38,42 @@
                                               propertyPathVE="{config.propertyPathVE}"/>
               </ui:plugins>
             </ui:StatefulTextField>
+            <ui:IconButton
+                    iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'LinkListPropertyField_icon')}"
+                    ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}"
+                    handler="{addGroupElement}">
+              <ui:plugins>
+                <editor:BindDisablePlugin bindTo="{config.bindTo}"
+                                          forceReadOnlyValueExpression="{getAddOptionButtonDisabledVE()}"/>
+              </ui:plugins>
+            </ui:IconButton>
           </items>
-        </FieldContainer>
-        <ui:IconButton
-                iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'LinkListPropertyField_icon')}"
-                ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_add_option')}"
-                handler="{addGroupElement}">
-          <ui:plugins>
-            <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
-          </ui:plugins>
-        </ui:IconButton>
+          <layout>
+            <layout_HBox align="stretch"/>
+          </layout>
+        </Container>
+
+
       </items>
-      <layout>
-        <layout_HBox align="stretch"/>
-      </layout>
-    </Container>
-    <Container>
+
+    </FieldContainer>
+
+    <Container width="100%" padding="0 0 0 111">
       <plugins>
         <ui:BindComponentsPlugin configBeanParameterName="option"
                                  valueExpression="{getGroupElementsVE(config)}">
           <ui:template>
             <elements:ElementGroupEntry forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"
                                         bindTo="{config.bindTo}"
-                                        removeGroupElementFn="{removeGroupElement}"/>
+                                        removeGroupElementFn="{removeGroupElement}"
+                                        updateOptionElementFn="{updateGroupElement}"
+                                        moveOptionElementFn="{moveGroupElement}"
+            />
           </ui:template>
         </ui:BindComponentsPlugin>
       </plugins>
     </Container>
-  </fields:items>
 
+
+  </fields:items>
 </fields:AddOptionFieldBase>

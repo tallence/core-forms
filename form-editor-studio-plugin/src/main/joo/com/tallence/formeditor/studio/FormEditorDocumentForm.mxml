@@ -56,6 +56,7 @@
         </Container>
         <!-- right column, applied form elements -->
         <Container flex="1"
+                   layout="anchor"
                    autoScroll="true">
           <items>
             <!-- applied form Elements -->

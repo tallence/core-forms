@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <local:ElementGroupEntryBase
-    padding="0 0 0 100"
     title="{config.option.getId()}"
     xmlns:fx="http://ns.adobe.com/mxml/2009"
     xmlns="exml:ext.config" xmlns:ui="exml:com.coremedia.ui.config"
     xmlns:local="com.tallence.formeditor.studio.elements.*"
     xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+
     xmlns:u="exml:untyped">
 
   <fx:Script><![CDATA[
@@ -29,6 +29,7 @@
     <Header titlePosition="2.0"
             u:focusableContainer="false"
             u:enableFocusableContainer="false"
+            cls="x-panel-header__core-forms-options"
             itemPosition="2">
       <items>
         <Checkbox autoEl="{{
@@ -38,20 +39,41 @@
           <plugins>
             <ui:BindPropertyPlugin bidirectional="true"
                                    skipIfUndefined="true"
-                                   bindTo="{config.option.getGroupElementVE().extendBy('checkedByDefault')}"/>
-            <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+                                   bindTo="{config.option.getOptionSelectedByDefaultVE()}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}" forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
           </plugins>
         </Checkbox>
+
         <ui:IconButton
-            iconAlign="right"
-            iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
-            itemId="removeButton"
-            ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_delete_option')}"
-            handler="{removeOption}">
+                iconAlign="center"
+                iconCls="cm-core-icons cm-core-icons--arrow-up"
+                itemId="moveButtonUp"
+                ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_move_option_up')}"
+                handler="{moveUp}">
           <ui:plugins>
-            <editor:BindDisablePlugin bindTo="{config.bindTo}"
-                                      forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}" forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </ui:plugins>
+        </ui:IconButton>
+
+        <ui:IconButton
+                iconAlign="center"
+                iconCls="cm-core-icons cm-core-icons--arrow-down"
+                itemId="moveButtonDown"
+                ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_move_option_down')}"
+                handler="{moveDown}">
+          <ui:plugins>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}" forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
+          </ui:plugins>
+        </ui:IconButton>
+
+        <ui:IconButton
+                iconAlign="right"
+                iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_checked-out_icon')}"
+                itemId="editButton"
+                ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_edit_option')}"
+                handler="{editOption}">
+          <ui:plugins>
+            <editor:BindDisablePlugin bindTo="{config.bindTo}" forceReadOnlyValueExpression="{config.forceReadOnlyValueExpression}"/>
           </ui:plugins>
         </ui:IconButton>
       </items>
