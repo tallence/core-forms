@@ -62,7 +62,8 @@
     padding-left: 8px;
   }
 
-  .form-field-advanced-settings .x-panel-header {
+  .form-field-advanced-settings .x-panel-header,
+  .x-panel-header__core-forms-options {
     border: none!important;
     padding-left: 0!important;
   }
@@ -77,6 +78,10 @@
 
   .x-panel-card-200.cm-validation-state-error .x-panel-header.x-collapsed-form-element {
     border-bottom-width: 1px!important;
+  }
+
+  .x-title-icon.tallence-icons {
+    font-weight: normal;
   }
 
 }

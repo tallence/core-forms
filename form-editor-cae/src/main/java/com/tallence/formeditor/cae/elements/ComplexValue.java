@@ -17,6 +17,7 @@
 package com.tallence.formeditor.cae.elements;
 
 import com.coremedia.cap.struct.Struct;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Complex value can be used for CheckBoxes, RadioButtons and SelectBoxes
@@ -25,17 +26,35 @@ import com.coremedia.cap.struct.Struct;
 public class ComplexValue {
 
   public static final String CHECKED_BY_DEFAULT = "checkedByDefault";
+  private static final String PROPERTY_VALUE = "value";
 
+  private final String displayName;
   private final String value;
   private final boolean selectedByDefault;
 
-  public ComplexValue(String value, Struct data) {
-    this.value = value;
+  public ComplexValue(String displayName, Struct data) {
+    this.displayName = displayName;
+
+    String tempId = data != null && data.get(PROPERTY_VALUE) != null ? data.getString(PROPERTY_VALUE) : null;
+    this.value = StringUtils.isBlank(tempId) ? displayName : tempId;
+
     this.selectedByDefault = data != null && data.get(CHECKED_BY_DEFAULT) != null && data.getBoolean(CHECKED_BY_DEFAULT);
   }
 
+   /**
+   * represents the submit value
+   * @return
+   */
   public String getValue() {
     return value;
+  }
+
+  /**
+   * represents the display value
+   * @return
+   */
+  public String getDisplayName() {
+    return displayName;
   }
 
   public boolean isSelectedByDefault() {
