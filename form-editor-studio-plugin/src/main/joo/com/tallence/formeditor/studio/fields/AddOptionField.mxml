@@ -58,7 +58,7 @@
 
     </FieldContainer>
 
-    <Container width="100%" padding="0 0 0 111">
+    <Container width="100%" padding="0 0 0 105">
       <plugins>
         <ui:BindComponentsPlugin configBeanParameterName="option"
                                  valueExpression="{getGroupElementsVE(config)}">

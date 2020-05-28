@@ -16,6 +16,8 @@
 
 package com.tallence.formeditor.studio.elements {
 
+import com.coremedia.ui.data.ValueExpression;
+import com.coremedia.ui.data.ValueExpressionFactory;
 import com.tallence.formeditor.studio.fields.EditOptionWindow;
 import com.tallence.formeditor.studio.model.GroupElementStructWrapper;
 
@@ -37,6 +39,10 @@ public class ElementGroupEntryBase extends Panel {
 
   public function ElementGroupEntryBase(config:ElementGroupEntryBase = null) {
     super(config);
+  }
+
+  internal function removeOption():void {
+    this.removeGroupElementFn.call(NaN, this.option.getId());
   }
 
   internal function editOption():void {
@@ -68,7 +74,15 @@ public class ElementGroupEntryBase extends Panel {
     this.moveOptionElementFn.call(NaN, this.option.getId(), 1);
   }
 
-
+  protected function getPanelHeaderModifiers(option:GroupElementStructWrapper):ValueExpression {
+    return ValueExpressionFactory.createFromFunction(function ():Array {
+      var modifiers:Array = [];
+      if (option.getOptionSelectedByDefaultVE().getValue()) {
+        modifiers.push("selected");
+      }
+      return modifiers;
+    })
+  }
 
 }
 

@@ -16,12 +16,14 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Optional;
+
 /**
  * Complex value can be used for CheckBoxes, RadioButtons and SelectBoxes
- *
  */
 public class ComplexValue {
 
@@ -34,15 +36,13 @@ public class ComplexValue {
 
   public ComplexValue(String displayName, Struct data) {
     this.displayName = displayName;
-
-    String tempId = data != null && data.get(PROPERTY_VALUE) != null ? data.getString(PROPERTY_VALUE) : null;
-    this.value = StringUtils.isBlank(tempId) ? displayName : tempId;
-
+    this.value = Optional.ofNullable(data).map(d -> StructUtil.getString(d, PROPERTY_VALUE)).filter(StringUtils::isNotBlank).orElse(displayName);
     this.selectedByDefault = data != null && data.get(CHECKED_BY_DEFAULT) != null && data.getBoolean(CHECKED_BY_DEFAULT);
   }
 
-   /**
+  /**
    * represents the submit value
+   *
    * @return
    */
   public String getValue() {
@@ -51,6 +51,7 @@ public class ComplexValue {
 
   /**
    * represents the display value
+   *
    * @return
    */
   public String getDisplayName() {

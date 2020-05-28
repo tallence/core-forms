@@ -121,7 +121,6 @@ public class AppliedFormElementsContainerBase extends Container {
   }
 
   public function iconClassTransformer(elementType:String):String {
-    elementType = elementType || formElement.getType();
     var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(elementType) as FormElement
     return formElementEditor.getFormElementIconCls() || "";
   }
