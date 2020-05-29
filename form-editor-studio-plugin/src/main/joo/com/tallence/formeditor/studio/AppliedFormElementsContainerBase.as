@@ -120,6 +120,11 @@ public class AppliedFormElementsContainerBase extends Container {
     return value ? value : FormUtils.getConditionTitle(formElement.getType())
   }
 
+  public function iconClassTransformer(elementType:String):String {
+    var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(elementType) as FormElement
+    return formElementEditor.getFormElementIconCls() || "";
+  }
+
   public static function getTitleUndefinedValue(formElement:FormElementStructWrapper):String {
     return FormUtils.getConditionTitle(formElement.getType());
   }

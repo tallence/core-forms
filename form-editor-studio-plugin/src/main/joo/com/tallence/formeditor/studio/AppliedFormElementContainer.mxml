@@ -39,6 +39,10 @@
                                ifUndefined="{getTitleUndefinedValue(config.formElement)}"
                                transformer="{titleTransformer}"
                                bindTo="{config.formElement.getFormElementVE().extendBy('name')}"/>
+        <ui:BindPropertyPlugin bidirectional="false"
+                               componentProperty="iconCls"
+                               transformer="{iconClassTransformer}"
+                               bindTo="{config.formElement.getFormElementVE().extendBy('type')}"/>
         <plugins:ShowFormIssuesPlugin issuesVE="{config.bindTo.extendBy(['issues'])}"
                                       propertyPathVE="{ValueExpressionFactory.createFromValue(config.formElement.getPropertyPath())}"/>
       </components:plugins>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fields:EditOptionWindowBase
+        xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:exml="http://www.jangaroo.net/exml/0.8"
+        xmlns="exml:ext.config"
+        xmlns:ui="exml:com.coremedia.ui.config"
+        xmlns:fields="com.tallence.formeditor.studio.fields.*"
+        xmlns:editor="exml:com.coremedia.cms.editor.sdk.config"
+        resizable="false"
+        modal="true">
+  <fx:Metadata>
+    [ResourceBundle('com.coremedia.cms.editor.Editor')]
+  </fx:Metadata>
+  <fx:Script><![CDATA[
+    import com.coremedia.ui.skins.ButtonSkin;
+    import com.coremedia.ui.skins.DisplayFieldSkin;
+
+    private static const FE:String = "com.tallence.formeditor.studio.bundles.FormEditor";
+    public static const xtype:String = "com.tallence.formeditor.studio.editor.fields.editOptionWindow";
+
+    private var config:EditOptionWindow;
+
+    public native function EditOptionWindow(config:EditOptionWindow = null);
+    ]]>
+  </fx:Script>
+  <fields:items>
+    <editor:CollapsibleFormPanel collapsible="false">
+      <editor:items>
+
+        <FieldContainer fieldLabel="{resourceManager.getString(FE, 'FormEditor_element_group_labelField_text')}">
+          <items>
+            <ui:StatefulTextField
+
+                    width="100%"
+                    emptyText="{resourceManager.getString(FE, 'FormEditor_element_group_labelField_emptyText')}">
+              <ui:plugins>
+                <ui:BindPropertyPlugin bidirectional="true" componentProperty="highlighted" bindTo="{getSaveButtonDisabledVE()}"/>
+                <ui:BindPropertyPlugin bidirectional="true" bindTo="{getOptionNameVE()}"/>
+              </ui:plugins>
+            </ui:StatefulTextField>
+          </items>
+        </FieldContainer>
+
+        <editor:FormSpacerElement height="10px"/>
+
+        <FieldContainer fieldLabel="{resourceManager.getString(FE, 'FormEditor_element_group_valueField_text')}">
+          <items>
+            <ui:StatefulTextField
+                    width="100%"
+                    emptyText="{resourceManager.getString(FE, 'FormEditor_element_group_valueField_emptyText')}">
+              <ui:plugins>
+                <ui:BindPropertyPlugin bidirectional="true" bindTo="{getOptionValueVE()}"/>
+              </ui:plugins>
+            </ui:StatefulTextField>
+
+            <DisplayField
+                    value="{resourceManager.getString(FE, 'FormEditor_element_group_valueField_hint')}"
+                    ui="{DisplayFieldSkin.ITALIC.getSkin()}"/>
+          </items>
+        </FieldContainer>
+
+        <editor:FormSpacerElement height="20px"/>
+
+        <Checkbox fieldLabel="{resourceManager.getString(FE, 'FormEditor_element_group_default_tooltip')}">
+          <plugins>
+            <ui:BindPropertyPlugin bidirectional="true"
+                                   skipIfUndefined="true"
+                                   bindTo="{getOptionCheckedVE()}"/>
+          </plugins>
+        </Checkbox>
+      </editor:items>
+    </editor:CollapsibleFormPanel>
+
+  </fields:items>
+  <fields:fbar>
+    <Toolbar>
+      <items>
+        <ui:IconButton
+                iconAlign="right"
+                iconCls="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'lifecycleStatus_deleted_icon')}"
+                itemId="removeButton"
+                ariaLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_text_delete_option')}"
+                handler="{removeOption}">
+        </ui:IconButton>
+        <TbFill/>
+        <Button ui="{ButtonSkin.FOOTER_PRIMARY.getSkin()}"
+                text="{resourceManager.getString(FE, 'FormEditor_text_save_option')}"
+                handler="{saveOption}"
+                scale="small">
+          <plugins>
+            <ui:BindPropertyPlugin componentProperty="disabled"
+                                   bindTo="{getSaveButtonDisabledVE()}"/>
+          </plugins>
+        </Button>
+
+        <Button ui="{ButtonSkin.FOOTER_SECONDARY.getSkin()}"
+                text="{resourceManager.getString('com.coremedia.cms.editor.Editor', 'dialog_defaultCancelButton_text')}"
+                handler="{close}"
+                scale="small"/>
+      </items>
+    </Toolbar>
+  </fields:fbar>
+
+</fields:EditOptionWindowBase>
