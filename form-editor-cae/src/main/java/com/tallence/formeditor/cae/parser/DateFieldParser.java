@@ -17,40 +17,44 @@
 package com.tallence.formeditor.cae.parser;
 
 import com.coremedia.cap.struct.Struct;
-import com.tallence.formeditor.cae.elements.SelectBox;
-import com.tallence.formeditor.cae.validator.SelectBoxValidator;
+import com.tallence.formeditor.cae.elements.DateField;
+import com.tallence.formeditor.cae.validator.DateFieldValidator;
 import org.springframework.stereotype.Component;
+
+import java.time.ZonedDateTime;
 
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**
- * Parser for elements of type {@link SelectBox}
+ * Parser for elements of type {@link DateField}
  */
 @Component
-public class SelectBoxParser extends AbstractFormElementParser<SelectBox> {
+public class DateFieldParser extends AbstractFormElementParser<DateField> {
 
-  public static final String parserKey = "SelectBox";
-  public static final String OPTIONS = FORM_GROUP_ELEMENTS_PROPERTY_NAME;
-
+  public static final String parserKey = "DateField";
 
   @Override
-  public SelectBox instantiateType(Struct elementData) {
-    return new SelectBox();
+  public DateField instantiateType(Struct elementData) {
+    return new DateField();
   }
 
-
   @Override
-  public void parseSpecialFields(SelectBox formElement, Struct elementData) {
+  public void parseSpecialFields(DateField formElement, Struct elementData) {
     ofNullable(getSubstruct(elementData, FORM_DATA_VALIDATOR)).ifPresent(validator -> {
-      SelectBoxValidator selectBoxValidator = new SelectBoxValidator(formElement);
+      DateFieldValidator dateFieldValidator = new DateFieldValidator();
 
-      selectBoxValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
+      dateFieldValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
 
-      formElement.setValidator(selectBoxValidator);
+      if (getBoolean(validator, FORM_VALIDATOR_MINDATE_TODAY)) {
+        dateFieldValidator.setMinDate(ZonedDateTime.now());
+      }
+      if (getBoolean(validator, FORM_VALIDATOR_MAXDATE_TODAY)) {
+        dateFieldValidator.setMaxDate(ZonedDateTime.now());
+      }
+
+      formElement.setValidator(dateFieldValidator);
     });
-
-    ofNullable(getSubstruct(elementData, OPTIONS)).ifPresent(options -> formElement.setOptions(parseComplexValues(options)));
   }
 
   @Override

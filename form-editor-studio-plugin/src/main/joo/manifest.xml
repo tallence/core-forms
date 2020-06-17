@@ -15,6 +15,7 @@
   <component class="com.tallence.formeditor.studio.elements.TextFieldEditor"/>
   <component class="com.tallence.formeditor.studio.elements.TextOnlyEditor"/>
   <component class="com.tallence.formeditor.studio.elements.UsersMailEditor"/>
+  <component class="com.tallence.formeditor.studio.elements.DateFieldEditor"/>
   <component class="com.tallence.formeditor.studio.studioform.FormEditorForm"/>
   <component class="com.tallence.formeditor.studio.ApplicableElementsHelpContainer"/>
   <component class="com.tallence.formeditor.studio.AppliedElementsContainer"/>

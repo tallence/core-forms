@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.coremedia.blueprint.base.util.StructUtil.*;
+import static com.coremedia.cap.util.StructUtil.*;
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static java.util.Optional.ofNullable;
 

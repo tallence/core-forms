@@ -16,8 +16,8 @@
 
 package com.tallence.formeditor.cae.elements;
 
-import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
+import com.coremedia.cap.util.StructUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
