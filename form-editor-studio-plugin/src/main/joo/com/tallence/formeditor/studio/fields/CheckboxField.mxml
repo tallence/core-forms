@@ -18,7 +18,7 @@
   <fields:items>
     <FieldContainer fieldLabel="{config.fieldLabel}">
       <items>
-        <Checkbox>
+        <Checkbox boxLabel="{config.boxLabel ? config.boxLabel : ''}">
           <plugins>
             <!-- a checkbox cannot be set to undefined, so skipIfUndefined is set to true -->
             <ui:BindPropertyPlugin bidirectional="true"

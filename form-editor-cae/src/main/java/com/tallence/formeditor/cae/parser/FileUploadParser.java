@@ -21,7 +21,7 @@ import com.tallence.formeditor.cae.elements.FileUpload;
 import com.tallence.formeditor.cae.validator.FileUploadValidator;
 import org.springframework.stereotype.Component;
 
-import static com.coremedia.blueprint.base.util.StructUtil.*;
+import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**

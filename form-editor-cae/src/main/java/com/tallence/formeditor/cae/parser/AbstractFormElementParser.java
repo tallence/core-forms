@@ -16,7 +16,6 @@
 
 package com.tallence.formeditor.cae.parser;
 
-import com.coremedia.blueprint.base.util.StructUtil;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.AdvancedSettings;
 import com.tallence.formeditor.cae.elements.ComplexValue;
@@ -26,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.coremedia.blueprint.base.util.StructUtil.*;
+import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -51,9 +50,12 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
   public static final String FORM_DATA_VISIBILITY_ELEMENT_VALUE = "value";
   public static final String FORM_DATA_NAME = "name";
   public static final String FORM_DATA_HINT = "hint";
+  public static final String FORM_DATA_PLACEHOLDER = "placeholder";
   public static final String FORM_VALIDATOR_MINSIZE = "minSize";
   public static final String FORM_VALIDATOR_MAXSIZE = "maxSize";
   public static final String FORM_VALIDATOR_REGEXP = "regexpValidator";
+  public static final String FORM_VALIDATOR_MINDATE_TODAY = "minDateToday";
+  public static final String FORM_VALIDATOR_MAXDATE_TODAY = "maxDateToday";
   public static final String FORM_GROUP_ELEMENTS_PROPERTY_NAME = "groupElements";
   static final String FORM_VALIDATOR_MANDATORY = "mandatory";
 
@@ -108,6 +110,7 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
 
     formElement.setName(getString(elementData, FORM_DATA_NAME));
     formElement.setHint(getString(elementData, FORM_DATA_HINT));
+    formElement.setPlaceholder(getString(elementData, FORM_DATA_PLACEHOLDER));
     formElement.setId(id);
 
     ofNullable(getSubstruct(elementData, FORM_DATA_ADVANCED_SETTINGS)).ifPresent(advancedSettings -> {

@@ -21,8 +21,7 @@ import com.tallence.formeditor.cae.elements.RadioButtonGroup;
 import com.tallence.formeditor.cae.validator.RadioButtonGroupValidator;
 import org.springframework.stereotype.Component;
 
-import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
-import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**

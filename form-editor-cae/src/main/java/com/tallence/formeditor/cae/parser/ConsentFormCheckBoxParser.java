@@ -24,8 +24,7 @@ import com.tallence.formeditor.cae.validator.ConsentFormCheckboxValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.coremedia.blueprint.base.util.StructUtil.getBoolean;
-import static com.coremedia.blueprint.base.util.StructUtil.getSubstruct;
+import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**

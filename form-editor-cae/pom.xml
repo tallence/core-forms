@@ -54,8 +54,8 @@
       <artifactId>cae-contentbeanservices-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.coremedia.blueprint.base</groupId>
-      <artifactId>bpbase-uapi-util</artifactId>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cap-unified-api-util</artifactId>
     </dependency>
 
     <!-- Spring -->

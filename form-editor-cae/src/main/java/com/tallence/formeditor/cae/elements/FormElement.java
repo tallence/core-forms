@@ -47,6 +47,10 @@ public interface FormElement<T> {
 
   void setHint(String hint);
 
+  String getPlaceholder();
+
+  void setPlaceholder(String placeholder);
+
   @Nullable
   AdvancedSettings getAdvancedSettings();
 

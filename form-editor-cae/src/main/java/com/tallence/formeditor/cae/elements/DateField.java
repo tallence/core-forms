@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.studio.fields {
-import com.coremedia.ui.data.ValueExpression;
+package com.tallence.formeditor.cae.elements;
 
-public class CheckboxFieldBase extends FormEditorField {
+import com.tallence.formeditor.cae.validator.DateFieldValidator;
 
-  [Bindable]
-  public var defaultValue:Boolean = false;
+/**
+ * Model bean for a configured DateField.
+ * extra Template is required for this field.
+ */
+public class DateField extends AbstractFormElement<String, DateFieldValidator> {
 
-  [Bindable]
-  public var boxLabel:String = null;
-
-  public function CheckboxFieldBase(config:CheckboxField = null) {
-    super(config);
+  public DateField() {
+    super(String.class);
   }
 
-  override protected function initWithDefault(ve:ValueExpression):void {
-    ve.setValue(defaultValue);
-  }
-
-}
 }
