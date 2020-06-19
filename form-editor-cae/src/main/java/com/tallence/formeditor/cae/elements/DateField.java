@@ -19,8 +19,7 @@ package com.tallence.formeditor.cae.elements;
 import com.tallence.formeditor.cae.validator.DateFieldValidator;
 
 /**
- * Model bean for a configured PhoneField.
- * It extends the {@link TextField} with all possible configuration values -> no extra Parser and Validator and no
+ * Model bean for a configured DateField.
  * extra Template is required for this field.
  */
 public class DateField extends AbstractFormElement<String, DateFieldValidator> {
