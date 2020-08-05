@@ -39,7 +39,7 @@ public interface FormEditorMailAdapter {
    * @param elements all the form elements, containing the current form request value.
    * @return true, if the data was saved successfully. False otherwise
    */
-  boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements);
+  boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement> elements);
 
   /**
    * Serialize the given data to the te form editor storage.
@@ -51,5 +51,5 @@ public interface FormEditorMailAdapter {
    * @param files the files, containing all files of the current form request.
    * @return true, if the data was saved successfully. False otherwise
    */
-  boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements, List<MultipartFile> files);
+  boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement> elements, List<MultipartFile> files);
 }

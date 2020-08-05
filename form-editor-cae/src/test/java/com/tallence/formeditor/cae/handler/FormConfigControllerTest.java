@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import static com.tallence.formeditor.cae.handler.FormConfigController.FORM_EDITOR_CONFIG_URL;
 import static org.junit.Assert.assertTrue;
@@ -50,7 +50,7 @@ public class FormConfigControllerTest {
   @Test
   public void testConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "2").toUri();
-    String expectedConfig = IOUtils.toString(getClass().getResourceAsStream("/com/tallence/formeditor/cae/testdata/expectedConfig-6-2.json"),  Charset.defaultCharset());
+    String expectedConfig = IOUtils.toString(getClass().getResourceAsStream("/com/tallence/formeditor/cae/testdata/expectedConfig-6-2.json"), StandardCharsets.UTF_8);
 
     MvcResult result = mvc.perform(MockMvcRequestBuilders.get(CONFIG_URL))
             .andExpect(status().isOk())

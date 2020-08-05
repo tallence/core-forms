@@ -36,7 +36,7 @@ public class StorageAdapterMock implements FormEditorStorageAdapter {
   public String formData;
 
   @Override
-  public boolean persistFormData(FormEditor target, String formData, List<FormElement<?>> elements, List<MultipartFile> files) {
+  public boolean persistFormData(FormEditor target, String formData, List<FormElement> elements, List<MultipartFile> files) {
 
     if (this.formData != null) {
       throw new IllegalStateException("Call com.tallence.formeditor.cae.mocks.StorageAdapterMock.clear before setting form data again");

@@ -57,7 +57,7 @@ public abstract class AbstractFormAction implements FormAction {
     this.mailAdapter = mailAdapter;
   }
 
-  protected boolean sendUserConfirmationMail(FormEditor target, List<FormElement<?>> formElements,
+  protected boolean sendUserConfirmationMail(FormEditor target, List<FormElement> formElements,
                                              String formData, HttpServletRequest request, HttpServletResponse response,
                                              List<MultipartFile> files) {
     boolean errorSendingUserMail = false;
@@ -85,7 +85,7 @@ public abstract class AbstractFormAction implements FormAction {
   }
 
 
-  protected String serializeFormElements(FormEditor target, List<FormElement<?>> formElements, List<MultipartFile> files) {
+  protected String serializeFormElements(FormEditor target, List<FormElement> formElements, List<MultipartFile> files) {
     StringBuilder formDataBuilder = new StringBuilder();
     //Serialize all non-FileUploads. FileUploads are serialized a few lines below.
     formElements.stream().filter((element) -> !(element instanceof FileUpload))
@@ -101,7 +101,7 @@ public abstract class AbstractFormAction implements FormAction {
   }
 
 
-  protected void serializeFormElementForMail(FormEditor target, StringBuilder formDataBuilder, FormElement<?> element) {
+  protected void serializeFormElementForMail(FormEditor target, StringBuilder formDataBuilder, FormElement element) {
     formDataBuilder.append(element.getName());
     formDataBuilder.append(": ");
     if (element instanceof TextOnly) {

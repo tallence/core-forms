@@ -39,7 +39,7 @@ public class MailAdapterMock implements FormEditorMailAdapter {
   public String adminRecipient;
 
   @Override
-  public boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements) {
+  public boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement> elements) {
 
     if (this.adminFormData != null || this.adminRecipient != null) {
       throw new IllegalStateException("Call com.tallence.formeditor.cae.mocks.MailAdapterMock.clear before setting adminFormData or adminRecipient again");
@@ -51,7 +51,7 @@ public class MailAdapterMock implements FormEditorMailAdapter {
   }
 
   @Override
-  public boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements, List<MultipartFile> files) {
+  public boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement> elements, List<MultipartFile> files) {
 
     if (this.usersFormData != null || this.usersRecipient != null) {
       throw new IllegalStateException("Call com.tallence.formeditor.cae.mocks.MailAdapterMock.clear before setting usersFormData or usersRecipient again");

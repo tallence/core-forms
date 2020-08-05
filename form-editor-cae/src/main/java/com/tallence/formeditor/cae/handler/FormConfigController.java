@@ -98,7 +98,7 @@ public class FormConfigController {
 
     Navigation navigation = getNavigationForContext(currentContext);
 
-    List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(editor);
+    List<FormElement> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {
       response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
       return "";

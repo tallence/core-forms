@@ -53,7 +53,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   }
 
   @Override
-  public boolean dependencyFulfilled(List<FormElement<?>> allElements) {
+  public boolean dependencyFulfilled(List<FormElement> allElements) {
     if (settings != null && settings.isVisibilityDependent()) {
       return allElements.stream().anyMatch(this::dependentFieldMatch);
     }

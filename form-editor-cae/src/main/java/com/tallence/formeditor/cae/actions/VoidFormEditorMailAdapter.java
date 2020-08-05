@@ -19,13 +19,13 @@ import java.util.List;
 public class VoidFormEditorMailAdapter implements FormEditorMailAdapter {
   private static final Logger LOGGER = LoggerFactory.getLogger(VoidFormEditorMailAdapter.class);
   @Override
-  public boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements) {
+  public boolean sendAdminMail(FormEditor target, String recipient, String formData, List<FormElement> elements) {
     LOGGER.warn("VoidAdapter used to send Admin Mail, Recipient: " + recipient + " form data: " + formData);
     return true;
   }
 
   @Override
-  public boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement<?>> elements, List<MultipartFile> files) {
+  public boolean sendUserMail(FormEditor target, String recipient, String formData, List<FormElement> elements, List<MultipartFile> files) {
     LOGGER.warn("VoidAdapter used to send Admin Mail, Recipient: " + recipient + " form data: " + formData);
     return true;
   }
