@@ -39,4 +39,9 @@ public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> i
   public void setOptions(List<ComplexValue> options) {
     this.options = options;
   }
+
+  @Override
+  public String serializeValue() {
+    return options.stream().filter(cv -> cv.getValue().equals(getValue())).findFirst().map(ComplexValue::getDisplayName).orElse("");
+  }
 }

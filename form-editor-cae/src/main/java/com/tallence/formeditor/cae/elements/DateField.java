@@ -17,6 +17,11 @@
 package com.tallence.formeditor.cae.elements;
 
 import com.tallence.formeditor.cae.validator.DateFieldValidator;
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 
 /**
  * Model bean for a configured DateField.
@@ -24,8 +29,21 @@ import com.tallence.formeditor.cae.validator.DateFieldValidator;
  */
 public class DateField extends AbstractFormElement<String, DateFieldValidator> {
 
-  public DateField() {
+  private final Locale locale;
+
+  public DateField(Locale locale) {
     super(String.class);
+    this.locale = locale;
   }
 
+  @Override
+  public String serializeValue() {
+    String value = getValue();
+    if (StringUtils.isBlank(value)) {
+      return "";
+    }
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(locale);
+    return DateFieldValidator.parseDate(value).map(z -> z.format(formatter)).orElse("");
+  }
 }

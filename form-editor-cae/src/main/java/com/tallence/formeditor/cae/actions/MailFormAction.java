@@ -17,7 +17,7 @@
 package com.tallence.formeditor.cae.actions;
 
 import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.handler.FormController.FormProcessingResult;
+import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class MailFormAction extends AbstractFormAction {
 
 
   @Override
-  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements, HttpServletRequest request,
+  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements, HttpServletRequest request,
                                                               HttpServletResponse response) throws IOException {
 
     if (!files.isEmpty()) {
@@ -68,7 +68,7 @@ public class MailFormAction extends AbstractFormAction {
     return new FormProcessingResult(true, errorSendingUserMail ? USER_MAIL : null);
   }
 
-  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement> formElements) {
+  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement<?>> formElements) {
 
     try {
       for (String address : target.getAdminEmails()) {

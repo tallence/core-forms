@@ -40,6 +40,7 @@ import static java.util.Optional.ofNullable;
 public abstract class AbstractFormElementParser<T extends FormElement> {
 
   public static final String FORM_DATA_VALIDATOR = "validator";
+  public static final String FORM_DATA_VALIDATOR_MESSAGES = "errorMessages";
   public static final String FORM_DATA_ADVANCED_SETTINGS = "advancedSettings";
   public static final String FORM_DATA_CUSTOM_ID = "customId";
   public static final String FORM_DATA_CUSTOM_WIDTH = "columnWidth";
@@ -54,10 +55,12 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
   public static final String FORM_VALIDATOR_MINSIZE = "minSize";
   public static final String FORM_VALIDATOR_MAXSIZE = "maxSize";
   public static final String FORM_VALIDATOR_REGEXP = "regexpValidator";
+  public static final String FORM_VALIDATOR_MINDATE_VALUE = "minDate";
   public static final String FORM_VALIDATOR_MINDATE_TODAY = "minDateToday";
+  public static final String FORM_VALIDATOR_MAXDATE_VALUE = "maxDate";
   public static final String FORM_VALIDATOR_MAXDATE_TODAY = "maxDateToday";
   public static final String FORM_GROUP_ELEMENTS_PROPERTY_NAME = "groupElements";
-  static final String FORM_VALIDATOR_MANDATORY = "mandatory";
+  public static final String FORM_VALIDATOR_MANDATORY = "mandatory";
 
   /**
    * Creates an instance of the concrete parser class.

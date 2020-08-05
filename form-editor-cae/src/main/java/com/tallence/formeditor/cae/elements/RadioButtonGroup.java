@@ -19,6 +19,7 @@ package com.tallence.formeditor.cae.elements;
 import com.tallence.formeditor.cae.validator.RadioButtonGroupValidator;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Model bean for a configured RadioButtonGroup.
@@ -28,7 +29,6 @@ public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGro
   public RadioButtonGroup() {
     super(String.class);
   }
-
 
   private List<ComplexValue> radioButtons;
 
@@ -46,5 +46,10 @@ public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGro
 
   public void setRadioButtons(List<ComplexValue> radioButtons) {
     this.radioButtons = radioButtons;
+  }
+
+  @Override
+  public String serializeValue() {
+    return radioButtons.stream().filter(cv -> cv.getValue().equals(getValue())).findFirst().map(ComplexValue::getDisplayName).orElse("");
   }
 }

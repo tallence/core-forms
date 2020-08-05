@@ -49,18 +49,22 @@
                                 <Struct>
                                     <StructProperty Name="50 und älter">
                                         <Struct>
+                                          <StringProperty Name="value">50_older</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="26 - 49">
                                         <Struct>
+                                          <StringProperty Name="value">26_49</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="13 - 25">
                                         <Struct>
+                                          <StringProperty Name="value">13_25</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="0 - 12">
                                         <Struct>
+                                          <StringProperty Name="value">0_12</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                 </Struct>
@@ -95,19 +99,23 @@
                                 <Struct>
                                     <StructProperty Name="Computer">
                                         <Struct>
+                                          <StringProperty Name="value">computer</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="Sport">
                                         <Struct>
+                                          <StringProperty Name="value">sport</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="Foto">
                                         <Struct>
+                                          <StringProperty Name="value">photo</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="Lesen">
                                         <Struct>
                                             <BooleanProperty Name="checkedByDefault">false</BooleanProperty>
+                                            <StringProperty Name="value">read</StringProperty>
                                         </Struct>
                                     </StructProperty>
                                 </Struct>
@@ -140,7 +148,7 @@
                                 <Link xlink:href="coremedia:///cap/resources/../Articles/Consent%20Form.xml"
                                       cmexport:path="/Sites/Demo/Germany/German/Content/Articles/Consent%20Form"/>
                             </LinkListProperty>
-                            <StringProperty Name="hint">%Einverständniserklärung% gelesen</StringProperty>
+                            <StringProperty Name="hint">Ich habe die %Einverständniserklärung% gelesen.</StringProperty>
                             <StringProperty Name="name">Datenschutz</StringProperty>
                         </Struct>
                     </StructProperty>

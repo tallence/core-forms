@@ -19,7 +19,7 @@ public class VoidFormEditorStorageAdapter implements FormEditorStorageAdapter {
   private static final Logger LOGGER = LoggerFactory.getLogger(VoidFormEditorStorageAdapter.class);
 
   @Override
-  public boolean persistFormData(FormEditor target, String formData, List<FormElement> elements, List<MultipartFile> files) {
+  public boolean persistFormData(FormEditor target, String formData, List<FormElement<?>> elements, List<MultipartFile> files) {
     LOGGER.warn("VoidAdapter used to store form data: " + formData);
     return true;
   }

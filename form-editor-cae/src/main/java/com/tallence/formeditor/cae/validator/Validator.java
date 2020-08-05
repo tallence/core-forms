@@ -29,7 +29,7 @@ public interface Validator<T> {
    * Validates the given FormElement-Value
    * @return a List of Error-Codes or an empty list, if the validation succeeded.
    */
-  List<String> validate(T value);
+  List<ValidationFieldError> validate(T value);
 
   boolean isMandatory();
 }

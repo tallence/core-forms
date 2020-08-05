@@ -1,0 +1,7 @@
+<Struct xmlns="http://www.coremedia.com/2008/struct">
+  <StructProperty Name="formElements">
+    <Struct>
+
+    </Struct>
+  </StructProperty>
+</Struct>

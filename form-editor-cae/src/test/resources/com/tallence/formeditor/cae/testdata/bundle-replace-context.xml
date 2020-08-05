@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:customize="http://www.coremedia.com/2007/coremedia-spring-beans-customization"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.coremedia.com/2007/coremedia-spring-beans-customization http://www.coremedia.com/2007/coremedia-spring-beans-customization.xsd">
+
+  <bean id="testResourceBundleFactory" class="com.tallence.formeditor.cae.mocks.ResourceBundleFactoryMock"/>
+
+<!--  Use an xml config to replace the coreMedia spring bean. A primary-Annotation at the java spring config did not work, the cm-bean was still injected. -->
+  <customize:replace id="bundleReplacement" bean="pageResourceBundleFactory" custom-ref="testResourceBundleFactory"/>
+</beans>

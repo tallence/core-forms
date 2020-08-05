@@ -17,6 +17,7 @@
 package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.FileUpload;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -27,12 +28,20 @@ import java.util.List;
  */
 public class FileUploadValidator implements Validator<MultipartFile>, SizeValidator {
 
+  private static final String MESSAGE_KEY_FILEUPLOAD_REQUIRED = "com.tallence.forms.fileupload.empty";
+  private static final String MESSAGE_KEY_FILEUPLOAD_MIN = "com.tallence.forms.fileupload.min";
+  private static final String MESSAGE_KEY_FILEUPLOAD_MAX = "com.tallence.forms.fileupload.max";
+
   private final FileUpload fileUpload;
 
+  @ValidationProperty(messageKey = MESSAGE_KEY_FILEUPLOAD_REQUIRED)
   private boolean mandatory;
 
   //Default Value 5MB
+  @ValidationProperty(messageKey = MESSAGE_KEY_FILEUPLOAD_MAX)
   private int maxSize = 5 * 1024;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_FILEUPLOAD_MIN)
   private Integer minSize = 0;
 
   public FileUploadValidator(FileUpload fileUpload) {
@@ -40,15 +49,19 @@ public class FileUploadValidator implements Validator<MultipartFile>, SizeValida
   }
 
   @Override
-  public List<String> validate(MultipartFile value) {
+  public List<ValidationFieldError> validate(MultipartFile value) {
 
-    List<String> errors = new ArrayList<>();
+    List<ValidationFieldError> errors = new ArrayList<>();
 
     boolean empty = value == null || value.getSize() == 0;
     if (this.mandatory && empty) {
-      errors.add("com.tallence.forms.fileupload.empty");
-    } else if (!empty && (value.getSize() / 1024) > this.maxSize) {
-      errors.add("com.tallence.forms.fileupload.toobig");
+      errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_REQUIRED));
+    }
+    if (!empty && (value.getSize() / 1024) < this.minSize) {
+      errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_MIN, this.minSize));
+    }
+    if (!empty && (value.getSize() / 1024) > this.maxSize) {
+      errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_MAX, this.maxSize));
     }
 
     return errors;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tallence AG
+ * Copyright 2020 Tallence AG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +16,29 @@
 
 package com.tallence.formeditor.cae.validator;
 
-import java.util.Collections;
-import java.util.List;
+public class ValidationFieldError {
 
-/**
- * Validator for elements of type {@link com.tallence.formeditor.cae.elements.TextOnly}
- */
-public class TextOnlyValidator implements Validator<String> {
+  final String messageKey;
+  final Object[] messageParams;
 
-  @Override
-  public List<ValidationFieldError> validate(String value) {
-    return Collections.emptyList();
+  public ValidationFieldError(String messageKey) {
+    this(messageKey, new Object[]{});
   }
 
+  public ValidationFieldError(String messageKey, Object messageParam) {
+    this(messageKey, new Object[]{messageParam});
+  }
 
-  @Override
-  public boolean isMandatory() {
-    return false;
+  public ValidationFieldError(String messageKey, Object[] messageParams) {
+    this.messageKey = messageKey;
+    this.messageParams = messageParams;
+  }
+
+  public String getMessageKey() {
+    return messageKey;
+  }
+
+  public Object[] getMessageParams() {
+    return messageParams;
   }
 }

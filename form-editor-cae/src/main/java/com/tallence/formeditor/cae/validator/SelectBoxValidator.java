@@ -18,9 +18,11 @@ package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.ComplexValue;
 import com.tallence.formeditor.cae.elements.SelectBox;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,8 +30,11 @@ import java.util.List;
  */
 public class SelectBoxValidator implements Validator<String> {
 
+  private static final String MESSAGE_KEY_SELECTBOX_REQUIRED = "com.tallence.forms.selectbox.empty";
+
   private final SelectBox selectBox;
 
+  @ValidationProperty(messageKey = MESSAGE_KEY_SELECTBOX_REQUIRED)
   private boolean mandatory;
 
   public SelectBoxValidator(SelectBox selectBox) {
@@ -37,12 +42,9 @@ public class SelectBoxValidator implements Validator<String> {
   }
 
   @Override
-  public List<String> validate(String value) {
-
-    List<String> errors = new ArrayList<>();
+  public List<ValidationFieldError> validate(String value) {
 
     if (StringUtils.hasText(value)) {
-
       List<String> values = new ArrayList<>();
       for (ComplexValue complexValue : this.selectBox.getOptions()) {
         values.add(complexValue.getValue());
@@ -52,10 +54,10 @@ public class SelectBoxValidator implements Validator<String> {
         throw new InvalidGroupElementException("A Select-Option was chosen, which does not exist in Form Element!");
       }
     } else if (this.mandatory) {
-      errors.add("com.tallence.forms.selectbox.empty");
+      return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_SELECTBOX_REQUIRED));
     }
 
-    return errors;
+    return Collections.emptyList();
   }
 
   @Override

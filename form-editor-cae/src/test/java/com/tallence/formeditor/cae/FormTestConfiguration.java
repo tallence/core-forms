@@ -44,16 +44,19 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
         ID_PROVIDER,
         HANDLERS,
         LINK_FORMATTER,
+        VIEW_RESOLVER,
+        "classpath:/framework/spring/blueprint-contentbeans.xml",
         "classpath:/com/tallence/formeditor/contentbeans/formeditor-contentbeans.xml",
+        "classpath:/META-INF/coremedia/component-forms.xml",
         "classpath:/framework/spring/blueprint-handlers.xml",
         "classpath:/framework/spring/blueprint-services.xml",
-        "classpath:/framework/spring/blueprint-contentbeans.xml"
+        "classpath:/com/tallence/formeditor/cae/testdata/bundle-replace-context.xml",
     },
     reader = ResourceAwareXmlBeanDefinitionReader.class
 )
 @ComponentScan(basePackages = "com.tallence.formeditor.cae")
 @Import({XmlRepoConfiguration.class})
-public class FormTestConfiguration {
+public abstract class FormTestConfiguration {
 
   private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/cae/testdata/contenttest.xml";
 
@@ -89,5 +92,7 @@ public class FormTestConfiguration {
   public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService reCaptchaService, CurrentContextService currentContextService) {
     return new FormFreemarkerFacade(formElementFactory, reCaptchaService, currentContextService);
   }
+
+
 
 }

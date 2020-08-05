@@ -35,7 +35,7 @@ public class FormFreemarkerFacade {
 
   private final ReCaptchaService reCaptchaService;
 
-  private CurrentContextService currentContextService;
+  private final CurrentContextService currentContextService;
 
   public FormFreemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService pReCaptchaService, CurrentContextService currentContextService) {
     this.reCaptchaService = pReCaptchaService;
@@ -43,7 +43,7 @@ public class FormFreemarkerFacade {
     this.currentContextService = currentContextService;
   }
 
-  public List<FormElement> parseFormElements(FormEditor formEditor) {
+  public List<FormElement<?>> parseFormElements(FormEditor formEditor) {
 
     Struct formData = formEditor.getFormElements();
 
@@ -61,7 +61,7 @@ public class FormFreemarkerFacade {
     return reCaptchaService.getWebsiteSecretForSite(currentContextService.getContext());
   }
 
-  private FormElement parseElement(Struct value, String key) {
+  private FormElement<?> parseElement(Struct value, String key) {
     return formElementFactory.createFormElement(value, key);
   }
 }

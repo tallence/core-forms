@@ -18,9 +18,11 @@ package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.ComplexValue;
 import com.tallence.formeditor.cae.elements.RadioButtonGroup;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,8 +30,11 @@ import java.util.List;
  */
 public class RadioButtonGroupValidator implements Validator<String> {
 
+  private static final String MESSAGE_KEY_RADIOBUTTONS_REQUIRED = "com.tallence.forms.radiobuttons.empty";
+
   private final RadioButtonGroup radioButtonGroup;
 
+  @ValidationProperty(messageKey = MESSAGE_KEY_RADIOBUTTONS_REQUIRED)
   private boolean mandatory;
 
   public RadioButtonGroupValidator(RadioButtonGroup radioButtonGroup) {
@@ -37,9 +42,7 @@ public class RadioButtonGroupValidator implements Validator<String> {
   }
 
   @Override
-  public List<String> validate(String value) {
-
-    List<String> errors = new ArrayList<>();
+  public List<ValidationFieldError> validate(String value) {
 
     if (StringUtils.hasText(value)) {
 
@@ -52,10 +55,10 @@ public class RadioButtonGroupValidator implements Validator<String> {
         throw new InvalidGroupElementException("A RadioButton was chosen, which does not exist in Form Element!");
       }
     } else if (this.mandatory) {
-      errors.add("com.tallence.forms.radiobuttons.empty");
+      return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_RADIOBUTTONS_REQUIRED));
     }
 
-    return errors;
+    return Collections.emptyList();
   }
 
   @Override
