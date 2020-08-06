@@ -37,6 +37,20 @@ public class ValidationSerializationHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ValidationSerializationHelper.class);
 
+  /**
+   * this methods will return a map with the name of the validation rule and the raw value to use for the validation.
+   * the value can be set in Studio, the method is used for the JSON config of a form.
+   *
+   * e.g. {
+   *  min: 5,
+   *  max: 15,
+   *  mandatory: true
+   * }
+   *
+   * @param validator the validator
+   *
+   * @return map with field names and values used for the validation
+   */
   public static Map<String, Object> getValidationValuesForConfig(Validator<?> validator) {
     Map<String, Object> values = new HashMap<>();
 
@@ -55,32 +69,27 @@ public class ValidationSerializationHelper {
     return values;
   }
 
-
-  private static List<Field> getFieldsWithValues(Validator<?> validator) {
-    return getAllFields(new LinkedList<Field>(), validator.getClass()).stream()
-            .filter(f -> f.isAnnotationPresent(ValidationProperty.class))
-            .filter(f -> {
-              f.setAccessible(true);
-              try {
-                return f.get(validator) != null;
-              } catch (Exception x) {
-                return false;
-              }
-            }).collect(Collectors.toList());
-  }
-
-  private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
-    fields.addAll(Arrays.asList(type.getDeclaredFields()));
-    if (type.getSuperclass() != null) {
-      getAllFields(fields, type.getSuperclass());
-    }
-    return fields;
-  }
-
+  /**
+   * this method will provide the correct the correct translated validation messages for each validation rule of a given field.
+   *
+   *
+   * e.g. {
+   *    min: "The minimum value for field _FIELDNAME_ is 5",
+   *    max: "The maximum value for field _FIELDNAME_ is 15",
+   *    mandatory: "Field _FIELDNAME_ is required"
+   * }
+   *
+   * @param fieldName output name of the field
+   * @param validator validator
+   * @param messageResolver resource bundles for the current locale
+   *
+   * @return map with field names and translated validation messages
+   */
   public static Map<String, String> getValidationMessages(String fieldName, Validator<?> validator, BiFunction<String, Object[], String> messageResolver) {
     Map<String, String> messages = new HashMap<>();
 
     //class annotation
+    //this is required for global messages for a field, e.g. type is not valid
     ValidationMessage globalMessage = validator.getClass().getAnnotation(ValidationMessage.class);
     if (globalMessage != null) {
       messages.put(globalMessage.name(), getMessage(globalMessage.messageKey(), new Object[]{fieldName}, messageResolver));
@@ -109,6 +118,27 @@ public class ValidationSerializationHelper {
 
   public static String getValidationMessage(String fieldName, ValidationFieldError fieldError, BiFunction<String, Object[], String> messageResolver) {
     return getMessage(fieldError.getMessageKey(), ArrayUtils.addAll(new Object[]{fieldName}, fieldError.getMessageParams()), messageResolver);
+  }
+
+  private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
+    fields.addAll(Arrays.asList(type.getDeclaredFields()));
+    if (type.getSuperclass() != null) {
+      getAllFields(fields, type.getSuperclass());
+    }
+    return fields;
+  }
+
+  private static List<Field> getFieldsWithValues(Validator<?> validator) {
+    return getAllFields(new LinkedList<Field>(), validator.getClass()).stream()
+            .filter(f -> f.isAnnotationPresent(ValidationProperty.class))
+            .filter(f -> {
+              f.setAccessible(true);
+              try {
+                return f.get(validator) != null;
+              } catch (Exception x) {
+                return false;
+              }
+            }).collect(Collectors.toList());
   }
 
   private static String getMessage(String key, Object[] args, BiFunction<String, Object[], String> messageResolver) {

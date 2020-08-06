@@ -50,6 +50,10 @@ import java.util.List;
 
 import static com.coremedia.objectserver.web.HandlerHelper.MODEL_ROOT;
 
+
+/**
+ * Controller to provide a {@link FormEditor} object as JSON based representation which can be used by any frontend application.
+ */
 @Link
 @RequestMapping
 @Component
@@ -84,11 +88,20 @@ public class FormConfigController {
     this.formElementSerializerFactories = formElementSerializerFactories;
   }
 
+  /**
+   * Link builder for {@link FormEditor} config endpoint
+   */
   @Link(type = FormEditor.class, view = FORM_EDITOR_CONFIG_VIEW, uri = FORM_EDITOR_CONFIG_URL)
   public UriComponents buildLinkForFormConfig(FormEditor form, UriComponentsBuilder uriComponentsBuilder) {
     return uriComponentsBuilder.buildAndExpand(currentContextService.getContext().getContentId(), form.getContentId());
   }
 
+  /**
+   *  The REST endpoint will provide an enriched JSON representation of {@link FormEditor}.
+   *  The resulting JSON contains information about all all fields, including validation settings and messages, url to the submit endpoint, etc.
+   *
+   * @return JSON String
+   */
   @ResponseBody
   @RequestMapping(value = FORM_EDITOR_CONFIG_URL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public String getFormConfig(@PathVariable CMChannel currentContext,
