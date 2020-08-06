@@ -38,7 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -64,7 +64,7 @@ import static com.tallence.formeditor.cae.handler.FormErrors.SERVER_VALIDATION;
  */
 @Link
 @RequestMapping
-@Component
+@Controller
 public class FormController  {
 
   private static final Logger LOG = LoggerFactory.getLogger(FormController.class);
@@ -81,7 +81,6 @@ public class FormController  {
   private final CurrentContextService currentContextService;
   private final RequestMessageSource messageSource;
   private final ResourceBundleInterceptor pageResourceBundlesInterceptor;
-  private final ValidationSerializationHelper validationSerializationHelper;
   private final boolean encodeFormData;
 
   public FormController(List<FormAction> formActions,
@@ -91,7 +90,6 @@ public class FormController  {
                         CurrentContextService currentContextService,
                         RequestMessageSource messageSource,
                         ResourceBundleInterceptor pageResourceBundlesInterceptor,
-                        ValidationSerializationHelper validationSerializationHelper,
                         @Value("${formEditor.cae.encodeData:true}") boolean encodeFormData) {
     this.formActions = formActions;
     this.defaultFormAction = defaultFormAction;
@@ -100,7 +98,6 @@ public class FormController  {
     this.currentContextService = currentContextService;
     this.messageSource = messageSource;
     this.pageResourceBundlesInterceptor = pageResourceBundlesInterceptor;
-    this.validationSerializationHelper = validationSerializationHelper;
     this.encodeFormData = encodeFormData;
   }
 
@@ -196,16 +193,6 @@ public class FormController  {
     }
   }
 
-  private List<FormElement> getFormElements(FormEditor target) {
-
-    List<FormElement> formElements = formFreemarkerFacade.parseFormElements(target);
-
-    if (formElements.isEmpty()) {
-      throw new IllegalStateException("Studio Form is not configured for Form " + target.getContentId());
-    }
-    return formElements;
-  }
-
 
   private void parseInputFormData(MultiValueMap<String, String> postData, HttpServletRequest request,
                                   List<FormElement> formElements) {
@@ -261,7 +248,7 @@ public class FormController  {
       List<ValidationFieldError> validationResult = f.getValidationResult();
       if (!validationResult.isEmpty()) {
         validationResults.put(f.getTechnicalName(), validationResult.stream()
-                .map(error -> validationSerializationHelper.getValidationMessage(
+                .map(error -> ValidationSerializationHelper.getValidationMessage(
                         f.getName(),
                         error,
                         (key, args) -> messageSource.getMessage(key, args, page.getLocale())))

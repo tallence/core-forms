@@ -54,7 +54,7 @@ public class NumberValidator implements Validator<String>, SizeValidator {
       if (!value.matches("\\d+")) {
         return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_NAN));
       }
-      Integer number = Integer.valueOf(value);
+      int number = Integer.parseInt(value);
       if (this.minSize != null && number < this.minSize) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_MIN, this.minSize));
       }

@@ -16,47 +16,52 @@
 
 package com.tallence.formeditor.cae.serializer;
 
-import com.coremedia.blueprint.common.contentbeans.CMTeasable;
 import com.coremedia.cache.Cache;
 import com.coremedia.cache.CacheKey;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.tallence.formeditor.cae.elements.*;
+import com.tallence.formeditor.cae.elements.AbstractFormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Building a string, representing the form config for a formEditor document.
  * <p>
- * Equals and hashcode use the field {@link #editor}, which is a unique identifier for the form.
+ * Equals and hashcode use the formEditor ContentBean {@link #editor}, which is a unique identifier for the form.
  */
 public class FormConfigCacheKey extends CacheKey<String> {
 
   public static final String FORM_CONFIG_CACHE_KEY = "com.tallence.formeditor.cae.serializer.FormConfigCacheKey";
 
   private final FormEditor editor;
-  private final Function<CMTeasable, String> linkBuilder;
+  private final HttpServletRequest request;
+  private final HttpServletResponse response;
   private final BiFunction<String, Object[], String> messageResolver;
   private final FormEditorConfig formEditorConfig;
-  private final ValidationSerializationHelper validationSerializationHelper;
+  private final List<FormElementSerializerFactory<?>> formElementSerializerFactories;
 
 
   public FormConfigCacheKey(FormEditor editor,
-                            Function<CMTeasable, String> linkBuilder,
+                            HttpServletRequest request,
+                            HttpServletResponse response,
                             BiFunction<String, Object[], String> messageResolver,
-                            ValidationSerializationHelper validationSerializationHelper,
-                            FormEditorConfig formEditorConfig) {
+                            FormEditorConfig formEditorConfig,
+                            List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
     this.editor = editor;
-    this.linkBuilder = linkBuilder;
+    this.request = request;
+    this.response = response;
     this.messageResolver = messageResolver;
     this.formEditorConfig = formEditorConfig;
-    this.validationSerializationHelper = validationSerializationHelper;
+    this.formElementSerializerFactories = formElementSerializerFactories;
   }
 
   @Override
@@ -65,16 +70,25 @@ public class FormConfigCacheKey extends CacheKey<String> {
     editor.getFormElements();
 
     SimpleModule module = new SimpleModule();
-    module.addSerializer(AbstractFormElement.class, new AbstractFormElementSerializer(AbstractFormElement.class, messageResolver, validationSerializationHelper));
-    module.addSerializer(ConsentFormCheckBox.class, new ConsentFormCheckBoxSerializer(messageResolver, validationSerializationHelper, linkBuilder));
-    module.addSerializer(UsersMail.class, new UsersMailSerializer(messageResolver, validationSerializationHelper));
-    module.addSerializer(TextArea.class, new TextAreaSerializer(messageResolver, validationSerializationHelper));
-    module.addSerializer(TextOnly.class, new TextOnlySerializer(messageResolver, validationSerializationHelper));
+
+    addSerializers(module);
+
     return new ObjectMapper().registerModule(module)
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)
             .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
             .writer(new DefaultPrettyPrinter())
             .writeValueAsString(formEditorConfig);
+  }
+
+  /**
+   * Enrich the Serializers with context specific helpers and handlers and add them to the jackson module.
+   */
+  private void addSerializers(SimpleModule module) {
+
+    Stream.concat(Stream.of(new FormElementSerializerBaseFactory()), formElementSerializerFactories.stream())
+            .map(f -> f.createInstance(messageResolver, request, response))
+            //cast to an untyped Class to satisfy typed method interface. TODO find a better way
+            .forEach(s -> module.addSerializer((Class) s.handledType(), s));
   }
 
   @Override
@@ -93,5 +107,15 @@ public class FormConfigCacheKey extends CacheKey<String> {
   @Override
   public int hashCode() {
     return Objects.hash(editor);
+  }
+
+  private static class FormElementSerializerBaseFactory implements FormElementSerializerFactory<FormElementSerializerBase<AbstractFormElement<?, ?>>> {
+
+    @Override
+    public FormElementSerializerBase<AbstractFormElement<?, ?>> createInstance(BiFunction<String, Object[], String> messageResolver,
+                                                                               HttpServletRequest request,
+                                                                               HttpServletResponse response) {
+      return new FormElementSerializerBase(AbstractFormElement.class, messageResolver);
+    }
   }
 }

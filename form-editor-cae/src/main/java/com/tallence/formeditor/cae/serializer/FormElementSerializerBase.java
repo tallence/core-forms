@@ -28,8 +28,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.function.BiFunction;
@@ -40,18 +44,16 @@ import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
 /**
  * Serializes default fields used for nearly all form elements.
  */
-class AbstractFormElementSerializer<T extends AbstractFormElement<?, ?>> extends StdSerializer<T> {
+public class FormElementSerializerBase<T extends AbstractFormElement<?, ?>> extends StdSerializer<T> {
 
-  private static final Logger LOG = LoggerFactory.getLogger(AbstractFormElementSerializer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FormElementSerializerBase.class);
 
+  //Context specific components, which will be set
   private final BiFunction<String, Object[], String> messageResolver;
-  private final ValidationSerializationHelper validationSerializationHelper;
 
-  AbstractFormElementSerializer(Class<T> type,
-                                BiFunction<String, Object[], String> messageResolver,
-                                ValidationSerializationHelper validationSerializationHelper) {
+  public FormElementSerializerBase(Class<T> type,
+                                   BiFunction<String, Object[], String> messageResolver) {
     super(type);
-    this.validationSerializationHelper = validationSerializationHelper;
     this.messageResolver = messageResolver;
   }
 
@@ -128,28 +130,32 @@ class AbstractFormElementSerializer<T extends AbstractFormElement<?, ?>> extends
     Validator<?> validator = element.getValidator();
     gen.writeObjectFieldStart(FORM_DATA_VALIDATOR);
 
-    /* validation values block */
-    Map<String, Object> validationValues = validationSerializationHelper.getValidationValuesForConfig(validator);
-    validationValues.forEach(ThrowingBiConsumer.unchecked((validatorName, validatorValue) -> {
+    //Look up the properties of the validator, which are relevant for serialization
+    Map<String, Object> validationValues = ValidationSerializationHelper.getValidationValuesForConfig(validator);
+    for (Map.Entry<String, Object> entry : validationValues.entrySet()) {
+      final Object validatorValue = entry.getValue();
+      final String validatorName = entry.getKey();
       if (validatorValue instanceof Integer) {
         gen.writeNumberField(validatorName, (Integer) validatorValue);
       } else if (validatorValue instanceof Boolean) {
         gen.writeBooleanField(validatorName, (Boolean) validatorValue);
       } else if (validatorValue instanceof LocalDate) {
-        //ISO 8601 WITHOUT any time information; this should be placed in a custom formatter
-        gen.writeStringField(validatorName, ((LocalDate) validatorValue).format(DateTimeFormatter.ISO_LOCAL_DATE) + "T00:00:00.000Z");
+        //Transform to an ISO 8601 zonedDateTime. Using the timeZone UTC as a default, the frontend will strip off the time anyway.
+        final OffsetDateTime offsetDateTime = OffsetDateTime.of(((LocalDate) validatorValue).atTime(0, 0), ZoneOffset.UTC);
+        gen.writeStringField(validatorName, DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(offsetDateTime));
       } else {
         gen.writeStringField(validatorName, String.valueOf(validatorValue));
       }
-    }));
+    }
 
-    /* message block */
+    //Lookup up the global messages of a validator
     gen.writeObjectFieldStart(FORM_DATA_VALIDATOR_MESSAGES);
-    Map<String, String> validationMessages = validationSerializationHelper.getValidationMessages(element.getName(), validator, messageResolver);
-    validationMessages.forEach(ThrowingBiConsumer.unchecked(gen::writeStringField));
+    Map<String, String> validationMessages = ValidationSerializationHelper.getValidationMessages(element.getName(), validator, messageResolver);
+    for (Map.Entry<String, String> entry : validationMessages.entrySet()) {
+      gen.writeStringField(entry.getKey(), entry.getValue());
+    }
     gen.writeEndObject();
 
     gen.writeEndObject();
   }
-
 }

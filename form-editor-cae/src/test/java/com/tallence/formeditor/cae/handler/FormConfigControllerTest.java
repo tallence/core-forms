@@ -59,6 +59,7 @@ public class FormConfigControllerTest {
     String responseBody = result.getResponse().getContentAsString();
 
     //this test does not care about the minDate/maxDate validators for DateField since they are dynamic; but they should be in the response
+    //TODO check for formatted dateString
     assertTrue(responseBody.contains("\"minDate\" : \"20"));
     assertTrue(responseBody.contains("\"minDate\" : \"mockedValue, arg1: DateField min, arg2:"));
     assertTrue(responseBody.contains("\"maxDate\" : \"20"));

@@ -24,19 +24,20 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-@Component
+/**
+ * A Helper class to extract the validation configs of form fields.
+ */
 public class ValidationSerializationHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ValidationSerializationHelper.class);
 
-  public Map<String, Object> getValidationValuesForConfig(Validator<?> validator) {
+  public static Map<String, Object> getValidationValuesForConfig(Validator<?> validator) {
     Map<String, Object> values = new HashMap<>();
 
     List<Field> fields = getFieldsWithValues(validator);
@@ -55,7 +56,7 @@ public class ValidationSerializationHelper {
   }
 
 
-  private List<Field> getFieldsWithValues(Validator<?> validator) {
+  private static List<Field> getFieldsWithValues(Validator<?> validator) {
     return getAllFields(new LinkedList<Field>(), validator.getClass()).stream()
             .filter(f -> f.isAnnotationPresent(ValidationProperty.class))
             .filter(f -> {
@@ -68,7 +69,7 @@ public class ValidationSerializationHelper {
             }).collect(Collectors.toList());
   }
 
-  private List<Field> getAllFields(List<Field> fields, Class<?> type) {
+  private static List<Field> getAllFields(List<Field> fields, Class<?> type) {
     fields.addAll(Arrays.asList(type.getDeclaredFields()));
     if (type.getSuperclass() != null) {
       getAllFields(fields, type.getSuperclass());
@@ -76,7 +77,7 @@ public class ValidationSerializationHelper {
     return fields;
   }
 
-  public Map<String, String> getValidationMessages(String fieldName, Validator<?> validator, BiFunction<String, Object[], String> messageResolver) {
+  public static Map<String, String> getValidationMessages(String fieldName, Validator<?> validator, BiFunction<String, Object[], String> messageResolver) {
     Map<String, String> messages = new HashMap<>();
 
     //class annotation
@@ -106,11 +107,11 @@ public class ValidationSerializationHelper {
     return messages;
   }
 
-  public String getValidationMessage(String fieldName, ValidationFieldError fieldError, BiFunction<String, Object[], String> messageResolver) {
+  public static String getValidationMessage(String fieldName, ValidationFieldError fieldError, BiFunction<String, Object[], String> messageResolver) {
     return getMessage(fieldError.getMessageKey(), ArrayUtils.addAll(new Object[]{fieldName}, fieldError.getMessageParams()), messageResolver);
   }
 
-  private String getMessage(String key, Object[] args, BiFunction<String, Object[], String> messageResolver) {
+  private static String getMessage(String key, Object[] args, BiFunction<String, Object[], String> messageResolver) {
     String message = key;
     try {
       message = messageResolver.apply(key, args);

@@ -30,7 +30,7 @@ import com.tallence.formeditor.cae.FormFreemarkerFacade;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.cae.serializer.FormConfigCacheKey;
-import com.tallence.formeditor.cae.serializer.ValidationSerializationHelper;
+import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,23 +66,22 @@ public class FormConfigController {
   private final LinkFormatter linkFormatter;
   private final RequestMessageSource messageSource;
   private final ResourceBundleInterceptor pageResourceBundlesInterceptor;
-  private final ValidationSerializationHelper validationSerializationHelper;
   private final Cache cache;
+  private final List<FormElementSerializerFactory<?>> formElementSerializerFactories;
 
   public FormConfigController(CurrentContextService currentContextService,
                               FormFreemarkerFacade formFreemarkerFacade,
                               LinkFormatter linkFormatter,
                               RequestMessageSource messageSource,
                               ResourceBundleInterceptor pageResourceBundlesInterceptor,
-                              ValidationSerializationHelper validationSerializationHelper,
-                              Cache cache) {
+                              Cache cache, List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
     this.currentContextService = currentContextService;
     this.formFreemarkerFacade = formFreemarkerFacade;
     this.linkFormatter = linkFormatter;
     this.messageSource = messageSource;
     this.pageResourceBundlesInterceptor = pageResourceBundlesInterceptor;
-    this.validationSerializationHelper = validationSerializationHelper;
     this.cache = cache;
+    this.formElementSerializerFactories = formElementSerializerFactories;
   }
 
   @Link(type = FormEditor.class, view = FORM_EDITOR_CONFIG_VIEW, uri = FORM_EDITOR_CONFIG_URL)
@@ -116,10 +115,10 @@ public class FormConfigController {
     formEditorConfig.setFormElements(formElements);
     return this.cache.get(new FormConfigCacheKey(
             editor,
-            target -> linkFormatter.formatLink(target, null, request, response, false),
+            request, response,
             (key, args) -> messageSource.getMessage(key, args, navigation.getLocale()),
-            validationSerializationHelper,
-            formEditorConfig));
+            formEditorConfig,
+            formElementSerializerFactories));
 
   }
 
