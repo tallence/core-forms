@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -36,6 +37,9 @@ import java.util.stream.Collectors;
 public class ValidationSerializationHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ValidationSerializationHelper.class);
+
+  private ValidationSerializationHelper() {
+  }
 
   /**
    * this methods will return a map with the name of the validation rule and the raw value to use for the validation.
@@ -56,11 +60,10 @@ public class ValidationSerializationHelper {
 
     List<Field> fields = getFieldsWithValues(validator);
     for (Field field : fields) {
-      field.setAccessible(true);
       try {
         ValidationProperty annotation = field.getAnnotation(ValidationProperty.class);
         String name = !StringUtils.isBlank(annotation.name()) ? annotation.name() : field.getName();
-        Object value = field.get(validator);
+        Object value = invokeGetter(validator, field);
         values.put(name, value);
       } catch (Exception x) {
         LOG.warn("cannot process ValidationProperty annotation of field {} for validator {}", field.getName(), validator.getClass());
@@ -98,12 +101,11 @@ public class ValidationSerializationHelper {
     //field annotations
     List<Field> fields = getFieldsWithValues(validator);
     for (Field field : fields) {
-      field.setAccessible(true);
       try {
         ValidationProperty annotation = field.getAnnotation(ValidationProperty.class);
         String propertyName = !StringUtils.isBlank(annotation.name()) ? annotation.name() : field.getName();
         String messageKey = annotation.messageKey();
-        Object value = field.get(validator);
+        Object value = invokeGetter(validator, field);
 
         //TODO add possibility to provide custom formatters for the values
         Object[] args = {fieldName, value};
@@ -129,16 +131,18 @@ public class ValidationSerializationHelper {
   }
 
   private static List<Field> getFieldsWithValues(Validator<?> validator) {
-    return getAllFields(new LinkedList<Field>(), validator.getClass()).stream()
+    return getAllFields(new LinkedList<>(), validator.getClass()).stream()
             .filter(f -> f.isAnnotationPresent(ValidationProperty.class))
-            .filter(f -> {
-              f.setAccessible(true);
-              try {
-                return f.get(validator) != null;
-              } catch (Exception x) {
-                return false;
-              }
-            }).collect(Collectors.toList());
+            .filter(f -> invokeGetter(validator, f) != null)
+            .collect(Collectors.toList());
+  }
+
+  private static Object invokeGetter(Validator<?> validator, Field f){
+    try {
+      return new PropertyDescriptor(f.getName(), f.getDeclaringClass()).getReadMethod().invoke(validator);
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   private static String getMessage(String key, Object[] args, BiFunction<String, Object[], String> messageResolver) {

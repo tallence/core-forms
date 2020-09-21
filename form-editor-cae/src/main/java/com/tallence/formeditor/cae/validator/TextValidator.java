@@ -101,6 +101,10 @@ public class TextValidator implements Validator<String>, SizeValidator {
     return this.regexp;
   }
 
+  public void setRegexp(Pattern regexp) {
+    this.regexp = regexp;
+  }
+
   public void setRegexp(String regexp) {
     if (StringUtils.hasText(regexp)) {
       this.regexp = Pattern.compile(regexp);

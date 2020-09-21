@@ -106,8 +106,16 @@ public class DateFieldValidator implements Validator<String> {
     this.mandatory = mandatory;
   }
 
+  public LocalDate getMinDate() {
+    return minDate;
+  }
+
   public void setMinDate(LocalDate minDate) {
     this.minDate = minDate;
+  }
+
+  public LocalDate getMaxDate() {
+    return maxDate;
   }
 
   public void setMaxDate(LocalDate maxDate) {
