@@ -52,6 +52,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -115,6 +116,13 @@ public class FormController  {
                                                HttpServletResponse response) throws Exception {
 
     Navigation navigation = getNavigationForContext(currentContext);
+
+    if (target == null || currentContext == null) {
+      // Log the form data for debugging purpose, wrapped in a LinkedHashMap to make sure, the toString method is overwritten.
+      LOG.warn("No form or context document found, cannot handle the request. Form data: {}", new LinkedHashMap<>(postData));
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      return new FormProcessingResult(false, SERVER_VALIDATION);
+    }
 
     //set up message interceptor
     ModelAndView modelAndView = new ModelAndView();

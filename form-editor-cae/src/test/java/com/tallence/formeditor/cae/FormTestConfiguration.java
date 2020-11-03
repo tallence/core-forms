@@ -54,9 +54,15 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
     },
     reader = ResourceAwareXmlBeanDefinitionReader.class
 )
-@ComponentScan(basePackages = "com.tallence.formeditor.cae")
+@PropertySource("classpath:com/tallence/formeditor/cae/test.properties")
 @Import({XmlRepoConfiguration.class})
-public abstract class FormTestConfiguration {
+@ComponentScan(basePackages = {
+    "com.tallence.formeditor.cae",
+    "com.coremedia.cms.delivery.configuration",
+    "com.coremedia.objectserver.configuration",
+    "com.coremedia.objectserver.web.config"
+})
+public class FormTestConfiguration {
 
   private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/cae/testdata/contenttest.xml";
 
