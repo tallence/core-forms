@@ -19,7 +19,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension runs with CoreMedia 10 (v1907.02). The extension also runs with CoreMedia 9 (v19.04) and is compatible with the versions 17.10 and 18.10. The branch for CoreMedia 9 support can be found here: https://github.com/tallence/core-forms/tree/1904.2-compatible.
+The extension runs with CoreMedia 10 (v2010.1). The extension also runs with CoreMedia 9 (v19.04) and is compatible with the versions 17.10 and 18.10. The branch for CoreMedia 9 support can be found here: https://github.com/tallence/core-forms/tree/1904.2-compatible.
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
