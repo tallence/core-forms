@@ -55,7 +55,6 @@
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cae-handlerservices</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>
