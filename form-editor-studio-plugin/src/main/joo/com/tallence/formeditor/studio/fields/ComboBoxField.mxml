@@ -16,8 +16,12 @@
     [Bindable]
     public var emptyText:String;
 
+    /**
+     * Different values can be passed here: an array or a store. This is also described in
+     * {@link ext.form.field.ComboBox#store}
+     */
     [Bindable]
-    public var store:Store;
+    public var store:*;
 
     public native function ComboBoxField(config:ComboBoxField = null);
     ]]>
