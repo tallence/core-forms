@@ -75,10 +75,6 @@
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>cae-handlerservices-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api-util</artifactId>
     </dependency>
     <dependency>
