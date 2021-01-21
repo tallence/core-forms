@@ -71,6 +71,15 @@ The module form-editor-cae contains the adapters as interfaces, you need to crea
 Be aware of the 2 Void-Adapters, they were created to let you have a frustration-free first integration-experience with the formEditor: Your Adapter-Implementations need to use a Primary-Annotation. Otherwise, Spring will not be able to choose the right one for your project.  
 
 * The [FormEditorMailAdapter](https://github.com/tallence/core-forms/blob/master/form-editor-cae/src/main/java/com/tallence/formeditor/cae/actions/FormEditorMailAdapter.java) is used to send mails to the user and the form admin. You might want to send the mails directly via JavaMailSender or via the CoreMedia elastic queue.
-* The [FormEditorStorageAdapter](https://github.com/tallence/core-forms/blob/master/form-editor-cae/src/main/java/com/tallence/formeditor/cae/actions/FormEditorStorageAdapter.java) is used to store the form data in a storage of your choice, e.g. the elastic social mongoDB or a custom DB or CRM. 
+* The [FormEditorStorageAdapter](https://github.com/tallence/core-forms/blob/master/form-editor-cae/src/main/java/com/tallence/formeditor/cae/actions/FormEditorStorageAdapter.java) is used to store the form data in a storage of your choice, e.g. the elastic social mongoDB or a custom DB or CRM.
+
+**3. Think about Security**
+The FormController should be protected according to the required level of security. 
+This could be:
+* A ReCaptcha. This is an out-of-the-box feature in the FormEditor and can be activated by editors (BooleanProperty spamProtectionEnabled). but it is deactivated by default. To activate it by default remove the BooleanPropertyEditor in the Studio Form and modify the FormController (remove `if (target.isSpamProtectionEnabled()) {`). 
+* By default a CSRF Token is required by the `org.springframework.security.web.csrf.CsrfFilter`. But you need to create one explicitly in your frontend. Otherwise the Post request will be rejected. If you do not want to use Csrf-Tokens, you cann add the property `cae.csrf.ignore-paths[1]=/servlet/dynamic/forms/**` to your CAEs.  
+
+A Captcha is considered more secure than a Csrf-Token, also see [what the smart guys wrote about that.](http://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29_Prevention_Cheat_Sheet). And it also protects from Spam.
+
 
 That's it. Have fun ;) If you have any problems, questions, ideas, critics please contact us or create an issue. 
