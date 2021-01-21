@@ -20,11 +20,14 @@ import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.blueprint.testing.ContentTestHelper;
 import com.coremedia.cap.test.xmlrepo.XmlRepoConfiguration;
 import com.coremedia.cap.test.xmlrepo.XmlUapiConfig;
+import com.coremedia.cms.delivery.configuration.DeliveryConfigurationProperties;
+import com.coremedia.objectserver.configuration.CaeConfigurationProperties;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 
 import java.util.List;
@@ -58,6 +61,10 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
     "com.coremedia.cms.delivery.configuration",
     "com.coremedia.objectserver.configuration",
     "com.coremedia.objectserver.web.config"
+})
+@EnableConfigurationProperties({
+        DeliveryConfigurationProperties.class,
+        CaeConfigurationProperties.class
 })
 public class FormTestConfiguration {
 
