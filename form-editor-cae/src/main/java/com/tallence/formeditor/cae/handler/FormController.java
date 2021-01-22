@@ -39,6 +39,8 @@ import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -185,16 +187,33 @@ public class FormController {
             .map(FileUpload.class::cast)
             .collect(Collectors.toList());
     if (!fileFields.isEmpty()) {
-      if (!(request instanceof MultipartHttpServletRequest)) {
-        throw new IllegalStateException(
-            "Request is no instance of org.springframework.web.multipart.MultipartHttpServletRequest, cannot handle MultipartFile Upload for form " +
-                target.getContentId());
-      }
-      MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-      return fileFields.stream().map(e -> processFileInput(multipartRequest, e)).collect(Collectors.toList());
+      return extractMultipartFileRequest(request)
+              .map(r -> fileFields.stream().map(e -> processFileInput(r, e)).collect(Collectors.toList()))
+              .orElseThrow(() ->
+                      new IllegalStateException("Request is no instance of org.springframework.web.multipart.MultipartHttpServletRequest, cannot handle MultipartFile Upload for form " +
+                              target.getContentId()));
     } else {
       return Collections.emptyList();
     }
+  }
+
+  /**
+   * Extract the {@link MultipartHttpServletRequest} out of the spring security request object structure.
+   * The MultipartFile cannot be fetched via {@link RequestParam} because the name is dynamic: based on the FileUploadField name.
+   * @return the MultipartHttpServletRequest if available
+   */
+  private Optional<MultipartHttpServletRequest> extractMultipartFileRequest(HttpServletRequest request) {
+
+    ServletRequest tmpReq = request;
+    do {
+      if (tmpReq instanceof MultipartHttpServletRequest) {
+        return Optional.of((MultipartHttpServletRequest) tmpReq);
+      } else if (tmpReq instanceof ServletRequestWrapper) {
+        tmpReq = ((ServletRequestWrapper) tmpReq).getRequest();
+      }
+    } while (tmpReq != null);
+
+    return Optional.empty();
   }
 
   private MultipartFile processFileInput(MultipartHttpServletRequest multipartRequest, FileUpload fileUpload) {
