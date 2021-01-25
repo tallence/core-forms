@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.function.BiFunction;
 
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_COLUMNS;
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_ROWS;
+
 /**
  * A factory, creating a {@link TextAreaSerializer}
  */
@@ -49,10 +52,10 @@ public class TextAreaSerializerFactory implements FormElementSerializerFactory<T
     @Override
     public void serializeTypeSpecificFields(TextArea field, JsonGenerator gen) throws IOException {
       if (field.getRows() != null) {
-        gen.writeNumberField("rows", field.getRows());
+        gen.writeNumberField(FORM_SERIALIZER_FIELDS_ROWS, field.getRows());
       }
       if (field.getColumns() != null) {
-        gen.writeNumberField("columns", field.getColumns());
+        gen.writeNumberField(FORM_SERIALIZER_FIELDS_COLUMNS, field.getColumns());
       }
     }
 

@@ -20,7 +20,6 @@ import com.coremedia.blueprint.cae.web.i18n.RequestMessageSource;
 import com.coremedia.blueprint.cae.web.i18n.ResourceBundleInterceptor;
 import com.coremedia.blueprint.cae.web.links.NavigationLinkSupport;
 import com.coremedia.blueprint.common.contentbeans.CMChannel;
-import com.coremedia.blueprint.common.contentbeans.CMContext;
 import com.coremedia.blueprint.common.navigation.Navigation;
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.cache.Cache;
@@ -34,12 +33,11 @@ import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -103,17 +101,16 @@ public class FormConfigController {
    * @return JSON String
    */
   @ResponseBody
-  @RequestMapping(value = FORM_EDITOR_CONFIG_URL, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @GetMapping(value = FORM_EDITOR_CONFIG_URL, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public String getFormConfig(@PathVariable CMChannel currentContext,
                               @PathVariable FormEditor editor,
                               HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-    Navigation navigation = getNavigationForContext(currentContext);
+    Navigation navigation = currentContext.getRootNavigation();
 
     List<FormElement> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {
-      response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-      return "";
+      throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no form elements configured");
     }
 
     //set up message interceptor
@@ -133,13 +130,6 @@ public class FormConfigController {
             formEditorConfig,
             formElementSerializerFactories));
 
-  }
-
-  private Navigation getNavigationForContext(CMContext currentContext) {
-    if (currentContext == null) {
-      currentContext = currentContextService.getContext();
-    }
-    return currentContext.getRootNavigation();
   }
 
 }

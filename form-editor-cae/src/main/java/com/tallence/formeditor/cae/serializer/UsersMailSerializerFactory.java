@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.function.BiFunction;
 
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_DISPLAY_BOX;
+
 /**
  * A factory, creating a {@link UsersMail}
  */
@@ -48,7 +50,7 @@ public class UsersMailSerializerFactory implements FormElementSerializerFactory<
 
     @Override
     public void serializeTypeSpecificFields(UsersMail field, JsonGenerator gen) throws IOException {
-      gen.writeBooleanField("displayCheckbox", field.isDisplayCheckbox());
+      gen.writeBooleanField(FORM_SERIALIZER_FIELDS_DISPLAY_BOX, field.isDisplayCheckbox());
     }
   }
 }

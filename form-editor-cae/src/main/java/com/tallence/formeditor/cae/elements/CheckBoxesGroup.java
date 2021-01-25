@@ -43,7 +43,7 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
   /**
    * @deprecated use {@link #getOptions()}
    */
-  @Deprecated
+  @Deprecated(since = "january 2021", forRemoval = true)
   public List<ComplexValue> getCheckBoxes() {
     return this.checkBoxes;
   }
@@ -55,15 +55,11 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
 
   public List<ComplexValue> getSelectedOptions() {
     List values = getValue() != null ? getValue() : Collections.emptyList();
-    return checkBoxes.stream().filter(cv -> values.contains(cv.getValue())).collect(Collectors.toList());
+    return checkBoxes.stream().filter(checkBox -> values.contains(checkBox.getValue())).collect(Collectors.toList());
   }
 
   public void setCheckBoxes(List<ComplexValue> checkBoxes) {
     this.checkBoxes = checkBoxes;
-  }
-
-  private void getValues() {
-
   }
 
 }

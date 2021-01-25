@@ -28,6 +28,8 @@ import java.util.function.BiFunction;
 
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_ID;
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_TECHNICAL_NAME;
 
 /**
  * A factory, creating a {@link TextOnlySerializer}
@@ -55,8 +57,8 @@ public class TextOnlySerializerFactory implements FormElementSerializerFactory<T
     public void serialize(TextOnly field, JsonGenerator gen, SerializerProvider provider) throws IOException {
 
       gen.writeStartObject();
-      gen.writeStringField("id", field.getId());
-      gen.writeStringField("technicalName", field.getTechnicalName());
+      gen.writeStringField(FORM_SERIALIZER_FIELDS_ID, field.getId());
+      gen.writeStringField(FORM_SERIALIZER_FIELDS_TECHNICAL_NAME, field.getTechnicalName());
       //The hint contains the content, but it is not to be used as a toolTip in the frontend -> used in the field name
       gen.writeStringField(FORM_DATA_NAME, field.getHint());
       gen.writeStringField(FORM_DATA_KEY_TYPE, field.getClass().getSimpleName());

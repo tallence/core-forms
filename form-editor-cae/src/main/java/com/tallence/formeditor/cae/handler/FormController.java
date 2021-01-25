@@ -108,16 +108,14 @@ public class FormController  {
   }
 
   @ResponseBody
-  @RequestMapping(value = FORM_EDITOR_SUBMIT_URL, method = RequestMethod.POST)
-  public FormProcessingResult socialFormAction(@PathVariable CMChannel currentContext,
+  @PostMapping(value = FORM_EDITOR_SUBMIT_URL)
+  public FormProcessingResult socialFormAction(@PathVariable(name = "currentContext") CMChannel navigation,
                                                @PathVariable FormEditor target,
                                                @RequestParam MultiValueMap<String, String> postData,
                                                HttpServletRequest request,
                                                HttpServletResponse response) throws Exception {
 
-    Navigation navigation = getNavigationForContext(currentContext);
-
-    if (target == null || currentContext == null) {
+    if (target == null || navigation == null) {
       // Log the form data for debugging purpose, wrapped in a LinkedHashMap to make sure, the toString method is overwritten.
       LOG.warn("No form or context document found, cannot handle the request. Form data: {}", new LinkedHashMap<>(postData));
       response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -163,7 +161,7 @@ public class FormController  {
     }
 
     if (target.isSpamProtectionEnabled()) {
-      if (!isHumanByReCaptcha(target, currentContext, postData)) {
+      if (!isHumanByReCaptcha(target, navigation, postData)) {
         LOG.warn("Google reCaptcha detected a bot for Form " + target.getContentId());
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         return new FormProcessingResult(
@@ -264,14 +262,6 @@ public class FormController  {
       }
     });
     return validationResults;
-  }
-
-  private Navigation getNavigationForContext(CMChannel currentContext) {
-    if (currentContext != null) {
-      return currentContext;
-    } else {
-      return currentContextService.getContext();
-    }
   }
 
   private FormProcessingResult prepareSubmitResult(FormProcessingResult processingResult, Navigation navigation) {

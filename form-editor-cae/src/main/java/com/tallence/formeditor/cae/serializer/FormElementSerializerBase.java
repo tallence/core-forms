@@ -28,8 +28,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -40,6 +38,7 @@ import java.util.function.BiFunction;
 
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.*;
 
 /**
  * Serializes default fields used for nearly all form elements.
@@ -68,8 +67,8 @@ public class FormElementSerializerBase<T extends AbstractFormElement<?, ?>> exte
   }
 
   public void serializeDefaultFields(T field, JsonGenerator gen) throws IOException {
-    gen.writeStringField("id", field.getId());
-    gen.writeStringField("technicalName", field.getTechnicalName());
+    gen.writeStringField(FORM_SERIALIZER_FIELDS_ID, field.getId());
+    gen.writeStringField(FORM_SERIALIZER_FIELDS_TECHNICAL_NAME, field.getTechnicalName());
     gen.writeStringField(FORM_DATA_NAME, field.getName());
     if (StringUtils.isNotBlank(field.getHint())) {
       gen.writeStringField(FORM_DATA_HINT, field.getHint());
@@ -84,13 +83,13 @@ public class FormElementSerializerBase<T extends AbstractFormElement<?, ?>> exte
 
   protected void serializeOptionFields(T field, JsonGenerator gen) throws IOException {
     if (field instanceof FieldWithOptions) {
-      gen.writeArrayFieldStart("options");
+      gen.writeArrayFieldStart(FORM_SERIALIZER_FIELDS_OPTIONS);
       for (ComplexValue option : ((FieldWithOptions) field).getOptions()) {
         gen.writeStartObject();
-        gen.writeStringField("name", option.getDisplayName());
-        gen.writeStringField("id", option.getValue());
+        gen.writeStringField(FORM_SERIALIZER_FIELDS_NAME, option.getDisplayName());
+        gen.writeStringField(FORM_SERIALIZER_FIELDS_ID, option.getValue());
         if (option.isSelectedByDefault()) {
-          gen.writeBooleanField("selectedByDefault", true);
+          gen.writeBooleanField(FORM_SERIALIZER_FIELDS_SELECTED_BY_DEFAULT, true);
         }
         gen.writeEndObject();
       }
