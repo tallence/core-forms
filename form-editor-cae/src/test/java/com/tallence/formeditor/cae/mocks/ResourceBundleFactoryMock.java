@@ -1,6 +1,6 @@
 package com.tallence.formeditor.cae.mocks;
 
-import com.coremedia.blueprint.cae.web.i18n.PageResourceBundleFactory;
+import com.coremedia.blueprint.cae.web.i18n.LinklistPageResourceBundleFactory;
 import com.coremedia.blueprint.common.contentbeans.Page;
 import com.coremedia.blueprint.common.navigation.Navigation;
 import com.coremedia.cap.user.User;
@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
-public class ResourceBundleFactoryMock implements PageResourceBundleFactory {
+public class ResourceBundleFactoryMock extends LinklistPageResourceBundleFactory {
 
   @Override
   public ResourceBundle resourceBundle(Page page, @Nullable User developer) {

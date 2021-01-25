@@ -46,7 +46,6 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
         LINK_FORMATTER,
         VIEW_RESOLVER,
         "classpath:/framework/spring/blueprint-contentbeans.xml",
-        "classpath:/com/tallence/formeditor/contentbeans/formeditor-contentbeans.xml",
         "classpath:/META-INF/coremedia/component-forms.xml",
         "classpath:/framework/spring/blueprint-handlers.xml",
         "classpath:/framework/spring/blueprint-services.xml",

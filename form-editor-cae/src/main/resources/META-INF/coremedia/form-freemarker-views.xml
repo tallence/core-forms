@@ -7,6 +7,8 @@
                            http://www.coremedia.com/2007/coremedia-spring-beans-customization
                            http://www.coremedia.com/2007/coremedia-spring-beans-customization.xsd">
 
+  <import resource="classpath:/com/coremedia/cae/view-freemarker-services.xml"/>
+
   <customize:append id="formFreemarkerSharedVariablesCustomizer" bean="freemarkerSharedVariables">
     <map>
       <entry key="formFreemarkerFacade" value-ref="formFreemarkerFacade"/>
