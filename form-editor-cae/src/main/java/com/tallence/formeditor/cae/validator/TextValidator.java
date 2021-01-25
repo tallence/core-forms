@@ -17,6 +17,7 @@
 package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.TextField;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -29,28 +30,40 @@ import java.util.regex.Pattern;
  */
 public class TextValidator implements Validator<String>, SizeValidator {
 
+  private static final String MESSAGE_KEY_TEXTFIELD_REQUIRED = "com.tallence.forms.textfield.empty";
+  private static final String MESSAGE_KEY_TEXTFIELD_MIN = "com.tallence.forms.textfield.min";
+  private static final String MESSAGE_KEY_TEXTFIELD_MAX = "com.tallence.forms.textfield.max";
+  private static final String MESSAGE_KEY_TEXTFIELD_REGEX = "com.tallence.forms.textfield.regex";
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_TEXTFIELD_REQUIRED)
   private boolean mandatory;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_TEXTFIELD_MIN)
   private Integer minSize;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_TEXTFIELD_MAX)
   private Integer maxSize;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_TEXTFIELD_REGEX)
   private Pattern regexp;
 
   @Override
-  public List<String> validate(String value) {
+  public List<ValidationFieldError> validate(String value) {
 
-    List<String> errors = new ArrayList<>();
+    List<ValidationFieldError> errors = new ArrayList<>();
 
     if (StringUtils.hasText(value)) {
       if (this.minSize != null && value.length() < this.minSize) {
-        errors.add("com.tallence.forms.textfield.tooshort");
+        errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_MIN, this.minSize));
       }
       if (this.maxSize != null && value.length() > this.maxSize) {
-        errors.add("com.tallence.forms.textfield.toolong");
+        errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_MAX, this.maxSize));
       }
       if (this.regexp != null && !regexp.matcher(value).matches()) {
-        errors.add("com.tallence.forms.textfield.regexp");
+        errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_REGEX, this.regexp));
       }
     } else if (this.mandatory) {
-      errors.add("com.tallence.forms.textfield.empty");
+      errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_REQUIRED));
     }
 
     return errors;
@@ -86,6 +99,10 @@ public class TextValidator implements Validator<String>, SizeValidator {
 
   public Pattern getRegexp() {
     return this.regexp;
+  }
+
+  public void setRegexp(Pattern regexp) {
+    this.regexp = regexp;
   }
 
   public void setRegexp(String regexp) {

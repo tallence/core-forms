@@ -16,6 +16,8 @@
 
 package com.tallence.formeditor.cae.validator;
 
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -25,12 +27,15 @@ import java.util.List;
  */
 public class ConsentFormCheckboxValidator implements Validator<Boolean> {
 
+  private static final String MESSAGE_KEY_CONSENT_REQUIRED = "com.tallence.forms.consent.empty";
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_CONSENT_REQUIRED)
   private boolean mandatory;
 
   @Override
-  public List<String> validate(Boolean value) {
+  public List<ValidationFieldError> validate(Boolean value) {
     if (mandatory && (value == null || !value)) {
-      return Collections.singletonList("com.tallence.forms.consentForm.notChecked");
+      return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_CONSENT_REQUIRED));
     }
     return Collections.emptyList();
   }

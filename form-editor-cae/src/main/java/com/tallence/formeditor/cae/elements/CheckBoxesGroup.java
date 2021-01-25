@@ -20,6 +20,7 @@ import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Model bean for a configured CheckBoxesGroup.
@@ -30,28 +31,19 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
     super(List.class);
   }
 
-
   private List<ComplexValue> checkBoxes;
-
 
   @Override
   public String serializeValue() {
-
-    StringBuilder sb = new StringBuilder();
-    sb.append("[");
-    for (Object value : getValue() != null ? getValue() : Collections.emptyList()) {
-      sb.append(value.toString());
-      sb.append(", ");
-    }
-    sb.append("]");
-
-    return sb.toString();
+    return "[" +
+            getSelectedOptions().stream().map(ComplexValue::getDisplayName).collect(Collectors.joining(", ")) +
+            "]";
   }
 
   /**
    * @deprecated use {@link #getOptions()}
    */
-  @Deprecated
+  @Deprecated(since = "january 2021", forRemoval = true)
   public List<ComplexValue> getCheckBoxes() {
     return this.checkBoxes;
   }
@@ -61,7 +53,13 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
     return this.checkBoxes;
   }
 
+  public List<ComplexValue> getSelectedOptions() {
+    List values = getValue() != null ? getValue() : Collections.emptyList();
+    return checkBoxes.stream().filter(checkBox -> values.contains(checkBox.getValue())).collect(Collectors.toList());
+  }
+
   public void setCheckBoxes(List<ComplexValue> checkBoxes) {
     this.checkBoxes = checkBoxes;
   }
+
 }

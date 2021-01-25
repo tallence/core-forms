@@ -24,7 +24,6 @@ import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,15 +39,6 @@ import java.util.Optional;
 public abstract class AbstractFormAction implements FormAction {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractFormAction.class);
-
-  @Value("${social.ugcMailSender}")
-  private String mailSenderAddress;
-  @Value("${social.ugcMailSenderName}")
-  private String mailSenderName;
-  @Value("${social.ugcHBMailSender}")
-  private String hbMmailSenderAddress;
-  @Value("${social.ugcHBMailSenderName}")
-  private String hbMailSenderName;
 
   protected final FormEditorMailAdapter mailAdapter;
 

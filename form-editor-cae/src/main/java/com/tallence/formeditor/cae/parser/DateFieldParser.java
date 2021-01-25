@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tallence AG
+ * Copyright 2020 Tallence AG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,20 @@
 
 package com.tallence.formeditor.cae.parser;
 
+import com.coremedia.blueprint.common.navigation.Linkable;
+import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.DateField;
 import com.tallence.formeditor.cae.validator.DateFieldValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Optional;
 
-import static com.coremedia.cap.util.StructUtil.*;
+import static com.coremedia.cap.util.StructUtil.getBoolean;
+import static com.coremedia.cap.util.StructUtil.getSubstruct;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -34,9 +40,11 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
 
   public static final String parserKey = "DateField";
 
+  private CurrentContextService currentContextService;
+
   @Override
   public DateField instantiateType(Struct elementData) {
-    return new DateField();
+    return new DateField(getCurrentLocale());
   }
 
   @Override
@@ -45,12 +53,11 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
       DateFieldValidator dateFieldValidator = new DateFieldValidator();
 
       dateFieldValidator.setMandatory(getBoolean(validator, FORM_VALIDATOR_MANDATORY));
-
       if (getBoolean(validator, FORM_VALIDATOR_MINDATE_TODAY)) {
-        dateFieldValidator.setMinDate(ZonedDateTime.now());
+        dateFieldValidator.setMinDate(LocalDate.now());
       }
       if (getBoolean(validator, FORM_VALIDATOR_MAXDATE_TODAY)) {
-        dateFieldValidator.setMaxDate(ZonedDateTime.now());
+        dateFieldValidator.setMaxDate(LocalDate.now());
       }
 
       formElement.setValidator(dateFieldValidator);
@@ -60,5 +67,14 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
   @Override
   public String getParserKey() {
     return parserKey;
+  }
+
+  @Autowired
+  public void setCurrentContextService(CurrentContextService currentContextService) {
+    this.currentContextService = currentContextService;
+  }
+
+  private Locale getCurrentLocale() {
+    return Optional.ofNullable(currentContextService.getContext()).map(Linkable::getLocale).orElse(Locale.GERMANY);
   }
 }

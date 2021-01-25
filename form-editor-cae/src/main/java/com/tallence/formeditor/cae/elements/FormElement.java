@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.elements;
 
+import com.tallence.formeditor.cae.validator.ValidationFieldError;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import org.springframework.util.MultiValueMap;
 
@@ -70,11 +71,12 @@ public interface FormElement<T> {
    * Validates the current FormElement's value.
    * @return the validation result
    */
-  List<String> getValidationResult();
+  List<ValidationFieldError> getValidationResult();
 
   /**
    * Checks, if the dependent field's value matches this field's visibility config.
    * @see AdvancedSettings#getDependentElementId()
+   * @param allElements
    */
   boolean dependencyFulfilled(List<FormElement> allElements);
 

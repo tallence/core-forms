@@ -18,6 +18,7 @@ package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
 import com.tallence.formeditor.cae.elements.ComplexValue;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,19 @@ import java.util.List;
  */
 public class CheckBoxesGroupValidator implements Validator<List>, SizeValidator {
 
+  private static final String MESSAGE_KEY_CHECKBOX_REQUIRED = "com.tallence.forms.checkboxes.empty";
+  private static final String MESSAGE_KEY_CHECKBOX_MIN = "com.tallence.forms.checkboxes.min";
+  private static final String MESSAGE_KEY_CHECKBOX_MAX = "com.tallence.forms.checkboxes.max";
+
   private final CheckBoxesGroup checkBoxesGroup;
 
+  @ValidationProperty(messageKey = MESSAGE_KEY_CHECKBOX_REQUIRED)
   private boolean mandatory;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_CHECKBOX_MIN)
   private Integer minSize;
+
+  @ValidationProperty(messageKey = MESSAGE_KEY_CHECKBOX_MAX)
   private Integer maxSize;
 
   public CheckBoxesGroupValidator(CheckBoxesGroup checkBoxesGroup) {
@@ -38,9 +48,9 @@ public class CheckBoxesGroupValidator implements Validator<List>, SizeValidator 
   }
 
   @Override
-  public List<String> validate(List value) {
+  public List<ValidationFieldError> validate(List value) {
 
-    List<String> errors = new ArrayList<>();
+    List<ValidationFieldError> errors = new ArrayList<>();
 
     if (value != null && !value.isEmpty()) {
 
@@ -54,15 +64,15 @@ public class CheckBoxesGroupValidator implements Validator<List>, SizeValidator 
       }
 
       if (this.minSize != null && this.minSize != 0  && values.size() < this.minSize) {
-        errors.add("com.tallence.forms.checkboxes.min");
+        errors.add(new ValidationFieldError(MESSAGE_KEY_CHECKBOX_MIN, this.minSize));
       }
 
       if (this.maxSize != null && this.maxSize != 0  && values.size() < this.maxSize) {
-        errors.add("com.tallence.forms.checkboxes.max");
+        errors.add(new ValidationFieldError(MESSAGE_KEY_CHECKBOX_MAX, this.maxSize));
       }
 
     } else if (this.mandatory) {
-      errors.add("com.tallence.forms.checkboxes.empty");
+      errors.add(new ValidationFieldError(MESSAGE_KEY_CHECKBOX_REQUIRED));
     }
 
     return errors;

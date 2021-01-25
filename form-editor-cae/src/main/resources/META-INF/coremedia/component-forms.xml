@@ -30,4 +30,13 @@
     <constructor-arg value="${google.reCaptcha.server-secret}"/>
   </bean>
 
+  <bean id="formEditorCacheCapacityConfigurer" class="com.coremedia.cache.CacheCapacityConfigurer" init-method="init">
+    <property name="cache" ref="cache"/>
+    <property name="capacities">
+      <map>
+        <entry key="com.tallence.formeditor.cae.serializer.FormConfigCacheKey" value="${formConfigCacheKey.cache.capacity:100}"/>
+      </map>
+    </property>
+  </bean>
+
 </beans>

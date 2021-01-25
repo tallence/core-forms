@@ -40,7 +40,7 @@ public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, User
    * returns the name for the Send-Copy-CheckBox
    */
   public String getSendCopyName() {
-    return "sendCopy";
+    return getTechnicalName() + "_sendCopy";
   }
 
   public boolean isDisplayCheckbox() {

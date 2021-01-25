@@ -1,0 +1,374 @@
+{
+  "formActionUrl": "/dynamic/forms/formEditorSubmit/8/2",
+  "formElements": [
+    {
+      "id": "TextField",
+      "technicalName": "TextField_TextField",
+      "name": "TestName",
+      "hint": "Geben Sie etwas ein!",
+      "placeholder": "Platzhalter",
+      "type": "TextField",
+      "validator": {
+        "regexp": "12345",
+        "minSize": 5,
+        "maxSize": 200,
+        "mandatory": true,
+        "errorMessages": {
+          "regexp": "mockedValue, arg1: TestName, arg2: 12345",
+          "minSize": "mockedValue, arg1: TestName, arg2: 5",
+          "maxSize": "mockedValue, arg1: TestName, arg2: 200",
+          "mandatory": "mockedValue, arg1: TestName, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "ZipFieldTest",
+      "technicalName": "ZipField_ZipFieldTest",
+      "name": "Postleitzahl",
+      "hint": "Bitte Ihre Postleitzahl eingeben",
+      "type": "ZipField",
+      "validator": {
+        "regexp": "\\d{5}",
+        "mandatory": true,
+        "errorMessages": {
+          "regexp": "mockedValue, arg1: Postleitzahl, arg2: \\d{5}",
+          "mandatory": "mockedValue, arg1: Postleitzahl, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "PhoneFieldTest",
+      "technicalName": "PhoneField_PhoneFieldTest",
+      "name": "Phone",
+      "type": "PhoneField"
+    },
+    {
+      "id": "FaxFieldTest",
+      "technicalName": "FaxField_FaxFieldTest",
+      "name": "Fax",
+      "type": "FaxField"
+    },
+    {
+      "id": "StreetFieldTest",
+      "technicalName": "StreetNumberField_StreetFieldTest",
+      "name": "Street and number",
+      "type": "StreetNumberField"
+    },
+    {
+      "id": "NumberField",
+      "technicalName": "NumberField_NumberField",
+      "name": "Alter",
+      "hint": "Geben Sie etwas ein!",
+      "type": "NumberField",
+      "validator": {
+        "minSize": 5,
+        "maxSize": 200,
+        "mandatory": true,
+        "errorMessages": {
+          "number": "mockedValue, arg1: Alter, arg2: {1}",
+          "minSize": "mockedValue, arg1: Alter, arg2: 5",
+          "maxSize": "mockedValue, arg1: Alter, arg2: 200",
+          "mandatory": "mockedValue, arg1: Alter, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "RadioButtonsMandatory",
+      "technicalName": "RadioButtonGroup_RadioButtonsMandatory",
+      "name": "Radio",
+      "hint": "Wählen Sie einen Button!",
+      "type": "RadioButtonGroup",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456",
+          "selectedByDefault": true
+        }
+      ],
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: Radio, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "myComplexCustomId",
+      "technicalName": "TextField_myComplexCustomId",
+      "name": "DependentField",
+      "type": "TextField",
+      "advancedSettings": {
+        "visibility": {
+          "activated": true,
+          "elementId": "RadioButtonsOptional",
+          "value": "value_456"
+        },
+        "columnWidth": 3,
+        "breakAfterElement": true
+      },
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: DependentField, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "RadioButtonsOptional",
+      "technicalName": "RadioButtonGroup_RadioButtonsOptional",
+      "name": "RadioOptional",
+      "hint": "Wählen Sie einen Button!",
+      "type": "RadioButtonGroup",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456"
+        }
+      ]
+    },
+    {
+      "id": "RadioButtonsEmptyValidator",
+      "technicalName": "RadioButtonGroup_RadioButtonsEmptyValidator",
+      "name": "RadioEmptyValidator",
+      "hint": "Wählen Sie einen Button!",
+      "type": "RadioButtonGroup",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456"
+        }
+      ],
+      "validator": {
+        "mandatory": false,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: RadioEmptyValidator, arg2: false"
+        }
+      }
+    },
+    {
+      "id": "CheckBoxesMandatory",
+      "technicalName": "CheckBoxesGroup_CheckBoxesMandatory",
+      "name": "CheckBoxes",
+      "hint": "Wählen Sie eine CheckBox!",
+      "type": "CheckBoxesGroup",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456",
+          "selectedByDefault": true
+        }
+      ],
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: CheckBoxes, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "CheckBoxesEmptyValidator",
+      "technicalName": "CheckBoxesGroup_CheckBoxesEmptyValidator",
+      "name": "CheckBoxesEmptyValidator",
+      "hint": "Wählen Sie eine CheckBox!",
+      "type": "CheckBoxesGroup",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456"
+        }
+      ],
+      "validator": {
+        "mandatory": false,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: CheckBoxesEmptyValidator, arg2: false"
+        }
+      }
+    },
+    {
+      "id": "SelectBoxMandatory",
+      "technicalName": "SelectBox_SelectBoxMandatory",
+      "name": "SelectBox",
+      "hint": "Wählen Sie eine Option!",
+      "type": "SelectBox",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456",
+          "selectedByDefault": true
+        }
+      ],
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: SelectBox, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "SelectBoxOnlyDisplayName",
+      "technicalName": "SelectBox_SelectBoxOnlyDisplayName",
+      "name": "SelectBox DisplayName",
+      "hint": "Wählen Sie eine Option!",
+      "type": "SelectBox",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "display_123"
+        },
+        {
+          "name": "display_456",
+          "id": "display_456"
+        }
+      ],
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: SelectBox DisplayName, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "SelectBoxEmptyValidator",
+      "technicalName": "SelectBox_SelectBoxEmptyValidator",
+      "name": "SelectBoxEmptyValidator",
+      "hint": "Wählen Sie eine Option!",
+      "type": "SelectBox",
+      "options": [
+        {
+          "name": "display_123",
+          "id": "value_123"
+        },
+        {
+          "name": "display_456",
+          "id": "value_456"
+        }
+      ],
+      "validator": {
+        "mandatory": false,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: SelectBoxEmptyValidator, arg2: false"
+        }
+      }
+    },
+    {
+      "id": "TextArea",
+      "technicalName": "TextArea_TextArea",
+      "name": "TextArea",
+      "hint": "Geben Sie etwas ein!",
+      "type": "TextArea",
+      "rows": 5,
+      "columns": 4,
+      "validator": {
+        "maxSize": 10,
+        "mandatory": true,
+        "errorMessages": {
+          "maxSize": "mockedValue, arg1: TextArea, arg2: 10",
+          "mandatory": "mockedValue, arg1: TextArea, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "DateFieldMin",
+      "technicalName": "DateField_DateFieldMin",
+      "name": "DateField min",
+      "hint": "Geben Sie etwas ein!",
+      "type": "DateField",
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "date": "mockedValue, arg1: DateField min, arg2: {1}",
+          "mandatory": "mockedValue, arg1: DateField min, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "DateFieldMax",
+      "technicalName": "DateField_DateFieldMax",
+      "name": "DateField max",
+      "hint": "Geben Sie etwas ein!",
+      "type": "DateField",
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "date": "mockedValue, arg1: DateField max, arg2: {1}",
+          "mandatory": "mockedValue, arg1: DateField max, arg2: true"
+        }
+      }
+    },
+    {
+      "id": "TextOnly",
+      "technicalName": "TextOnly_TextOnly",
+      "name": "Das ist ein langer Text zur Erklärung des Formulars",
+      "type": "TextOnly"
+    },
+    {
+      "id": "UsersMail",
+      "technicalName": "UsersMail_UsersMail",
+      "name": "UsersMail",
+      "hint": "Tragen Sie eine Email-Adresse ein!",
+      "type": "UsersMail",
+      "displayCheckbox": false,
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: UsersMail, arg2: true",
+          "email": "mockedValue, arg1: UsersMail, arg2: {1}"
+        }
+      }
+    },
+    {
+      "id": "FileUpload",
+      "technicalName": "FileUpload_FileUpload",
+      "name": "TestName",
+      "hint": "Laden Sie etwas hoch!",
+      "type": "FileUpload",
+      "validator": {
+        "maxSize": 42,
+        "minSize": 0,
+        "mandatory": false,
+        "errorMessages": {
+          "maxSize": "mockedValue, arg1: TestName, arg2: 42",
+          "minSize": "mockedValue, arg1: TestName, arg2: 0",
+          "mandatory": "mockedValue, arg1: TestName, arg2: false"
+        }
+      }
+    },
+    {
+      "id": "ConsentFormCheckBox",
+      "technicalName": "ConsentFormCheckBox_ConsentFormCheckBox",
+      "name": "Data protection consent form",
+      "hint": "Please confirm the %data protection consent form%",
+      "type": "ConsentFormCheckBox",
+      "validator": {
+        "mandatory": true,
+        "errorMessages": {
+          "mandatory": "mockedValue, arg1: Data protection consent form, arg2: true"
+        }
+      }
+    }
+  ]
+}

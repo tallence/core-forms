@@ -17,32 +17,41 @@
 package com.tallence.formeditor.cae.validator;
 
 import com.tallence.formeditor.cae.elements.UsersMail;
+import com.tallence.formeditor.cae.validator.annotation.ValidationMessage;
+import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static com.tallence.formeditor.cae.validator.UsersMailValidator.MESSAGE_KEY_USERMAIL_EMAIL;
 import static org.springframework.util.StringUtils.hasText;
 
 /**
  * Validator for elements of type {@link UsersMail}
  */
+@ValidationMessage(name="email", messageKey = MESSAGE_KEY_USERMAIL_EMAIL)
 public class UsersMailValidator implements Validator<UsersMail.UsersMailData> {
+
+  protected static final String MESSAGE_KEY_USERMAIL_EMAIL = "com.tallence.forms.usersmail.invalid";
+  protected static final String MESSAGE_KEY_USERMAIL_REQUIRED = "com.tallence.forms.usersmail.empty";
 
   private static final Pattern mailRegexp = Pattern.compile(".+@.+\\..+");
 
+  @ValidationProperty(messageKey = MESSAGE_KEY_USERMAIL_REQUIRED)
   private boolean mandatory;
 
   @Override
-  public List<String> validate(UsersMail.UsersMailData value) {
+  public List<ValidationFieldError> validate(UsersMail.UsersMailData value) {
 
-    List<String> errors = new ArrayList<>();
+    List<ValidationFieldError> errors = new ArrayList<>();
 
     if (this.mandatory && (value == null || !hasText(value.getUsersMail()))) {
-      errors.add("com.tallence.forms.usersmail.empty");
+      errors.add(new ValidationFieldError(MESSAGE_KEY_USERMAIL_REQUIRED));
     }
+
     if (value != null && hasText(value.getUsersMail()) && !mailRegexp.matcher(value.getUsersMail()).matches()) {
-      errors.add("com.tallence.forms.usersmail.invalid");
+      errors.add(new ValidationFieldError(MESSAGE_KEY_USERMAIL_EMAIL));
     }
 
     return errors;

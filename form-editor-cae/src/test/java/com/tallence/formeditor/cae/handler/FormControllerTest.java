@@ -41,8 +41,7 @@ import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUB
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Test for {@link FormController}
@@ -52,15 +51,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = FormTestConfiguration.class)
 public class FormControllerTest {
 
+  private static final String SUCCESS_RESPONSE = "{\"success\":true,\"error\":null,\"errorData\":null,\"successData\":{\"textHeader\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textMessage\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textButton\":\"mockedValue, arg1: {0}, arg2: {1}\"}}";
+  private static final String FAILURE_VALIDATION_RESPONSE = "{\"success\":false,\"error\":\"server-validation-failed\",\"errorData\":{\"globalError\":null,\"fieldErrors\":{";
+
   @Autowired
   private WebApplicationContext context;
+
   @Autowired
   private StorageAdapterMock storageAdapterMock;
+
   @Autowired
   private MailAdapterMock mailAdapterMock;
 
   private MockMvc mvc;
-  private static final URI TEST_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("6", "2").toUri();
+  private static final URI TEST_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("8", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
   private static final String FORM_DATA_SERIALIZED =
       "TestName: 12345<br/>" +
@@ -69,13 +73,17 @@ public class FormControllerTest {
           "Fax: <br/>" +
           "Street and number: <br/>" +
           "Alter: 18<br/>" +
-          "Radio: 12345<br/>RadioOptional: <br/>" +
+          "Radio: display_123<br/>" +
+          "RadioOptional: <br/>" +
           "RadioEmptyValidator: <br/>" +
-          "CheckBoxes: [12345, ]<br/>" +
+          "CheckBoxes: [display_123]<br/>" +
           "CheckBoxesEmptyValidator: []<br/>" +
-          "SelectBox: 12345<br/>" +
+          "SelectBox: display_123<br/>" +
+          "SelectBox DisplayName: display_123<br/>" +
           "SelectBoxEmptyValidator: <br/>" +
           "TextArea: ist Text<br/>" +
+          "DateField min: 2099 Dec 31<br/>" +
+          "DateField max: 1999 Dec 31<br/>" +
           "TextOnly: Das ist ein langer Text zur Erklärung des Formulars<br/>" +
           "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
           "Data protection consent form: true<br/>";
@@ -100,16 +108,19 @@ public class FormControllerTest {
     mvc.perform(fileUpload(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
-        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
-        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
-        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "value_123")
+        .param("SelectBox_SelectBoxMandatory", "value_123")
+        .param("SelectBox_SelectBoxOnlyDisplayName", "display_123")
         .param("TextArea_TextArea", "ist Text")
         .param("ZipField_ZipFieldTest", "22945")
+        .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
+        .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
     assertEquals(FORM_DATA_SERIALIZED, storageAdapterMock.formData);
@@ -125,16 +136,19 @@ public class FormControllerTest {
     mvc.perform(fileUpload(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
-        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
-        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
-        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "value_123")
+        .param("SelectBox_SelectBoxMandatory", "value_123")
+        .param("SelectBox_SelectBoxOnlyDisplayName", "display_123")
         .param("TextArea_TextArea", "<script>")
         .param("ZipField_ZipFieldTest", "22945")
+        .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
+        .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
-        .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+//        .andExpect(status().is2xxSuccessful())
+        .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
     assertTrue(storageAdapterMock.formData.contains("TextArea"));
@@ -152,16 +166,19 @@ public class FormControllerTest {
         .file(firstFile)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
-        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
-        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
-        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "value_123")
+        .param("SelectBox_SelectBoxMandatory", "value_123")
+        .param("SelectBox_SelectBoxOnlyDisplayName", "display_123")
         .param("TextArea_TextArea", "ist Text")
         .param("ZipField_ZipFieldTest", "22945")
+        .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
+        .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
     assertEquals(FORM_DATA_SERIALIZED + "FileUpload_FileUpload: filename.txt<br/>", storageAdapterMock.formData);
@@ -172,14 +189,14 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithMailAction() throws Exception {
 
-    URI mailTestUrl = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("6", "4").toUri();
+    URI mailTestUrl = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("8", "4").toUri();
 
     mvc.perform(post(mailTestUrl)
         .param("TextArea_TextArea", "ist Text")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
     )
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
     //check if the storageAdapter was not called
@@ -197,7 +214,7 @@ public class FormControllerTest {
     //Performing a post with only the TextField given will cause a validation error, because other mandatory fields are missing.
     mvc.perform(fileUpload(TEST_URL).param("TextField_TextField", "12345"))
         .andExpect(status().is4xxClientError())
-        .andExpect(content().string("{\"success\":false,\"error\":\"server-validation-failed\"}"))
+        .andExpect(content().string(org.hamcrest.Matchers.containsString(FAILURE_VALIDATION_RESPONSE)))
         .andDo(MockMvcResultHandlers.print());
 
   }
@@ -207,17 +224,21 @@ public class FormControllerTest {
     mvc.perform(fileUpload(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
-        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
-        .param("RadioButtonGroup_RadioButtonsOptional", "123")
-        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
-        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
+        .param("RadioButtonGroup_RadioButtonsOptional", "value_456")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "value_123")
+        .param("SelectBox_SelectBoxMandatory", "value_123")
+        .param("SelectBox_SelectBoxOnlyDisplayName", "display_123")
         .param("TextArea_TextArea", "ist Text")
         .param("ZipField_ZipFieldTest", "22945")
+        .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
+        .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is(HttpServletResponse.SC_BAD_REQUEST))
-        .andExpect(content().string("{\"success\":false,\"error\":\"server-validation-failed\"}"))
+        .andExpect(content().string(org.hamcrest.Matchers.containsString(FAILURE_VALIDATION_RESPONSE)))
+        .andExpect(content().string(org.hamcrest.Matchers.containsString("\"TextField_myComplexCustomId\":[\"mockedValue, arg1: DependentField, arg2: {1}\"]")))
         .andDo(MockMvcResultHandlers.print());
 
     assertNull(storageAdapterMock.formData);
@@ -230,21 +251,24 @@ public class FormControllerTest {
     mvc.perform(fileUpload(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
-        .param("RadioButtonGroup_RadioButtonsMandatory", "12345")
-        .param("RadioButtonGroup_RadioButtonsOptional", "123")
+        .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
+        .param("RadioButtonGroup_RadioButtonsOptional", "value_456")
         .param("TextField_myComplexCustomId", "testValue")
-        .param("CheckBoxesGroup_CheckBoxesMandatory", "12345")
-        .param("SelectBox_SelectBoxMandatory", "12345")
+        .param("CheckBoxesGroup_CheckBoxesMandatory", "value_123")
+        .param("SelectBox_SelectBoxMandatory", "value_123")
+        .param("SelectBox_SelectBoxOnlyDisplayName", "display_123")
         .param("TextArea_TextArea", "ist Text")
         .param("ZipField_ZipFieldTest", "22945")
+        .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
+        .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
-        .andExpect(content().string("{\"success\":true,\"error\":null}"))
+        .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
-    String withNewField = FORM_DATA_SERIALIZED.replace("RadioOptional: <br/>", "DependentField: testValue<br/>RadioOptional: 123<br/>");
+    String withNewField = FORM_DATA_SERIALIZED.replace("RadioOptional: <br/>", "DependentField: testValue<br/>RadioOptional: display_456<br/>");
 
     assertEquals(withNewField, storageAdapterMock.formData);
     assertEquals(withNewField, mailAdapterMock.usersFormData);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Tallence AG
+ * Copyright 2020 Tallence AG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-package com.tallence.formeditor.cae.validator;
+package com.tallence.formeditor.cae.model;
 
-import java.util.Collections;
+import com.tallence.formeditor.cae.elements.FormElement;
+
 import java.util.List;
 
-/**
- * Validator for elements of type {@link com.tallence.formeditor.cae.elements.TextOnly}
- */
-public class TextOnlyValidator implements Validator<String> {
+public class FormEditorConfig {
 
-  @Override
-  public List<ValidationFieldError> validate(String value) {
-    return Collections.emptyList();
+  private String formActionUrl;
+
+  private List<FormElement> formElements;
+
+  public String getFormActionUrl() {
+    return formActionUrl;
+  }
+
+  public void setFormActionUrl(String formActionUrl) {
+    this.formActionUrl = formActionUrl;
+  }
+
+  public List<FormElement> getFormElements() {
+    return formElements;
+  }
+
+  public void setFormElements(List<FormElement> formElements) {
+    this.formElements = formElements;
   }
 
 
-  @Override
-  public boolean isMandatory() {
-    return false;
-  }
 }

@@ -23,6 +23,11 @@
       <artifactId>form-editor-contentbeans-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>cae-base-lib</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!-- scope runtime, the impls are only needed for runtime, not in code, since it works against interfaces -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -50,7 +55,6 @@
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cae-handlerservices</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>
@@ -72,6 +76,10 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api-util</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-cache</artifactId>
+    </dependency>
 
     <!-- Spring -->
     <dependency>
@@ -90,6 +98,10 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
 
     <!-- JSON -->
     <dependency>
@@ -100,6 +112,10 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+    </dependency>
 
     <!-- Other -->
     <dependency>
@@ -109,6 +125,11 @@
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -143,6 +164,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-library</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <scope>test</scope>
@@ -150,12 +176,6 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>test-util</artifactId>
-      <version>${project.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>cae-base-lib</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -173,6 +193,16 @@
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-transform</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.skyscreamer</groupId>
+      <artifactId>jsonassert</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

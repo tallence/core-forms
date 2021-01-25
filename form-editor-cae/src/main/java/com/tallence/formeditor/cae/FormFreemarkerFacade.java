@@ -35,7 +35,7 @@ public class FormFreemarkerFacade {
 
   private final ReCaptchaService reCaptchaService;
 
-  private CurrentContextService currentContextService;
+  private final CurrentContextService currentContextService;
 
   public FormFreemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService pReCaptchaService, CurrentContextService currentContextService) {
     this.reCaptchaService = pReCaptchaService;

@@ -35,12 +35,19 @@
                                 <Struct>
                                     <StructProperty Name="Herr">
                                         <Struct>
+                                          <StringListProperty Name="value">male</StringListProperty>
                                         </Struct>
                                     </StructProperty>
                                     <StructProperty Name="Frau">
                                         <Struct>
+                                          <StringListProperty Name="value">female</StringListProperty>
                                         </Struct>
                                     </StructProperty>
+                                  <StructProperty Name="Divers">
+                                    <Struct>
+                                      <StringListProperty Name="value">inter</StringListProperty>
+                                    </Struct>
+                                  </StructProperty>
                                 </Struct>
                             </StructProperty>
                             <StringProperty Name="name">Anrede</StringProperty>
