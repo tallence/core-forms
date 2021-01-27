@@ -18,7 +18,7 @@ package com.tallence.formeditor.studio.elements {
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.coremedia.ui.data.ValueExpressionValueHolder;
-import com.coremedia.ui.data.dependencies.DependencyTracker;
+import com.coremedia.ui.util.ObservableUtil;
 import com.tallence.formeditor.studio.model.FormElementStructWrapper;
 
 import ext.container.Container;
@@ -84,7 +84,7 @@ public class AbstractFormElementBase extends Container implements FormElement {
     }
     var self:AbstractFormElementBase = this;
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
-      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      ObservableUtil.dependOn(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(formElementStructVE);
     });
   }
@@ -100,7 +100,7 @@ public class AbstractFormElementBase extends Container implements FormElement {
     }
     var self:AbstractFormElementBase = this;
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
-      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      ObservableUtil.dependOn(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(bindTo);
     });
   }
@@ -117,7 +117,7 @@ public class AbstractFormElementBase extends Container implements FormElement {
     }
     var self:AbstractFormElementBase = this;
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
-      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      ObservableUtil.dependOn(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(forceReadOnlyValueExpression);
     });
   }
@@ -134,7 +134,7 @@ public class AbstractFormElementBase extends Container implements FormElement {
     }
     var self:AbstractFormElementBase = this;
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
-      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      ObservableUtil.dependOn(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(formIssuesVE);
     });
   }
@@ -151,7 +151,7 @@ public class AbstractFormElementBase extends Container implements FormElement {
     }
     var self:AbstractFormElementBase = this;
     return ValueExpressionFactory.createFromFunction(function ():ValueExpressionValueHolder {
-      DependencyTracker.dependOnObservable(self, FORM_ELEMENT_UPDATE_EVT);
+      ObservableUtil.dependOn(self, FORM_ELEMENT_UPDATE_EVT);
       return new ValueExpressionValueHolder(propertyPathVE);
     });
   }
