@@ -17,7 +17,6 @@
         </Struct>
     </localSettings>
     <linkedSettings>
-        <link href="../Options/Settings/Preview.xml" path="/Sites/Demo/Germany/German/Options/Settings/Preview"/>
     </linkedSettings>
     <resourceBundles2/>
     <segment>demo</segment>
