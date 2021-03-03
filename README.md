@@ -24,7 +24,7 @@ The extension runs with CoreMedia 10 (v2101.1). The extension also runs with:
 - CoreMedia 9 (v19.04). See the branch: [1904.2-compatible](https://github.com/tallence/core-forms/tree/1904.2-compatible).
   It is in general compatible with the versions 17.10 and 18.10, but some small changes could be required (import paths, names of artifacts)
 
-This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (ftl-Templates, css, js) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
+This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (a Vue.js-App wrapped in a CoreMedia-Frontend-Workspace-Theme) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
 ## Integrate the Code in your CoreMedia Blueprint Workspace
 You can integrate the extension in three ways:
@@ -44,7 +44,7 @@ git submodule add  https://github.com/tallence/core-forms.git modules/extensions
 
 - Use the extension tool in the root folder of the project to link the modules into your workspace.
  ```
-mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-plugin:LATEST:sync -Denable=formeditor-extension
+mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-plugin:LATEST:sync -Denable=core-forms
 ```
  
 **2. Copy files**
