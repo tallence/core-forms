@@ -20,6 +20,7 @@ import com.tallence.formeditor.cae.validator.annotation.ValidationMessage;
 import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
 import org.springframework.util.StringUtils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,10 +33,10 @@ import static com.tallence.formeditor.cae.validator.NumberValidator.MESSAGE_KEY_
 @ValidationMessage(name = "number", messageKey = MESSAGE_KEY_NUMBERFIELD_NAN)
 public class NumberValidator implements Validator<String>, SizeValidator {
 
-  private static final String MESSAGE_KEY_NUMBERFIELD_REQUIRED = "com.tallence.forms.numberfield.empty";
-  private static final String MESSAGE_KEY_NUMBERFIELD_MIN = "com.tallence.forms.numberfield.min";
-  private static final String MESSAGE_KEY_NUMBERFIELD_MAX = "com.tallence.forms.numberfield.max";
+  static final String MESSAGE_KEY_NUMBERFIELD_MIN = "com.tallence.forms.numberfield.min";
+  static final String MESSAGE_KEY_NUMBERFIELD_MAX = "com.tallence.forms.numberfield.max";
   protected static final String MESSAGE_KEY_NUMBERFIELD_NAN = "com.tallence.forms.numberfield.nan";
+  private static final String MESSAGE_KEY_NUMBERFIELD_REQUIRED = "com.tallence.forms.numberfield.empty";
 
   @ValidationProperty(messageKey = MESSAGE_KEY_NUMBERFIELD_REQUIRED)
   private boolean mandatory;
@@ -54,11 +55,12 @@ public class NumberValidator implements Validator<String>, SizeValidator {
       if (!value.matches("\\d+")) {
         return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_NAN));
       }
-      int number = Integer.parseInt(value);
-      if (this.minSize != null && number < this.minSize) {
-        errors.add(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_MIN, this.minSize));
+
+      BigInteger number = new BigInteger(value);
+      if (this.minSize != null && number.compareTo(BigInteger.valueOf(minSize)) < 0) {
+        errors.add(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_MIN, minSize));
       }
-      if (this.maxSize != null && number > this.maxSize) {
+      if (this.maxSize != null && number.compareTo(BigInteger.valueOf(maxSize)) > 0) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_NUMBERFIELD_MAX, this.maxSize));
       }
     } else if (this.mandatory) {
