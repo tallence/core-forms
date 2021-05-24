@@ -19,6 +19,7 @@ package com.tallence.formeditor.cae.validator;
 import com.tallence.formeditor.cae.elements.UsersMail;
 import com.tallence.formeditor.cae.validator.annotation.ValidationMessage;
 import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +47,11 @@ public class UsersMailValidator implements Validator<UsersMail.UsersMailData> {
 
     List<ValidationFieldError> errors = new ArrayList<>();
 
-    if (this.mandatory && (value == null || !hasText(value.getUsersMail()))) {
+    if (this.mandatory && (value == null || !StringUtils.hasText(value.getUsersMail()))) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_USERMAIL_REQUIRED));
     }
 
-    if (value != null && hasText(value.getUsersMail()) && !mailRegexp.matcher(value.getUsersMail()).matches()) {
+    if (value != null && StringUtils.hasText(value.getUsersMail()) && !mailRegexp.matcher(value.getUsersMail()).matches()) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_USERMAIL_EMAIL));
     }
 

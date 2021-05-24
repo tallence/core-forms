@@ -16,10 +16,8 @@
 
 package com.tallence.formeditor.cae.validator.annotation;
 
-import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.validator.UsersMailValidator;
 import com.tallence.formeditor.cae.validator.Validator;
-import com.tallence.formeditor.contentbeans.FormEditor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -28,21 +26,21 @@ import java.lang.annotation.Target;
 
 /**
  * Annotation used for classes implementing {@link Validator}.
- *
+ * <p>
  * Links a key in the resource bundles to a validator class.
  * The main difference to {@link ValidationProperty} is that the message does not depend on a field value, it will always be added to the serialized JSON.
- *
- * This is used for the serialization of {@link FormEditor} inside {@link FormConfigController}.
+ * <p>
+ * This is used for the serialization of FormEditor inside FormConfigController.
  * The validation message will be serialized as { "name": "resolved message"} as part of the resulting JSON.
- *
+ * <p>
  * Example: {@link UsersMailValidator}
  * The frontend requires 2 validation messages: correct email format and mandatory.
  * mandatory can be linked to property inside the validator class, email format cannot.
  * We still have to provide such a message for the client side validation, this can be achieved by using this Annotation on a class.
- *
+ * <p>
  * See also {@link ValidationProperty}
- *
  */
+//TODO removed links in javadoc
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
 public @interface ValidationMessage {

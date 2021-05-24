@@ -16,11 +16,12 @@
 
 package com.tallence.formeditor.cae.validator.annotation;
 
-import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.validator.Validator;
-import com.tallence.formeditor.contentbeans.FormEditor;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  *  Annotation used for field properties of classes implementing {@link Validator}.
@@ -28,11 +29,12 @@ import java.lang.annotation.*;
  *  Links a key in the resource bundles to a field property of a validator.
  *  The resulting validator message is directly linked to the annotated field property of the Validator class by using the field name.
  *
- *  This is used for the serialization of {@link FormEditor} inside {@link FormConfigController}.
+ *  This is used for the serialization of FormEditor inside FormConfigController.
  *  It will only be added if the annotated field has a value set.
  *  The validation message will be serialized as { "fieldName": "resolved message"} as part of the resulting JSON.
  *
  */
+//TODO removed links in javadoc
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface ValidationProperty {

@@ -16,6 +16,7 @@
 package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.testing.ContentTestHelper;
+import com.coremedia.cap.common.IdHelper;
 import com.tallence.formeditor.cae.elements.*;
 import com.tallence.formeditor.cae.validator.InvalidGroupElementException;
 import com.tallence.formeditor.contentbeans.FormEditor;
@@ -26,7 +27,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -242,7 +242,7 @@ public class FormElementFactoryTest {
     assertThat(formElement, is(instanceOf(ConsentFormCheckBox.class)));
     assertThat(formElement.getHint(), is("Please confirm the %data protection consent form%"));
     assertNotNull(formElement.getLinkTarget());
-    assertThat(formElement.getLinkTarget().getContentId(), equalTo(8));
+    assertThat(IdHelper.parseContentId(formElement.getLinkTarget().getId()), equalTo(8));
   }
 
   @Test

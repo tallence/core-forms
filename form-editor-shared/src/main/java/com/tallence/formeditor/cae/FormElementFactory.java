@@ -21,9 +21,12 @@ import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * AutoWires all parsers from type {@link AbstractFormElementParser} and creates form elements.
@@ -41,7 +44,7 @@ public class FormElementFactory {
     parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
-  <T extends FormElement> T createFormElement(Struct elementData, String id) {
+  public <T extends FormElement> T createFormElement(Struct elementData, String id) {
     return parseType(elementData, id);
   }
 
@@ -60,6 +63,10 @@ public class FormElementFactory {
     parser.parseSpecialFields(formElement, elementData);
 
     return formElement;
+  }
+
+  public List<String> getTypes() {
+    return this.typeToParser.keySet().stream().collect(Collectors.toUnmodifiableList());
   }
 
 }

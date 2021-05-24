@@ -67,16 +67,18 @@ public interface FormElement<T> {
   /**
    * Make sure to check {@link #dependencyFulfilled} before calling this method. The field might dependent on another field which
    * is empty or has a wrong value.
-   *
+   * <p>
    * Validates the current FormElement's value.
+   *
    * @return the validation result
    */
   List<ValidationFieldError> getValidationResult();
 
   /**
    * Checks, if the dependent field's value matches this field's visibility config.
-   * @see AdvancedSettings#getDependentElementId()
+   *
    * @param allElements
+   * @see AdvancedSettings#getDependentElementId()
    */
   boolean dependencyFulfilled(List<FormElement> allElements);
 
