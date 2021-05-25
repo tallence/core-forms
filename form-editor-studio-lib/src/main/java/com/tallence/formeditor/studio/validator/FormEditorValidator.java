@@ -21,7 +21,7 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.cap.validation.ContentTypeValidatorBase;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.cae.FormEditorHelper;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -37,8 +37,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
   @Autowired
   private List<FieldValidator> fieldValidators;
   //Can be overwritten, see the setters below
-  private String formDataProperty = FormEditor.FORM_DATA;
-  private String formActionProperty = FormEditor.FORM_ACTION;
+  private String formDataProperty = FormEditorHelper.FORM_DATA;
+  private String formActionProperty = FormEditorHelper.FORM_ACTION;
 
   @Override
   public void validate(Content content, Issues issues) {
@@ -47,8 +47,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     String action = content.getString(formActionProperty);
 
     // Validate form fields
-    if (formData != null && formData.get(FormEditor.FORM_ELEMENTS) != null) {
-      Struct formElements = formData.getStruct(FormEditor.FORM_ELEMENTS);
+    if (formData != null && formData.get(FormEditorHelper.FORM_ELEMENTS) != null) {
+      Struct formElements = formData.getStruct(FormEditorHelper.FORM_ELEMENTS);
 
       formElements.getProperties().entrySet()
               .stream()
@@ -57,8 +57,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     }
 
     // Further validations
-    if (FormEditor.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditor.ADMIN_MAILS))) {
-      issues.addIssue(Severity.ERROR, FormEditor.FORM_ACTION, "form_action_mail");
+    if (FormEditorHelper.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditorHelper.ADMIN_MAILS))) {
+      issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_ACTION, "form_action_mail");
     }
   }
 
@@ -69,8 +69,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
     //Apply the responsible validators to the current form-key and -data
     fieldValidators.stream()
-        .filter(v -> v.responsibleFor(type, formElementData))
-        .forEach(fieldValidator -> fieldValidator.validateField(formElementKey, formElementData, action, issues));
+            .filter(v -> v.responsibleFor(type, formElementData))
+            .forEach(fieldValidator -> fieldValidator.validateField(formElementKey, formElementData, action, issues));
   }
 
   public void setFormDataProperty(String formDataProperty) {

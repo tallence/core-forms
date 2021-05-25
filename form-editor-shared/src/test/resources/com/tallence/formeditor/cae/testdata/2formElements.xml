@@ -1,0 +1,401 @@
+<Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <StructProperty Name="formElements">
+    <Struct>
+      <StructProperty Name="TextField">
+        <Struct>
+          <StringProperty Name="type">TextField</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <StringProperty Name="placeholder">Platzhalter</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <IntProperty Name="maxSize">200</IntProperty>
+              <IntProperty Name="minSize">5</IntProperty>
+              <StringProperty Name="regexpValidator">12345</StringProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="ZipFieldTest">
+        <Struct>
+          <StringProperty Name="type">ZipField</StringProperty>
+          <StringProperty Name="name">Postleitzahl</StringProperty>
+          <StringProperty Name="hint">Bitte Ihre Postleitzahl eingeben</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <StringProperty Name="regexpValidator">\d{5}</StringProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="PhoneFieldTest">
+        <Struct>
+          <StringProperty Name="type">PhoneField</StringProperty>
+          <StringProperty Name="name">Phone</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="FaxFieldTest">
+        <Struct>
+          <StringProperty Name="type">FaxField</StringProperty>
+          <StringProperty Name="name">Fax</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="StreetFieldTest">
+        <Struct>
+          <StringProperty Name="type">StreetNumberField</StringProperty>
+          <StringProperty Name="name">Street and number</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="NumberField">
+        <Struct>
+          <StringProperty Name="type">NumberField</StringProperty>
+          <StringProperty Name="name">Alter</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <IntProperty Name="maxSize">200</IntProperty>
+              <IntProperty Name="minSize">5</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="RadioButtonsMandatory">
+        <Struct>
+          <StringProperty Name="type">RadioButtons</StringProperty>
+          <StringProperty Name="name">Radio</StringProperty>
+          <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                  <StringProperty Name="checkedByDefault">true</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="DependentField">
+        <Struct>
+          <StringProperty Name="type">TextField</StringProperty>
+          <StringProperty Name="name">DependentField</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="advancedSettings">
+            <Struct>
+              <StructProperty Name="visibility">
+                <Struct>
+                  <BooleanProperty Name="activated">true</BooleanProperty>
+                  <StringProperty Name="elementId">RadioButtonsOptional</StringProperty>
+                  <StringProperty Name="value">value_456</StringProperty>
+                </Struct>
+              </StructProperty>
+              <IntProperty Name="columnWidth">3</IntProperty>
+              <BooleanProperty Name="breakAfterElement">true</BooleanProperty>
+              <StringProperty Name="customId">myComplexCustomId</StringProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="RadioButtonsOptional">
+        <Struct>
+          <StringProperty Name="type">RadioButtons</StringProperty>
+          <StringProperty Name="name">RadioOptional</StringProperty>
+          <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="RadioButtonsEmptyValidator">
+        <Struct>
+          <StringProperty Name="type">RadioButtons</StringProperty>
+          <StringProperty Name="name">RadioEmptyValidator</StringProperty>
+          <StringProperty Name="hint">Wählen Sie einen Button!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="CheckBoxesMandatory">
+        <Struct>
+          <StringProperty Name="type">CheckBoxes</StringProperty>
+          <StringProperty Name="name">CheckBoxes</StringProperty>
+          <StringProperty Name="hint">Wählen Sie eine CheckBox!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                  <StringProperty Name="checkedByDefault">true</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="CheckBoxesEmptyValidator">
+        <Struct>
+          <StringProperty Name="type">CheckBoxes</StringProperty>
+          <StringProperty Name="name">CheckBoxesEmptyValidator</StringProperty>
+          <StringProperty Name="hint">Wählen Sie eine CheckBox!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct></Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="SelectBoxMandatory">
+        <Struct>
+          <StringProperty Name="type">SelectBox</StringProperty>
+          <StringProperty Name="name">SelectBox</StringProperty>
+          <StringProperty Name="hint">Wählen Sie eine Option!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                  <StringProperty Name="checkedByDefault">true</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="SelectBoxOnlyDisplayName">
+        <Struct>
+          <StringProperty Name="type">SelectBox</StringProperty>
+          <StringProperty Name="name">SelectBox DisplayName</StringProperty>
+          <StringProperty Name="hint">Wählen Sie eine Option!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct></Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="SelectBoxEmptyValidator">
+        <Struct>
+          <StringProperty Name="type">SelectBox</StringProperty>
+          <StringProperty Name="name">SelectBoxEmptyValidator</StringProperty>
+          <StringProperty Name="hint">Wählen Sie eine Option!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct></Struct>
+          </StructProperty>
+          <StructProperty Name="groupElements">
+            <Struct>
+              <StructProperty Name="display_123">
+                <Struct>
+                  <StringProperty Name="value">value_123</StringProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="display_456">
+                <Struct>
+                  <StringProperty Name="value">value_456</StringProperty>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="TextArea">
+        <Struct>
+          <StringProperty Name="type">TextArea</StringProperty>
+          <StringProperty Name="name">TextArea</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <IntProperty Name="columns">4</IntProperty>
+          <IntProperty Name="rows">5</IntProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <IntProperty Name="maxSize">10</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="DateFieldMin">
+        <Struct>
+          <StringProperty Name="type">DateField</StringProperty>
+          <StringProperty Name="name">DateField min</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <BooleanProperty Name="minDateToday">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="DateFieldMax">
+        <Struct>
+          <StringProperty Name="type">DateField</StringProperty>
+          <StringProperty Name="name">DateField max</StringProperty>
+          <StringProperty Name="hint">Geben Sie etwas ein!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+              <BooleanProperty Name="maxDateToday">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="TextOnly">
+        <Struct>
+          <StringProperty Name="type">TextOnly</StringProperty>
+          <StringProperty Name="name">TextOnly</StringProperty>
+          <StringProperty Name="hint">Das ist ein langer Text zur Erklärung des Formulars</StringProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="UsersMail">
+        <Struct>
+          <StringProperty Name="type">UsersMail</StringProperty>
+          <StringProperty Name="name">UsersMail</StringProperty>
+          <StringProperty Name="hint">Tragen Sie eine Email-Adresse ein!</StringProperty>
+          <StringProperty Name="copyType">ALWAYS</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="FileUpload">
+        <Struct>
+          <StringProperty Name="type">FileUpload</StringProperty>
+          <StringProperty Name="name">TestName</StringProperty>
+          <StringProperty Name="hint">Laden Sie etwas hoch!</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">false</BooleanProperty>
+              <IntProperty Name="maxSize">42</IntProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+
+      <StructProperty Name="ConsentFormCheckBox">
+        <Struct>
+          <StringProperty Name="type">ConsentFormCheckBox</StringProperty>
+          <StringProperty Name="name">Data protection consent form</StringProperty>
+          <StringProperty Name="hint">Please confirm the %data protection consent form%</StringProperty>
+          <StructProperty Name="validator">
+            <Struct>
+              <BooleanProperty Name="mandatory">true</BooleanProperty>
+            </Struct>
+          </StructProperty>
+          <LinkListProperty Name="linkTarget" LinkType="coremedia:///cap/contenttype/CMTeasable">
+            <Link xlink:href="coremedia:///cap/content/8"/>
+          </LinkListProperty>
+        </Struct>
+      </StructProperty>
+
+    </Struct>
+  </StructProperty>
+</Struct>

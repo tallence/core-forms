@@ -6,8 +6,8 @@ interface FormEditor  @inherit(from: ["CMTeasable"]) {
 }
 
 type FormEditorImpl implements FormEditor @inherit(from: ["CMTeasableImpl"]) {
-  formElements: [FormElement] @fetch(from: "@formEditorAdapter.to(#root, 'formData').formElements()")
-  adminEmails: [String] @fetch(from: "@formEditorAdapter.to(#root, 'adminMails').adminEmails()")
+  formElements: [FormElement] @fetch(from: "@formEditorAdapter.to(#root).formElements()")
+  adminEmails: [String] @fetch(from: "@formEditorAdapter.to(#root).adminEmails()")
   formAction: String
   spamProtectionEnabled: Boolean
 }

@@ -17,6 +17,7 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.cae.FormEditorHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,7 @@ public class FormEditorImpl extends FormEditorBase {
    */
   @Override
   public Struct getFormElements() {
-    return getSettingsService().setting(FORM_ELEMENTS, Struct.class, getContent().getStruct(FORM_DATA));
+    return FormEditorHelper.getFormElements(getContent()).orElse(getContent().getRepository().getConnection().getStructService().emptyStruct());
   }
 
   /**
@@ -40,7 +41,7 @@ public class FormEditorImpl extends FormEditorBase {
    */
   @Override
   public List<String> getAdminEmails() {
-    String[] adminMails = Optional.ofNullable(getContent().getString(ADMIN_MAILS)).orElse("").split(",");
+    String[] adminMails = Optional.ofNullable(getContent().getString(FormEditorHelper.ADMIN_MAILS)).orElse("").split(",");
     return Arrays.asList(adminMails);
   }
 }

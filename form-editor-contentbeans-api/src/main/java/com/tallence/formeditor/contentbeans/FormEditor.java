@@ -37,11 +37,6 @@ public interface FormEditor extends CMTeasable {
   String NAME = "FormEditor";
 
   /**
-   * The key of the MailAction. It is placed here, since it it used by a studio rest validator.
-   */
-  String MAIL_ACTION = "mailAction";
-
-  /**
    * Returns the value of the document property {@link #MASTER}.
    *
    * @return a {@link FormEditor} object
@@ -83,33 +78,19 @@ public interface FormEditor extends CMTeasable {
   @Override
   List<? extends Aspect<? extends FormEditor>> getAspects();
 
-
-  String FORM_ELEMENTS = "formElements";
-
-  String FORM_DATA = "formData";
-
   /**
-   * Resolves the configured {@link #FORM_ELEMENTS}.
+   * Resolves the configured formElement.
    * @return the formElements as a Map. The key represents the elements name, the value is the form elements data.
    */
   Struct getFormElements();
 
-
-
-  String ADMIN_MAILS = "adminMails";
-
   /**
-   * Resolves the admin mails {@link #ADMIN_MAILS}.
+   * Resolves the admin mails adminMails.
    */
   List<String> getAdminEmails();
 
-  String FORM_ACTION = "formAction";
-
   String getFormAction();
 
-
-  String FORM_SPAM_PROTECTION = "spamProtectionEnabled";
-
   Boolean isSpamProtectionEnabled();
-  
+
 }

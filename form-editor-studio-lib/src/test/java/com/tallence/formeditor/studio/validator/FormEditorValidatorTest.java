@@ -24,7 +24,7 @@ import com.coremedia.rest.validation.Severity;
 import com.coremedia.rest.validation.impl.Issue;
 import com.coremedia.rest.validation.impl.IssuesImpl;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
-import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.cae.FormEditorHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,9 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FormEditorValidatorTest.LocalConfig.class)
@@ -87,9 +89,9 @@ public class FormEditorValidatorTest {
     IssuesImpl<Content> issues = new IssuesImpl<>(testContent, testContent.getProperties().keySet());
     formEditorValidator.validate(testContent, issues);
     // Ensure, all expected validation errors occurred.
-    assertEquals(1, issues.getByProperty().get(FormEditor.FORM_ACTION).size());
-    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, FormEditor.FORM_ACTION, "form_action_mail", null);
-    assertThat(issues.getByProperty().get(FormEditor.FORM_ACTION), hasItem(issue1));
+    assertEquals(1, issues.getByProperty().get(FormEditorHelper.FORM_ACTION).size());
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, FormEditorHelper.FORM_ACTION, "form_action_mail", null);
+    assertThat(issues.getByProperty().get(FormEditorHelper.FORM_ACTION), hasItem(issue1));
 
     String key = "formData.formElements.FileUpload.name";
     assertEquals(1, issues.getByProperty().get(key).size());

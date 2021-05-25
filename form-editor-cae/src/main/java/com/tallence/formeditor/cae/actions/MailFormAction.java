@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.cae.actions;
 
+import com.tallence.formeditor.cae.FormEditorHelper;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.contentbeans.FormEditor;
@@ -32,7 +33,6 @@ import java.util.List;
 
 import static com.tallence.formeditor.cae.handler.FormErrors.ADMIN_MAIL;
 import static com.tallence.formeditor.cae.handler.FormErrors.USER_MAIL;
-import static com.tallence.formeditor.contentbeans.FormEditor.MAIL_ACTION;
 
 /**
  * Mail Action for the form framework. Sends the form data via mail to a configured mail address.
@@ -86,6 +86,6 @@ public class MailFormAction extends AbstractFormAction {
 
   @Override
   public boolean isResponsible(String key) {
-    return MAIL_ACTION.equals(key);
+    return FormEditorHelper.MAIL_ACTION.equals(key);
   }
 }

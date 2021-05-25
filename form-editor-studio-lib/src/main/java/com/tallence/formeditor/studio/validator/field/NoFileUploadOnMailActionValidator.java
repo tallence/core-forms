@@ -18,8 +18,8 @@ package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
+import com.tallence.formeditor.cae.FormEditorHelper;
 import com.tallence.formeditor.cae.parser.FileUploadParser;
-import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
@@ -37,7 +37,7 @@ public class NoFileUploadOnMailActionValidator extends AbstractFormValidator imp
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    if (FormEditor.MAIL_ACTION.equals(action)) {
+    if (FormEditorHelper.MAIL_ACTION.equals(action)) {
       addErrorIssue(issues, id, FORM_DATA_NAME, "form_action_mail_file");
     }
   }
