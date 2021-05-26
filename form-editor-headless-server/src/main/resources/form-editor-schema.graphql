@@ -20,7 +20,7 @@ interface FormElement{
   technicalName: String
   settings: AdvancedSettings
   type: String
-  mandatory: Boolean
+  validator: Validator
 }
 
 type AbstractFormElement implements FormElement{
@@ -31,15 +31,13 @@ type AbstractFormElement implements FormElement{
   technicalName: String
   settings: AdvancedSettings
   type: String
-  mandatory: Boolean
+  validator: Validator
 }
 
 interface TextField @inherit(from: ["FormElement"]) {
-  value: String
 }
 
 type TextFieldImpl implements TextField @inherit(from: ["AbstractFormElement"]) {
-  value: String
 }
 
 interface SelectBox @inherit(from: ["FormElement"]) {
@@ -153,4 +151,56 @@ type AdvancedSettings {
   visibilityDependent: Boolean
   dependentElementId: String
   dependentElementValue: String
+}
+
+interface Validator {
+  mandatory: Boolean
+}
+
+interface SizeValidator {
+  minSize: Int
+  maxSize: Int
+}
+
+type NumberValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+}
+
+type UsersMailValidator implements Validator {
+  mandatory: Boolean
+}
+type TextValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+  regexp: String
+}
+type TextOnlyValidator implements Validator {
+  mandatory: Boolean
+}
+type SelectBoxValidator implements Validator {
+  mandatory: Boolean
+}
+type RadioButtonGroupValidator implements Validator {
+  mandatory: Boolean
+}
+type FileUploadValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+}
+type DateFieldValidator implements Validator {
+  mandatory: Boolean
+  minDate: String
+  maxDate: String
+}
+type ConsentFormCheckboxValidator implements Validator {
+  mandatory: Boolean
+}
+type CheckBoxesGroupValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
 }
