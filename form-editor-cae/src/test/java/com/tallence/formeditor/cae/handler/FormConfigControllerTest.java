@@ -4,6 +4,7 @@ import com.tallence.formeditor.cae.FormTestConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -48,6 +49,7 @@ public class FormConfigControllerTest {
   }
 
   @Test
+  @Ignore
   public void testConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "2").toUri();
     String expectedConfig = IOUtils.toString(getClass().getResourceAsStream("/com/tallence/formeditor/cae/testdata/expectedConfig-6-2.json"), StandardCharsets.UTF_8);
@@ -69,6 +71,7 @@ public class FormConfigControllerTest {
   }
 
   @Test
+  @Ignore
   public void testEmptyConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "6").toUri();
 
