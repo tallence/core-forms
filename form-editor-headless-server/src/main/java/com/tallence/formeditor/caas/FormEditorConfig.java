@@ -2,12 +2,15 @@ package com.tallence.formeditor.caas;
 
 import com.coremedia.caas.wiring.ProvidesTypeNameResolver;
 import com.coremedia.caas.wiring.TypeNameResolver;
+import com.coremedia.cap.multisite.SitesService;
+import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
 import com.tallence.formeditor.caas.adapter.FormEditorAdapterFactory;
 import com.tallence.formeditor.cae.FormElementFactory;
 import com.tallence.formeditor.cae.elements.FormElement;
 import com.tallence.formeditor.cae.validator.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Configuration(proxyBeanMethods = false)
+@Import(value = {MultiSiteConfiguration.class,})
 public class FormEditorConfig {
 
   private static final Set<String> VALIDATORS = Stream.of(
@@ -34,8 +38,8 @@ public class FormEditorConfig {
   ).collect(Collectors.toSet());
 
   @Bean
-  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory) {
-    return new FormEditorAdapterFactory(formElementFactory);
+  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory, SitesService sitesService) {
+    return new FormEditorAdapterFactory(formElementFactory, sitesService);
   }
 
   @Bean

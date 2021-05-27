@@ -20,6 +20,8 @@ import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.cae.elements.TextOnly;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 /**
  * Parser for elements of type {@link TextOnly}
  */
@@ -30,7 +32,7 @@ public class TextOnlyParser extends AbstractFormElementParser<TextOnly> {
 
 
   @Override
-  public TextOnly instantiateType(Struct elementData) {
+  public TextOnly instantiateType(Struct elementData, Locale locale) {
     return new TextOnly();
   }
 

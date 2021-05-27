@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,12 +45,12 @@ public class FormElementFactory {
     parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
-  public <T extends FormElement> T createFormElement(Struct elementData, String id) {
-    return parseType(elementData, id);
+  public <T extends FormElement> T createFormElement(Struct elementData, String id, Locale locale) {
+    return parseType(elementData, id, locale);
   }
 
 
-  private <T extends FormElement> T parseType(Struct elementData, String id) {
+  private <T extends FormElement> T parseType(Struct elementData, String id, Locale locale) {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
 
     @SuppressWarnings("unchecked")
@@ -58,7 +59,7 @@ public class FormElementFactory {
       throw new IllegalStateException("Did not find a Parser for type: " + type);
     }
 
-    T formElement = parser.instantiateType(elementData);
+    T formElement = parser.instantiateType(elementData, locale);
     parser.parseBaseFields(formElement, elementData, id);
     parser.parseSpecialFields(formElement, elementData);
 

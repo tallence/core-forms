@@ -23,6 +23,7 @@ import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -53,7 +54,7 @@ public class FormFreemarkerFacade {
 
     return formData.getProperties().entrySet().stream()
         .filter(e -> e.getValue() instanceof Struct)
-        .map(e -> parseElement((Struct) e.getValue(), e.getKey()))
+        .map(e -> parseElement((Struct) e.getValue(), e.getKey(), formEditor.getLocale()))
         .collect(Collectors.toList());
   }
 
@@ -61,7 +62,7 @@ public class FormFreemarkerFacade {
     return reCaptchaService.getWebsiteSecretForSite(currentContextService.getContext());
   }
 
-  private FormElement parseElement(Struct value, String key) {
-    return formElementFactory.createFormElement(value, key);
+  private FormElement parseElement(Struct value, String key, Locale locale) {
+    return formElementFactory.createFormElement(value, key, locale);
   }
 }

@@ -20,6 +20,8 @@ import com.tallence.formeditor.cae.elements.ConsentFormCheckBox;
 import com.tallence.formeditor.cae.validator.ConsentFormCheckboxValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.getBoolean;
 import static com.coremedia.cap.util.StructUtil.getSubstruct;
 import static java.util.Optional.ofNullable;
@@ -34,7 +36,7 @@ public class ConsentFormCheckBoxParser extends AbstractFormElementParser<Consent
   public static final String CONSENT_FORM_CHECK_BOX_TYPE = "ConsentFormCheckBox";
 
   @Override
-  public ConsentFormCheckBox instantiateType(Struct elementData) {
+  public ConsentFormCheckBox instantiateType(Struct elementData, Locale locale) {
     return new ConsentFormCheckBox();
   }
 

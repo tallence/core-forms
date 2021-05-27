@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.SelectBox;
 import com.tallence.formeditor.cae.validator.SelectBoxValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -35,7 +37,7 @@ public class SelectBoxParser extends AbstractFormElementParser<SelectBox> {
 
 
   @Override
-  public SelectBox instantiateType(Struct elementData) {
+  public SelectBox instantiateType(Struct elementData, Locale locale) {
     return new SelectBox();
   }
 

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import static com.coremedia.cap.util.StructUtil.*;
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
@@ -43,7 +44,7 @@ public class TextFieldParser extends AbstractFormElementParser<TextField> {
 
 
   @Override
-  public TextField instantiateType(Struct elementData) {
+  public TextField instantiateType(Struct elementData, Locale locale) {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
     switch (type) {
       case KEY_TEXT_FIELD:

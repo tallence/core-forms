@@ -4,6 +4,7 @@ import com.coremedia.cap.common.CapStructHelper;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 
+import java.util.Locale;
 import java.util.Optional;
 
 public class FormEditorHelper {

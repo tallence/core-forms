@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.RadioButtonGroup;
 import com.tallence.formeditor.cae.validator.RadioButtonGroupValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -35,7 +37,7 @@ public class RadioButtonParser extends AbstractFormElementParser<RadioButtonGrou
 
 
   @Override
-  public RadioButtonGroup instantiateType(Struct elementData) {
+  public RadioButtonGroup instantiateType(Struct elementData, Locale locale) {
     return new RadioButtonGroup();
   }
 

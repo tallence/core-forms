@@ -3,6 +3,8 @@ package com.tallence.formeditor.cae;
 import com.coremedia.cap.common.IdHelper;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.content.ContentRepository;
+import com.coremedia.cap.multisite.SitesService;
+import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.cap.test.xmlrepo.XmlRepoConfiguration;
 import com.coremedia.cap.undoc.common.spring.CapRepositoriesConfiguration;
@@ -42,6 +44,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest(classes = {
         CapRepositoriesConfiguration.class,
         XmlRepoConfiguration.class,
+        MultiSiteConfiguration.class,
         FormEditorConfiguration.class})
 @TestPropertySource(properties = {
         "repository.factoryClassName=com.coremedia.cap.xmlrepo.XmlCapConnectionFactory",
@@ -56,11 +59,14 @@ public class FormElementFactoryTest {
   @Autowired
   private FormElementFactory formElementFactory;
 
+  @Autowired
+  private SitesService sitesService;
+
   private <T extends FormElement> T getTestFormElement(String id) {
     Content content = contentRepository.getContent(IdHelper.formatContentId(2));
     Struct formElements = FormEditorHelper.getFormElements(content)
             .orElseThrow(() -> new IllegalStateException("Could not load form data."));
-    return formElementFactory.createFormElement(formElements.getStruct(id), id);
+    return formElementFactory.createFormElement(formElements.getStruct(id), id, sitesService.getContentSiteAspect(content).getLocale());
   }
 
   @Test

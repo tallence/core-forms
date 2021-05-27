@@ -36,10 +36,9 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
 
   public static final String parserKey = "DateField";
 
-  //TODO getting rid of currentContextService
   @Override
-  public DateField instantiateType(Struct elementData) {
-    return new DateField(Locale.getDefault());
+  public DateField instantiateType(Struct elementData, Locale locale) {
+    return new DateField(locale);
   }
 
   @Override

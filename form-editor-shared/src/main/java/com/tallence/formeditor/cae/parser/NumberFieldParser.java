@@ -22,6 +22,8 @@ import com.tallence.formeditor.cae.elements.TextField;
 import com.tallence.formeditor.cae.validator.NumberValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -35,7 +37,7 @@ public class NumberFieldParser extends AbstractFormElementParser<NumberField> {
 
 
   @Override
-  public NumberField instantiateType(Struct elementData) {
+  public NumberField instantiateType(Struct elementData, Locale locale) {
     return new NumberField();
   }
 

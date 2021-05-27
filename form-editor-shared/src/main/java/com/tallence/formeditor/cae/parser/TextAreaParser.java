@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.TextArea;
 import com.tallence.formeditor.cae.validator.TextValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -36,7 +38,7 @@ public class TextAreaParser extends AbstractFormElementParser<TextArea> {
 
 
   @Override
-  public TextArea instantiateType(Struct elementData) {
+  public TextArea instantiateType(Struct elementData, Locale locale) {
     return new TextArea();
   }
 

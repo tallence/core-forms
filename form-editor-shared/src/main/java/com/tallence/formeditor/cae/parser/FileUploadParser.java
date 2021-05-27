@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.FileUpload;
 import com.tallence.formeditor.cae.validator.FileUploadValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -34,7 +36,7 @@ public class FileUploadParser extends AbstractFormElementParser<FileUpload> {
 
 
   @Override
-  public FileUpload instantiateType(Struct elementData) {
+  public FileUpload instantiateType(Struct elementData, Locale locale) {
     return new FileUpload();
   }
 

@@ -10,8 +10,11 @@ import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -25,31 +28,20 @@ import java.nio.charset.StandardCharsets;
 
 import static com.tallence.formeditor.cae.handler.FormConfigController.FORM_EDITOR_CONFIG_URL;
 import static org.junit.Assert.assertTrue;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = FormTestConfiguration.class)
 @WebAppConfiguration
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = FormTestConfiguration.class)
+@DirtiesContext(classMode = AFTER_CLASS)
+@TestPropertySource(properties = "cae.single-node=true")
 public class FormConfigControllerTest {
 
   @Autowired
-  private WebApplicationContext context;
-
   private MockMvc mvc;
 
-  @Before
-  public void setup() {
-    mvc = MockMvcBuilders
-            .webAppContextSetup(context)
-            .build();
-  }
-
-  @After
-  public void tearDown() {
-  }
-
   @Test
-  @Ignore
   public void testConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "2").toUri();
     String expectedConfig = IOUtils.toString(getClass().getResourceAsStream("/com/tallence/formeditor/cae/testdata/expectedConfig-6-2.json"), StandardCharsets.UTF_8);
@@ -71,7 +63,6 @@ public class FormConfigControllerTest {
   }
 
   @Test
-  @Ignore
   public void testEmptyConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "6").toUri();
 

@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.CheckBoxesGroup;
 import com.tallence.formeditor.cae.validator.CheckBoxesGroupValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -34,7 +36,7 @@ public class CheckBoxesParser extends AbstractFormElementParser<CheckBoxesGroup>
   private static final String CHECK_BOXES = FORM_GROUP_ELEMENTS_PROPERTY_NAME;
 
   @Override
-  public CheckBoxesGroup instantiateType(Struct elementData) {
+  public CheckBoxesGroup instantiateType(Struct elementData, Locale locale) {
     return new CheckBoxesGroup();
   }
 

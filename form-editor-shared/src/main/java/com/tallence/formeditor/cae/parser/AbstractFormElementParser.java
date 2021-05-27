@@ -23,6 +23,7 @@ import com.tallence.formeditor.cae.elements.FormElement;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static com.coremedia.cap.util.StructUtil.*;
@@ -67,7 +68,7 @@ public abstract class AbstractFormElementParser<T extends FormElement> {
    *
    * @param elementData the element data from which to create the instance
    */
-  public abstract T instantiateType(Struct elementData);
+  public abstract T instantiateType(Struct elementData, Locale locale);
 
   /**
    * @return the string keys of the concrete parser, e.g. "CheckBoxes". One parser can be responsible for multiple

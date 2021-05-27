@@ -21,6 +21,8 @@ import com.tallence.formeditor.cae.elements.UsersMail;
 import com.tallence.formeditor.cae.validator.UsersMailValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 import static com.coremedia.cap.util.StructUtil.*;
 import static java.util.Optional.ofNullable;
 
@@ -37,7 +39,7 @@ public class UsersMailParser extends AbstractFormElementParser<UsersMail> {
 
 
   @Override
-  public UsersMail instantiateType(Struct elementData) {
+  public UsersMail instantiateType(Struct elementData, Locale locale) {
     return new UsersMail();
   }
 

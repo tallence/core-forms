@@ -32,11 +32,12 @@
 
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>cap-unified-api</artifactId>
+      <artifactId>cap-multisite</artifactId>
     </dependency>
+
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>coremedia-spring</artifactId>
+      <artifactId>cap-unified-api</artifactId>
     </dependency>
 
     <!-- thirdparty -->
