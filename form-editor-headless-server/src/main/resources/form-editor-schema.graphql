@@ -18,7 +18,7 @@ interface FormElement{
   hint: String
   placeholder: String
   technicalName: String
-  settings: AdvancedSettings
+  advancedSettings: AdvancedSettings
   type: String
   validator: Validator
 }
@@ -29,7 +29,7 @@ type AbstractFormElement implements FormElement{
   hint: String
   placeholder: String
   technicalName: String
-  settings: AdvancedSettings
+  advancedSettings: AdvancedSettings
   type: String
   validator: Validator
 }
