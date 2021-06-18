@@ -46,6 +46,26 @@
       <artifactId>bpbase-studio-dynamic-query-list</artifactId>
       <type>swc</type>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.ui.toolkit</groupId>
+      <artifactId>client-core</artifactId>
+      <type>swc</type>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.ui.sdk</groupId>
+      <artifactId>cap-rest-client</artifactId>
+      <type>swc</type>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>studio-client.cap-base-models</artifactId>
+      <type>swc</type>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>studio-client.errors-validation-components</artifactId>
+      <type>swc</type>
+    </dependency>
 
   </dependencies>
 
