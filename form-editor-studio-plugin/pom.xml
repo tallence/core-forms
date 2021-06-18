@@ -59,6 +59,7 @@
         <version>${jangaroo.version}</version> <!-- explicit version for IDEA! -->
         <extensions>true</extensions>
         <configuration>
+          <extNamespace>com.tallence.formeditor.studio</extNamespace>
           <namespaces>
             <namespace>
               <uri>exml:com.tallence.formeditor.studio.config</uri>
