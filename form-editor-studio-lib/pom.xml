@@ -52,15 +52,15 @@
     <!-- CoreMedia -->
     <dependency>
       <groupId>com.coremedia.cms</groupId>
+      <artifactId>middle.coremedia-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>middle.cap-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coremedia.cms</groupId>
-      <artifactId>cap-rest-plugins</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coremedia.cms</groupId>
-      <artifactId>coremedia-rest-plugins</artifactId>
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>

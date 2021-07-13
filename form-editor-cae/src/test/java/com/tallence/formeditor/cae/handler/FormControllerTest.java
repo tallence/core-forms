@@ -24,8 +24,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -39,6 +42,7 @@ import java.net.URI;
 
 import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
 import static org.junit.Assert.*;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -47,8 +51,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Test for {@link FormController}
  */
 @WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @ContextConfiguration(classes = FormTestConfiguration.class)
+@DirtiesContext(classMode = AFTER_CLASS)
+@TestPropertySource(properties = "cae.single-node=true")
 public class FormControllerTest {
 
   private static final String SUCCESS_RESPONSE = "{\"success\":true,\"error\":null,\"errorData\":null,\"successData\":{\"textHeader\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textMessage\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textButton\":\"mockedValue, arg1: {0}, arg2: {1}\"}}";
@@ -63,7 +69,9 @@ public class FormControllerTest {
   @Autowired
   private MailAdapterMock mailAdapterMock;
 
+  @Autowired
   private MockMvc mvc;
+
   private static final URI TEST_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("8", "2").toUri();
   private static final String MAIL_ADDRESS_TEST = "test@example.com";
   private static final String FORM_DATA_SERIALIZED =
@@ -88,19 +96,11 @@ public class FormControllerTest {
           "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
           "Data protection consent form: true<br/>";
 
-  @Before
-  public void setup() {
-    mvc = MockMvcBuilders
-        .webAppContextSetup(context)
-        .build();
-  }
-
   @After
   public void tearDown() {
     mailAdapterMock.clear();
     storageAdapterMock.clear();
   }
-
 
   @Test
   public void testValidPost() throws Exception {
