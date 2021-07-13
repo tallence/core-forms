@@ -16,57 +16,64 @@
 
 package com.tallence.formeditor.cae;
 
+import com.coremedia.blueprint.cae.config.BlueprintI18nCaeBaseLibConfiguration;
+import com.coremedia.blueprint.cae.web.i18n.RequestMessageSource;
+import com.coremedia.blueprint.cae.web.i18n.ResourceBundleInterceptor;
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
+import com.coremedia.blueprint.testing.ContentTestConfiguration;
 import com.coremedia.blueprint.testing.ContentTestHelper;
-import com.coremedia.cap.test.xmlrepo.XmlRepoConfiguration;
+import com.coremedia.cache.Cache;
 import com.coremedia.cap.test.xmlrepo.XmlUapiConfig;
 import com.coremedia.cms.delivery.configuration.DeliveryConfigurationProperties;
 import com.coremedia.objectserver.configuration.CaeConfigurationProperties;
+import com.coremedia.objectserver.web.config.CaeHandlerServicesConfiguration;
+import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
+import com.tallence.formeditor.cae.actions.DefaultFormAction;
+import com.tallence.formeditor.cae.actions.FormAction;
 import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.cae.handler.FormConfigController;
+import com.tallence.formeditor.cae.handler.FormController;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
+import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static com.coremedia.cap.test.xmlrepo.XmlRepoResources.*;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
 
 /**
  * Configuration class to set up form test infrastructure.
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ImportResource(
-    value = {
-        CACHE,
-        CONTENT_BEAN_FACTORY,
-        DATA_VIEW_FACTORY,
-        ID_PROVIDER,
-        HANDLERS,
-        LINK_FORMATTER,
-        VIEW_RESOLVER,
-        "classpath:/framework/spring/blueprint-contentbeans.xml",
-        "classpath:/META-INF/coremedia/component-forms.xml",
-        "classpath:/framework/spring/blueprint-handlers.xml",
-        "classpath:/framework/spring/blueprint-services.xml",
-        "classpath:/com/tallence/formeditor/cae/testdata/bundle-replace-context.xml",
-    },
-    reader = ResourceAwareXmlBeanDefinitionReader.class
-)
+        value = {
+                "classpath:/META-INF/coremedia/component-forms.xml",
+                "classpath:/com/tallence/formeditor/cae/testdata/bundle-replace-context.xml",}
+        , reader = ResourceAwareXmlBeanDefinitionReader.class)
 @PropertySource("classpath:com/tallence/formeditor/cae/test.properties")
-@Import({XmlRepoConfiguration.class})
-@ComponentScan(basePackages = {
-    "com.tallence.formeditor.cae",
-    "com.coremedia.cms.delivery.configuration",
-    "com.coremedia.objectserver.configuration",
-    "com.coremedia.objectserver.web.config"
-})
 @EnableConfigurationProperties({
         DeliveryConfigurationProperties.class,
         CaeConfigurationProperties.class
+})
+@Import({
+        BlueprintI18nCaeBaseLibConfiguration.class,
+        CaeHandlerServicesConfiguration.class,
+        ContentTestConfiguration.class,
+        WebMvcAutoConfiguration.class,
 })
 public class FormTestConfiguration {
 
@@ -105,6 +112,38 @@ public class FormTestConfiguration {
     return new FormFreemarkerFacade(formElementFactory, reCaptchaService, currentContextService);
   }
 
+  @Bean
+  MockMvc mockMvc(WebApplicationContext wac) {
+    return MockMvcBuilders.webAppContextSetup(wac).build();
+  }
+
+  @Bean
+  FormController formController(List<FormAction> formActions,
+                                DefaultFormAction defaultFormAction,
+                                ReCaptchaService recaptchaService,
+                                FormFreemarkerFacade formFreemarkerFacade,
+                                CurrentContextService currentContextService,
+                                RequestMessageSource messageSource,
+                                ResourceBundleInterceptor pageResourceBundlesInterceptor,
+                                @Value("${formEditor.cae.encodeData:true}") boolean encodeFormData) {
+    return new FormController(formActions, defaultFormAction, recaptchaService, formFreemarkerFacade, currentContextService, messageSource, pageResourceBundlesInterceptor, encodeFormData);
+  }
+
+  @Bean
+  FormConfigController formConfigController(CurrentContextService currentContextService,
+                                            FormFreemarkerFacade formFreemarkerFacade,
+                                            LinkFormatter linkFormatter,
+                                            RequestMessageSource messageSource,
+                                            ResourceBundleInterceptor pageResourceBundlesInterceptor,
+                                            Cache cache, List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
+    return new FormConfigController(currentContextService,
+            formFreemarkerFacade,
+            linkFormatter,
+            messageSource,
+            pageResourceBundlesInterceptor,
+            cache,
+            formElementSerializerFactories);
+  }
 
 
 }

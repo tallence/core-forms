@@ -19,7 +19,7 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension runs with CoreMedia 10 (v2101.1). The extension also runs with:
+The extension runs with CoreMedia 10 (v2104.3). The extension also runs with:
 - v2010.2. See the branch [2010.2-compatible](https://github.com/tallence/core-forms/tree/2010.2-compatible).
 - CoreMedia 9 (v19.04). See the branch: [1904.2-compatible](https://github.com/tallence/core-forms/tree/1904.2-compatible).
   It is in general compatible with the versions 17.10 and 18.10, but some small changes could be required (import paths, names of artifacts)

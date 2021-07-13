@@ -15,7 +15,7 @@
  */
 
 package com.tallence.formeditor.studio.plugins {
-import com.coremedia.cms.studio.errorsvalidation.componenents.validation.ValidationUtil;
+import com.coremedia.cms.studio.errorsvalidation.components.validation.ValidationUtil;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.data.ValueExpressionFactory;
 import com.coremedia.ui.data.validation.Issue;
