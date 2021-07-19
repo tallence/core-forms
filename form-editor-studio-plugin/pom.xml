@@ -64,6 +64,10 @@
               <uri>exml:com.tallence.formeditor.studio.config</uri>
             </namespace>
           </namespaces>
+          <globalResourcesMap>
+            <formEditor-help-en>html-includes/FormEditorHelp_en.html</formEditor-help-en>
+            <formEditor-help-de>html-includes/FormEditorHelp_de.html</formEditor-help-de>
+          </globalResourcesMap>
         </configuration>
       </plugin>
     </plugins>

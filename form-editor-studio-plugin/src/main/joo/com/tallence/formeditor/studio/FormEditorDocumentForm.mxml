@@ -14,6 +14,8 @@
   <fx:Script><![CDATA[
     import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 
+    import ext.Ext;
+
     public static const xtype:String = "com.tallence.formeditor.studio.config.formEditor";
 
     private var config:FormEditorDocumentForm;
@@ -25,7 +27,7 @@
     public var formElements:Array;
 
     /*
-     * A String which holds the document proerty name of the struct, where the form Elements are saved into
+     * A String which holds the document property name of the struct, where the form Elements are saved into
      */
     [Bindable]
     public var structPropertyName:String;
@@ -51,7 +53,7 @@
             <local:ApplicableElements formElements="{config.formElements}"
                                       dragActiveVE="{getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName).getDragActiveVE()}"
                                       readOnlyVE="{PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression)}"/>
-            <local:ApplicableElementsHelpContainer/>
+            <local:ApplicableElementsHelpContainer helpTextUrl="{Ext.manifest.globalResources[resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_window_html_content_key')]}"/>;
           </items>
         </Container>
         <!-- right column, applied form elements -->
