@@ -36,16 +36,6 @@
       </editor:plugins>
     </editor:TabbedDocumentFormDispatcher>
 
-    <editor:NewContentMenu>
-      <editor:plugins>
-        <ui:AddItemsPlugin index="0">
-          <ui:items>
-            <quickcreate:QuickCreateMenuItem contentType="FormEditor"/>
-          </ui:items>
-        </ui:AddItemsPlugin>
-      </editor:plugins>
-    </editor:NewContentMenu>
-
   </local:rules>
 
   <local:configuration>
