@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "formEditor.cae.encodeData",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.tallence.formeditor.cae.handler.FormController",
+      "description": "The group which allows members to use the sourceType \"regexp\". Should be used with care."
+    }
+  ]
+}
