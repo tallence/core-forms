@@ -17,11 +17,12 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import static com.coremedia.cap.util.CapStructUtil.getString;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_HINT;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
 import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
@@ -40,12 +41,12 @@ public class ConsentFormValidator extends AbstractFormValidator implements Field
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
-    String name = StructUtil.getString(fieldData, FORM_DATA_NAME);
-    if (StructUtil.getLinks(fieldData, FORM_LINK_TARGET).isEmpty()) {
+    String name = getString(fieldData, FORM_DATA_NAME);
+    if (CapStructUtil.getLinks(fieldData, FORM_LINK_TARGET).isEmpty()) {
       addErrorIssue(issues, id, FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
     }
 
-    String hint = StructUtil.getString(fieldData, FORM_DATA_HINT);
+    String hint = getString(fieldData, FORM_DATA_HINT);
     if (StringUtils.isEmpty(hint)) {
       addErrorIssue(issues, id, FORM_DATA_HINT, "consentForm_missing_hint", name);
     } else if (!hint.matches(".*%.+%.*")) {

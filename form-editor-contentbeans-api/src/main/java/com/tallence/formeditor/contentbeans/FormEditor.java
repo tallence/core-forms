@@ -17,7 +17,6 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.blueprint.common.contentbeans.CMTeasable;
-import com.coremedia.cae.aspect.Aspect;
 import com.coremedia.cap.struct.Struct;
 
 import java.util.Collection;
@@ -65,25 +64,6 @@ public interface FormEditor extends CMTeasable {
   @Override
   Collection<? extends FormEditor> getLocalizations();
 
-  /**
-   * Returns a <code>Map</code> from aspectIDs to Aspects. AspectIDs consists of an aspect name with a
-   * prefix which identifies the plugin provider.
-   *
-   * @return a <code>Map</code> from aspectIDs to <code>Aspect</code>s
-   */
-  @Override
-  Map<String, ? extends Aspect<? extends FormEditor>> getAspectByName();
-
-  /**
-   * Returns a list of all  <code>Aspect</code>s from all availiable
-   * PlugIns that are registered to this content bean.
-   *
-   * @return a list of {@link Aspect}
-   */
-  @Override
-  List<? extends Aspect<? extends FormEditor>> getAspects();
-
-
   String FORM_ELEMENTS = "formElements";
 
   String FORM_DATA = "formData";
@@ -111,5 +91,5 @@ public interface FormEditor extends CMTeasable {
   String FORM_SPAM_PROTECTION = "spamProtectionEnabled";
 
   Boolean isSpamProtectionEnabled();
-  
+
 }

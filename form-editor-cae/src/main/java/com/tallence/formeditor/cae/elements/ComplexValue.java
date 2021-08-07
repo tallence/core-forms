@@ -22,6 +22,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
 
+import static com.coremedia.cap.util.CapStructUtil.getString;
+
 /**
  * Complex value can be used for CheckBoxes, RadioButtons and SelectBoxes
  */
@@ -36,14 +38,15 @@ public class ComplexValue {
 
   public ComplexValue(String displayName, Struct data) {
     this.displayName = displayName;
-    this.value = Optional.ofNullable(data).map(d -> StructUtil.getString(d, PROPERTY_VALUE)).filter(StringUtils::isNotBlank).orElse(displayName);
+    this.value = Optional.ofNullable(data)
+            .map(d -> getString(d, PROPERTY_VALUE))
+            .filter(StringUtils::isNotBlank)
+            .orElse(displayName);
     this.selectedByDefault = data != null && data.get(CHECKED_BY_DEFAULT) != null && data.getBoolean(CHECKED_BY_DEFAULT);
   }
 
   /**
    * represents the submit value
-   *
-   * @return
    */
   public String getValue() {
     return value;
@@ -51,8 +54,6 @@ public class ComplexValue {
 
   /**
    * represents the display value
-   *
-   * @return
    */
   public String getDisplayName() {
     return displayName;

@@ -93,7 +93,7 @@ public class FormTestConfiguration {
 
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement>> parsers) {
+  public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
     return new FormElementFactory(parsers);
   }
 

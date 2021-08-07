@@ -32,7 +32,7 @@ import java.util.List;
  */
 public interface FormAction {
 
-  FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements,
+  FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements,
                                                        HttpServletRequest request, HttpServletResponse response) throws IOException;
 
   boolean isResponsible(String key);

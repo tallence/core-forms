@@ -22,7 +22,7 @@ import com.tallence.formeditor.cae.elements.TextField;
 import com.tallence.formeditor.cae.validator.NumberValidator;
 import org.springframework.stereotype.Component;
 
-import static com.coremedia.cap.util.StructUtil.*;
+import static com.coremedia.cap.util.CapStructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**

@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_GROUP_ELEMENTS_PROPERTY_NAME;
@@ -48,7 +49,7 @@ public class OptionsNotEmptyValidator extends AbstractFormValidator implements F
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
-    boolean noElements = Optional.ofNullable(StructUtil.getSubstruct(fieldData, FORM_GROUP_ELEMENTS_PROPERTY_NAME))
+    boolean noElements = Optional.ofNullable(getSubstruct(fieldData, FORM_GROUP_ELEMENTS_PROPERTY_NAME))
             .map(s -> s.getProperties().isEmpty())
             .orElse(true);
     if (noElements) {

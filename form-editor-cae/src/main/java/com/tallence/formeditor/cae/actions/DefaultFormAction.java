@@ -53,8 +53,8 @@ public class DefaultFormAction extends AbstractFormAction {
   }
 
   @Override
-  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements, HttpServletRequest request,
-                                                              HttpServletResponse response) throws IOException {
+  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements, HttpServletRequest request,
+                                                              HttpServletResponse response) {
 
     String formData = serializeFormElements(target, formElements, files);
     LOG.debug("Saving form request for form [{}] with formData [{}] in storage layer", target.getContentId(), formData);

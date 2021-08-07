@@ -17,11 +17,12 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
+import static com.coremedia.cap.util.CapStructUtil.getInteger;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
@@ -57,8 +58,8 @@ abstract class AbstractFormValidator {
 
   protected void validateMaxAndMinSize(Struct validator, Issues issues, String formElementId, String name) {
     // Size constraints
-    Integer minSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MINSIZE);
-    Integer maxSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MAXSIZE);
+    Integer minSize = getInteger(validator, FORM_VALIDATOR_MINSIZE);
+    Integer maxSize = getInteger(validator, FORM_VALIDATOR_MAXSIZE);
     validateMinSize(minSize, issues, formElementId, name);
     validateMaxSize(maxSize, minSize, issues, formElementId, name);
   }

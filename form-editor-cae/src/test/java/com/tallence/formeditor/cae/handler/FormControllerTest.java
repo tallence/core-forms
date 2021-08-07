@@ -19,7 +19,6 @@ import com.tallence.formeditor.cae.FormTestConfiguration;
 import com.tallence.formeditor.cae.mocks.MailAdapterMock;
 import com.tallence.formeditor.cae.mocks.StorageAdapterMock;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -43,9 +39,10 @@ import java.net.URI;
 import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
 import static org.junit.Assert.*;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Test for {@link FormController}
@@ -59,9 +56,6 @@ public class FormControllerTest {
 
   private static final String SUCCESS_RESPONSE = "{\"success\":true,\"error\":null,\"errorData\":null,\"successData\":{\"textHeader\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textMessage\":\"mockedValue, arg1: {0}, arg2: {1}\",\"textButton\":\"mockedValue, arg1: {0}, arg2: {1}\"}}";
   private static final String FAILURE_VALIDATION_RESPONSE = "{\"success\":false,\"error\":\"server-validation-failed\",\"errorData\":{\"globalError\":null,\"fieldErrors\":{";
-
-  @Autowired
-  private WebApplicationContext context;
 
   @Autowired
   private StorageAdapterMock storageAdapterMock;
@@ -105,7 +99,7 @@ public class FormControllerTest {
   @Test
   public void testValidPost() throws Exception {
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -133,7 +127,7 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithJavascript() throws Exception {
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -162,7 +156,7 @@ public class FormControllerTest {
 
     MockMultipartFile firstFile = new MockMultipartFile("FileUpload_FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .file(firstFile)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
@@ -212,7 +206,7 @@ public class FormControllerTest {
   public void testInValidPost() throws Exception {
 
     //Performing a post with only the TextField given will cause a validation error, because other mandatory fields are missing.
-    mvc.perform(fileUpload(TEST_URL).param("TextField_TextField", "12345"))
+    mvc.perform(multipart(TEST_URL).param("TextField_TextField", "12345"))
         .andExpect(status().is4xxClientError())
         .andExpect(content().string(org.hamcrest.Matchers.containsString(FAILURE_VALIDATION_RESPONSE)))
         .andDo(MockMvcResultHandlers.print());
@@ -221,7 +215,7 @@ public class FormControllerTest {
 
   @Test
   public void testPostWithDependentFieldNegative() throws Exception {
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -248,7 +242,7 @@ public class FormControllerTest {
 
   @Test
   public void testPostWithDependentFieldPositive() throws Exception {
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
