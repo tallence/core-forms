@@ -76,7 +76,7 @@ public interface FormElement<T> {
   /**
    * Checks, if the dependent field's value matches this field's visibility config.
    * @see AdvancedSettings#getDependentElementId()
-   * @param allElements the other fields, which might contain one dependant field
+   * @param allElements the other fields, which might contain a dependant field
    */
   boolean dependencyFulfilled(List<FormElement<?>> allElements);
 
