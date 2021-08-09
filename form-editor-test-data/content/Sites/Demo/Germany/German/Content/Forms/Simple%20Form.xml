@@ -1,208 +1,211 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<FormEditor folder="/Sites/Demo/Germany/German/Content/Forms" name="Simple Form" xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
-<externalRefId></externalRefId>
-<locale>de-DE</locale>
-<master/>
-<viewtype/>
-<linkedSettings/>
-<resourceBundles2/>
-<segment></segment>
-<title></title>
-<htmlTitle></htmlTitle>
-<keywords></keywords>
-<htmlDescription></htmlDescription>
-<subjectTaxonomy/>
-<locationTaxonomy/>
-<contexts/>
-<teaserTitle></teaserTitle>
-<pictures/>
-<related/>
-<authors/>
-<formAction>default</formAction>
-<adminMails></adminMails>
-<formData><Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
-<StructProperty Name="formElements">
-<Struct>
-<StructProperty Name="1806717297">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">SelectBox</StringProperty>
-<StringProperty Name="name">Anrede</StringProperty>
-<StringProperty Name="hint"/>
-<StructProperty Name="groupElements">
-<Struct>
-<StructProperty Name="Frau">
-<Struct>
-</Struct>
-</StructProperty>
-<StructProperty Name="Herr">
-<Struct>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">3</IntProperty>
-<BooleanProperty Name="breakAfterElement">true</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1852712857">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-<StringProperty Name="regexpValidator"/>
-<IntProperty Name="maxSize">40</IntProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Vorname</StringProperty>
-<StringProperty Name="hint"/>
-<StringProperty Name="placeholder"/>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">6</IntProperty>
-<BooleanProperty Name="breakAfterElement">false</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1010839178">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-<StringProperty Name="regexpValidator"/>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Nachname</StringProperty>
-<StringProperty Name="hint"/>
-<StringProperty Name="placeholder"/>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">6</IntProperty>
-<BooleanProperty Name="breakAfterElement">false</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="335122127">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">true</BooleanProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">UsersMail</StringProperty>
-<StringProperty Name="name">E-Mail Adresse</StringProperty>
-<StringProperty Name="hint"/>
-<StringProperty Name="placeholder"/>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">0</IntProperty>
-<BooleanProperty Name="breakAfterElement">false</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-<StringProperty Name="copyType">NEVER</StringProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1369909882">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">false</BooleanProperty>
-<IntProperty Name="maxSize">300</IntProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">FileUpload</StringProperty>
-<StringProperty Name="name">Profilbild</StringProperty>
-<StringProperty Name="hint"/>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">0</IntProperty>
-<BooleanProperty Name="breakAfterElement">false</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-<StructProperty Name="1940084314">
-<Struct>
-<StructProperty Name="validator">
-<Struct>
-<BooleanProperty Name="mandatory">false</BooleanProperty>
-<StringProperty Name="regexpValidator"/>
-<IntProperty Name="maxSize">600</IntProperty>
-</Struct>
-</StructProperty>
-<StringProperty Name="type">TextField</StringProperty>
-<StringProperty Name="name">Nachricht</StringProperty>
-<StringProperty Name="hint">Alles, was du schon immer erzählen wolltest</StringProperty>
-<StringProperty Name="placeholder"/>
-<StructProperty Name="advancedSettings">
-<Struct>
-<StructProperty Name="visibility">
-<Struct>
-<BooleanProperty Name="activated">false</BooleanProperty>
-<StringProperty Name="elementId"/>
-<StringProperty Name="value"/>
-</Struct>
-</StructProperty>
-<IntProperty Name="columnWidth">0</IntProperty>
-<BooleanProperty Name="breakAfterElement">false</BooleanProperty>
-<StringProperty Name="customId"/>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-</Struct>
-</StructProperty>
-</Struct></formData>
+<FormEditor folder="/Sites/Demo/Germany/German/Content/Forms" name="Simple Form"
+            xmlns:cmexport="http://www.coremedia.com/2012/cmexport">
+  <externalRefId></externalRefId>
+  <locale>de-DE</locale>
+  <master/>
+  <viewtype/>
+  <linkedSettings/>
+  <resourceBundles2/>
+  <segment></segment>
+  <title></title>
+  <htmlTitle></htmlTitle>
+  <keywords></keywords>
+  <htmlDescription></htmlDescription>
+  <subjectTaxonomy/>
+  <locationTaxonomy/>
+  <contexts/>
+  <teaserTitle></teaserTitle>
+  <pictures/>
+  <related/>
+  <authors/>
+  <formAction>default</formAction>
+  <adminMails></adminMails>
+  <formData>
+    <Struct xmlns="http://www.coremedia.com/2008/struct" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <StructProperty Name="formElements">
+        <Struct>
+          <StructProperty Name="1806717297">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">true</BooleanProperty>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">SelectBox</StringProperty>
+              <StringProperty Name="name">Anrede</StringProperty>
+              <StringProperty Name="hint"/>
+              <StructProperty Name="groupElements">
+                <Struct>
+                  <StructProperty Name="Frau">
+                    <Struct>
+                    </Struct>
+                  </StructProperty>
+                  <StructProperty Name="Herr">
+                    <Struct>
+                    </Struct>
+                  </StructProperty>
+                </Struct>
+              </StructProperty>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">3</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">true</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="1852712857">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">true</BooleanProperty>
+                  <StringProperty Name="regexpValidator"/>
+                  <IntProperty Name="maxSize">40</IntProperty>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">TextField</StringProperty>
+              <StringProperty Name="name">Vorname</StringProperty>
+              <StringProperty Name="hint"/>
+              <StringProperty Name="placeholder"/>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">6</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">false</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="1010839178">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">true</BooleanProperty>
+                  <StringProperty Name="regexpValidator"/>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">TextField</StringProperty>
+              <StringProperty Name="name">Nachname</StringProperty>
+              <StringProperty Name="hint"/>
+              <StringProperty Name="placeholder"/>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">6</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">false</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="335122127">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">true</BooleanProperty>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">UsersMail</StringProperty>
+              <StringProperty Name="name">E-Mail Adresse</StringProperty>
+              <StringProperty Name="hint"/>
+              <StringProperty Name="placeholder"/>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">0</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">false</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="copyType">NEVER</StringProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="1369909882">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">false</BooleanProperty>
+                  <IntProperty Name="maxSize">300</IntProperty>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">FileUpload</StringProperty>
+              <StringProperty Name="name">Profilbild</StringProperty>
+              <StringProperty Name="hint"/>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">0</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">false</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+          <StructProperty Name="1940084314">
+            <Struct>
+              <StructProperty Name="validator">
+                <Struct>
+                  <BooleanProperty Name="mandatory">false</BooleanProperty>
+                  <StringProperty Name="regexpValidator"/>
+                  <IntProperty Name="maxSize">600</IntProperty>
+                </Struct>
+              </StructProperty>
+              <StringProperty Name="type">TextField</StringProperty>
+              <StringProperty Name="name">Nachricht</StringProperty>
+              <StringProperty Name="hint">Alles, was du schon immer erzählen wolltest</StringProperty>
+              <StringProperty Name="placeholder"/>
+              <StructProperty Name="advancedSettings">
+                <Struct>
+                  <StructProperty Name="visibility">
+                    <Struct>
+                      <BooleanProperty Name="activated">false</BooleanProperty>
+                      <StringProperty Name="elementId"/>
+                      <StringProperty Name="value"/>
+                    </Struct>
+                  </StructProperty>
+                  <IntProperty Name="columnWidth">0</IntProperty>
+                  <BooleanProperty Name="breakAfterElement">false</BooleanProperty>
+                  <StringProperty Name="customId"/>
+                </Struct>
+              </StructProperty>
+            </Struct>
+          </StructProperty>
+        </Struct>
+      </StructProperty>
+    </Struct>
+  </formData>
 </FormEditor>
