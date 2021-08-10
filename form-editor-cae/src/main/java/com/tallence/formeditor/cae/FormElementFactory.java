@@ -35,18 +35,18 @@ public class FormElementFactory {
 
   public static final String FORM_DATA_KEY_TYPE = "type";
 
-  private final Map<String, AbstractFormElementParser<? extends FormElement>> typeToParser = new HashMap<>();
+  private final Map<String, AbstractFormElementParser<? extends FormElement<?>>> typeToParser = new HashMap<>();
 
-  public FormElementFactory(List<AbstractFormElementParser<? extends FormElement>> parsers) {
+  public FormElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
     parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
-  <T extends FormElement> T createFormElement(Struct elementData, String id) {
+  <T extends FormElement<?>> T createFormElement(Struct elementData, String id) {
     return parseType(elementData, id);
   }
 
 
-  private <T extends FormElement> T parseType(Struct elementData, String id) {
+  private <T extends FormElement<?>> T parseType(Struct elementData, String id) {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
 
     @SuppressWarnings("unchecked")

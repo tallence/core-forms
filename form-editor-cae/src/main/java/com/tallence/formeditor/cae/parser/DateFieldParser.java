@@ -28,8 +28,8 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 
-import static com.coremedia.cap.util.StructUtil.getBoolean;
-import static com.coremedia.cap.util.StructUtil.getSubstruct;
+import static com.coremedia.cap.util.CapStructUtil.getBoolean;
+import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
 import static java.util.Optional.ofNullable;
 
 /**

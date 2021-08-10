@@ -17,11 +17,12 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.tallence.formeditor.cae.parser.CheckBoxesParser;
 import org.springframework.stereotype.Component;
 
+import static com.coremedia.cap.util.CapStructUtil.*;
 import static com.tallence.formeditor.cae.elements.ComplexValue.CHECKED_BY_DEFAULT;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
 
@@ -39,22 +40,22 @@ public class CheckBoxesRestrictionsValidator extends AbstractFormValidator imple
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
 
-    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+    Struct validator = getSubstruct(fieldData, FORM_DATA_VALIDATOR);
     if (validator == null) {
       return;
     }
 
-    Integer maxSelection = StructUtil.getInteger(validator, FORM_VALIDATOR_MAXSIZE);
-    Integer minSelection = StructUtil.getInteger(validator, FORM_VALIDATOR_MINSIZE);
+    Integer maxSelection = getInteger(validator, FORM_VALIDATOR_MAXSIZE);
+    Integer minSelection = getInteger(validator, FORM_VALIDATOR_MINSIZE);
 
-    Struct options = StructUtil.getSubstruct(fieldData, FORM_GROUP_ELEMENTS_PROPERTY_NAME);
+    Struct options = getSubstruct(fieldData, FORM_GROUP_ELEMENTS_PROPERTY_NAME);
 
     int allOptions = options == null ? 0 : options.getProperties().size();
     long selectedOptions = options == null ? 0 : options.getProperties().values()
             .stream()
             .filter(Struct.class::isInstance)
             .map(Struct.class::cast)
-            .filter(s -> StructUtil.getBoolean(s, CHECKED_BY_DEFAULT))
+            .filter(s -> getBoolean(s, CHECKED_BY_DEFAULT))
             .count();
 
     if (minSelection != null) {

@@ -17,7 +17,7 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.tallence.formeditor.cae.parser.TextFieldParser;
 import org.springframework.stereotype.Component;
@@ -26,6 +26,8 @@ import org.springframework.util.StringUtils;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import static com.coremedia.cap.util.CapStructUtil.getString;
+import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
 import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
 
 /**
@@ -43,7 +45,7 @@ public class TextFieldValidator extends AbstractFormValidator implements FieldVa
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+    Struct validator = getSubstruct(fieldData, FORM_DATA_VALIDATOR);
     if (validator != null) {
       validateFieldValidators(validator, issues, id, (String) fieldData.get(FORM_DATA_NAME));
     }
@@ -53,7 +55,7 @@ public class TextFieldValidator extends AbstractFormValidator implements FieldVa
     validateMaxAndMinSize(validator, issues, formElementId, name);
 
     // Regex
-    String regex = StructUtil.getString(validator, FORM_VALIDATOR_REGEXP);
+    String regex = getString(validator, FORM_VALIDATOR_REGEXP);
     if (StringUtils.hasLength(regex)) {
       validateRegex(regex, issues, formElementId);
     }

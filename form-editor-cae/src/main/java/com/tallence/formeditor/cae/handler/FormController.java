@@ -54,7 +54,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -104,6 +103,7 @@ public class FormController  {
     this.encodeFormData = encodeFormData;
   }
 
+  @SuppressWarnings("unused")
   @Link(type = FormEditor.class, view = FORM_EDITOR_SUBMIT_VIEW, uri = FORM_EDITOR_SUBMIT_URL)
   public UriComponents buildLinkForFormSubmit(FormEditor form, UriComponentsBuilder uriComponentsBuilder) {
     return uriComponentsBuilder.buildAndExpand(currentContextService.getContext().getContentId(), form.getContentId());
@@ -130,7 +130,7 @@ public class FormController  {
     pageResourceBundlesInterceptor.postHandle(request, response, null, modelAndView);
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
 
-    List<FormElement> formElements = formFreemarkerFacade.parseFormElements(target);
+    List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(target);
     if (formElements.isEmpty()) {
       return new FormProcessingResult(
               false,
@@ -144,7 +144,7 @@ public class FormController  {
     List<MultipartFile> files = parseFileFormData(target, request, formElements);
 
     //Remove elements with unfulfilled dependencies, e.g. dependencies on other elements.
-    for (Iterator<FormElement> iterator = formElements.iterator(); iterator.hasNext(); ) {
+    for (Iterator<FormElement<?>> iterator = formElements.iterator(); iterator.hasNext(); ) {
       if (!iterator.next().dependencyFulfilled(formElements)) {
         iterator.remove();
       }
@@ -203,13 +203,13 @@ public class FormController  {
 
 
   private void parseInputFormData(MultiValueMap<String, String> postData, HttpServletRequest request,
-                                  List<FormElement> formElements) {
+                                  List<FormElement<?>> formElements) {
     formElements.stream().filter(f -> !(f instanceof FileUpload))
         .forEach(f -> f.setValue(postData, request));
   }
 
 
-  private List<MultipartFile> parseFileFormData(FormEditor target, HttpServletRequest request, List<FormElement> formElements) {
+  private List<MultipartFile> parseFileFormData(FormEditor target, HttpServletRequest request, List<FormElement<?>> formElements) {
 
     List<FileUpload> fileFields = formElements.stream()
             .filter(FileUpload.class::isInstance)
@@ -267,7 +267,7 @@ public class FormController  {
     }
   }
 
-  private Map<String, List<String>> validateFields(List<FormElement> formElements, Navigation page) {
+  private Map<String, List<String>> validateFields(List<FormElement<?>> formElements, Navigation page) {
     Map<String, List<String>> validationResults = new HashMap<>();
     formElements.forEach(f -> {
       List<ValidationFieldError> validationResult = f.getValidationResult();

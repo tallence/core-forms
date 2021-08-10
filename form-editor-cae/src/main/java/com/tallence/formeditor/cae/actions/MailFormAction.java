@@ -50,8 +50,8 @@ public class MailFormAction extends AbstractFormAction {
 
 
   @Override
-  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements, HttpServletRequest request,
-                                                              HttpServletResponse response) throws IOException {
+  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements, HttpServletRequest request,
+                                                              HttpServletResponse response) {
 
     if (!files.isEmpty()) {
       throw new IllegalStateException("A MailAction is not responsible for forms with file upload fields. " +
@@ -68,7 +68,7 @@ public class MailFormAction extends AbstractFormAction {
     return new FormProcessingResult(true, errorSendingUserMail ? USER_MAIL : null);
   }
 
-  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement> formElements) {
+  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement<?>> formElements) {
 
     try {
       for (String address : target.getAdminEmails()) {

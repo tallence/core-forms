@@ -17,12 +17,14 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.tallence.formeditor.cae.parser.TextAreaParser;
 import org.springframework.stereotype.Component;
 
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
 
 /**
  * Validates, that sizeLimits in a textArea make sense.
@@ -37,7 +39,7 @@ public class TextAreaValidator extends AbstractFormValidator implements FieldVal
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+    Struct validator = getSubstruct(fieldData, FORM_DATA_VALIDATOR);
     if (validator != null) {
       validateMaxAndMinSize(validator, issues, id, (String) fieldData.get(FORM_DATA_NAME));
     }

@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.coremedia.cap.util.StructUtil.*;
+import static com.coremedia.cap.util.CapStructUtil.*;
 import static java.util.Optional.ofNullable;
 
 /**
@@ -37,7 +37,7 @@ import static java.util.Optional.ofNullable;
  * {@link #getParserKey()} or {@link #getParserKeys()}
  * {@link #parseSpecialFields(FormElement, Struct)}
  */
-public abstract class AbstractFormElementParser<T extends FormElement> {
+public abstract class AbstractFormElementParser<T extends FormElement<?>> {
 
   public static final String FORM_DATA_VALIDATOR = "validator";
   public static final String FORM_DATA_VALIDATOR_MESSAGES = "errorMessages";

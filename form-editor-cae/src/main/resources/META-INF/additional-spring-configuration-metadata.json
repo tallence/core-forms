@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "name": "formEditor.cae.encodeData",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.tallence.formeditor.cae.handler.FormController",
+      "defaultValue": true,
+      "description": "False, to disable encoding of the inputData. This might be required, if you need the input data lengths to never exceed the validator lengths. Which might be required by some storage adapters, e.g. SAP. Make sure, that the input data is escaped afterwards to prevent attacks like JS injection."
+    }
+  ]
+}

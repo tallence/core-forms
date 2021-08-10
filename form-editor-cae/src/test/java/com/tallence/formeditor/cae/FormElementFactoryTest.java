@@ -26,7 +26,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -36,6 +35,7 @@ import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSE
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.*;
 
@@ -55,12 +55,8 @@ public class FormElementFactoryTest {
   private ContentTestHelper contentTestHelper;
 
 
-  private  <T> T getContentBean(int id) {
-    return contentTestHelper.getContentBean(id);
-  }
-
-  private <T extends FormElement> T getTestFormElement(String id) {
-    FormEditor article = getContentBean(2);
+  private <T extends FormElement<?>> T getTestFormElement(String id) {
+    FormEditor article = contentTestHelper.getContentBean(2);
     return this.factory.createFormElement(article.getFormElements().getStruct(id), id);
   }
 

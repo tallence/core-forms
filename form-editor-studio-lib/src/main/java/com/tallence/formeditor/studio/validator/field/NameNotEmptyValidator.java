@@ -17,11 +17,12 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
+import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import static com.coremedia.cap.util.CapStructUtil.getString;
 import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static com.tallence.formeditor.cae.parser.TextFieldParser.FORM_DATA_NAME;
 
@@ -41,7 +42,7 @@ public class NameNotEmptyValidator extends AbstractFormValidator implements Fiel
 
   @Override
   public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    if (!StringUtils.hasText(StructUtil.getString(fieldData, FORM_DATA_NAME))) {
+    if (!StringUtils.hasText(getString(fieldData, FORM_DATA_NAME))) {
       addErrorIssue(issues, id, FORM_DATA_NAME, "formField_missing_name", fieldData.get(FORM_DATA_KEY_TYPE));
     }
   }
