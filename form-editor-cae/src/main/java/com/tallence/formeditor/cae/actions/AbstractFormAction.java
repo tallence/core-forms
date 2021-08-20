@@ -16,10 +16,10 @@
 
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FileUpload;
-import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.elements.TextOnly;
-import com.tallence.formeditor.cae.elements.UsersMail;
+import com.tallence.formeditor.elements.FileUpload;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.elements.TextOnly;
+import com.tallence.formeditor.elements.UsersMail;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,9 +54,11 @@ public abstract class AbstractFormAction implements FormAction {
 
     // filter for UserMail-fields with sendCopy activated.
     Optional<String> userMailOptional = formElements.stream()
-        .filter((element) -> (element instanceof UsersMail))
-        .filter((element) -> ((UsersMail) element).getValue().isSendCopy())
-        .map((element) -> ((UsersMail) element).getValue().getUsersMail())
+            .filter(element -> (element instanceof UsersMail))
+            .map(element -> ((UsersMail) element).getValue())
+            .filter(Objects::nonNull)
+            .filter(UsersMail.UsersMailData::isSendCopy)
+            .map(UsersMail.UsersMailData::getUsersMail)
         .findFirst();
 
     if (userMailOptional.isPresent()) {

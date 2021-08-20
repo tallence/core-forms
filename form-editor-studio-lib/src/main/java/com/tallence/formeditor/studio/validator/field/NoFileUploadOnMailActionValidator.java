@@ -18,11 +18,11 @@ package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.FileUploadParser;
+import com.tallence.formeditor.parser.FileUploadParser;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.stereotype.Component;
 
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
 
 /**
  * Validates, that forms where the mail action is selected have no file upload field.

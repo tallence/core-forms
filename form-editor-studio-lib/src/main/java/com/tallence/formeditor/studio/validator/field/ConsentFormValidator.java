@@ -23,10 +23,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import static com.coremedia.cap.util.CapStructUtil.getString;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_HINT;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
-import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
-import static com.tallence.formeditor.cae.parser.ConsentFormCheckBoxParser.FORM_LINK_TARGET;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_HINT;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
+import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.FORM_LINK_TARGET;
 
 /**
  * Validates, that ConsentFormCheckBoxes have a text and a link.

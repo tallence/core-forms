@@ -17,15 +17,14 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
 import static com.coremedia.cap.util.CapStructUtil.getInteger;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
 import static com.tallence.formeditor.contentbeans.FormEditor.FORM_DATA;
 
 abstract class AbstractFormValidator {

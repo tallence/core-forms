@@ -19,11 +19,11 @@ package com.tallence.formeditor.cae.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.tallence.formeditor.cae.elements.AbstractFormElement;
-import com.tallence.formeditor.cae.elements.AdvancedSettings;
-import com.tallence.formeditor.cae.elements.ComplexValue;
-import com.tallence.formeditor.cae.elements.FieldWithOptions;
-import com.tallence.formeditor.cae.validator.Validator;
+import com.tallence.formeditor.elements.AbstractFormElement;
+import com.tallence.formeditor.elements.AdvancedSettings;
+import com.tallence.formeditor.elements.ComplexValue;
+import com.tallence.formeditor.elements.FieldWithOptions;
+import com.tallence.formeditor.validator.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +36,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.*;
 
 /**

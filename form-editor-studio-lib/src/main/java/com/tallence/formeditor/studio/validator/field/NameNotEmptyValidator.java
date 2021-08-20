@@ -17,14 +17,13 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import static com.coremedia.cap.util.CapStructUtil.getString;
-import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.TextFieldParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
+import static com.tallence.formeditor.parser.TextFieldParser.FORM_DATA_NAME;
 
 /**
  * Validates, that all form elements have a name.

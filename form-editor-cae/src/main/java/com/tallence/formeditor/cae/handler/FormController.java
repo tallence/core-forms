@@ -26,13 +26,13 @@ import com.coremedia.objectserver.web.links.Link;
 import com.tallence.formeditor.cae.FormFreemarkerFacade;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
-import com.tallence.formeditor.cae.elements.FileUpload;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FileUpload;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.cae.model.FormSuccessResult;
 import com.tallence.formeditor.cae.model.FormValidationResult;
 import com.tallence.formeditor.cae.serializer.ValidationSerializationHelper;
-import com.tallence.formeditor.cae.validator.ValidationFieldError;
+import com.tallence.formeditor.validator.ValidationFieldError;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,6 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -60,6 +59,7 @@ import java.util.stream.Collectors;
 import static com.coremedia.objectserver.web.HandlerHelper.MODEL_ROOT;
 import static com.tallence.formeditor.cae.handler.FormErrors.RECAPTCHA;
 import static com.tallence.formeditor.cae.handler.FormErrors.SERVER_VALIDATION;
+import static java.util.Optional.ofNullable;
 
 /**
  * Handler for Form-Requests for {@link FormEditor}s.
@@ -187,18 +187,12 @@ public class FormController  {
     }
 
     //Default for an empty actionKey: the DefaultAction
-    String actionKey = target.getFormAction();
-    if (!StringUtils.hasText(actionKey)) {
-      return prepareSubmitResult(defaultFormAction.handleFormSubmit(target, files, formElements, request, response), navigation);
-    }
+    String actionKey = ofNullable(target.getFormAction()).orElse("n.A.");
 
-    Optional<FormAction> optional = formActions.stream().filter((action) -> action.isResponsible(actionKey)).findFirst();
-    if (optional.isPresent()) {
-      return prepareSubmitResult(optional.get().handleFormSubmit(target, files, formElements, request, response), navigation);
-    } else {
-      LOG.error("Cannot find a formAction for configured key [{}] for Form [{}]", actionKey, target.getContentId());
-      throw new IllegalStateException("No action configured for form " + target.getContentId() + " with form type " + target.getFormAction());
-    }
+    FormAction action = formActions.stream()
+            .filter(formAction -> formAction.isResponsible(actionKey))
+            .findFirst().orElse(defaultFormAction);
+    return prepareSubmitResult(action.handleFormSubmit(target, files, formElements, request, response), navigation);
   }
 
 

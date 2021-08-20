@@ -17,11 +17,10 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.CheckBoxesParser;
-import com.tallence.formeditor.cae.parser.RadioButtonParser;
-import com.tallence.formeditor.cae.parser.SelectBoxParser;
+import com.tallence.formeditor.parser.CheckBoxesParser;
+import com.tallence.formeditor.parser.RadioButtonParser;
+import com.tallence.formeditor.parser.SelectBoxParser;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -29,9 +28,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
-import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_GROUP_ELEMENTS_PROPERTY_NAME;
+import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_GROUP_ELEMENTS_PROPERTY_NAME;
 
 /**
  * Validates, that CheckBoxes, DropDowns and RadioButtons have at least one groupElement.

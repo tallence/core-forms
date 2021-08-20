@@ -16,7 +16,7 @@
 
 package com.tallence.formeditor.cae.model;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 
 import java.util.List;
 

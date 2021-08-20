@@ -17,9 +17,8 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.TextFieldParser;
+import com.tallence.formeditor.parser.TextFieldParser;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -28,7 +27,7 @@ import java.util.regex.PatternSyntaxException;
 
 import static com.coremedia.cap.util.CapStructUtil.getString;
 import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 
 /**
  * Validates, that regular expressions in a text field are parseable and size limits make sense.

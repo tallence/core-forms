@@ -16,7 +16,7 @@
 package com.tallence.formeditor.cae.mocks;
 
 import com.tallence.formeditor.cae.actions.FormEditorStorageAdapter;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

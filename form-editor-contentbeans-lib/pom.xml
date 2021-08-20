@@ -23,6 +23,11 @@
       <artifactId>form-editor-contentbeans-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-shared</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- CoreMedia -->
     <dependency>

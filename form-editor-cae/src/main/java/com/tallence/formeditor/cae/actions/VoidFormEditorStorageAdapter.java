@@ -1,6 +1,6 @@
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

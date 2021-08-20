@@ -17,10 +17,14 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.FormConstants;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static com.tallence.formeditor.FormConstants.FORM_DATA;
+import static com.tallence.formeditor.FormConstants.FORM_ELEMENTS;
 
 /**
  * Generated extension class for immutable beans of document type "JHContactForm".

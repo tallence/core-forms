@@ -17,14 +17,13 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.CheckBoxesParser;
+import com.tallence.formeditor.parser.CheckBoxesParser;
 import org.springframework.stereotype.Component;
 
 import static com.coremedia.cap.util.CapStructUtil.*;
-import static com.tallence.formeditor.cae.elements.ComplexValue.CHECKED_BY_DEFAULT;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.tallence.formeditor.elements.ComplexValue.CHECKED_BY_DEFAULT;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 
 /**
  * Validates the minSize/maxSize properties for CheckBoxGroups

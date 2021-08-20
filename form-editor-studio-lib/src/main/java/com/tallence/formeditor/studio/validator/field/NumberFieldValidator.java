@@ -17,14 +17,13 @@
 package com.tallence.formeditor.studio.validator.field;
 
 import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.NumberFieldParser;
+import com.tallence.formeditor.parser.NumberFieldParser;
 import org.springframework.stereotype.Component;
 
 import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
 
 /**
  * Validates, that sizeLimits in a numberField make sense.
