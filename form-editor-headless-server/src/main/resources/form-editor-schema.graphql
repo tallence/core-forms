@@ -1,0 +1,206 @@
+interface FormEditor  @inherit(from: ["CMTeasable"]) {
+  formElements: [FormElement]
+  adminEmails: [String]
+  formAction: String
+  spamProtectionEnabled: Boolean
+}
+
+type FormEditorImpl implements FormEditor @inherit(from: ["CMTeasableImpl"]) {
+  formElements: [FormElement] @fetch(from: "@formEditorAdapter.to(#root).formElements()")
+  adminEmails: [String] @fetch(from: "@formEditorAdapter.to(#root).adminEmails()")
+  formAction: String
+  spamProtectionEnabled: Boolean
+}
+
+interface FormElement{
+  id: String
+  name: String
+  hint: String
+  placeholder: String
+  technicalName: String
+  advancedSettings: AdvancedSettings
+  type: String
+  validator: Validator
+}
+
+type AbstractFormElement implements FormElement{
+  id: String
+  name: String
+  hint: String
+  placeholder: String
+  technicalName: String
+  advancedSettings: AdvancedSettings
+  type: String
+  validator: Validator
+}
+
+interface TextField @inherit(from: ["FormElement"]) {
+}
+
+type TextFieldImpl implements TextField @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface SelectBox @inherit(from: ["FormElement"]) {
+  options: [ComplexValue]
+}
+
+type SelectBoxImpl implements SelectBox @inherit(from: ["AbstractFormElement"]) {
+  options: [ComplexValue]
+}
+
+interface CheckBoxesGroup @inherit(from: ["FormElement"]) {
+  checkBoxes: [ComplexValue]
+}
+
+type CheckBoxesGroupImpl implements CheckBoxesGroup @inherit(from: ["AbstractFormElement"]) {
+  checkBoxes: [ComplexValue]
+}
+
+interface ConsentFormCheckBox @inherit(from: ["FormElement"]) {
+  linkTarget: CMTeasable
+}
+
+type ConsentFormCheckBoxImpl implements ConsentFormCheckBox @inherit(from: ["AbstractFormElement"]) {
+  linkTarget: CMTeasable
+}
+
+interface DateField @inherit(from: ["FormElement"]) {
+  linkTarget: CMTeasable
+}
+
+type DateFieldImpl implements DateField @inherit(from: ["AbstractFormElement"]) {
+  linkTarget: CMTeasable
+}
+
+interface FileUpload @inherit(from: ["FormElement"]) {
+}
+
+type FileUploadImpl implements FileUpload @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface FaxField @inherit(from: ["FormElement"]) {
+}
+
+type FaxFieldImpl implements FaxField @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface NumberField @inherit(from: ["FormElement"]) {
+}
+
+type NumberFieldImpl implements NumberField @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface PhoneField @inherit(from: ["FormElement"]) {
+}
+
+type PhoneFieldImpl implements PhoneField @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface RadioButtonGroup @inherit(from: ["FormElement"]) {
+  radioButtons: [ComplexValue]
+}
+
+type RadioButtonGroupImpl implements RadioButtonGroup @inherit(from: ["AbstractFormElement"]) {
+  radioButtons: [ComplexValue]
+}
+
+interface StreetNumberField @inherit(from: ["FormElement"]) {
+}
+
+type StreetNumberFieldImpl implements StreetNumberField @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface TextArea @inherit(from: ["FormElement"]) {
+  columns: Int
+  rows: Int
+}
+
+type TextAreaImpl implements TextArea @inherit(from: ["AbstractFormElement"]) {
+  columns: Int
+  rows: Int
+}
+
+interface TextOnly @inherit(from: ["FormElement"]) {
+}
+
+type TextOnlyImpl implements TextOnly @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface UsersMail @inherit(from: ["FormElement"]) {
+}
+
+type UsersMailImpl implements UsersMail @inherit(from: ["AbstractFormElement"]) {
+}
+
+interface ZipField @inherit(from: ["FormElement"]) {
+}
+
+type ZipFieldImpl implements ZipField @inherit(from: ["AbstractFormElement"]) {
+}
+
+type ComplexValue {
+  displayName: String
+  value: String
+  selectedByDefault: Boolean
+}
+
+type AdvancedSettings {
+  customId: String
+  columnWidth: Int
+  breakAfterElement: Boolean
+  visibilityDependent: Boolean
+  dependentElementId: String
+  dependentElementValue: String
+}
+
+interface Validator {
+  mandatory: Boolean
+}
+
+interface SizeValidator {
+  minSize: Int
+  maxSize: Int
+}
+
+type NumberValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+}
+
+type UsersMailValidator implements Validator {
+  mandatory: Boolean
+}
+type TextValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+  regexp: String
+}
+type TextOnlyValidator implements Validator {
+  mandatory: Boolean
+}
+type SelectBoxValidator implements Validator {
+  mandatory: Boolean
+}
+type RadioButtonGroupValidator implements Validator {
+  mandatory: Boolean
+}
+type FileUploadValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+}
+type DateFieldValidator implements Validator {
+  mandatory: Boolean
+  minDate: String
+  maxDate: String
+}
+type ConsentFormCheckboxValidator implements Validator {
+  mandatory: Boolean
+}
+type CheckBoxesGroupValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
+}
