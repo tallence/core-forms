@@ -26,6 +26,9 @@ The extension runs with CoreMedia 10 (v2107.1). The extension also runs with:
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (a Vue.js-App wrapped in a CoreMedia-Frontend-Workspace-Theme) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
+**Headless-Server**
+The integration of the FormEditor in the Headless-Server ist still WIP. If you need it now, consider switching to the branch "headless-preparations".
+
 ## Integrate the Code in your CoreMedia Blueprint Workspace
 You can integrate the extension in three ways:
 
