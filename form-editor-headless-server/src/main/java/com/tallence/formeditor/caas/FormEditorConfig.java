@@ -4,10 +4,10 @@ import com.coremedia.caas.wiring.ProvidesTypeNameResolver;
 import com.coremedia.caas.wiring.TypeNameResolver;
 import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
+import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.caas.adapter.FormEditorAdapterFactory;
-import com.tallence.formeditor.cae.FormElementFactory;
-import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.validator.Validator;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.validator.Validator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -17,6 +17,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * TODO this is still WIP! Do not use yet
+ */
 @Configuration(proxyBeanMethods = false)
 @Import(value = {MultiSiteConfiguration.class,})
 public class FormEditorConfig {
@@ -44,6 +47,9 @@ public class FormEditorConfig {
 
   @Bean
   public ProvidesTypeNameResolver providesFormBeanTypeNameResolver(FormElementFactory formElementFactory) {
+    return name -> Optional.of(true);
+    /*
+    TODO return a proper ProvidesTypeNameResolver
     return Name ->
             formElementFactory.getTypes().contains(Name)
                     || "FormElement".equals(Name)
@@ -51,6 +57,7 @@ public class FormEditorConfig {
                     || "CheckBoxesGroup".equals(Name) //The parsers key is different to the forms name
                     ? Optional.of(true)
                     : Optional.empty();
+    */
   }
 
   @Bean
@@ -62,7 +69,7 @@ public class FormEditorConfig {
   }
 
   @Bean
-  public TypeNameResolver<FormElement> formElementTypeNameResolver() {
+  public TypeNameResolver<FormElement<?>> formElementTypeNameResolver() {
     return element -> {
       String simpleClassName = element.getClass().getSimpleName();
       return Optional.of(simpleClassName + "Impl");
@@ -70,7 +77,7 @@ public class FormEditorConfig {
   }
 
   @Bean
-  public TypeNameResolver<Validator> validatorTypeNameResolver() {
+  public TypeNameResolver<Validator<?>> validatorTypeNameResolver() {
     return element -> {
       String simpleClassName = element.getClass().getSimpleName();
       return Optional.of(simpleClassName);

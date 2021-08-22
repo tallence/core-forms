@@ -72,21 +72,12 @@ public interface FormEditor extends CMTeasable {
   @Nullable
   Struct getFormElements();
 
-
-
-  String ADMIN_MAILS = "adminMails";
-
   /**
-   * Resolves the admin mails {@link #ADMIN_MAILS}.
+   * Resolves the admin mails.
    */
   List<String> getAdminEmails();
 
-  String FORM_ACTION = "formAction";
-
   String getFormAction();
-
-
-  String FORM_SPAM_PROTECTION = "spamProtectionEnabled";
 
   Boolean isSpamProtectionEnabled();
 

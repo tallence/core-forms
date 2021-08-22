@@ -21,7 +21,7 @@ import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.cap.validation.ContentTypeValidatorBase;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.cae.FormEditorHelper;
+import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;

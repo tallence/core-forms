@@ -19,6 +19,7 @@ package com.tallence.formeditor;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.parser.AbstractFormElementParser;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class FormElementFactory {
     parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
-  public <T extends FormElement<?>> T createFormElement(Struct elementData, String id) {
+  public <T extends FormElement<?>> T createFormElement(@NonNull Struct elementData, String id) {
     return parseType(elementData, id);
   }
 

@@ -2,7 +2,7 @@ package com.tallence.formeditor.caas.adapter;
 
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.multisite.SitesService;
-import com.tallence.formeditor.cae.FormElementFactory;
+import com.tallence.formeditor.FormElementFactory;
 
 public class FormEditorAdapterFactory {
   private final FormElementFactory formElementFactory;

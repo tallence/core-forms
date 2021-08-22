@@ -34,10 +34,6 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.coremedia.blueprint.base</groupId>
-      <artifactId>bpbase-settings-api</artifactId>
-    </dependency>
 
 
     <!-- Tests -->

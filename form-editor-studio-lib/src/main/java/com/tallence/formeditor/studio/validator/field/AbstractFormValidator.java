@@ -19,13 +19,11 @@ package com.tallence.formeditor.studio.validator.field;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.FormEditorHelper;
 
 import static com.coremedia.cap.util.CapStructUtil.getInteger;
-import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
-import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
-import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
-import static com.tallence.formeditor.contentbeans.FormEditor.FORM_DATA;
+import static com.tallence.formeditor.FormEditorHelper.FORM_DATA;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 
 abstract class AbstractFormValidator {
 
@@ -37,7 +35,7 @@ abstract class AbstractFormValidator {
   }
 
   protected void addIssue(Issues issues, String formElementId, String propertyName, String errorCode, Severity severity, Object... objects) {
-    String property = FORM_DATA + "." + FormEditor.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
+    String property = FORM_DATA + "." + FormEditorHelper.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
     issues.addIssue(Severity.ERROR, property, errorCode, objects);
   }
 

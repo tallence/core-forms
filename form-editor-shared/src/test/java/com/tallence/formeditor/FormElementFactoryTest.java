@@ -15,7 +15,6 @@
  */
 package com.tallence.formeditor;
 
-import com.coremedia.cap.common.CapStructHelper;
 import com.coremedia.cap.common.IdHelper;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.content.ContentRepository;
@@ -41,8 +40,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static com.tallence.formeditor.FormConstants.FORM_DATA;
-import static com.tallence.formeditor.FormConstants.FORM_ELEMENTS;
+import static com.coremedia.cap.common.CapStructHelper.getStruct;
 import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -93,8 +91,9 @@ public class FormElementFactoryTest {
   @Nullable
   private <T extends FormElement<?>> T getTestFormElement(String id) {
     Content form = contentRepository.getContent(IdHelper.formatContentId(2));
-    var formElements = form.getStruct(FORM_DATA).getStruct(FORM_ELEMENTS);
-    var element = CapStructHelper.getStruct(formElements, id);
+    var element = FormEditorHelper.getFormElements(form)
+            .map(formElements -> getStruct(formElements, id))
+            .orElse(null);
     if (element == null) {
       return null;
     }

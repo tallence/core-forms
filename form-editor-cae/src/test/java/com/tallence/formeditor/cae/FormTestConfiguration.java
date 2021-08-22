@@ -29,6 +29,7 @@ import com.coremedia.objectserver.configuration.CaeConfigurationProperties;
 import com.coremedia.objectserver.web.config.CaeHandlerServicesConfiguration;
 import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
+import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
@@ -73,6 +74,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
         CaeHandlerServicesConfiguration.class,
         ContentTestConfiguration.class,
         WebMvcAutoConfiguration.class,
+        FormEditorConfiguration.class
 })
 public class FormTestConfiguration {
 

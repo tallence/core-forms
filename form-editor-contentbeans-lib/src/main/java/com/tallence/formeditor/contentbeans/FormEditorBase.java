@@ -17,6 +17,7 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.blueprint.cae.contentbeans.CMTeasableImpl;
+import com.tallence.formeditor.FormEditorHelper;
 
 import java.util.Collection;
 import java.util.Locale;
@@ -46,12 +47,12 @@ public abstract class FormEditorBase extends CMTeasableImpl implements FormEdito
 
   @Override
   public String getFormAction() {
-    return getContent().getString(FORM_ACTION);
+    return getContent().getString(FormEditorHelper.FORM_ACTION);
   }
 
 
   @Override
   public Boolean isSpamProtectionEnabled() {
-    return getContent().getBoolean(FORM_SPAM_PROTECTION);
+    return getContent().getBoolean(FormEditorHelper.FORM_SPAM_PROTECTION);
   }
 }
