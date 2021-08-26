@@ -15,13 +15,16 @@
  */
 package com.tallence.formeditor.elements;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
+
 import java.util.List;
 
 /**
  * Interface for fields with options to chose. e.g. {@link CheckBoxesGroup}
  *
  */
-public interface FieldWithOptions {
+public interface FieldWithOptions<T> extends FormElement<T> {
 
+  @NonNull
   List<ComplexValue> getOptions();
 }

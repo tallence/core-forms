@@ -17,13 +17,17 @@
 package com.tallence.formeditor.elements;
 
 import com.tallence.formeditor.validator.SelectBoxValidator;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * Model bean for a configured SelectBox.
  */
-public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> implements FieldWithOptions {
+public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> implements FieldWithOptions<String> {
 
   public SelectBox() {
     super(String.class);
@@ -32,8 +36,9 @@ public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> i
   private List<ComplexValue> options;
 
   @Override
+  @NonNull
   public List<ComplexValue> getOptions() {
-    return this.options;
+    return ofNullable(this.options).orElse(Collections.emptyList());
   }
 
   public void setOptions(List<ComplexValue> options) {

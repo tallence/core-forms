@@ -84,7 +84,7 @@ public class FormElementSerializerBase<T extends AbstractFormElement<?, ?>> exte
   protected void serializeOptionFields(T field, JsonGenerator gen) throws IOException {
     if (field instanceof FieldWithOptions) {
       gen.writeArrayFieldStart(FORM_SERIALIZER_FIELDS_OPTIONS);
-      for (ComplexValue option : ((FieldWithOptions) field).getOptions()) {
+      for (ComplexValue option : ((FieldWithOptions<?>) field).getOptions()) {
         gen.writeStartObject();
         gen.writeStringField(FORM_SERIALIZER_FIELDS_NAME, option.getDisplayName());
         gen.writeStringField(FORM_SERIALIZER_FIELDS_ID, option.getValue());

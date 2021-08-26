@@ -16,41 +16,37 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.CapStructUtil;
 import com.coremedia.rest.validation.Issues;
+import com.tallence.formeditor.elements.ConsentFormCheckBox;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import static com.coremedia.cap.util.CapStructUtil.getString;
 import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_HINT;
-import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
-import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
 import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.FORM_LINK_TARGET;
 
 /**
  * Validates, that ConsentFormCheckBoxes have a text and a link.
  */
 @Component
-public class ConsentFormValidator extends AbstractFormValidator implements FieldValidator {
-  @Override
-  public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return CONSENT_FORM_CHECK_BOX_TYPE.equals(fieldType);
+public class ConsentFormValidator extends AbstractFormValidator<ConsentFormCheckBox> {
+
+  public ConsentFormValidator() {
+    super(ConsentFormCheckBox.class);
   }
 
   @Override
-  public void validateField(String id, Struct fieldData, String action, Issues issues) {
+  void validateField(ConsentFormCheckBox formElement, String action, Issues issues) {
 
-    String name = getString(fieldData, FORM_DATA_NAME);
-    if (CapStructUtil.getLinks(fieldData, FORM_LINK_TARGET).isEmpty()) {
-      addErrorIssue(issues, id, FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
+    String name = formElement.getName();
+    if (formElement.getLinkTarget() == null) {
+      addErrorIssue(issues, formElement.getId(), FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
     }
 
-    String hint = getString(fieldData, FORM_DATA_HINT);
+    String hint = formElement.getHint();
     if (StringUtils.isEmpty(hint)) {
-      addErrorIssue(issues, id, FORM_DATA_HINT, "consentForm_missing_hint", name);
+      addErrorIssue(issues, formElement.getId(), FORM_DATA_HINT, "consentForm_missing_hint", name);
     } else if (!hint.matches(".*%.+%.*")) {
-      addErrorIssue(issues, id, FORM_DATA_HINT, "consentForm_invalid_hint", name);
+      addErrorIssue(issues, formElement.getId(), FORM_DATA_HINT, "consentForm_invalid_hint", name);
     }
   }
 }

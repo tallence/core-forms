@@ -17,15 +17,19 @@
 package com.tallence.formeditor.elements;
 
 import com.tallence.formeditor.validator.CheckBoxesGroupValidator;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * Model bean for a configured CheckBoxesGroup.
  */
-public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> implements FieldWithOptions {
+public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> implements FieldWithOptions<List> {
 
   public CheckBoxesGroup() {
     super(List.class);
@@ -45,12 +49,13 @@ public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupVa
    */
   @Deprecated(since = "january 2021", forRemoval = true)
   public List<ComplexValue> getCheckBoxes() {
-    return this.checkBoxes;
+    return getOptions();
   }
 
   @Override
+  @NonNull
   public List<ComplexValue> getOptions() {
-    return this.checkBoxes;
+    return ofNullable(this.checkBoxes).orElse(Collections.emptyList());
   }
 
   public List<ComplexValue> getSelectedOptions() {

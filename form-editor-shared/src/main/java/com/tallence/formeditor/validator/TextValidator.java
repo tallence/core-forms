@@ -22,7 +22,9 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Validator for elements of type {@link com.tallence.formeditor.elements.TextArea} and
@@ -45,7 +47,7 @@ public class TextValidator implements Validator<String>, SizeValidator {
   private Integer maxSize;
 
   @ValidationProperty(messageKey = MESSAGE_KEY_TEXTFIELD_REGEX)
-  private Pattern regexp;
+  private String regexp;
 
   @Override
   public List<ValidationFieldError> validate(String value) {
@@ -59,7 +61,7 @@ public class TextValidator implements Validator<String>, SizeValidator {
       if (this.maxSize != null && value.length() > this.maxSize) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_MAX, this.maxSize));
       }
-      if (this.regexp != null && !regexp.matcher(value).matches()) {
+      if (this.regexp != null && !getRegexp().matcher(value).matches()) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_REGEX, this.regexp));
       }
     } else if (this.mandatory) {
@@ -97,19 +99,23 @@ public class TextValidator implements Validator<String>, SizeValidator {
     this.maxSize = maxSize;
   }
 
-  public Pattern getRegexp() {
-    return this.regexp;
+  public Pattern getRegexp() throws PatternSyntaxException {
+    return Optional.ofNullable(this.regexp)
+            .filter(StringUtils::hasText)
+            .map(Pattern::compile)
+            .orElse(null);
   }
 
   public void setRegexp(Pattern regexp) {
-    this.regexp = regexp;
+    this.regexp = regexp.pattern();
   }
 
+  /**
+   * Do not parse the {@link Pattern} here, because it might already fail: {@link PatternSyntaxException}
+   * This case will be handled by the "com.tallence.formeditor.studio.validator.field.TextFieldValidator"
+   * @param regexp the regular expression of the Field
+   */
   public void setRegexp(String regexp) {
-    if (StringUtils.hasText(regexp)) {
-      this.regexp = Pattern.compile(regexp);
-    } else {
-      this.regexp = null;
-    }
+    this.regexp = regexp;
   }
 }

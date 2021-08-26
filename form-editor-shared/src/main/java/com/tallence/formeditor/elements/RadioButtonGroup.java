@@ -17,13 +17,17 @@
 package com.tallence.formeditor.elements;
 
 import com.tallence.formeditor.validator.RadioButtonGroupValidator;
+import edu.umd.cs.findbugs.annotations.NonNull;
 
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.Optional.ofNullable;
 
 /**
  * Model bean for a configured RadioButtonGroup.
  */
-public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator> implements FieldWithOptions {
+public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator>  implements FieldWithOptions<String> {
 
   public RadioButtonGroup() {
     super(String.class);
@@ -35,12 +39,13 @@ public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGro
    * @deprecated use {@link #getOptions()}
    */
   public List<ComplexValue> getRadioButtons() {
-    return this.radioButtons;
+    return getOptions();
   }
 
   @Override
+  @NonNull
   public List<ComplexValue> getOptions() {
-    return this.radioButtons;
+    return ofNullable(this.radioButtons).orElse(Collections.emptyList());
   }
 
   public void setRadioButtons(List<ComplexValue> radioButtons) {

@@ -16,45 +16,29 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.parser.CheckBoxesParser;
-import com.tallence.formeditor.parser.RadioButtonParser;
-import com.tallence.formeditor.parser.SelectBoxParser;
+import com.tallence.formeditor.elements.FieldWithOptions;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
-import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
 import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_GROUP_ELEMENTS_PROPERTY_NAME;
 
 /**
  * Validates, that CheckBoxes, DropDowns and RadioButtons have at least one groupElement.
  */
 @Component
-public class OptionsNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
+public class OptionsNotEmptyValidator extends AbstractFormValidator<FieldWithOptions<?>> {
 
-  private static final List<String> RESPONSIBLE_FIELD_TYPES = Arrays.asList(RadioButtonParser.parserKey, CheckBoxesParser.parserKey, SelectBoxParser.parserKey);
-
-  @Override
-  public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return RESPONSIBLE_FIELD_TYPES.contains(fieldType);
+  public OptionsNotEmptyValidator() {
+    super(FieldWithOptions.class);
   }
 
   @Override
-  public void validateField(String id, Struct fieldData, String action, Issues issues) {
+  void validateField(FieldWithOptions<?> formElement, String action, Issues issues) {
 
-    boolean noElements = Optional.ofNullable(getSubstruct(fieldData, FORM_GROUP_ELEMENTS_PROPERTY_NAME))
-            .map(s -> s.getProperties().isEmpty())
-            .orElse(true);
-    if (noElements) {
+    if (formElement.getOptions().isEmpty()) {
 
-      String messageKey = fieldData.getString(FORM_DATA_KEY_TYPE).toLowerCase() + "_missing_options";
-      addErrorIssue(issues, id, FORM_GROUP_ELEMENTS_PROPERTY_NAME, messageKey, fieldData.get(FORM_DATA_NAME));
+      String messageKey = formElement.getClass().getSimpleName().toLowerCase() + "_missing_options";
+      addErrorIssue(issues, formElement.getId(), FORM_GROUP_ELEMENTS_PROPERTY_NAME, messageKey, formElement.getName());
     }
 
   }
