@@ -8,14 +8,16 @@ import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.caas.adapter.FormEditorAdapterFactory;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.validator.Validator;
+import org.reflections.Reflections;
+import org.reflections.util.ConfigurationBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * TODO this is still WIP! Do not use yet
@@ -24,48 +26,48 @@ import java.util.stream.Stream;
 @Import(value = {MultiSiteConfiguration.class,})
 public class FormEditorConfig {
 
-  private static final Set<String> VALIDATORS = Stream.of(
-          "Validator",
-          "SizeValidator",
-          "NumberValidator",
-          "UsersMailValidator",
-          "TextValidator",
-          "TextOnlyValidator",
-          "SelectBoxValidator",
-          "RadioButtonGroupValidator",
-          "FileUploadValidator",
-          "DateFieldValidator",
-          "ConsentFormCheckboxValidator",
-          "CheckBoxesGroupValidator"
-
-  ).collect(Collectors.toSet());
-
   @Bean
-  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory, SitesService sitesService) {
-    return new FormEditorAdapterFactory(formElementFactory, sitesService);
+  public ThreadLocal<Locale> localeThreadLocal() {
+    return ThreadLocal.withInitial(() -> Locale.US);
+  }
+
+  /**
+   * Used as a Wrapper around the CoreMedia component dependent locale resolver: The CurrentContextService in the CAE,
+   * this threadLocal based construct in the HeadlessServer.
+   */
+  @Bean
+  public Supplier<Locale> localeSupplier(ThreadLocal<Locale> localeThreadLocal) {
+    return localeThreadLocal::get;
   }
 
   @Bean
-  public ProvidesTypeNameResolver providesFormBeanTypeNameResolver(FormElementFactory formElementFactory) {
-    return name -> Optional.of(true);
-    /*
-    TODO return a proper ProvidesTypeNameResolver
-    return Name ->
-            formElementFactory.getTypes().contains(Name)
-                    || "FormElement".equals(Name)
-                    || "RadioButtonGroup".equals(Name) //The parsers key is different to the forms name
-                    || "CheckBoxesGroup".equals(Name) //The parsers key is different to the forms name
-                    ? Optional.of(true)
-                    : Optional.empty();
-    */
+  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory, SitesService sitesService, ThreadLocal<Locale> localeThreadLocal) {
+    return new FormEditorAdapterFactory(formElementFactory, sitesService, localeThreadLocal);
   }
 
   @Bean
-  public ProvidesTypeNameResolver providesFormValidatorTypeNameResolver(FormElementFactory formElementFactory) {
-    return Name ->
-            VALIDATORS.contains(Name)
-                    ? Optional.of(true)
-                    : Optional.empty();
+  public ProvidesTypeNameResolver providesFormBeanTypeNameResolver() {
+
+    var reflections = new Reflections(new ConfigurationBuilder().forPackages(FormElement.class.getPackageName()));
+    final var formElementTypes = reflections.getSubTypesOf(FormElement.class).stream()
+            .map(Class::getSimpleName)
+            .collect(Collectors.toList());
+    formElementTypes.add(FormElement.class.getSimpleName());
+
+    return name -> formElementTypes.contains(name) ? Optional.of(true): Optional.empty();
+  }
+
+  @Bean
+  public ProvidesTypeNameResolver providesFormValidatorTypeNameResolver() {
+
+    var reflections = new Reflections(new ConfigurationBuilder().forPackages(Validator.class.getPackageName()));
+    final var validatorTypes = reflections.getSubTypesOf(Validator.class).stream()
+            .map(Class::getSimpleName)
+            .collect(Collectors.toList());
+    validatorTypes.add(Validator.class.getSimpleName());
+    validatorTypes.add("SizeValidator");
+
+    return name -> validatorTypes.contains(name) ? Optional.of(true): Optional.empty();
   }
 
   @Bean

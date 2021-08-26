@@ -65,11 +65,11 @@ type ConsentFormCheckBoxImpl implements ConsentFormCheckBox @inherit(from: ["Abs
 }
 
 interface DateField @inherit(from: ["FormElement"]) {
-  linkTarget: CMTeasable
+  locale: String
 }
 
 type DateFieldImpl implements DateField @inherit(from: ["AbstractFormElement"]) {
-  linkTarget: CMTeasable
+  locale: String
 }
 
 interface FileUpload @inherit(from: ["FormElement"]) {
@@ -130,6 +130,7 @@ interface UsersMail @inherit(from: ["FormElement"]) {
 }
 
 type UsersMailImpl implements UsersMail @inherit(from: ["AbstractFormElement"]) {
+  copyBoxOption: String
 }
 
 interface ZipField @inherit(from: ["FormElement"]) {
@@ -163,44 +164,26 @@ interface SizeValidator {
 }
 
 type NumberValidator implements Validator,SizeValidator {
-  mandatory: Boolean
-  minSize: Int
-  maxSize: Int
 }
 
 type UsersMailValidator implements Validator {
-  mandatory: Boolean
 }
 type TextValidator implements Validator,SizeValidator {
-  mandatory: Boolean
-  minSize: Int
-  maxSize: Int
   regexp: String
 }
 type TextOnlyValidator implements Validator {
-  mandatory: Boolean
 }
 type SelectBoxValidator implements Validator {
-  mandatory: Boolean
 }
 type RadioButtonGroupValidator implements Validator {
-  mandatory: Boolean
 }
 type FileUploadValidator implements Validator,SizeValidator {
-  mandatory: Boolean
-  minSize: Int
-  maxSize: Int
 }
 type DateFieldValidator implements Validator {
-  mandatory: Boolean
   minDate: String
   maxDate: String
 }
 type ConsentFormCheckboxValidator implements Validator {
-  mandatory: Boolean
 }
 type CheckBoxesGroupValidator implements Validator,SizeValidator {
-  mandatory: Boolean
-  minSize: Int
-  maxSize: Int
 }
