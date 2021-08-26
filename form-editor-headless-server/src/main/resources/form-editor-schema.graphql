@@ -19,6 +19,7 @@ interface FormElement{
   placeholder: String
   technicalName: String
   advancedSettings: AdvancedSettings
+  elementClass: String
   type: String
   validator: Validator
 }
@@ -30,6 +31,7 @@ type AbstractFormElement implements FormElement{
   placeholder: String
   technicalName: String
   advancedSettings: AdvancedSettings
+  elementClass: String @fetch(from: "#this.getClass().getSimpleName()")
   type: String
   validator: Validator
 }
@@ -164,26 +166,44 @@ interface SizeValidator {
 }
 
 type NumberValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
 }
 
 type UsersMailValidator implements Validator {
+  mandatory: Boolean
 }
 type TextValidator implements Validator,SizeValidator {
+  mandatory: Boolean
   regexp: String
+  minSize: Int
+  maxSize: Int
 }
 type TextOnlyValidator implements Validator {
+  mandatory: Boolean
 }
 type SelectBoxValidator implements Validator {
+  mandatory: Boolean
 }
 type RadioButtonGroupValidator implements Validator {
+  mandatory: Boolean
 }
 type FileUploadValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
 }
 type DateFieldValidator implements Validator {
+  mandatory: Boolean
   minDate: String
   maxDate: String
 }
 type ConsentFormCheckboxValidator implements Validator {
+  mandatory: Boolean
 }
 type CheckBoxesGroupValidator implements Validator,SizeValidator {
+  mandatory: Boolean
+  minSize: Int
+  maxSize: Int
 }
