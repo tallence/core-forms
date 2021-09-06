@@ -38,7 +38,7 @@ public class FormEditorAdapter {
   public List<FormElement<?>> formElements() {
 
     //The formElements parsers might need the locale of the current site.
-    CurrentFormSupplier.setCurrentFormLocale(content);
+    CurrentFormSupplier.setCurrentForm(content);
 
     return FormEditorHelper.parseFormElements(content, formElementFactory);
   }

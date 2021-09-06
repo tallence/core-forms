@@ -130,7 +130,7 @@ public class FormController  {
     modelAndView.addObject(MODEL_ROOT, navigation);
     pageResourceBundlesInterceptor.postHandle(request, response, null, modelAndView);
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
-    CurrentFormSupplier.setCurrentFormLocale(target.getContent());
+    CurrentFormSupplier.setCurrentForm(target.getContent());
 
     List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(target);
     if (formElements.isEmpty()) {

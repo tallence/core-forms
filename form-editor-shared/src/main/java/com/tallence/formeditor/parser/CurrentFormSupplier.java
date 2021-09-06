@@ -36,7 +36,7 @@ public class CurrentFormSupplier implements Supplier<Content> {
     return currentForm;
   }
 
-  public static void setCurrentFormLocale(Content currentForm) {
+  public static void setCurrentForm(Content currentForm) {
     ofNullable(RequestContextHolder.getRequestAttributes())
             .orElseThrow(() -> new IllegalStateException("No RequestAttributes available, cannot set the currect form"))
             .setAttribute(CURRENT_FORM, currentForm, RequestAttributes.SCOPE_REQUEST);

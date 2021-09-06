@@ -106,7 +106,7 @@ public class FormConfigController {
 
     Navigation navigation = currentContext.getRootNavigation();
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
-    CurrentFormSupplier.setCurrentFormLocale(editor.getContent());
+    CurrentFormSupplier.setCurrentForm(editor.getContent());
 
     List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {
