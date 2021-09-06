@@ -13,7 +13,7 @@ import java.util.List;
 public class FormEditorConfiguration {
 
   @Bean
-  public FormElementFactory createFormElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
+  public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
     return new FormElementFactory(parsers);
   }
 

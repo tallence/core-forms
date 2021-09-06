@@ -16,6 +16,8 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
+import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.DateField;
 import com.tallence.formeditor.validator.DateFieldValidator;
@@ -38,10 +40,12 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
 
   public static final String parserKey = "DateField";
 
-  private final Supplier<Locale> localeSupplier;
+  private final Supplier<Content> currentFormSupplier;
+  private final SitesService sitesService;
 
-  public DateFieldParser(Supplier<Locale> localeSupplier) {
-    this.localeSupplier = localeSupplier;
+  public DateFieldParser(Supplier<Content> currentFormSupplier, SitesService sitesService) {
+    this.currentFormSupplier = currentFormSupplier;
+    this.sitesService = sitesService;
   }
 
   @Override
@@ -72,6 +76,9 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
   }
 
   private Locale getCurrentLocale() {
-    return Optional.ofNullable(localeSupplier.get()).orElse(Locale.GERMANY);
+
+    return Optional.ofNullable(currentFormSupplier.get())
+            .map(c -> sitesService.getContentSiteAspect(c).getLocale())
+            .orElse(Locale.GERMANY);
   }
 }

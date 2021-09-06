@@ -17,7 +17,6 @@ package com.tallence.formeditor.caas;
 
 import com.coremedia.caas.wiring.ProvidesTypeNameResolver;
 import com.coremedia.caas.wiring.TypeNameResolver;
-import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.caas.adapter.FormEditorAdapterFactory;
@@ -29,10 +28,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import java.util.Locale;
+import java.util.ArrayList;
 import java.util.Optional;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * Configuration for the FormEditor Headless component.
@@ -47,22 +46,8 @@ import java.util.stream.Collectors;
 public class FormEditorConfig {
 
   @Bean
-  public ThreadLocal<Locale> localeThreadLocal() {
-    return ThreadLocal.withInitial(() -> Locale.US);
-  }
-
-  /**
-   * Used as a Wrapper around the CoreMedia component dependent locale resolver: The CurrentContextService in the CAE,
-   * this threadLocal based construct in the HeadlessServer.
-   */
-  @Bean
-  public Supplier<Locale> localeSupplier(ThreadLocal<Locale> localeThreadLocal) {
-    return localeThreadLocal::get;
-  }
-
-  @Bean
-  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory, SitesService sitesService, ThreadLocal<Locale> localeThreadLocal) {
-    return new FormEditorAdapterFactory(formElementFactory, sitesService, localeThreadLocal);
+  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory) {
+    return new FormEditorAdapterFactory(formElementFactory);
   }
 
   @Bean
@@ -71,7 +56,7 @@ public class FormEditorConfig {
     var reflections = new Reflections(new ConfigurationBuilder().forPackages(FormElement.class.getPackageName()));
     final var formElementTypes = reflections.getSubTypesOf(FormElement.class).stream()
             .map(Class::getSimpleName)
-            .collect(Collectors.toList());
+            .collect(toCollection(ArrayList::new));
     formElementTypes.add(FormElement.class.getSimpleName());
 
     return name -> formElementTypes.contains(name) ? Optional.of(true): Optional.empty();
@@ -83,7 +68,7 @@ public class FormEditorConfig {
     var reflections = new Reflections(new ConfigurationBuilder().forPackages(Validator.class.getPackageName()));
     final var validatorTypes = reflections.getSubTypesOf(Validator.class).stream()
             .map(Class::getSimpleName)
-            .collect(Collectors.toList());
+            .collect(toCollection(ArrayList::new));
     validatorTypes.add(Validator.class.getSimpleName());
     validatorTypes.add("SizeValidator");
 

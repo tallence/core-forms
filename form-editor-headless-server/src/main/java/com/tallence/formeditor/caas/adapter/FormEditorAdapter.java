@@ -16,34 +16,29 @@
 package com.tallence.formeditor.caas.adapter;
 
 import com.coremedia.cap.content.Content;
-import com.coremedia.cap.multisite.SitesService;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class FormEditorAdapter {
   private final Content content;
-  private final SitesService sitesService;
   private final FormElementFactory formElementFactory;
-  private final ThreadLocal<Locale> localeThreadLocal;
 
-  public FormEditorAdapter(Content content, SitesService sitesService, FormElementFactory formElementFactory, ThreadLocal<Locale> localeThreadLocal) {
+  public FormEditorAdapter(Content content, FormElementFactory formElementFactory) {
     this.content = content;
-    this.sitesService = sitesService;
     this.formElementFactory = formElementFactory;
-    this.localeThreadLocal = localeThreadLocal;
   }
 
   @SuppressWarnings("unused")
   public List<FormElement<?>> formElements() {
 
     //The formElements parsers might need the locale of the current site.
-    localeThreadLocal.set(sitesService.getContentSiteAspect(content).getLocale());
+    CurrentFormSupplier.setCurrentFormLocale(content);
 
     return FormEditorHelper.parseFormElements(content, formElementFactory);
   }

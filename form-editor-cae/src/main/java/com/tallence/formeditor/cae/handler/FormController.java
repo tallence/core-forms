@@ -32,6 +32,7 @@ import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.cae.model.FormSuccessResult;
 import com.tallence.formeditor.cae.model.FormValidationResult;
 import com.tallence.formeditor.cae.serializer.ValidationSerializationHelper;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 import com.tallence.formeditor.validator.ValidationFieldError;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
@@ -129,6 +130,7 @@ public class FormController  {
     modelAndView.addObject(MODEL_ROOT, navigation);
     pageResourceBundlesInterceptor.postHandle(request, response, null, modelAndView);
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
+    CurrentFormSupplier.setCurrentFormLocale(target.getContent());
 
     List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(target);
     if (formElements.isEmpty()) {
