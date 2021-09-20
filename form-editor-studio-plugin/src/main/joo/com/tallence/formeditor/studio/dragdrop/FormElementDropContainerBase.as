@@ -49,7 +49,7 @@ public class FormElementDropContainerBase extends Container {
         formElementId,
         forceReadOnlyValueExpression,
         this, DropTarget({
-          el: getEl(),
+          el: this.getEl(),
           ddGroup: MOVE_TARGET_DD_GROUP
         }));
   }
