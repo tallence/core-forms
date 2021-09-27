@@ -16,7 +16,7 @@
 
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,5 +37,5 @@ public interface FormEditorStorageAdapter {
    * @param files the files, containing all files of the current form request.
    * @return true, if the data was saved successfully. False otherwise
    */
-  boolean persistFormData(FormEditor target, String formData, List<FormElement> elements, List<MultipartFile> files);
+  boolean persistFormData(FormEditor target, String formData, List<FormElement<?>> elements, List<MultipartFile> files);
 }

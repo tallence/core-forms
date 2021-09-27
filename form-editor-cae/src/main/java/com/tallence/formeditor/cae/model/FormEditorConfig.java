@@ -16,7 +16,7 @@
 
 package com.tallence.formeditor.cae.model;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class FormEditorConfig {
 
   private String formActionUrl;
 
-  private List<FormElement> formElements;
+  private List<FormElement<?>> formElements;
 
   public String getFormActionUrl() {
     return formActionUrl;
@@ -34,11 +34,11 @@ public class FormEditorConfig {
     this.formActionUrl = formActionUrl;
   }
 
-  public List<FormElement> getFormElements() {
+  public List<FormElement<?>> getFormElements() {
     return formElements;
   }
 
-  public void setFormElements(List<FormElement> formElements) {
+  public void setFormElements(List<FormElement<?>> formElements) {
     this.formElements = formElements;
   }
 

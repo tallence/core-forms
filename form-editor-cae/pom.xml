@@ -20,12 +20,12 @@
     <!-- Project -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>form-editor-shared</artifactId>
+      <artifactId>form-editor-contentbeans-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>form-editor-contentbeans-api</artifactId>
+      <artifactId>form-editor-shared</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -79,6 +79,10 @@
     </dependency>
 
     <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
@@ -143,10 +147,6 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs-annotations</artifactId>
       <scope>provided</scope>
@@ -185,6 +185,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-test-util</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-client-xml</artifactId>
       <scope>test</scope>
@@ -208,11 +214,6 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

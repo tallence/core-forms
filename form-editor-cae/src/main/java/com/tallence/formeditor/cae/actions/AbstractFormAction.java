@@ -16,10 +16,10 @@
 
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FileUpload;
-import com.tallence.formeditor.cae.elements.FormElement;
-import com.tallence.formeditor.cae.elements.TextOnly;
-import com.tallence.formeditor.cae.elements.UsersMail;
+import com.tallence.formeditor.elements.FileUpload;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.elements.TextOnly;
+import com.tallence.formeditor.elements.UsersMail;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,16 +47,18 @@ public abstract class AbstractFormAction implements FormAction {
     this.mailAdapter = mailAdapter;
   }
 
-  protected boolean sendUserConfirmationMail(FormEditor target, List<FormElement> formElements,
+  protected boolean sendUserConfirmationMail(FormEditor target, List<FormElement<?>> formElements,
                                              String formData, HttpServletRequest request, HttpServletResponse response,
                                              List<MultipartFile> files) {
     boolean errorSendingUserMail = false;
 
     // filter for UserMail-fields with sendCopy activated.
     Optional<String> userMailOptional = formElements.stream()
-        .filter((element) -> (element instanceof UsersMail))
-        .filter((element) -> ((UsersMail) element).getValue().isSendCopy())
-        .map((element) -> ((UsersMail) element).getValue().getUsersMail())
+            .filter(element -> (element instanceof UsersMail))
+            .map(element -> ((UsersMail) element).getValue())
+            .filter(Objects::nonNull)
+            .filter(UsersMail.UsersMailData::isSendCopy)
+            .map(UsersMail.UsersMailData::getUsersMail)
         .findFirst();
 
     if (userMailOptional.isPresent()) {
@@ -75,7 +77,7 @@ public abstract class AbstractFormAction implements FormAction {
   }
 
 
-  protected String serializeFormElements(FormEditor target, List<FormElement> formElements, List<MultipartFile> files) {
+  protected String serializeFormElements(FormEditor target, List<FormElement<?>> formElements, List<MultipartFile> files) {
     StringBuilder formDataBuilder = new StringBuilder();
     //Serialize all non-FileUploads. FileUploads are serialized a few lines below.
     formElements.stream().filter((element) -> !(element instanceof FileUpload))
@@ -91,7 +93,7 @@ public abstract class AbstractFormAction implements FormAction {
   }
 
 
-  protected void serializeFormElementForMail(FormEditor target, StringBuilder formDataBuilder, FormElement element) {
+  protected void serializeFormElementForMail(FormEditor target, StringBuilder formDataBuilder, FormElement<?> element) {
     formDataBuilder.append(element.getName());
     formDataBuilder.append(": ");
     if (element instanceof TextOnly) {

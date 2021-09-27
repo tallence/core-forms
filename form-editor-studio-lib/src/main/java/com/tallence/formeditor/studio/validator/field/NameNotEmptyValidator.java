@@ -16,33 +16,31 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
+import com.tallence.formeditor.elements.AbstractFormElement;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.TextFieldParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.parser.TextFieldParser.FORM_DATA_NAME;
 
 /**
  * Validates, that all form elements have a name.
  */
 @Component
-public class NameNotEmptyValidator extends AbstractFormValidator implements FieldValidator {
+public class NameNotEmptyValidator extends AbstractFormValidator<AbstractFormElement<?, ?>> {
+
+  public NameNotEmptyValidator() {
+    super(AbstractFormElement.class);
+  }
 
   /**
    * Every formField needs a name.
    */
   @Override
-  public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return true;
-  }
-
-  @Override
-  public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    if (!StringUtils.hasText(StructUtil.getString(fieldData, FORM_DATA_NAME))) {
-      addErrorIssue(issues, id, FORM_DATA_NAME, "formField_missing_name", fieldData.get(FORM_DATA_KEY_TYPE));
+  void validateField(AbstractFormElement<?, ?> formElement, String action, Issues issues) {
+    if (StringUtils.isEmpty(formElement.getName())) {
+      addErrorIssue(issues, formElement.getId(), FORM_DATA_NAME, "formField_missing_name", formElement.getClass().getSimpleName());
     }
   }
+
 }

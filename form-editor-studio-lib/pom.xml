@@ -36,6 +36,20 @@
     <!-- Project -->
     <dependency>
       <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-contentbeans-api</artifactId>
+      <version>${project.version}</version>
+      <!-- scope "provided" because only the string constants are used -->
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-cae</artifactId>
+      <version>${project.version}</version>
+      <!-- scope "provided" because only the string constants are used -->
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
       <artifactId>form-editor-shared</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -43,7 +57,7 @@
     <!-- CoreMedia -->
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>cap-unified-api</artifactId>
+      <artifactId>middle.coremedia-validation</artifactId>
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>
@@ -51,7 +65,7 @@
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>middle.coremedia-validation</artifactId>
+      <artifactId>cap-unified-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.coremedia.cms</groupId>

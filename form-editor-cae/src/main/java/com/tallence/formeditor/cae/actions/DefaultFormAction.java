@@ -16,7 +16,7 @@
 
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
@@ -27,7 +27,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 import static com.tallence.formeditor.cae.handler.FormErrors.DB_SAVE;
@@ -53,8 +52,8 @@ public class DefaultFormAction extends AbstractFormAction {
   }
 
   @Override
-  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements, HttpServletRequest request,
-                                                              HttpServletResponse response) throws IOException {
+  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements, HttpServletRequest request,
+                                                              HttpServletResponse response) {
 
     String formData = serializeFormElements(target, formElements, files);
     LOG.debug("Saving form request for form [{}] with formData [{}] in storage layer", target.getContentId(), formData);

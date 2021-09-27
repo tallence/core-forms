@@ -17,8 +17,8 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.blueprint.common.contentbeans.CMTeasable;
-import com.coremedia.cae.aspect.Aspect;
 import com.coremedia.cap.struct.Struct;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -35,6 +35,11 @@ public interface FormEditor extends CMTeasable {
    * {@link com.coremedia.cap.content.ContentType#getName() Name of the ContentType} 'FormEditor'.
    */
   String NAME = "FormEditor";
+
+  /**
+   * The key of the MailAction. It is placed here, since it it used by a studio rest validator.
+   */
+  String MAIL_ACTION = "mailAction";
 
   /**
    * Returns the value of the document property {@link #MASTER}.
@@ -61,31 +66,14 @@ public interface FormEditor extends CMTeasable {
   Collection<? extends FormEditor> getLocalizations();
 
   /**
-   * Returns a <code>Map</code> from aspectIDs to Aspects. AspectIDs consists of an aspect name with a
-   * prefix which identifies the plugin provider.
-   *
-   * @return a <code>Map</code> from aspectIDs to <code>Aspect</code>s
-   */
-  @Override
-  Map<String, ? extends Aspect<? extends FormEditor>> getAspectByName();
-
-  /**
-   * Returns a list of all  <code>Aspect</code>s from all availiable
-   * PlugIns that are registered to this content bean.
-   *
-   * @return a list of {@link Aspect}
-   */
-  @Override
-  List<? extends Aspect<? extends FormEditor>> getAspects();
-
-  /**
-   * Resolves the configured formElement.
+   * Resolves the configured formElements.
    * @return the formElements as a Map. The key represents the elements name, the value is the form elements data.
    */
+  @Nullable
   Struct getFormElements();
 
   /**
-   * Resolves the admin mails adminMails.
+   * Resolves the admin mails.
    */
   List<String> getAdminEmails();
 

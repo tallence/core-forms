@@ -4,17 +4,13 @@ import com.tallence.formeditor.cae.FormTestConfiguration;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -28,18 +24,28 @@ import java.nio.charset.StandardCharsets;
 
 import static com.tallence.formeditor.cae.handler.FormConfigController.FORM_EDITOR_CONFIG_URL;
 import static org.junit.Assert.assertTrue;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebAppConfiguration
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FormTestConfiguration.class)
-@DirtiesContext(classMode = AFTER_CLASS)
-@TestPropertySource(properties = "cae.single-node=true")
+@WebAppConfiguration
 public class FormConfigControllerTest {
 
   @Autowired
+  private WebApplicationContext context;
+
   private MockMvc mvc;
+
+  @Before
+  public void setup() {
+    mvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .build();
+  }
+
+  @After
+  public void tearDown() {
+  }
 
   @Test
   public void testConfigJson() throws Exception {

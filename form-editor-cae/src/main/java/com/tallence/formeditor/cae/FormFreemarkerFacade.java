@@ -17,14 +17,13 @@
 package com.tallence.formeditor.cae;
 
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
-import com.coremedia.cap.struct.Struct;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.FormEditorHelper;
+import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.contentbeans.FormEditor;
-import java.util.Collections;
+import com.tallence.formeditor.elements.FormElement;
+
 import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * FreemarkerFacade for Form elements.
@@ -44,25 +43,11 @@ public class FormFreemarkerFacade {
     this.currentContextService = currentContextService;
   }
 
-  public List<FormElement> parseFormElements(FormEditor formEditor) {
-
-    Struct formData = formEditor.getFormElements();
-
-    if (formData == null) {
-      return Collections.emptyList();
-    }
-
-    return formData.getProperties().entrySet().stream()
-        .filter(e -> e.getValue() instanceof Struct)
-        .map(e -> parseElement((Struct) e.getValue(), e.getKey(), formEditor.getLocale()))
-        .collect(Collectors.toList());
+  public List<FormElement<?>> parseFormElements(FormEditor formEditor) {
+    return FormEditorHelper.parseFormElements(formEditor.getContent(), formElementFactory);
   }
 
   public String getReCaptchaWebsiteSecretForSite() {
     return reCaptchaService.getWebsiteSecretForSite(currentContextService.getContext());
-  }
-
-  private FormElement parseElement(Struct value, String key, Locale locale) {
-    return formElementFactory.createFormElement(value, key, locale);
   }
 }

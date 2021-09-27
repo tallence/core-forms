@@ -17,11 +17,9 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.blueprint.cae.contentbeans.CMTeasableImpl;
-import com.coremedia.cae.aspect.Aspect;
-import com.tallence.formeditor.cae.FormEditorHelper;
+import com.tallence.formeditor.FormEditorHelper;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -45,18 +43,6 @@ public abstract class FormEditorBase extends CMTeasableImpl implements FormEdito
   @SuppressWarnings("unchecked")
   public Collection<? extends FormEditor> getLocalizations() {
     return (Collection<? extends FormEditor>) super.getLocalizations();
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public Map<String, ? extends Aspect<? extends FormEditor>> getAspectByName() {
-    return (Map<String, ? extends Aspect<? extends FormEditor>>) super.getAspectByName();
-  }
-
-  @Override
-  @SuppressWarnings("unchecked")
-  public List<? extends Aspect<? extends FormEditor>> getAspects() {
-    return (List<? extends Aspect<? extends FormEditor>>) super.getAspects();
   }
 
   @Override

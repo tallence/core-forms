@@ -1,6 +1,6 @@
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,8 @@ import java.util.List;
 
 /**
  * Void Adapter for only one reason: the cae is starting up without errors when integrating the extension.
- * Do not forget to add a {@link org.springframework.context.annotation.Primary} Annotation to your project-
+ *
+ * You should delete this adapter or add a {@link org.springframework.context.annotation.Primary} Annotation to your project-
  * adapter. Spring will complain about two Adapters otherwise.
  */
 @Component
@@ -19,7 +20,7 @@ public class VoidFormEditorStorageAdapter implements FormEditorStorageAdapter {
   private static final Logger LOGGER = LoggerFactory.getLogger(VoidFormEditorStorageAdapter.class);
 
   @Override
-  public boolean persistFormData(FormEditor target, String formData, List<FormElement> elements, List<MultipartFile> files) {
+  public boolean persistFormData(FormEditor target, String formData, List<FormElement<?>> elements, List<MultipartFile> files) {
     LOGGER.warn("VoidAdapter used to store form data: " + formData);
     return true;
   }

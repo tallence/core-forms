@@ -26,13 +26,12 @@ import com.coremedia.cache.Cache;
 import com.coremedia.objectserver.web.links.Link;
 import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.tallence.formeditor.cae.FormFreemarkerFacade;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.cae.serializer.FormConfigCacheKey;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -56,8 +55,6 @@ import static com.coremedia.objectserver.web.HandlerHelper.MODEL_ROOT;
 @RequestMapping
 @Component
 public class FormConfigController {
-
-  private static final Logger LOG = LoggerFactory.getLogger(FormConfigController.class);
 
   private static final String FORMS_ROOT_URL_SEGMENT = "/dynamic/forms";
   private static final String FORM_EDITOR_CONFIG_VIEW = "formEditorConfig";
@@ -89,6 +86,7 @@ public class FormConfigController {
   /**
    * Link builder for {@link FormEditor} config endpoint
    */
+  @SuppressWarnings("unused")
   @Link(type = FormEditor.class, view = FORM_EDITOR_CONFIG_VIEW, uri = FORM_EDITOR_CONFIG_URL)
   public UriComponents buildLinkForFormConfig(FormEditor form, UriComponentsBuilder uriComponentsBuilder) {
     return uriComponentsBuilder.buildAndExpand(currentContextService.getContext().getContentId(), form.getContentId());
@@ -107,8 +105,10 @@ public class FormConfigController {
                               HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Navigation navigation = currentContext.getRootNavigation();
+    request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
+    CurrentFormSupplier.setCurrentForm(editor.getContent());
 
-    List<FormElement> formElements = formFreemarkerFacade.parseFormElements(editor);
+    List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "no form elements configured");
     }
@@ -117,7 +117,6 @@ public class FormConfigController {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.addObject(MODEL_ROOT, navigation);
     pageResourceBundlesInterceptor.postHandle(request, response, null, modelAndView);
-    request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
 
     //prepare form config
     FormEditorConfig formEditorConfig = new FormEditorConfig();

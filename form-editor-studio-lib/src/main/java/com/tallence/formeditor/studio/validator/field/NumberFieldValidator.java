@@ -16,30 +16,25 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.NumberFieldParser;
+import com.tallence.formeditor.elements.NumberField;
 import org.springframework.stereotype.Component;
-
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
 
 /**
  * Validates, that sizeLimits in a numberField make sense.
  */
 @Component
-public class NumberFieldValidator extends AbstractFormValidator implements FieldValidator {
+public class NumberFieldValidator extends AbstractFormValidator<NumberField> {
 
-  @Override
-  public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return NumberFieldParser.parserKey.equals(fieldType);
+  public NumberFieldValidator() {
+    super(NumberField.class);
   }
 
   @Override
-  public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+  void validateField(NumberField formElement, String action, Issues issues) {
+    var validator = formElement.getValidator();
     if (validator != null) {
-      validateMaxAndMinSize(validator, issues, id, (String) fieldData.get(FORM_DATA_NAME));
+      validateMaxAndMinSize(validator, issues, formElement.getId(), formElement.getName());
     }
   }
 

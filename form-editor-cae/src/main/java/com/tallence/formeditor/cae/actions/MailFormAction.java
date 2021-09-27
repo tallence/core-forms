@@ -16,8 +16,7 @@
 
 package com.tallence.formeditor.cae.actions;
 
-import com.tallence.formeditor.cae.FormEditorHelper;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.slf4j.Logger;
@@ -28,11 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 import static com.tallence.formeditor.cae.handler.FormErrors.ADMIN_MAIL;
 import static com.tallence.formeditor.cae.handler.FormErrors.USER_MAIL;
+import static com.tallence.formeditor.contentbeans.FormEditor.MAIL_ACTION;
 
 /**
  * Mail Action for the form framework. Sends the form data via mail to a configured mail address.
@@ -50,8 +49,8 @@ public class MailFormAction extends AbstractFormAction {
 
 
   @Override
-  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement> formElements, HttpServletRequest request,
-                                                              HttpServletResponse response) throws IOException {
+  public FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements, HttpServletRequest request,
+                                                              HttpServletResponse response) {
 
     if (!files.isEmpty()) {
       throw new IllegalStateException("A MailAction is not responsible for forms with file upload fields. " +
@@ -68,7 +67,7 @@ public class MailFormAction extends AbstractFormAction {
     return new FormProcessingResult(true, errorSendingUserMail ? USER_MAIL : null);
   }
 
-  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement> formElements) {
+  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement<?>> formElements) {
 
     try {
       for (String address : target.getAdminEmails()) {
@@ -86,6 +85,6 @@ public class MailFormAction extends AbstractFormAction {
 
   @Override
   public boolean isResponsible(String key) {
-    return FormEditorHelper.MAIL_ACTION.equals(key);
+    return MAIL_ACTION.equals(key);
   }
 }

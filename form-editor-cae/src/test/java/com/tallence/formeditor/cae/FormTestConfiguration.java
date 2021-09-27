@@ -30,20 +30,20 @@ import com.coremedia.objectserver.web.config.CaeHandlerServicesConfiguration;
 import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
 import com.tallence.formeditor.FormEditorConfiguration;
+import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.handler.FormController;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
-import com.tallence.formeditor.cae.parser.AbstractFormElementParser;
+import com.tallence.formeditor.parser.AbstractFormElementParser;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
@@ -59,7 +59,6 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 /**
  * Configuration class to set up form test infrastructure.
  */
-@Configuration(proxyBeanMethods = false)
 @ImportResource(
         value = {
                 "classpath:/META-INF/coremedia/component-forms.xml",
@@ -71,15 +70,15 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
         CaeConfigurationProperties.class
 })
 @Import({
-        FormEditorConfiguration.class,
         BlueprintI18nCaeBaseLibConfiguration.class,
         CaeHandlerServicesConfiguration.class,
         ContentTestConfiguration.class,
         WebMvcAutoConfiguration.class,
+        FormEditorConfiguration.class
 })
 public class FormTestConfiguration {
 
-  private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/cae/testdata/contenttest.xml";
+  private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/testdata/contenttest.xml";
 
   @Bean
   @Scope(SCOPE_SINGLETON)
@@ -95,7 +94,7 @@ public class FormTestConfiguration {
 
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement>> parsers) {
+  public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
     return new FormElementFactory(parsers);
   }
 

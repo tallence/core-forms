@@ -16,52 +16,43 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
-import com.tallence.formeditor.cae.parser.TextFieldParser;
+import com.tallence.formeditor.elements.TextField;
+import com.tallence.formeditor.validator.TextValidator;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.*;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_VALIDATOR_REGEXP;
 
 /**
  * Validates, that regular expressions in a text field are parseable and size limits make sense.
  */
 @Component
-public class TextFieldValidator extends AbstractFormValidator implements FieldValidator {
+public class TextFieldValidator extends AbstractFormValidator<TextField> {
 
   private static final String FULLPATH_REGEX = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_REGEXP;
 
-  @Override
-  public boolean responsibleFor(String fieldType, Struct formElementData) {
-    return TextFieldParser.KEY_TEXT_FIELD.equals(fieldType);
+  public TextFieldValidator() {
+    super(TextField.class);
   }
 
   @Override
-  public void validateField(String id, Struct fieldData, String action, Issues issues) {
-    Struct validator = StructUtil.getSubstruct(fieldData, FORM_DATA_VALIDATOR);
+  void validateField(TextField formElement, String action, Issues issues) {
+    var validator = formElement.getValidator();
     if (validator != null) {
-      validateFieldValidators(validator, issues, id, (String) fieldData.get(FORM_DATA_NAME));
+      validateFieldValidators(validator, issues, formElement.getId(), formElement.getName());
     }
   }
 
-  private void validateFieldValidators(Struct validator, Issues issues, String formElementId, String name) {
+  private void validateFieldValidators(TextValidator validator, Issues issues, String formElementId, String name) {
     validateMaxAndMinSize(validator, issues, formElementId, name);
 
     // Regex
-    String regex = StructUtil.getString(validator, FORM_VALIDATOR_REGEXP);
-    if (StringUtils.hasLength(regex)) {
-      validateRegex(regex, issues, formElementId);
-    }
-  }
-
-  private void validateRegex(String regex, Issues issues, String formElementId) {
     try {
-      Pattern.compile(regex);
+      Pattern regex = validator.getRegexp();
     } catch (PatternSyntaxException e) {
       addErrorIssue(issues, formElementId, FULLPATH_REGEX, "formfield_validator_invalid_regexp");
     }

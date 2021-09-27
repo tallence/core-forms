@@ -33,21 +33,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 
 import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 /**
  * Test for {@link FormController}
@@ -89,8 +84,8 @@ public class FormControllerTest {
           "SelectBox DisplayName: display_123<br/>" +
           "SelectBoxEmptyValidator: <br/>" +
           "TextArea: ist Text<br/>" +
-          "DateField min: 2099 Dec 31<br/>" +
-          "DateField max: 1999 Dec 31<br/>" +
+          "DateField min: December 31, 2099<br/>" +
+          "DateField max: December 31, 1999<br/>" +
           "TextOnly: Das ist ein langer Text zur Erklärung des Formulars<br/>" +
           "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
           "Data protection consent form: true<br/>";
@@ -104,7 +99,7 @@ public class FormControllerTest {
   @Test
   public void testValidPost() throws Exception {
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -132,7 +127,7 @@ public class FormControllerTest {
   @Test
   public void testValidPostWithJavascript() throws Exception {
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -161,7 +156,7 @@ public class FormControllerTest {
 
     MockMultipartFile firstFile = new MockMultipartFile("FileUpload_FileUpload", "filename.txt", "text/plain", "some xml".getBytes());
 
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .file(firstFile)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
@@ -186,7 +181,6 @@ public class FormControllerTest {
   }
 
   @Test
-
   public void testValidPostWithMailAction() throws Exception {
 
     URI mailTestUrl = UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("8", "4").toUri();
@@ -212,7 +206,7 @@ public class FormControllerTest {
   public void testInValidPost() throws Exception {
 
     //Performing a post with only the TextField given will cause a validation error, because other mandatory fields are missing.
-    mvc.perform(fileUpload(TEST_URL).param("TextField_TextField", "12345"))
+    mvc.perform(multipart(TEST_URL).param("TextField_TextField", "12345"))
         .andExpect(status().is4xxClientError())
         .andExpect(content().string(org.hamcrest.Matchers.containsString(FAILURE_VALIDATION_RESPONSE)))
         .andDo(MockMvcResultHandlers.print());
@@ -221,7 +215,7 @@ public class FormControllerTest {
 
   @Test
   public void testPostWithDependentFieldNegative() throws Exception {
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")
@@ -248,7 +242,7 @@ public class FormControllerTest {
 
   @Test
   public void testPostWithDependentFieldPositive() throws Exception {
-    mvc.perform(fileUpload(TEST_URL)
+    mvc.perform(multipart(TEST_URL)
         .param("TextField_TextField", "12345")
         .param("NumberField_NumberField", "18")
         .param("RadioButtonGroup_RadioButtonsMandatory", "value_123")

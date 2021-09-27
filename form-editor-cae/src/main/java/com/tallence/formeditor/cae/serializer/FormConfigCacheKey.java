@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.tallence.formeditor.cae.elements.AbstractFormElement;
+import com.tallence.formeditor.elements.AbstractFormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.contentbeans.FormEditor;
 

@@ -16,27 +16,50 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
-import com.coremedia.cap.util.StructUtil;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
-import com.tallence.formeditor.cae.FormEditorHelper;
+import com.tallence.formeditor.FormEditorHelper;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.validator.SizeValidator;
 
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_VALIDATOR;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MAXSIZE;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_VALIDATOR_MINSIZE;
+import static com.tallence.formeditor.FormEditorHelper.FORM_DATA;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 
-abstract class AbstractFormValidator {
+abstract class AbstractFormValidator<T extends FormElement<?>> implements FieldValidator {
 
   public static final String FULLPATH_MIN_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MINSIZE;
   public static final String FULLPATH_MAX_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MAXSIZE;
+
+  private final Class<?> formElementClass;
+
+  public AbstractFormValidator(Class<?> formElementClass) {
+    this.formElementClass = formElementClass;
+  }
+
+  @Override
+  public void validateFieldIfResponsible(FormElement<?> formElement, String action, Issues issues) {
+    if (!responsibleFor(formElement)) {
+      return;
+    }
+    final T castedElement = (T) formElement;
+    validateField(castedElement, action, issues);
+  }
+
+  abstract void validateField(T formElement, String action, Issues issues);
+
+  /**
+   * Returns the field type(s) this validator acts on.
+   */
+  protected boolean responsibleFor(FormElement<?> formElement) {
+    return formElementClass.isInstance(formElement);
+  }
 
   protected void addErrorIssue(Issues issues, String formElementId, String propertyName, String errorCode, Object... objects) {
     addIssue(issues, formElementId, propertyName, errorCode, Severity.ERROR, objects);
   }
 
   protected void addIssue(Issues issues, String formElementId, String propertyName, String errorCode, Severity severity, Object... objects) {
-    String property = FormEditorHelper.FORM_DATA + "." + FormEditorHelper.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
+    String property = FORM_DATA + "." + FormEditorHelper.FORM_ELEMENTS + "." + formElementId + "." + propertyName;
     issues.addIssue(Severity.ERROR, property, errorCode, objects);
   }
 
@@ -54,11 +77,9 @@ abstract class AbstractFormValidator {
     }
   }
 
-  protected void validateMaxAndMinSize(Struct validator, Issues issues, String formElementId, String name) {
+  protected void validateMaxAndMinSize(SizeValidator validator, Issues issues, String formElementId, String name) {
     // Size constraints
-    Integer minSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MINSIZE);
-    Integer maxSize = StructUtil.getInteger(validator, FORM_VALIDATOR_MAXSIZE);
-    validateMinSize(minSize, issues, formElementId, name);
-    validateMaxSize(maxSize, minSize, issues, formElementId, name);
+    validateMinSize(validator.getMinSize(), issues, formElementId, name);
+    validateMaxSize(validator.getMaxSize(), validator.getMinSize(), issues, formElementId, name);
   }
 }

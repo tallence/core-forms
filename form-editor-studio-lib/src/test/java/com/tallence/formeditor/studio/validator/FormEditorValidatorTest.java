@@ -24,7 +24,8 @@ import com.coremedia.rest.validation.Severity;
 import com.coremedia.rest.validation.impl.Issue;
 import com.coremedia.rest.validation.impl.IssuesImpl;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
-import com.tallence.formeditor.cae.FormEditorHelper;
+import com.tallence.formeditor.FormEditorConfiguration;
+import com.tallence.formeditor.FormEditorHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +44,9 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = FormEditorValidatorTest.LocalConfig.class)
@@ -106,7 +107,7 @@ public class FormEditorValidatorTest {
     formEditorValidator.validate(testContent, issues);
 
     String key = "formData.formElements.Test Buttons without options.groupElements";
-    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, key, "radiobuttons_missing_options", Collections.singletonList("without buttons"));
+    Issue<Content> issue1 = new Issue<>(testContent, Severity.ERROR, key, "radiobuttongroup_missing_options", Collections.singletonList("without buttons"));
     Set<Issue<Content>> formElementIssues = issues.getByProperty().get(key);
     assertEquals(formElementIssues.iterator().next(), issue1);
 
@@ -145,10 +146,13 @@ public class FormEditorValidatorTest {
 
   @Configuration
   @ImportResource(
-          value = {"classpath:/META-INF/coremedia/component-form-editor-studio-lib.xml"},
           reader = ResourceAwareXmlBeanDefinitionReader.class
   )
-  @Import(XmlRepoConfiguration.class)
+  @Import({
+          XmlRepoConfiguration.class,
+          FormStudioValidatorConfiguration.class,
+          FormEditorConfiguration.class
+  })
   public static class LocalConfig {
     @Bean
     @Scope(BeanDefinition.SCOPE_SINGLETON)

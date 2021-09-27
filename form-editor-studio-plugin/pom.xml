@@ -16,6 +16,15 @@
   </properties>
 
   <dependencies>
+    <!-- project dependencies -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>blueprint-forms</artifactId>
+      <version>${project.version}</version>
+      <type>swc</type>
+    </dependency>
+
+    <!-- CoreMedia dependencies -->
     <dependency>
       <groupId>com.coremedia.ui.toolkit</groupId>
       <artifactId>ui-components</artifactId>
@@ -35,9 +44,26 @@
     </dependency>
 
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>blueprint-forms</artifactId>
-      <version>${project.version}</version>
+      <groupId>com.coremedia.ui.toolkit</groupId>
+      <artifactId>client-core</artifactId>
+      <type>swc</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>studio-client.cap-base-models</artifactId>
+      <type>swc</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>studio-client.errors-validation-components</artifactId>
+      <type>swc</type>
+    </dependency>
+
+    <dependency>
+      <groupId>com.coremedia.ui.sdk</groupId>
+      <artifactId>cap-rest-client</artifactId>
       <type>swc</type>
     </dependency>
 
@@ -85,6 +111,10 @@
               <uri>exml:com.tallence.formeditor.studio.config</uri>
             </namespace>
           </namespaces>
+          <globalResourcesMap>
+            <formEditor-help-en>html-includes/FormEditorHelp_en.html</formEditor-help-en>
+            <formEditor-help-de>html-includes/FormEditorHelp_de.html</formEditor-help-de>
+          </globalResourcesMap>
         </configuration>
       </plugin>
     </plugins>

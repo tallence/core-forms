@@ -19,6 +19,7 @@ interface FormElement{
   placeholder: String
   technicalName: String
   advancedSettings: AdvancedSettings
+  elementClass: String
   type: String
   validator: Validator
 }
@@ -30,6 +31,7 @@ type AbstractFormElement implements FormElement{
   placeholder: String
   technicalName: String
   advancedSettings: AdvancedSettings
+  elementClass: String @fetch(from: "#this.getClass().getSimpleName()")
   type: String
   validator: Validator
 }
@@ -65,11 +67,11 @@ type ConsentFormCheckBoxImpl implements ConsentFormCheckBox @inherit(from: ["Abs
 }
 
 interface DateField @inherit(from: ["FormElement"]) {
-  linkTarget: CMTeasable
+  locale: String
 }
 
 type DateFieldImpl implements DateField @inherit(from: ["AbstractFormElement"]) {
-  linkTarget: CMTeasable
+  locale: String
 }
 
 interface FileUpload @inherit(from: ["FormElement"]) {
@@ -130,6 +132,7 @@ interface UsersMail @inherit(from: ["FormElement"]) {
 }
 
 type UsersMailImpl implements UsersMail @inherit(from: ["AbstractFormElement"]) {
+  copyBoxOption: String
 }
 
 interface ZipField @inherit(from: ["FormElement"]) {
@@ -173,9 +176,9 @@ type UsersMailValidator implements Validator {
 }
 type TextValidator implements Validator,SizeValidator {
   mandatory: Boolean
+  regexp: String
   minSize: Int
   maxSize: Int
-  regexp: String
 }
 type TextOnlyValidator implements Validator {
   mandatory: Boolean

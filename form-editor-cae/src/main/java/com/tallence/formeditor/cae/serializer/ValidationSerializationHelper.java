@@ -16,10 +16,10 @@
 
 package com.tallence.formeditor.cae.serializer;
 
-import com.tallence.formeditor.cae.validator.ValidationFieldError;
-import com.tallence.formeditor.cae.validator.Validator;
-import com.tallence.formeditor.cae.validator.annotation.ValidationMessage;
-import com.tallence.formeditor.cae.validator.annotation.ValidationProperty;
+import com.tallence.formeditor.validator.ValidationFieldError;
+import com.tallence.formeditor.validator.Validator;
+import com.tallence.formeditor.validator.annotation.ValidationMessage;
+import com.tallence.formeditor.validator.annotation.ValidationProperty;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

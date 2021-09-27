@@ -32,12 +32,9 @@
     <!-- CoreMedia -->
     <dependency>
       <groupId>com.coremedia.cms</groupId>
-      <artifactId>cap-contentbean-aspect</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api</artifactId>
     </dependency>
+
 
     <!-- Tests -->
     <dependency>
