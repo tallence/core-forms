@@ -11,7 +11,7 @@
 
   <modules>
     <module>form-editor-cae</module>
-    <module>form-editor-studio-plugin</module>
+    <!--module>form-editor-studio-plugin</module-->
     <module>form-editor-studio-lib</module>
     <module>form-editor-server</module>
     <module>form-editor-contentbeans-api</module>
@@ -19,6 +19,7 @@
     <!--module>form-editor-test-data</module-->
     <module>form-editor-headless-server</module>
     <module>form-editor-shared</module>
+    <module>form-editor-test-util</module>
   </modules>
 
 </project>
