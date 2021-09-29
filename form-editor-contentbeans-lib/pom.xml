@@ -23,15 +23,16 @@
       <artifactId>form-editor-contentbeans-api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>form-editor-shared</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- CoreMedia -->
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-unified-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coremedia.blueprint.base</groupId>
-      <artifactId>bpbase-settings-api</artifactId>
     </dependency>
 
 

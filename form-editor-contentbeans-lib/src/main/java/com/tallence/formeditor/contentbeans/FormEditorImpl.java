@@ -17,10 +17,13 @@
 package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.cap.struct.Struct;
+import com.tallence.formeditor.FormEditorHelper;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static com.tallence.formeditor.FormEditorHelper.ADMIN_MAILS;
 
 /**
  * Generated extension class for immutable beans of document type "JHContactForm".
@@ -32,7 +35,7 @@ public class FormEditorImpl extends FormEditorBase {
    */
   @Override
   public Struct getFormElements() {
-    return getSettingsService().setting(FORM_ELEMENTS, Struct.class, getContent().getStruct(FORM_DATA));
+    return FormEditorHelper.getFormElements(getContent()).orElse(null);
   }
 
   /**

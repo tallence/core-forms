@@ -16,8 +16,8 @@
 
 package com.tallence.formeditor.studio.validator.field;
 
-import com.coremedia.cap.struct.Struct;
 import com.coremedia.rest.validation.Issues;
+import com.tallence.formeditor.elements.FormElement;
 
 /**
  * Defines a common interface for form editor field validators.
@@ -25,18 +25,12 @@ import com.coremedia.rest.validation.Issues;
 public interface FieldValidator {
 
   /**
-   * Returns the field type(s) this validator acts on.
-   */
-  boolean responsibleFor(String fieldType, Struct formElementData);
-
-  /**
    * Validate a single field configuration.
    *
-   * @param id        the id of the form element
-   * @param fieldData the sub struct of formElements for a field.
+   * @param formElement the parsed {@link FormElement}
    * @param action    the current action of the form (some validators need this).
    * @param issues    the Issues object for the current validation request.
    */
-  void validateField(String id, Struct fieldData, String action, Issues issues);
+  void validateFieldIfResponsible(FormElement<?> formElement, String action, Issues issues);
 
 }

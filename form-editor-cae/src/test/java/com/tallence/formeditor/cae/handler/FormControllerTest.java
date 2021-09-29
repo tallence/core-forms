@@ -84,8 +84,8 @@ public class FormControllerTest {
           "SelectBox DisplayName: display_123<br/>" +
           "SelectBoxEmptyValidator: <br/>" +
           "TextArea: ist Text<br/>" +
-          "DateField min: 2099 Dec 31<br/>" +
-          "DateField max: 1999 Dec 31<br/>" +
+          "DateField min: December 31, 2099<br/>" +
+          "DateField max: December 31, 1999<br/>" +
           "TextOnly: Das ist ein langer Text zur Erklärung des Formulars<br/>" +
           "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
           "Data protection consent form: true<br/>";

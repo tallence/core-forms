@@ -18,6 +18,7 @@ package com.tallence.formeditor.contentbeans;
 
 import com.coremedia.blueprint.common.contentbeans.CMTeasable;
 import com.coremedia.cap.struct.Struct;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -64,31 +65,19 @@ public interface FormEditor extends CMTeasable {
   @Override
   Collection<? extends FormEditor> getLocalizations();
 
-  String FORM_ELEMENTS = "formElements";
-
-  String FORM_DATA = "formData";
-
   /**
-   * Resolves the configured {@link #FORM_ELEMENTS}.
+   * Resolves the configured formElements.
    * @return the formElements as a Map. The key represents the elements name, the value is the form elements data.
    */
+  @Nullable
   Struct getFormElements();
 
-
-
-  String ADMIN_MAILS = "adminMails";
-
   /**
-   * Resolves the admin mails {@link #ADMIN_MAILS}.
+   * Resolves the admin mails.
    */
   List<String> getAdminEmails();
 
-  String FORM_ACTION = "formAction";
-
   String getFormAction();
-
-
-  String FORM_SPAM_PROTECTION = "spamProtectionEnabled";
 
   Boolean isSpamProtectionEnabled();
 

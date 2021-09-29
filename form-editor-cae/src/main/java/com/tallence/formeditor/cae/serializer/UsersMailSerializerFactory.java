@@ -17,7 +17,7 @@
 package com.tallence.formeditor.cae.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.tallence.formeditor.cae.elements.UsersMail;
+import com.tallence.formeditor.elements.UsersMail;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

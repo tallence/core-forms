@@ -26,6 +26,13 @@
       <artifactId>cap-unified-api</artifactId>
     </dependency>
 
+    <!-- Other -->
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
 
 </project>

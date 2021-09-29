@@ -26,11 +26,12 @@ import com.coremedia.cache.Cache;
 import com.coremedia.objectserver.web.links.Link;
 import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.tallence.formeditor.cae.FormFreemarkerFacade;
-import com.tallence.formeditor.cae.elements.FormElement;
+import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.cae.serializer.FormConfigCacheKey;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -104,6 +105,8 @@ public class FormConfigController {
                               HttpServletRequest request, HttpServletResponse response) throws Exception {
 
     Navigation navigation = currentContext.getRootNavigation();
+    request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
+    CurrentFormSupplier.setCurrentForm(editor.getContent());
 
     List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {
@@ -114,7 +117,6 @@ public class FormConfigController {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.addObject(MODEL_ROOT, navigation);
     pageResourceBundlesInterceptor.postHandle(request, response, null, modelAndView);
-    request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
 
     //prepare form config
     FormEditorConfig formEditorConfig = new FormEditorConfig();

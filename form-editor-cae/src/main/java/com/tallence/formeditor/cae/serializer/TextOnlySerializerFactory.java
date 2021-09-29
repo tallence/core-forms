@@ -18,7 +18,7 @@ package com.tallence.formeditor.cae.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.tallence.formeditor.cae.elements.TextOnly;
+import com.tallence.formeditor.elements.TextOnly;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.function.BiFunction;
 
-import static com.tallence.formeditor.cae.FormElementFactory.FORM_DATA_KEY_TYPE;
-import static com.tallence.formeditor.cae.parser.AbstractFormElementParser.FORM_DATA_NAME;
+import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_NAME;
 import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_ID;
 import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_TECHNICAL_NAME;
 
