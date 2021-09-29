@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Validator for elements of type {@link FileUpload}
  */
-public class FileUploadValidator implements Validator<MultipartFile>, SizeValidator {
+public class FileUploadValidator implements SizeValidator<MultipartFile> {
 
   private static final String MESSAGE_KEY_FILEUPLOAD_REQUIRED = "com.tallence.forms.fileupload.empty";
   private static final String MESSAGE_KEY_FILEUPLOAD_MIN = "com.tallence.forms.fileupload.min";

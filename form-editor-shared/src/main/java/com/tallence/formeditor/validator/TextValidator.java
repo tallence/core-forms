@@ -30,7 +30,7 @@ import java.util.regex.PatternSyntaxException;
  * Validator for elements of type {@link com.tallence.formeditor.elements.TextArea} and
  * {@link TextField}
  */
-public class TextValidator implements Validator<String>, SizeValidator {
+public class TextValidator implements SizeValidator<String> {
 
   private static final String MESSAGE_KEY_TEXTFIELD_REQUIRED = "com.tallence.forms.textfield.empty";
   private static final String MESSAGE_KEY_TEXTFIELD_MIN = "com.tallence.forms.textfield.min";

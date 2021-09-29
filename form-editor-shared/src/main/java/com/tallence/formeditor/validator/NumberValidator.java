@@ -31,7 +31,7 @@ import static com.tallence.formeditor.validator.NumberValidator.MESSAGE_KEY_NUMB
  * Validator for elements of type {@link com.tallence.formeditor.elements.NumberField}
  */
 @ValidationMessage(name = "number", messageKey = MESSAGE_KEY_NUMBERFIELD_NAN)
-public class NumberValidator implements Validator<String>, SizeValidator {
+public class NumberValidator implements SizeValidator<String> {
 
   static final String MESSAGE_KEY_NUMBERFIELD_MIN = "com.tallence.forms.numberfield.min";
   static final String MESSAGE_KEY_NUMBERFIELD_MAX = "com.tallence.forms.numberfield.max";

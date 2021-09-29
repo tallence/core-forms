@@ -39,7 +39,7 @@ import static java.util.stream.Collectors.toCollection;
  *
  * Custom additional FormElements and Validators might be added to the classPath as well and will be handled if they are
  * placed in the {@link com.tallence.formeditor.elements} or {@link com.tallence.formeditor.validator} packages.
- * For elements and validators outside this package, you will have to define your own {@link ProvidesTypeNameResolver}
+ * For elements and validators outside this package, you will have to add these types in your custom {@link ProvidesTypeNameResolver}.
  */
 @Configuration(proxyBeanMethods = false)
 @Import(value = {MultiSiteConfiguration.class,})
@@ -70,7 +70,6 @@ public class FormEditorConfig {
             .map(Class::getSimpleName)
             .collect(toCollection(ArrayList::new));
     validatorTypes.add(Validator.class.getSimpleName());
-    validatorTypes.add("SizeValidator");
 
     return name -> validatorTypes.contains(name) ? Optional.of(true): Optional.empty();
   }
