@@ -19,7 +19,7 @@ package com.tallence.formeditor.validator;
  * Interface for validators with min- or maxSizes. e.g. {@link NumberValidator}
  *
  */
-public interface SizeValidator {
+public interface SizeValidator<T> extends Validator<T> {
 
   Integer getMinSize();
 

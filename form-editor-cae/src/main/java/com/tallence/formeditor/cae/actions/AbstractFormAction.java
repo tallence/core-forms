@@ -59,7 +59,7 @@ public abstract class AbstractFormAction implements FormAction {
             .filter(Objects::nonNull)
             .filter(UsersMail.UsersMailData::isSendCopy)
             .map(UsersMail.UsersMailData::getUsersMail)
-        .findFirst();
+            .findFirst();
 
     if (userMailOptional.isPresent()) {
       String userMail = userMailOptional.get();

@@ -18,6 +18,7 @@ package com.tallence.formeditor;
 import com.coremedia.cap.common.IdHelper;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.content.ContentRepository;
+import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
 import com.coremedia.cap.test.xmlrepo.XmlRepoConfiguration;
 import com.coremedia.cap.test.xmlrepo.XmlUapiConfig;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
@@ -56,7 +57,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
 public class FormElementFactoryTest {
 
   @ImportResource(reader = ResourceAwareXmlBeanDefinitionReader.class)
-  @Import({XmlRepoConfiguration.class})
+  @Import({XmlRepoConfiguration.class, MultiSiteConfiguration.class})
   @ComponentScan(basePackages = "com.tallence.formeditor.parser")
   public static class LocalTestConfig {
     private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/testdata/contenttest.xml";
