@@ -16,7 +16,8 @@
     <module>form-editor-server</module>
     <module>form-editor-contentbeans-api</module>
     <module>form-editor-contentbeans-lib</module>
-    <!--module>form-editor-test-data</module-->
+    <module>form-editor-test-data</module>
+    <module>form-editor-test-util</module>
     <module>form-editor-headless-server</module>
     <module>form-editor-shared</module>
   </modules>
