@@ -49,6 +49,7 @@ public abstract class AbstractFormElementParser<T extends FormElement<?>> {
   public static final String FORM_DATA_VISIBILITY_ACTIVATED = "activated";
   public static final String FORM_DATA_VISIBILITY_ELEMENT_ID = "elementId";
   public static final String FORM_DATA_VISIBILITY_ELEMENT_VALUE = "value";
+  public static final String FORM_DATA_VISIBILITY_ELEMENT_VALUES = "values";
   public static final String FORM_DATA_NAME = "name";
   public static final String FORM_DATA_HINT = "hint";
   public static final String FORM_DATA_PLACEHOLDER = "placeholder";
@@ -129,7 +130,7 @@ public abstract class AbstractFormElementParser<T extends FormElement<?>> {
         if (activated) {
           settings.setVisibilityDependent(activated);
           ofNullable(getString(visibility, FORM_DATA_VISIBILITY_ELEMENT_ID)).ifPresent(settings::setDependentElementId);
-          ofNullable(getString(visibility, FORM_DATA_VISIBILITY_ELEMENT_VALUE)).ifPresent(settings::setDependentElementValue);
+          ofNullable(getString(visibility, FORM_DATA_VISIBILITY_ELEMENT_VALUE)).ifPresent(settings::setDependentElementValues);
         }
       });
       formElement.setAdvancedSettings(settings);

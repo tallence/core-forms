@@ -105,7 +105,10 @@
         "visibility": {
           "activated": true,
           "elementId": "RadioButtonsOptional",
-          "value": "value_456"
+          "value": "value_456",
+          "values": [
+            "value_456"
+          ]
         },
         "columnWidth": 3,
         "breakAfterElement": true
@@ -363,6 +366,7 @@
       "name": "Data protection consent form",
       "hint": "Please confirm the %data protection consent form%",
       "type": "ConsentFormCheckBox",
+      "linkTarget": "/8",
       "validator": {
         "mandatory": true,
         "errorMessages": {

@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Interface for all FormElements.
  */
@@ -91,4 +93,11 @@ public interface FormElement<T> {
   void fillFormData(Map<String, String> formData);
 
   void setValue(MultiValueMap<String, String> postData, HttpServletRequest request);
+
+  default boolean matchesDependentElementValues(List<String> dependentElementValues) {
+    return ofNullable(getValue())
+            .map(Object::toString)
+            .map(dependentElementValues::contains)
+            .orElse(false);
+  }
 }

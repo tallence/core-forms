@@ -1,5 +1,12 @@
 package com.tallence.formeditor.elements;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static java.util.Optional.ofNullable;
+
 /**
  * AdvancedSettings for a {@link FormElement} to control behaviours like dependent visibility or the layout.
  *
@@ -11,7 +18,7 @@ public class AdvancedSettings {
   private boolean breakAfterElement;
   private boolean visibilityDependent;
   private String dependentElementId;
-  private String dependentElementValue;
+  private List<String> dependentElementValues = new ArrayList<>();
 
   public String getCustomId() {
     return customId;
@@ -53,11 +60,30 @@ public class AdvancedSettings {
     this.dependentElementId = dependentElementId;
   }
 
+  /**
+   * @deprecated use {@link #getDependentElementValues} instead
+   */
+  @Deprecated
   public String getDependentElementValue() {
-    return dependentElementValue;
+    return dependentElementValues.isEmpty() ? null : dependentElementValues.get(0);
   }
 
+  /**
+   * @deprecated use {@link #setDependentElementValues} instead
+   */
+  @Deprecated
   public void setDependentElementValue(String dependentElementValue) {
-    this.dependentElementValue = dependentElementValue;
+    this.dependentElementValues = Collections.singletonList(dependentElementValue);
   }
+
+  public List<String> getDependentElementValues() {
+    return ofNullable(dependentElementValues).orElse(Collections.emptyList());
+  }
+
+  public void setDependentElementValues(String dependentElementValue) {
+    this.dependentElementValues = ofNullable(dependentElementValue)
+            .map(d -> Arrays.asList(d.split(";")))
+            .orElse(Collections.emptyList());
+  }
+
 }

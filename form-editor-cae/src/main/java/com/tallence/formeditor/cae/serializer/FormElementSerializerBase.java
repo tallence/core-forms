@@ -39,6 +39,7 @@ import java.util.function.BiFunction;
 import static com.tallence.formeditor.FormElementFactory.FORM_DATA_KEY_TYPE;
 import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.*;
+import static com.tallence.formeditor.parser.AbstractFormElementParser.FORM_DATA_VISIBILITY_ELEMENT_VALUES;
 
 /**
  * Serializes default fields used for nearly all form elements.
@@ -110,7 +111,13 @@ public class FormElementSerializerBase<T extends AbstractFormElement<?, ?>> exte
         gen.writeObjectFieldStart(FORM_DATA_VISIBILIY);
         gen.writeBooleanField(FORM_DATA_VISIBILITY_ACTIVATED, true);
         gen.writeStringField(FORM_DATA_VISIBILITY_ELEMENT_ID, settings.getDependentElementId());
+        //The value field is deprecated, will be removed
         gen.writeStringField(FORM_DATA_VISIBILITY_ELEMENT_VALUE, settings.getDependentElementValue());
+        gen.writeArrayFieldStart(FORM_DATA_VISIBILITY_ELEMENT_VALUES);
+        for (String value : settings.getDependentElementValues()) {
+          gen.writeString(value);
+        }
+        gen.writeEndArray();
         gen.writeEndObject();
       }
       if (settings.getColumnWidth() != null) {

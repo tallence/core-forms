@@ -63,7 +63,7 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   protected boolean dependentFieldMatch(FormElement<?> candidate) {
     return candidate.getId().equals(settings.getDependentElementId())
             && candidate.getValue() != null
-            && candidate.getValue().toString().equals(settings.getDependentElementValue());
+            && candidate.matchesDependentElementValues(settings.getDependentElementValues());
   }
 
   @Override
