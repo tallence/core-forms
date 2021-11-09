@@ -18,7 +18,7 @@ package com.tallence.formeditor.studio {
 import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
 import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
 import com.coremedia.ui.data.ValueExpression;
-import com.coremedia.ui.util.ReusableComponentsServiceImpl;
+import com.coremedia.ui.util.reusableComponentsService;
 import com.tallence.formeditor.studio.dragdrop.FormElementDropContainerBase;
 import com.tallence.formeditor.studio.elements.FormElement;
 import com.tallence.formeditor.studio.helper.DragDropHelper;
@@ -71,7 +71,7 @@ public class AppliedFormElementsContainerBase extends Container {
     super.afterRender();
     var panel:CollapsiblePanel = queryById(FORM_ELEMENT_PANEL) as CollapsiblePanel;
 
-    var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
+    var formElementEditor:FormElement = reusableComponentsService.requestComponentForReuse(formElement.getType()) as FormElement;
     if (formElement != formElementEditor.getFormElementStructWrapper()) {
       formElementEditor.updateFormElementStructWrapper(formElement);
       panel.add(formElementEditor as Component);
@@ -94,7 +94,7 @@ public class AppliedFormElementsContainerBase extends Container {
 
   private function collapsedElementChangeListener(ve:ValueExpression):void {
     if (ve.getValue() == formElement.getId()) {
-      var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()) as FormElement;
+      var formElementEditor:FormElement = reusableComponentsService.requestComponentForReuse(formElement.getType()) as FormElement;
       if (formElement != formElementEditor.getFormElementStructWrapper()) {
         formElementEditor.updateFormElementStructWrapper(formElement);
         panel.add(formElementEditor as Component);
@@ -121,7 +121,7 @@ public class AppliedFormElementsContainerBase extends Container {
   }
 
   public function iconClassTransformer(elementType:String):String {
-    var formElementEditor:FormElement = ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(elementType) as FormElement;
+    var formElementEditor:FormElement = reusableComponentsService.requestComponentForReuse(elementType) as FormElement;
     return formElementEditor.getFormElementIconCls() || "";
   }
 
@@ -140,7 +140,7 @@ public class AppliedFormElementsContainerBase extends Container {
    */
   private function removeReusableFormElement():void {
     formElementsManager.getCollapsedElementVE().removeChangeListener(collapsedElementChangeListener);
-    ReusableComponentsServiceImpl.getInstance().removeReusableComponentCleanly(ReusableComponentsServiceImpl.getInstance().requestComponentForReuse(formElement.getType()));
+    reusableComponentsService.removeReusableComponentCleanly(reusableComponentsService.requestComponentForReuse(formElement.getType()));
   }
 }
 }
