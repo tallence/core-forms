@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <DocumentTypeModel xmlns="http://www.coremedia.com/2008/documenttypes"
-                   Name="jh-doctypes">
+                   Name="core-forms-doctypes">
   <ImportGrammar Name="coremedia-richtext-1.0"/>
 
   <!--- well known grammars -->
