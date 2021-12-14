@@ -15,8 +15,8 @@
  */
 
 package com.tallence.formeditor.studio {
-import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
 import com.coremedia.cms.editor.sdk.util.PropertyEditorUtil;
+import com.coremedia.ui.components.panel.CollapsiblePanel;
 import com.coremedia.ui.data.ValueExpression;
 import com.coremedia.ui.util.reusableComponentsService;
 import com.tallence.formeditor.studio.dragdrop.FormElementDropContainerBase;
