@@ -10,6 +10,9 @@
       "@coremedia-blueprint/studio-client.blueprint-doctypes/*": [
         "../../../../../../../../../apps/studio-client/shared/js/blueprint-doctypes/src/*"
       ],
+      "@coremedia-blueprint/studio-client.form-editor/*": [
+        "../../../../shared/js/form-editor/src/*"
+      ],
       "@coremedia-blueprint/studio-client.main.blueprint-forms/*": [
         "../../../../../../../../../apps/studio-client/apps/main/blueprint-forms/src/*"
       ],
@@ -192,6 +195,9 @@
     ]
   },
   "references": [
+    {
+      "path": "../../../../shared/js/form-editor/src"
+    },
     {
       "path": "../../../../../../../../../apps/studio-client/apps/main/blueprint-forms/src"
     }
