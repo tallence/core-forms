@@ -1,0 +1,29 @@
+{
+  "name": "@coremedia-blueprint/studio-client.form-editor-workflow-plugin",
+  "version": "1.0.0-SNAPSHOT",
+  "private": true,
+  "dependencies": {
+    "@coremedia-blueprint/studio-client.form-editor": "1.0.0-SNAPSHOT"
+  },
+  "devDependencies": {
+    "@jangaroo/build": "^1.0.0",
+    "@jangaroo/core": "^1.0.0",
+    "@jangaroo/eslint-config": "^1.0.0",
+    "@jangaroo/publish": "^1.0.0",
+    "eslint": "7.27.0",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./build",
+    "build": "jangaroo build",
+    "watch": "jangaroo watch",
+    "publish": "jangaroo publish dist",
+    "lint": "eslint --fix \"src/**/*.ts\""
+  },
+  "coremedia": {
+    "projectExtensionFor": "studio-client.workflow"
+  },
+  "exports": {
+    "./*": "./dist/src/*.js"
+  }
+}

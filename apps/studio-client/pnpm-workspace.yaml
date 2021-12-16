@@ -1,0 +1,4 @@
+packages:
+  - "apps/main/form-editor-studio-plugin"
+  - "apps/workflow/form-editor-workflow-plugin"
+  - "shared/js/form-editor"
