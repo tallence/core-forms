@@ -1,9 +1,11 @@
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
 import CheckboxField from "../fields/CheckboxField";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
+import Icon from "../icons/date-field.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface DateFieldEditorConfig extends Config<AbstractFormElement> {
@@ -21,7 +23,7 @@ class DateFieldEditor extends AbstractFormElement {
   constructor(config: Config<DateFieldEditor> = null) {
     super(ConfigUtils.apply(Config(DateFieldEditor, {
       formElementType: DateFieldEditor.FIELD_TYPE,
-      formElementIconCls: "tallence-icons tallence-icons--input-date",
+      formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(Icon),
       formElementGroup: "input",
 
       items: [

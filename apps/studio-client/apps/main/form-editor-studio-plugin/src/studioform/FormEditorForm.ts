@@ -11,6 +11,7 @@ import TeaserDocumentForm from "@coremedia-blueprint/studio-client.main.blueprin
 import ValidityDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ValidityDocumentForm";
 import ViewTypeSelectorForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ViewTypeSelectorForm";
 import MetaDataDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/media/MetaDataDocumentForm";
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import LocalComboBox from "@coremedia/studio-client.ext.ui-components/components/LocalComboBox";
 import BindPropertyPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindPropertyPlugin";
 import DocumentForm from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentForm";
@@ -40,6 +41,10 @@ import TextAreaEditor from "../elements/TextAreaEditor";
 import TextFieldEditor from "../elements/TextFieldEditor";
 import TextOnlyEditor from "../elements/TextOnlyEditor";
 import UsersMailEditor from "../elements/UsersMailEditor";
+import InputCity from "../icons/input-city-zip.svg";
+import InputFax from "../icons/input-fax.svg";
+import InputPhone from "../icons/input-phone.svg";
+import InputStreet from "../icons/input-street-nr.svg";
 
 interface FormEditorFormConfig extends Config<DocumentTabPanel> {
 }
@@ -134,23 +139,23 @@ class FormEditorForm extends DocumentTabPanel {
             Config(TextFieldEditor, {
               formElementType: "ZipField",
               defaultRegexpValidatorValue: "\\d{5}",
-              formElementIconCls: "tallence-icons tallence-icons--input-city-zip",
+              formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(InputCity),
               defaultMandatory: true,
               defaultName: FormEditor_properties.FormEditor_label_element_zipField,
             }),
             Config(TextFieldEditor, {
               formElementType: "PhoneField",
-              formElementIconCls: "tallence-icons tallence-icons--input-phone",
+              formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(InputPhone),
               defaultName: FormEditor_properties.FormEditor_label_element_phoneField,
             }),
             Config(TextFieldEditor, {
               formElementType: "FaxField",
-              formElementIconCls: "tallence-icons tallence-icons--input-fax",
+              formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(InputFax),
               defaultName: FormEditor_properties.FormEditor_label_element_faxField,
             }),
             Config(TextFieldEditor, {
               formElementType: "StreetNumberField",
-              formElementIconCls: "tallence-icons tallence-icons--input-street-nr",
+              formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(InputStreet),
               defaultMandatory: true,
               defaultName: FormEditor_properties.FormEditor_label_element_streetNumberField,
             }),

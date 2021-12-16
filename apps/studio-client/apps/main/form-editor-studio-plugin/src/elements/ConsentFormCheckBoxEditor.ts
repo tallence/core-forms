@@ -1,3 +1,4 @@
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
@@ -5,6 +6,7 @@ import CheckboxField from "../fields/CheckboxField";
 import LinkedContentField from "../fields/LinkedContentField";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
+import Icon from "../icons/confirm.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface ConsentFormCheckBoxEditorConfig extends Config<AbstractFormElement> {
@@ -20,7 +22,7 @@ class ConsentFormCheckBoxEditor extends AbstractFormElement {
   constructor(config: Config<ConsentFormCheckBoxEditor> = null) {
     super(ConfigUtils.apply(Config(ConsentFormCheckBoxEditor, {
       formElementType: ConsentFormCheckBoxEditor.FIELD_TYPE,
-      formElementIconCls: "tallence-icons tallence-icons--confirm",
+      formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(Icon),
 
       items: [
         Config(TextField, {

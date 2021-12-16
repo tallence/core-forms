@@ -1,3 +1,4 @@
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
@@ -5,6 +6,7 @@ import AddOptionField from "../fields/AddOptionField";
 import CheckboxField from "../fields/CheckboxField";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
+import Icon from "../icons/radio-group.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface RadioButtonsEditorConfig extends Config<AbstractFormElement> {
@@ -20,7 +22,7 @@ class RadioButtonsEditor extends AbstractFormElement {
   constructor(config: Config<RadioButtonsEditor> = null) {
     super(ConfigUtils.apply(Config(RadioButtonsEditor, {
       formElementType: RadioButtonsEditor.FIELD_TYPE,
-      formElementIconCls: "tallence-icons tallence-icons--radio-group",
+      formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(Icon),
       formElementGroup: "multiple",
 
       items: [

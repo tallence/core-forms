@@ -1,3 +1,4 @@
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
@@ -5,6 +6,7 @@ import CheckboxField from "../fields/CheckboxField";
 import NumberField from "../fields/NumberField";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
+import Icon from "../icons/input-number.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface NumberFieldEditorConfig extends Config<AbstractFormElement> {
@@ -20,7 +22,7 @@ class NumberFieldEditor extends AbstractFormElement {
   constructor(config: Config<NumberFieldEditor> = null) {
     super(ConfigUtils.apply(Config(NumberFieldEditor, {
       formElementType: NumberFieldEditor.FIELD_TYPE,
-      formElementIconCls: "tallence-icons tallence-icons--input-number",
+      formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(Icon),
       formElementGroup: "input",
 
       items: [

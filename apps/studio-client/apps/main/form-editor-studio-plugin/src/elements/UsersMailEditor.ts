@@ -1,3 +1,4 @@
+import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
@@ -5,6 +6,7 @@ import CheckboxField from "../fields/CheckboxField";
 import ComboBoxField from "../fields/ComboBoxField";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
+import Icon from "../icons/input-mail.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface UsersMailEditorConfig extends Config<AbstractFormElement> {
@@ -26,7 +28,7 @@ class UsersMailEditor extends AbstractFormElement {
   constructor(config: Config<UsersMailEditor> = null) {
     super(ConfigUtils.apply(Config(UsersMailEditor, {
       formElementType: UsersMailEditor.FIELD_TYPE,
-      formElementIconCls: "tallence-icons tallence-icons--input-mail",
+      formElementIconCls: SvgIconUtil.getIconStyleClassForSvgIcon(Icon),
       formElementGroup: "input",
 
       items: [
