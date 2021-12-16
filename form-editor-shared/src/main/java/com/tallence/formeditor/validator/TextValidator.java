@@ -61,7 +61,7 @@ public class TextValidator implements SizeValidator<String> {
       if (this.maxSize != null && value.length() > this.maxSize) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_MAX, this.maxSize));
       }
-      if (this.regexp != null && !getRegexp().matcher(value).matches()) {
+      if (this.getRegexp() != null && !getRegexp().matcher(value).matches()) {
         errors.add(new ValidationFieldError(MESSAGE_KEY_TEXTFIELD_REGEX, this.regexp));
       }
     } else if (this.mandatory) {

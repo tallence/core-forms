@@ -15,7 +15,7 @@
  */
 
 package com.tallence.formeditor.studio.components {
-import com.coremedia.cms.editor.sdk.premular.CollapsiblePanel;
+import com.coremedia.ui.components.panel.CollapsiblePanel;
 import com.coremedia.ui.mixins.IHighlightableMixin;
 import com.coremedia.ui.mixins.IValidationStateMixin;
 import com.coremedia.ui.mixins.ValidationState;

@@ -36,7 +36,7 @@ public class FormEditorDocumentFormBase extends DocumentForm {
    * {@link com.coremedia.ui.util.IReusableComponentsService}, the component must first be created by the
    * {@link ext.ComponentManager}. Then the form editor component is registered and can be used afterwards.
    */
-  protected static function initReusableComponents(formElements:Array):void {
+  protected function initReusableComponents(formElements:Array):void {
     for (var i:int = 0; i < formElements.length; i++) {
       var formElement:AbstractFormElement = AbstractFormElement(ComponentManager.create(formElements[i]));
 
