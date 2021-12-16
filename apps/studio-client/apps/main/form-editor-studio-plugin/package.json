@@ -1,0 +1,50 @@
+{
+  "name": "@coremedia-blueprint/studio-client.main.form-editor-studio-plugin",
+  "version": "1.0.0-SNAPSHOT",
+  "private": true,
+  "dependencies": {
+    "@coremedia-blueprint/studio-client.main.blueprint-forms": "1.0.0-SNAPSHOT",
+    "@coremedia/studio-client.cap-base-models": "2110.1.0",
+    "@coremedia/studio-client.cap-rest-client": "2110.1.0",
+    "@coremedia/studio-client.client-core": "2110.1.0",
+    "@coremedia/studio-client.ext.errors-validation-components": "2110.1.0",
+    "@coremedia/studio-client.ext.ui-components": "2110.1.0",
+    "@coremedia/studio-client.main.bpbase-studio-dynamic-query-list": "2110.1.0",
+    "@coremedia/studio-client.main.editor-components": "2110.1.0",
+    "@jangaroo/ext-ts": "^1.0.0",
+    "@jangaroo/runtime": "^1.0.0"
+  },
+  "devDependencies": {
+    "@jangaroo/build": "^1.0.0",
+    "@jangaroo/core": "^1.0.0",
+    "@jangaroo/eslint-config": "^1.0.0",
+    "@jangaroo/publish": "^1.0.0",
+    "eslint": "^7.27.0",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "clean": "rimraf ./dist && rimraf ./build",
+    "build": "jangaroo build",
+    "watch": "jangaroo watch",
+    "publish": "jangaroo publish",
+    "lint": "eslint --fix \"src/**/*.ts\""
+  },
+  "exports": {
+    "./*": {
+      "types": "./src/*.ts",
+      "default": "./dist/src/*.js"
+    }
+  },
+  "coremedia": {
+    "projectExtensionFor": "studio-client.main"
+  },
+  "publishConfig": {
+    "directory": "dist",
+    "exports": {
+      "./*": {
+        "types": "./src/*.d.ts",
+        "default": "./src/*.js"
+      }
+    }
+  }
+}
