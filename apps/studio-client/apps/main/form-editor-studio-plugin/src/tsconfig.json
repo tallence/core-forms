@@ -16,9 +16,6 @@
       "@coremedia-blueprint/studio-client.main.blueprint-forms/*": [
         "../../../../../../../../../apps/studio-client/apps/main/blueprint-forms/src/*"
       ],
-      "@coremedia-blueprint/studio-client.main.salesdemo-feature-modifier/*": [
-        "../../../../../../../../../apps/studio-client/apps/main/salesdemo-feature-modifier/src/*"
-      ],
       "@coremedia/studio-client.app-context-models/*": [
         "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.app-context-models@2110.1.0/node_modules/@coremedia/studio-client.app-context-models/src/*"
       ],
