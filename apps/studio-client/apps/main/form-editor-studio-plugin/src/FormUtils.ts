@@ -24,8 +24,8 @@ class FormUtils {
 
   static reloadPreview(): void {
     const premular = cast(Panel, editorContext._.getWorkArea().getActiveTab());
-    const previewPanel = as(premular.find("itemId", "previewPanel")[0], PreviewPanel);
-    if (previewPanel) {
+    const previewPanel = as(premular.queryById("previewPanel")[0], PreviewPanel);
+    if (previewPanel && previewPanel.isInstance) {
       previewPanel.reloadFrame();
     }
   }

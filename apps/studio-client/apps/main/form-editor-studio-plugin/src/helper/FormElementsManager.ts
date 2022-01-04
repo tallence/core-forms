@@ -23,6 +23,7 @@ import { as, bind } from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import int from "@jangaroo/runtime/int";
 import FormElementStructWrapper from "../model/FormElementStructWrapper";
+import NodeInterface from "@jangaroo/ext-ts/src/data/NodeInterface";
 
 class FormElementsManager {
 
@@ -115,9 +116,12 @@ class FormElementsManager {
       return this.#formElementsStruct.getValueAsStruct();
     } else {
       // if the sub struct is missing the sub struct has to be created
-      const root = as(this.#formElementsWrapperStore.getRoot(), StructTreeNode).getValueAsStruct();
-      root.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
-      return root.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+      let structTreeNode = as(this.#formElementsWrapperStore.getRoot(), StructTreeNode);
+      if (structTreeNode.isInstance) {
+        const root = structTreeNode.getValueAsStruct();
+        root.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+        return root.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+      }
     }
   }
 
@@ -134,11 +138,11 @@ class FormElementsManager {
     storeConfig.propertyName = this.#formDataStructPropertyName;
     this.#formElementsWrapperStore = new StructTreeStore(storeConfig);
     this.#formElementsWrapperStore.addListener("nodeappend", bind(this, this.#nodeAppended));
-    this.#formElementsWrapperStore.addListener("nodeinsert", bind(this, this.#nodeAppended));
+    this.#formElementsWrapperStore.addListener("nodeinsert", bind(this, this.#nodeInserted));
     this.#formElementsWrapperStore.addListener("noderemove", bind(this, this.#nodeRemoved));
   }
 
-  #nodeRemoved(store: StructTreeStore, record: StructTreeNode): void {
+  #nodeRemoved(_store: NodeInterface, record: NodeInterface): void {
     const depth = record.getDepth();
     if (depth == 1) {
       // If the root node is removed another document form without a 'formElements' sub struct is opened. Therefore
@@ -150,9 +154,16 @@ class FormElementsManager {
     }
   }
 
-  #nodeAppended(store: StructTreeStore, record: StructTreeNode): void {
+  #nodeInserted(store: NodeInterface, record: NodeInterface, _refNode: NodeInterface): any {
+    return this.#addNodeInternal(store, record);
+  }
+
+  #nodeAppended(store: NodeInterface, record: NodeInterface, _index: number): any {
+    return this.#addNodeInternal(store, record);
+  }
+  #addNodeInternal(_store: NodeInterface, record: NodeInterface): any {
     const depth = record.getDepth();
-    if (depth == 1) {
+    if (depth == 1 && record instanceof StructTreeNode) {
       // The bind to value expression has changed due to a document form change. Therefor the new root struct has to be
       // set.
       this.#formElementsStruct = record;

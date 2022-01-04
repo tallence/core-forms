@@ -113,7 +113,10 @@ class AppliedFormElementsContainerBase extends Container {
     const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
     if (this.formElement != formElementEditor.getFormElementStructWrapper()) {
       formElementEditor.updateFormElementStructWrapper(this.formElement);
-      panel.add(as(formElementEditor, Component));
+      const component = as(formElementEditor, Component);
+      if (component.isInstance) {
+        panel.add(component);
+      }
     }
 
     this.formElementsManager.getCollapsedElementVE().addChangeListener(bind(this, this.#collapsedElementChangeListener));
@@ -136,7 +139,10 @@ class AppliedFormElementsContainerBase extends Container {
       const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
       if (this.formElement != formElementEditor.getFormElementStructWrapper()) {
         formElementEditor.updateFormElementStructWrapper(this.formElement);
-        this.#panel.add(as(formElementEditor, Component));
+        const component = as(formElementEditor, Component);
+        if (component.isInstance) {
+          this.#panel.add(component);
+        }
       }
     }
   }
