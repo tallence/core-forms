@@ -11,6 +11,5 @@ module.exports = jangarooConfig({
         name: "Formeditor Extension",
       },
     ],
-  },
-  command: { build: { ignoreTypeErrors: true } },
+  }
 });
