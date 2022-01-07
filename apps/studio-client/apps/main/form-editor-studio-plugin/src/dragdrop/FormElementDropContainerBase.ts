@@ -18,7 +18,7 @@ import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpr
 import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
 import Container from "@jangaroo/ext-ts/container/Container";
 import DropTarget from "@jangaroo/ext-ts/dd/DropTarget";
-import { as } from "@jangaroo/runtime";
+import {as} from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import FormElementsManager from "../helper/FormElementsManager";
 import FormElementDropContainer from "./FormElementDropContainer";
@@ -56,14 +56,14 @@ class FormElementDropContainerBase extends Container {
   protected override afterRender(): void {
     super.afterRender();
     this.#dropTarget = new FormElementDropTarget(
-      this.#formElementsManager,
-      this.getDropActiveVE(),
-      this.#formElementId,
-      this.#forceReadOnlyValueExpression,
-      this, Config(DropTarget, {
-        el: this.getEl(),
-        ddGroup: FormElementDropContainerBase.MOVE_TARGET_DD_GROUP,
-      }));
+            this.#formElementsManager,
+            this.getDropActiveVE(),
+            this.#formElementId,
+            this.#forceReadOnlyValueExpression,
+            this.getEl(),
+            Config(DropTarget, {
+              ddGroup: FormElementDropContainerBase.MOVE_TARGET_DD_GROUP,
+            }));
   }
 
   override destroy(...params): void {

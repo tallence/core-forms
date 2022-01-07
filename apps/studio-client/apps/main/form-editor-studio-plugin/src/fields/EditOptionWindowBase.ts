@@ -19,27 +19,28 @@ import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/Va
 import Format from "@jangaroo/ext-ts/util/Format";
 import Window from "@jangaroo/ext-ts/window/Window";
 import Config from "@jangaroo/runtime/Config";
-import { AnyFunction } from "@jangaroo/runtime/types";
+import {AnyFunction} from "@jangaroo/runtime/types";
 import GroupElementStructWrapper from "../model/GroupElementStructWrapper";
 import EditOptionWindow from "./EditOptionWindow";
 
-interface EditOptionWindowBaseConfig extends Config<Window> {
+interface EditOptionWindowBaseConfig extends Config<Window>, Partial<Pick<EditOptionWindow,
+        "option" | "onSaveCallback" | "onRemoveCallback">> {
 }
 
 class EditOptionWindowBase extends Window {
   declare Config: EditOptionWindowBaseConfig;
 
-  protected option: GroupElementStructWrapper = null;
+  option: GroupElementStructWrapper = null;
+
+  onSaveCallback: AnyFunction = null;
+
+  onRemoveCallback: AnyFunction = null;
 
   protected optionNameVE: ValueExpression = null;
 
   protected optionValueVE: ValueExpression = null;
 
   protected optionCheckedVE: ValueExpression = null;
-
-  protected onSaveCallback: AnyFunction = null;
-
-  protected onRemoveCallback: AnyFunction = null;
 
   constructor(config: Config<EditOptionWindow> = null) {
     super(config);
@@ -60,9 +61,9 @@ class EditOptionWindowBase extends Window {
   saveOption(): void {
     if (this.onSaveCallback) {
       this.onSaveCallback.call(NaN,
-        this.getOptionNameVE().getValue(),
-        this.getOptionValueVE().getValue(),
-        this.getOptionCheckedVE().getValue(),
+              this.getOptionNameVE().getValue(),
+              this.getOptionValueVE().getValue(),
+              this.getOptionCheckedVE().getValue(),
       );
       this.close();
     }

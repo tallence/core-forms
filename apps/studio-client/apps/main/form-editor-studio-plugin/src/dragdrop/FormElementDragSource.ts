@@ -36,16 +36,13 @@ class FormElementDragSource extends DragSource {
   #component: Component = null;
 
   constructor(component: Component,
-    dragData: any,
-    dragActiveVE: ValueExpression,
-    readOnlyVE: ValueExpression) {
+              dragActiveVE: ValueExpression,
+              readOnlyVE: ValueExpression) {
     const cfg = Config(DragSource, {
-      dragData: dragData,
       ddGroup: FormElementDropContainerBase.MOVE_TARGET_DD_GROUP,
-      scroll: false,
-      resizeFrame: true,
+      scroll: false
     });
-    super(...((): [any, any]=>{
+    super(...((): [any, any] => {
       this.#dragActiveVE = dragActiveVE;
       this.#component = component;
       this.#readOnlyVE = readOnlyVE;

@@ -22,10 +22,12 @@ import FormElementDragSource from "../dragdrop/FormElementDragSource";
 class DragDropHelper {
 
   static createFormDragSource(component: Component,
-    dragData: any,
-    dragStateVE: ValueExpression,
-    forceReadOnlyVE: ValueExpression): DragSource {
-    return new FormElementDragSource(component, dragData, dragStateVE, forceReadOnlyVE);
+                              dragData: any,
+                              dragStateVE: ValueExpression,
+                              forceReadOnlyVE: ValueExpression): DragSource {
+    let formElementDragSource = new FormElementDragSource(component, dragStateVE, forceReadOnlyVE);
+    formElementDragSource.dragData = dragData;
+    return formElementDragSource;
   }
 
 }

@@ -8,6 +8,7 @@
     "@coremedia/studio-client.cap-base-models": "2110.1.0",
     "@coremedia/studio-client.cap-rest-client": "2110.1.0",
     "@coremedia/studio-client.client-core": "2110.1.0",
+    "@coremedia/studio-client.core-icons": "2110.1.0",
     "@coremedia/studio-client.ext.errors-validation-components": "2110.1.0",
     "@coremedia/studio-client.ext.ui-components": "2110.1.0",
     "@coremedia/studio-client.main.bpbase-studio-dynamic-query-list": "2110.1.0",

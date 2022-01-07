@@ -10,6 +10,7 @@ import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
 import FormElementsManager from "../helper/FormElementsManager";
 import FormElementDropContainerBase from "./FormElementDropContainerBase";
+import CoreIcons_properties from "@coremedia/studio-client.core-icons/CoreIcons_properties";
 
 interface FormElementDropContainerConfig extends Config<FormElementDropContainerBase>, Partial<Pick<FormElementDropContainer,
   "formElementsManager" |
@@ -66,7 +67,7 @@ class FormElementDropContainer extends FormElementDropContainerBase {
         Config(Container, {
           items: [
             Config(Container, {
-              cls: Editor_properties.LinkListPropertyField_icon,
+              cls: CoreIcons_properties.link,
               width: 16,
               height: 16,
             }),

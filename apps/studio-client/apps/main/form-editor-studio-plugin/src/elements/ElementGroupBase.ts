@@ -17,13 +17,14 @@
 import Config from "@jangaroo/runtime/Config";
 import AbstractFormElement from "./AbstractFormElement";
 
-interface ElementGroupBaseConfig extends Config<AbstractFormElement> {
+interface ElementGroupBaseConfig extends Config<AbstractFormElement>, Partial<Pick<ElementGroupBase,
+        "multipleDefaultValuesAllowed">> {
 }
 
 class ElementGroupBase extends AbstractFormElement {
   declare Config: ElementGroupBaseConfig;
 
-  protected multipleDefaultValuesAllowed: boolean = false;
+  multipleDefaultValuesAllowed: boolean = false;
 
   constructor(config: Config<ElementGroupBase> = null) {
     super(config);

@@ -2,18 +2,18 @@ import IconButton from "@coremedia/studio-client.ext.ui-components/components/Ic
 import StatefulTextField from "@coremedia/studio-client.ext.ui-components/components/StatefulTextField";
 import BindComponentsPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindComponentsPlugin";
 import BindPropertyPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindPropertyPlugin";
-import Editor_properties from "@coremedia/studio-client.main.editor-components/Editor_properties";
 import BindDisablePlugin from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/plugins/BindDisablePlugin";
 import Container from "@jangaroo/ext-ts/container/Container";
 import FieldContainer from "@jangaroo/ext-ts/form/FieldContainer";
 import HBoxLayout from "@jangaroo/ext-ts/layout/container/HBox";
-import { bind } from "@jangaroo/runtime";
+import {bind} from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
 import ElementGroupEntry from "../elements/ElementGroupEntry";
 import ShowFormIssuesPlugin from "../plugins/ShowFormIssuesPlugin";
 import AddOptionFieldBase from "./AddOptionFieldBase";
+import CoreIcons_properties from "@coremedia/studio-client.core-icons/CoreIcons_properties";
 
 interface AddOptionFieldConfig extends Config<AddOptionFieldBase> {
 }
@@ -36,6 +36,7 @@ class AddOptionField extends AddOptionFieldBase {
               items: [
                 Config(StatefulTextField, {
                   flex: 1,
+                  minWidth: 150,
                   emptyText: FormEditor_properties.FormEditor_text_add_option,
                   plugins: [
                     Config(BindDisablePlugin, {
@@ -55,7 +56,7 @@ class AddOptionField extends AddOptionFieldBase {
                   ],
                 }),
                 Config(IconButton, {
-                  iconCls: Editor_properties.LinkListPropertyField_icon,
+                  iconCls: CoreIcons_properties.add,
                   ariaLabel: FormEditor_properties.FormEditor_text_add_option,
                   handler: bind(this, this.addGroupElement),
                   plugins: [
@@ -66,7 +67,7 @@ class AddOptionField extends AddOptionFieldBase {
                   ],
                 }),
               ],
-              layout: Config(HBoxLayout, { align: "stretch" }),
+              layout: Config(HBoxLayout),
             }),
 
           ],

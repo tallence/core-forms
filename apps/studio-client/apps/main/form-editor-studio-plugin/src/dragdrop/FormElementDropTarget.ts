@@ -22,6 +22,7 @@ import Config from "@jangaroo/runtime/Config";
 import trace from "@jangaroo/runtime/trace";
 import FormElementsManager from "../helper/FormElementsManager";
 import FormElementDropContainerBase from "./FormElementDropContainerBase";
+import ExtElement from "@jangaroo/ext-ts/src/dom/Element";
 
 /**
  * A drop target that handles drag / drop events of applied elements and new form elements. Overwritten methods update
@@ -39,10 +40,11 @@ class FormElementDropTarget extends DropTarget {
   #dropActiveVE: ValueExpression = null;
 
   constructor(formElementsManager: FormElementsManager,
-    dropActiveVE: ValueExpression,
-    formElementId: string,
-    forceReadOnlyValueExpression: ValueExpression,
-    el: any, config: Config<DropTarget> = null) {
+              dropActiveVE: ValueExpression,
+              formElementId: string,
+              forceReadOnlyValueExpression: ValueExpression,
+              el: string | HTMLElement | ExtElement,
+              config: Config<DropTarget> = null) {
     super(el, config);
     this.#formElementsManager = formElementsManager;
     this.#dropActiveVE = dropActiveVE;
