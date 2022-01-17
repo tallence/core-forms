@@ -19,15 +19,17 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension runs with CoreMedia 10 (v2107.1). The extension also runs with:
+The extension runs with CoreMedia 11 (v2110.1). And also runs with:
+- v2107.1. See the release [cmcc-10-2107.1](https://github.com/tallence/core-forms/releases/tag/cmcc-10-2107.1).
 - v2010.2. See the branch [2010.2-compatible](https://github.com/tallence/core-forms/tree/2010.2-compatible).
 - CoreMedia 9 (v19.04). See the branch: [1904.2-compatible](https://github.com/tallence/core-forms/tree/1904.2-compatible).
   It is in general compatible with the versions 17.10 and 18.10, but some small changes could be required (import paths, names of artifacts)
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (a Vue.js-App wrapped in a CoreMedia-Frontend-Workspace-Theme) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 
-**Headless-Server**
-The integration of the FormEditor in the Headless-Server ist still WIP. If you need it now, consider switching to the branch "headless-preparations".
+## CM11 Getting started
+The studio-frontend has been migrated into the new studio-pnpm-workspace structure. 
+The form-editor-studio-plugin can still be part of this external extensions repo and does not need to be moved into `apps/studio-client/apps/main/extensions/`. But it needs to be registered as an extension with the extensions-tool: Call `mvn extensions:sync -Denable=core-forms` in the folder `workspace-configuration/extensions`   
 
 ## Integrate the Code in your CoreMedia Blueprint Workspace
 You can integrate the extension in three ways:
@@ -55,11 +57,6 @@ mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-p
 Download the repo and copy the files into your Blueprint-Workspace Extension-Folder.
 
 This way you won't be able to merge new commits made in this repo back to yours. But if you do not like Git Submodules, you don't have to deal with them. 
-
-**3. Own Workspace**
-
-As mentioned by [Matthias Faust](https://github.com/mfaust) from CoreMedia on the 2018 DevCon, it will soon be possible to include external extensions into the Blueprint Workspace.
-This would enable you to create a fork from this project and build it's jars independently from the Blueprint-Workspace.
 
 However the formeditor uses maven-dependencies of the blueprint-workspace, so you have to keep the versions in sync.
     
