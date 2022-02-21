@@ -31,10 +31,10 @@ public class TextAreaValidator extends AbstractFormValidator<TextArea> {
   }
 
   @Override
-  void validateField(TextArea formElement, String action, Issues issues) {
+  public void validateField(TextArea formElement, String action, Issues issues) {
     var validator = formElement.getValidator();
     if (validator != null) {
-      validateMaxAndMinSize(validator, issues, formElement.getId(), formElement.getName());
+      validateMaxAndMinSize(validator, issues, formElement.getStructId(), formElement.getName());
     }
   }
 

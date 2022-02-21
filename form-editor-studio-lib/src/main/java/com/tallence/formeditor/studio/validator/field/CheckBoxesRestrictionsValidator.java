@@ -51,25 +51,25 @@ public class CheckBoxesRestrictionsValidator extends AbstractFormValidator<Check
 
     if (minSelection != null) {
       if (minSelection < 0) {
-        addErrorIssue(issues, formElement.getId(), FULLPATH_MIN_SIZE, "checkboxes_options_min_lower_zero", formElement.getName());
+        addErrorIssue(issues, formElement.getStructId(), FULLPATH_MIN_SIZE, "checkboxes_options_min_lower_zero", formElement.getName());
       }
       if (allOptions < minSelection) {
-        addErrorIssue(issues, formElement.getId(), FULLPATH_MIN_SIZE, "checkboxes_options_min_greater_options", formElement.getName());
+        addErrorIssue(issues, formElement.getStructId(), FULLPATH_MIN_SIZE, "checkboxes_options_min_greater_options", formElement.getName());
       }
     }
     if (maxSelection != null) {
       if (maxSelection < 0) {
-        addErrorIssue(issues, formElement.getId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_zero", formElement.getName());
+        addErrorIssue(issues, formElement.getStructId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_zero", formElement.getName());
       }
       if (allOptions < maxSelection) {
-        addErrorIssue(issues, formElement.getId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_options", formElement.getName());
+        addErrorIssue(issues, formElement.getStructId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_options", formElement.getName());
       }
       if (selectedOptions > maxSelection) {
-        addErrorIssue(issues, formElement.getId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_preselection", formElement.getName());
+        addErrorIssue(issues, formElement.getStructId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_preselection", formElement.getName());
       }
     }
     if (minSelection != null && maxSelection != null && minSelection > maxSelection) {
-      addErrorIssue(issues, formElement.getId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_min", formElement.getName());
+      addErrorIssue(issues, formElement.getStructId(), FULLPATH_MAX_SIZE, "checkboxes_options_max_lower_min", formElement.getName());
     }
   }
 

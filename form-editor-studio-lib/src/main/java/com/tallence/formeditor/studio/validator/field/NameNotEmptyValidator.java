@@ -37,9 +37,9 @@ public class NameNotEmptyValidator extends AbstractFormValidator<AbstractFormEle
    * Every formField needs a name.
    */
   @Override
-  void validateField(AbstractFormElement<?, ?> formElement, String action, Issues issues) {
+  public void validateField(AbstractFormElement<?, ?> formElement, String action, Issues issues) {
     if (StringUtils.isEmpty(formElement.getName())) {
-      addErrorIssue(issues, formElement.getId(), FORM_DATA_NAME, "formField_missing_name", formElement.getClass().getSimpleName());
+      addErrorIssue(issues, formElement.getStructId(), FORM_DATA_NAME, "formField_missing_name", formElement.getClass().getSimpleName());
     }
   }
 

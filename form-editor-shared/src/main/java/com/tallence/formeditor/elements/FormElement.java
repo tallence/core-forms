@@ -29,7 +29,18 @@ import java.util.Map;
  */
 public interface FormElement<T> {
 
+  /**
+   * Returns the custom id from the advances settings struct or the id of the struct entry, if no custom id is
+   * configured.
+   */
   String getId();
+
+  /**
+   * Returns the id of the struct entry. The id of the struct is required by the studio validators, otherwise the path
+   * to the property cannot be computed. The path is required to mark the properties within the document form as
+   * invalid.
+   */
+  String getStructId();
 
   void setId(String id);
 
