@@ -25,7 +25,7 @@ import com.tallence.formeditor.validator.SizeValidator;
 import static com.tallence.formeditor.FormEditorHelper.FORM_DATA;
 import static com.tallence.formeditor.parser.AbstractFormElementParser.*;
 
-abstract class AbstractFormValidator<T extends FormElement<?>> implements FieldValidator {
+public abstract class AbstractFormValidator<T extends FormElement<?>> implements FieldValidator {
 
   public static final String FULLPATH_MIN_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MINSIZE;
   public static final String FULLPATH_MAX_SIZE = FORM_DATA_VALIDATOR + "." + FORM_VALIDATOR_MAXSIZE;
@@ -45,7 +45,7 @@ abstract class AbstractFormValidator<T extends FormElement<?>> implements FieldV
     validateField(castedElement, action, issues);
   }
 
-  abstract void validateField(T formElement, String action, Issues issues);
+  public abstract void validateField(T formElement, String action, Issues issues);
 
   /**
    * Returns the field type(s) this validator acts on.

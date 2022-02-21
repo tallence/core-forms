@@ -67,7 +67,7 @@ public class MailFormAction extends AbstractFormAction {
     return new FormProcessingResult(true, errorSendingUserMail ? USER_MAIL : null);
   }
 
-  private boolean sendAdminMail(FormEditor target, String formData, List<FormElement<?>> formElements) {
+  protected boolean sendAdminMail(FormEditor target, String formData, List<FormElement<?>> formElements) {
 
     try {
       for (String address : target.getAdminEmails()) {

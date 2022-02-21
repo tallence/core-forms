@@ -31,10 +31,10 @@ public class NumberFieldValidator extends AbstractFormValidator<NumberField> {
   }
 
   @Override
-  void validateField(NumberField formElement, String action, Issues issues) {
+  public void validateField(NumberField formElement, String action, Issues issues) {
     var validator = formElement.getValidator();
     if (validator != null) {
-      validateMaxAndMinSize(validator, issues, formElement.getId(), formElement.getName());
+      validateMaxAndMinSize(validator, issues, formElement.getStructId(), formElement.getName());
     }
   }
 

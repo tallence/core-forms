@@ -40,10 +40,10 @@ public class TextFieldValidator extends AbstractFormValidator<TextField> {
   }
 
   @Override
-  void validateField(TextField formElement, String action, Issues issues) {
+  public void validateField(TextField formElement, String action, Issues issues) {
     var validator = formElement.getValidator();
     if (validator != null) {
-      validateFieldValidators(validator, issues, formElement.getId(), formElement.getName());
+      validateFieldValidators(validator, issues, formElement.getStructId(), formElement.getName());
     }
   }
 

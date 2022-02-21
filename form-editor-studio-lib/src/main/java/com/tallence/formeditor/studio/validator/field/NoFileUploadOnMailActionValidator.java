@@ -34,9 +34,9 @@ public class NoFileUploadOnMailActionValidator extends AbstractFormValidator<Fil
   }
 
   @Override
-  void validateField(FileUpload formElement, String action, Issues issues) {
+  public void validateField(FileUpload formElement, String action, Issues issues) {
     if (FormEditor.MAIL_ACTION.equals(action)) {
-      addErrorIssue(issues, formElement.getId(), FORM_DATA_NAME, "form_action_mail_file");
+      addErrorIssue(issues, formElement.getStructId(), FORM_DATA_NAME, "form_action_mail_file");
     }
   }
 }

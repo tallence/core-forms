@@ -116,6 +116,11 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   }
 
   @Override
+  public String getStructId() {
+    return id;
+  }
+
+  @Override
   public void setId(String id) {
     this.id = id;
   }
