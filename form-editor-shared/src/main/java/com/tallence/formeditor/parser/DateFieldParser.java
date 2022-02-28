@@ -40,17 +40,15 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
 
   public static final String parserKey = "DateField";
 
-  private final Supplier<Content> currentFormSupplier;
   private final SitesService sitesService;
 
-  public DateFieldParser(Supplier<Content> currentFormSupplier, SitesService sitesService) {
-    this.currentFormSupplier = currentFormSupplier;
+  public DateFieldParser(SitesService sitesService) {
     this.sitesService = sitesService;
   }
 
   @Override
-  public DateField instantiateType(Struct elementData) {
-    return new DateField(getCurrentLocale());
+  public DateField instantiateType(Struct elementData, Content formEditor) {
+    return new DateField(getCurrentLocale(formEditor), formEditor);
   }
 
   @Override
@@ -75,9 +73,9 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
     return parserKey;
   }
 
-  private Locale getCurrentLocale() {
+  private Locale getCurrentLocale(Content currentForm) {
 
-    return Optional.ofNullable(currentFormSupplier.get())
+    return Optional.of(currentForm)
             .map(c -> sitesService.getContentSiteAspect(c).getLocale())
             .orElse(Locale.GERMANY);
   }

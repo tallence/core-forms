@@ -38,8 +38,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-import java.util.function.Supplier;
 
 import static com.coremedia.cap.common.CapStructHelper.getStruct;
 import static com.tallence.formeditor.parser.ConsentFormCheckBoxParser.CONSENT_FORM_CHECK_BOX_TYPE;
@@ -74,11 +72,6 @@ public class FormElementFactoryTest {
       return new FormElementFactory(parsers);
     }
 
-    @Bean
-    @Scope(SCOPE_SINGLETON)
-    public Supplier<Locale> localeSupplier() {
-      return () -> Locale.US;
-    }
   }
 
 
@@ -98,7 +91,7 @@ public class FormElementFactoryTest {
     if (element == null) {
       return null;
     }
-    return this.factory.createFormElement(element, id);
+    return this.factory.createFormElement(element, id, form);
   }
 
   @Test

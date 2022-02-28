@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.FileUploadValidator;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +33,8 @@ public class FileUpload extends AbstractFormElement<List, FileUploadValidator> {
 
   public static String ALLOW_MULTIPLE_UPLOADS = "allowMultipleUploads";
 
-  public FileUpload() {
-    super(List.class);
+  public FileUpload(Content formEditor) {
+    super(List.class, formEditor);
   }
 
   private List<String> options;
@@ -82,6 +83,8 @@ public class FileUpload extends AbstractFormElement<List, FileUploadValidator> {
     for (Object file : list) {
       if (file instanceof MultipartFile) {
         files.add((MultipartFile) file);
+      } else {
+        throw new IllegalArgumentException("File item is not instance of MultipartFile: " + file.getClass().getName());
       }
     }
     return files;

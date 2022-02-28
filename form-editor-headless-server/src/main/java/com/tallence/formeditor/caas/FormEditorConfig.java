@@ -18,9 +18,9 @@ package com.tallence.formeditor.caas;
 import com.coremedia.caas.wiring.ProvidesTypeNameResolver;
 import com.coremedia.caas.wiring.TypeNameResolver;
 import com.coremedia.cap.multisite.impl.MultiSiteConfiguration;
-import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.caas.adapter.FormEditorAdapterFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.parser.form.FormEditorParserService;
 import com.tallence.formeditor.validator.Validator;
 import org.reflections.Reflections;
 import org.reflections.util.ConfigurationBuilder;
@@ -46,8 +46,8 @@ import static java.util.stream.Collectors.toCollection;
 public class FormEditorConfig {
 
   @Bean
-  public FormEditorAdapterFactory formEditorAdapter(FormElementFactory formElementFactory) {
-    return new FormEditorAdapterFactory(formElementFactory);
+  public FormEditorAdapterFactory formEditorAdapter(FormEditorParserService formEditorParserService) {
+    return new FormEditorAdapterFactory(formEditorParserService);
   }
 
   @Bean

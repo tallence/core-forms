@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.TextArea;
 import com.tallence.formeditor.validator.TextValidator;
@@ -36,8 +37,8 @@ public class TextAreaParser extends AbstractFormElementParser<TextArea> {
 
 
   @Override
-  public TextArea instantiateType(Struct elementData) {
-    return new TextArea();
+  public TextArea instantiateType(Struct elementData, Content formEditor) {
+    return new TextArea(formEditor);
   }
 
 

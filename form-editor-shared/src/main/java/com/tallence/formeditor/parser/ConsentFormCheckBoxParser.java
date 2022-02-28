@@ -15,6 +15,7 @@
  */
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.ConsentFormCheckBox;
 import com.tallence.formeditor.validator.ConsentFormCheckboxValidator;
@@ -35,8 +36,8 @@ public class ConsentFormCheckBoxParser extends AbstractFormElementParser<Consent
   public static final String CONSENT_FORM_CHECK_BOX_TYPE = "ConsentFormCheckBox";
 
   @Override
-  public ConsentFormCheckBox instantiateType(Struct elementData) {
-    return new ConsentFormCheckBox();
+  public ConsentFormCheckBox instantiateType(Struct elementData, Content formEditor) {
+    return new ConsentFormCheckBox(formEditor);
   }
 
   @Override

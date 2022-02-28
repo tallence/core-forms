@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.SelectBox;
 import com.tallence.formeditor.validator.SelectBoxValidator;
@@ -35,8 +36,8 @@ public class SelectBoxParser extends AbstractFormElementParser<SelectBox> {
 
 
   @Override
-  public SelectBox instantiateType(Struct elementData) {
-    return new SelectBox();
+  public SelectBox instantiateType(Struct elementData, Content formEditor) {
+    return new SelectBox(formEditor);
   }
 
 

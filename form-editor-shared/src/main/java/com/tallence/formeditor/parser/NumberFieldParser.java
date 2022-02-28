@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.NumberField;
 import com.tallence.formeditor.elements.TextField;
@@ -35,8 +36,8 @@ public class NumberFieldParser extends AbstractFormElementParser<NumberField> {
 
 
   @Override
-  public NumberField instantiateType(Struct elementData) {
-    return new NumberField();
+  public NumberField instantiateType(Struct elementData, Content formEditor) {
+    return new NumberField(formEditor);
   }
 
 

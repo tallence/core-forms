@@ -17,9 +17,8 @@ package com.tallence.formeditor.caas.adapter;
 
 import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.FormEditorHelper;
-import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
-import com.tallence.formeditor.parser.CurrentFormSupplier;
+import com.tallence.formeditor.parser.form.FormEditorParserService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,20 +26,16 @@ import java.util.Optional;
 
 public class FormEditorAdapter {
   private final Content content;
-  private final FormElementFactory formElementFactory;
+  private final FormEditorParserService formEditorParserService;
 
-  public FormEditorAdapter(Content content, FormElementFactory formElementFactory) {
+  public FormEditorAdapter(Content content, FormEditorParserService formEditorParserService) {
     this.content = content;
-    this.formElementFactory = formElementFactory;
+    this.formEditorParserService = formEditorParserService;
   }
 
   @SuppressWarnings("unused")
   public List<FormElement<?>> formElements() {
-
-    //The formElements parsers might need the locale of the current site.
-    CurrentFormSupplier.setCurrentForm(content);
-
-    return FormEditorHelper.parseFormElements(content, formElementFactory);
+    return formEditorParserService.parseFormElements(content);
   }
 
   @SuppressWarnings("unused")

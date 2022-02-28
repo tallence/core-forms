@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.SelectBoxValidator;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -29,8 +30,8 @@ import static java.util.Optional.ofNullable;
  */
 public class SelectBox extends AbstractFormElement<String, SelectBoxValidator> implements FieldWithOptions<String> {
 
-  public SelectBox() {
-    super(String.class);
+  public SelectBox(Content formEditor) {
+    super(String.class, formEditor);
   }
 
   private List<ComplexValue> options;

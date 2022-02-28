@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.CheckBoxesGroupValidator;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -31,8 +32,8 @@ import static java.util.Optional.ofNullable;
  */
 public class CheckBoxesGroup extends AbstractFormElement<List, CheckBoxesGroupValidator> implements FieldWithOptions<List> {
 
-  public CheckBoxesGroup() {
-    super(List.class);
+  public CheckBoxesGroup(Content formEditor) {
+    super(List.class, formEditor);
   }
 
   private List<ComplexValue> checkBoxes;

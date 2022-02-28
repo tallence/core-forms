@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.UsersMailValidator;
 import org.springframework.util.MultiValueMap;
 
@@ -31,8 +32,8 @@ public class UsersMail extends AbstractFormElement<UsersMail.UsersMailData, User
 
   private CopyBoxOption copyBoxOption;
 
-  public UsersMail() {
-    super(UsersMailData.class);
+  public UsersMail(Content formEditor) {
+    super(UsersMailData.class, formEditor);
   }
 
 

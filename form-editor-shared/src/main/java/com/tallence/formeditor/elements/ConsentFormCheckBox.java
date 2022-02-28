@@ -31,8 +31,8 @@ public class ConsentFormCheckBox extends AbstractFormElement<Boolean, ConsentFor
 
   private Content linkTarget;
 
-  public ConsentFormCheckBox() {
-    super(Boolean.class);
+  public ConsentFormCheckBox(Content formEditor) {
+    super(Boolean.class, formEditor);
   }
 
   public Content getLinkTarget() {

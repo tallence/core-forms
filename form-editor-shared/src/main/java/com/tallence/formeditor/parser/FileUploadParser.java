@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.coremedia.cap.util.CapStructUtil;
 import com.tallence.formeditor.elements.FileUpload;
@@ -35,8 +36,8 @@ public class FileUploadParser extends AbstractFormElementParser<FileUpload> {
 
 
   @Override
-  public FileUpload instantiateType(Struct elementData) {
-    return new FileUpload();
+  public FileUpload instantiateType(Struct elementData, Content formEditor) {
+    return new FileUpload(formEditor);
   }
 
 

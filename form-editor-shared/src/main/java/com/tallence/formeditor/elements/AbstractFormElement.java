@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.ValidationFieldError;
 import com.tallence.formeditor.validator.Validator;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +35,7 @@ import java.util.Optional;
  */
 public abstract class AbstractFormElement<T, V extends Validator<T>> implements FormElement<T> {
 
+  private Content formEditor;
   private String id;
   private String name;
   private String hint;
@@ -43,8 +45,9 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   private AdvancedSettings settings;
   private final Class<T> type;
 
-  public AbstractFormElement(Class<T> type) {
+  public AbstractFormElement(Class<T> type, Content formEditor) {
     this.type = type;
+    this.formEditor = formEditor;
   }
 
   @Override
@@ -118,6 +121,11 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   @Override
   public String getStructId() {
     return id;
+  }
+
+  @Override
+  public Content getFormEditor() {
+    return formEditor;
   }
 
   @Override

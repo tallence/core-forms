@@ -33,13 +33,14 @@ import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
+import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.handler.FormController;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
-import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.parser.AbstractFormElementParser;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
+import com.tallence.formeditor.parser.form.FormEditorParserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -109,8 +110,10 @@ public class FormTestConfiguration {
 
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService reCaptchaService, CurrentContextService currentContextService) {
-    return new FormFreemarkerFacade(formElementFactory, reCaptchaService, currentContextService);
+  public FormFreemarkerFacade freemarkerFacade(ReCaptchaService reCaptchaService,
+                                               CurrentContextService currentContextService,
+                                               FormEditorParserService parserService) {
+    return new FormFreemarkerFacade(reCaptchaService, currentContextService, parserService);
   }
 
   @Bean

@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.TextValidator;
 
 /**
@@ -23,8 +24,8 @@ import com.tallence.formeditor.validator.TextValidator;
  */
 public class TextField extends AbstractFormElement<String, TextValidator> {
 
-  public TextField() {
-    super(String.class);
+  public TextField(Content formEditor) {
+    super(String.class, formEditor);
   }
 
 }

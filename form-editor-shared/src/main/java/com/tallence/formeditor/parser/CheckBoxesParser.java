@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.CheckBoxesGroup;
 import com.tallence.formeditor.validator.CheckBoxesGroupValidator;
@@ -34,8 +35,8 @@ public class CheckBoxesParser extends AbstractFormElementParser<CheckBoxesGroup>
   private static final String CHECK_BOXES = FORM_GROUP_ELEMENTS_PROPERTY_NAME;
 
   @Override
-  public CheckBoxesGroup instantiateType(Struct elementData) {
-    return new CheckBoxesGroup();
+  public CheckBoxesGroup instantiateType(Struct elementData, Content formEditor) {
+    return new CheckBoxesGroup(formEditor);
   }
 
   @Override

@@ -17,33 +17,28 @@
 package com.tallence.formeditor.studio.validator;
 
 import com.coremedia.cap.content.Content;
-import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.rest.cap.validation.ContentTypeValidatorBase;
 import com.coremedia.rest.validation.Issues;
 import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.parser.form.FormEditorParserService;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Validates, that a form with form action "mailAction" does not have a fileUpload-field and has a mail-address entered.
  */
 public class FormEditorValidator extends ContentTypeValidatorBase {
 
-  private final ThreadLocal<Locale> localeThreadLocal;
-  private final FormElementFactory formElementFactory;
-  private final SitesService sitesService;
+  private final FormEditorParserService formEditorParserService;
 
-  public FormEditorValidator(ThreadLocal<Locale> localeThreadLocal, FormElementFactory formElementFactory, SitesService sitesService) {
-    this.localeThreadLocal = localeThreadLocal;
-    this.formElementFactory = formElementFactory;
-    this.sitesService = sitesService;
+  public FormEditorValidator(FormEditorParserService formEditorParserService) {
+    this.formEditorParserService = formEditorParserService;
   }
 
   @Autowired
@@ -57,8 +52,7 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     String action = content.getString(formActionProperty);
 
     // Validate form fields
-    localeThreadLocal.set(sitesService.getContentSiteAspect(content).getLocale());
-    FormEditorHelper.parseFormElements(content, formElementFactory)
+    formEditorParserService.parseFormElements(content)
             .forEach(formElement -> validateFormElement(issues, action, formElement));
 
     // Further validations
