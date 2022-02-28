@@ -22,6 +22,9 @@
         <fields:TextField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_label')}"
                           emptyText="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_hint_emptyText')}"
                           propertyName="hint"/>
+        <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_fileUpload_multiple')}"
+                              propertyName="allowMultipleUploads"
+                              defaultValue="false"/>
         <fields:CheckboxField fieldLabel="{resourceManager.getString('com.tallence.formeditor.studio.bundles.FormEditor', 'FormEditor_element_mandatory_label')}"
                               propertyName="validator.mandatory"
                               defaultValue="false"/>

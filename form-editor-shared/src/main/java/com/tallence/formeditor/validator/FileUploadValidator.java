@@ -22,11 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Validator for elements of type {@link FileUpload}
  */
-public class FileUploadValidator implements SizeValidator<MultipartFile> {
+public class FileUploadValidator implements SizeValidator<List> {
 
   private static final String MESSAGE_KEY_FILEUPLOAD_REQUIRED = "com.tallence.forms.fileupload.empty";
   private static final String MESSAGE_KEY_FILEUPLOAD_MIN = "com.tallence.forms.fileupload.min";
@@ -49,18 +50,24 @@ public class FileUploadValidator implements SizeValidator<MultipartFile> {
   }
 
   @Override
-  public List<ValidationFieldError> validate(MultipartFile value) {
-
+  public List<ValidationFieldError> validate(List value) {
     List<ValidationFieldError> errors = new ArrayList<>();
 
-    boolean empty = value == null || value.getSize() == 0;
+    long size = Optional.ofNullable(value)
+            .orElse(List.of())
+            .stream()
+            .filter(MultipartFile.class::isInstance)
+            .mapToLong(file -> ((MultipartFile) file).getSize())
+            .reduce(0, Long::sum);
+
+    boolean empty = value == null || value.isEmpty() || size == 0;
     if (this.mandatory && empty) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_REQUIRED));
     }
-    if (!empty && (value.getSize() / 1024) < this.minSize) {
+    if (!empty && (size / 1024) < this.minSize) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_MIN, this.minSize));
     }
-    if (!empty && (value.getSize() / 1024) > this.maxSize) {
+    if (!empty && (size / 1024) > this.maxSize) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_MAX, this.maxSize));
     }
 
