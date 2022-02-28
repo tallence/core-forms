@@ -16,25 +16,29 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.FileUploadValidator;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Model bean for a configured FileUpload-Field.
  */
-public class FileUpload extends AbstractFormElement<MultipartFile, FileUploadValidator> {
+public class FileUpload extends AbstractFormElement<List, FileUploadValidator> {
 
-  public FileUpload() {
-    super(MultipartFile.class);
+  public static String ALLOW_MULTIPLE_UPLOADS = "allowMultipleUploads";
+
+  public FileUpload(Content formEditor) {
+    super(List.class, formEditor);
   }
 
-
   private List<String> options;
+  private boolean allowMultipleUploads;
 
 
   @Override
@@ -60,5 +64,29 @@ public class FileUpload extends AbstractFormElement<MultipartFile, FileUploadVal
 
   public void setOptions(List<String> options) {
     this.options = options;
+  }
+
+  public boolean getAllowMultipleUploads() {
+    return allowMultipleUploads;
+  }
+
+  public void setAllowMultipleUploads(boolean allowMultipleUploads) {
+    this.allowMultipleUploads = allowMultipleUploads;
+  }
+
+  /**
+   * Custom method to return checked list of MultipartFile items
+   */
+  public List<MultipartFile> getFiles() {
+    List<MultipartFile> files = new ArrayList<>();
+    List list = getValue();
+    for (Object file : list) {
+      if (file instanceof MultipartFile) {
+        files.add((MultipartFile) file);
+      } else {
+        throw new IllegalArgumentException("File item is not instance of MultipartFile: " + file.getClass().getName());
+      }
+    }
+    return files;
   }
 }

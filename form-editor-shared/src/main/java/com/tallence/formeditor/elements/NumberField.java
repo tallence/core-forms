@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.NumberValidator;
 
 /**
@@ -23,8 +24,8 @@ import com.tallence.formeditor.validator.NumberValidator;
  */
 public class NumberField extends AbstractFormElement<String, NumberValidator> {
 
-  public NumberField() {
-    super(String.class);
+  public NumberField(Content formEditor) {
+    super(String.class, formEditor);
   }
 
 }

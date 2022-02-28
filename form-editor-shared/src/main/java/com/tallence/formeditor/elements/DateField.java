@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.DateFieldValidator;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,8 +32,8 @@ public class DateField extends AbstractFormElement<String, DateFieldValidator> {
 
   private final Locale locale;
 
-  public DateField(Locale locale) {
-    super(String.class);
+  public DateField(Locale locale, Content formEditor) {
+    super(String.class, formEditor);
     this.locale = locale;
   }
 

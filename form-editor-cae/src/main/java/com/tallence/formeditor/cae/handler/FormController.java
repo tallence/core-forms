@@ -213,7 +213,7 @@ public class FormController  {
             .collect(Collectors.toList());
     if (!fileFields.isEmpty()) {
       return extractMultipartFileRequest(request)
-              .map(r -> fileFields.stream().map(e -> processFileInput(r, e)).collect(Collectors.toList()))
+              .map(r -> fileFields.stream().map(e -> processFileInput(r, e)).flatMap(List::stream).collect(Collectors.toList()))
               .orElseThrow(() ->
                       new IllegalStateException("Request is no instance of org.springframework.web.multipart.MultipartHttpServletRequest, cannot handle MultipartFile Upload for form " +
                               target.getContentId()));
@@ -241,10 +241,10 @@ public class FormController  {
     return Optional.empty();
   }
 
-  private MultipartFile processFileInput(MultipartHttpServletRequest multipartRequest, FileUpload fileUpload) {
-    MultipartFile file = multipartRequest.getFile(fileUpload.getTechnicalName());
-    fileUpload.setValue(file);
-    return file;
+  private List<MultipartFile> processFileInput(MultipartHttpServletRequest multipartRequest, FileUpload fileUpload) {
+    List<MultipartFile> files = multipartRequest.getFiles(fileUpload.getTechnicalName());
+    fileUpload.setValue(files);
+    return files;
   }
 
   /**

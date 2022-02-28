@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.ValidationFieldError;
 import edu.umd.cs.findbugs.annotations.Nullable;
 import org.springframework.util.MultiValueMap;
@@ -41,6 +42,12 @@ public interface FormElement<T> {
    * invalid.
    */
   String getStructId();
+
+  /**
+   * Returns the form editor content object for the form element. This can be useful if, for example, the content site
+   * aspect needs to be loaded in the parser via site service so that site-specific settings can be loaded.
+   */
+  Content getFormEditor();
 
   void setId(String id);
 

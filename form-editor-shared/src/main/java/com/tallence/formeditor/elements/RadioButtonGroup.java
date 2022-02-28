@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.RadioButtonGroupValidator;
 import edu.umd.cs.findbugs.annotations.NonNull;
 
@@ -29,8 +30,8 @@ import static java.util.Optional.ofNullable;
  */
 public class RadioButtonGroup extends AbstractFormElement<String, RadioButtonGroupValidator>  implements FieldWithOptions<String> {
 
-  public RadioButtonGroup() {
-    super(String.class);
+  public RadioButtonGroup(Content formEditor) {
+    super(String.class, formEditor);
   }
 
   private List<ComplexValue> radioButtons;

@@ -1,16 +1,11 @@
 package com.tallence.formeditor;
 
-import com.coremedia.cap.common.CapStruct;
 import com.coremedia.cap.common.CapStructHelper;
 import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.contentbeans.FormEditor;
-import com.tallence.formeditor.elements.FormElement;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class FormEditorHelper {
 
@@ -43,26 +38,5 @@ public class FormEditorHelper {
       return Optional.empty();
     }
     return Optional.of(formElements);
-  }
-
-  /**
-   * Resolves the {@link #FORM_ELEMENTS} Struct and transforms the element data into {@link FormElement}s.
-   * @param form the document containing all form elements data
-   * @param formElementFactory the factory to create {@link FormElement}
-   * @return a list of parsed {@link FormElement}s
-   */
-  public static List<FormElement<?>> parseFormElements(Content form, FormElementFactory formElementFactory) {
-
-    var formData = getFormElements(form)
-            .map(CapStruct::getProperties)
-            .orElse(Collections.emptyMap());
-    return formData.entrySet().stream()
-            .filter(e -> e.getValue() instanceof Struct)
-            .map(e -> parseElement((Struct) e.getValue(), e.getKey(), formElementFactory))
-            .collect(Collectors.toList());
-  }
-
-  private static FormElement<?> parseElement(Struct value, String key, FormElementFactory formElementFactory) {
-    return formElementFactory.createFormElement(value, key);
   }
 }

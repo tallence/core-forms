@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.TextOnlyValidator;
 
 import java.util.Map;
@@ -25,8 +26,8 @@ import java.util.Map;
  */
 public class TextOnly extends AbstractFormElement<String, TextOnlyValidator> {
 
-  public TextOnly() {
-    super(String.class);
+  public TextOnly(Content formEditor) {
+    super(String.class, formEditor);
   }
 
 

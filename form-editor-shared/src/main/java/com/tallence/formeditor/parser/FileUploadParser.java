@@ -16,7 +16,9 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
+import com.coremedia.cap.util.CapStructUtil;
 import com.tallence.formeditor.elements.FileUpload;
 import com.tallence.formeditor.validator.FileUploadValidator;
 import org.springframework.stereotype.Component;
@@ -34,8 +36,8 @@ public class FileUploadParser extends AbstractFormElementParser<FileUpload> {
 
 
   @Override
-  public FileUpload instantiateType(Struct elementData) {
-    return new FileUpload();
+  public FileUpload instantiateType(Struct elementData, Content formEditor) {
+    return new FileUpload(formEditor);
   }
 
 
@@ -49,6 +51,7 @@ public class FileUploadParser extends AbstractFormElementParser<FileUpload> {
       ofNullable(getInteger(validator, FORM_VALIDATOR_MAXSIZE)).ifPresent(fileUploadValidator::setMaxSize);
       formElement.setValidator(fileUploadValidator);
     });
+    formElement.setAllowMultipleUploads(CapStructUtil.getBoolean(elementData, FileUpload.ALLOW_MULTIPLE_UPLOADS));
   }
 
   @Override

@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.TextOnly;
 import org.springframework.stereotype.Component;
@@ -30,8 +31,8 @@ public class TextOnlyParser extends AbstractFormElementParser<TextOnly> {
 
 
   @Override
-  public TextOnly instantiateType(Struct elementData) {
-    return new TextOnly();
+  public TextOnly instantiateType(Struct elementData, Content formEditor) {
+    return new TextOnly(formEditor);
   }
 
 

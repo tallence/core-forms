@@ -16,6 +16,8 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
+
 /**
  * Model bean for a configured PhoneField.
  * It extends the {@link TextField} with all possible configuration values -> no extra Parser and Validator and no
@@ -23,4 +25,7 @@ package com.tallence.formeditor.elements;
  */
 public class PhoneField extends TextField {
 
+  public PhoneField(Content formEditor) {
+    super(formEditor);
+  }
 }

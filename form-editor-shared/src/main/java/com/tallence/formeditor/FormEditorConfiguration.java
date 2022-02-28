@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration(proxyBeanMethods = false)
-@ComponentScan(basePackages = "com.tallence.formeditor.parser")
+@ComponentScan(basePackages = "com.tallence.formeditor.parser.**")
 public class FormEditorConfiguration {
 
   @Bean

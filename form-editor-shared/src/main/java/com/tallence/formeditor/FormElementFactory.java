@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.parser.AbstractFormElementParser;
@@ -42,12 +43,12 @@ public class FormElementFactory {
     parsers.forEach(p -> p.getParserKeys().forEach(k -> typeToParser.put(k, p)));
   }
 
-  public <T extends FormElement<?>> T createFormElement(@NonNull Struct elementData, String id) {
-    return parseType(elementData, id);
+  public <T extends FormElement<?>> T createFormElement(@NonNull Struct elementData, String id, Content formEditor) {
+    return parseType(elementData, id, formEditor);
   }
 
 
-  private <T extends FormElement<?>> T parseType(Struct elementData, String id) {
+  private <T extends FormElement<?>> T parseType(Struct elementData, String id, Content formEditor) {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
 
     @SuppressWarnings("unchecked")
@@ -56,7 +57,7 @@ public class FormElementFactory {
       throw new IllegalStateException("Did not find a Parser for type: " + type);
     }
 
-    T formElement = parser.instantiateType(elementData);
+    T formElement = parser.instantiateType(elementData, formEditor);
     parser.parseBaseFields(formElement, elementData, id);
     parser.parseSpecialFields(formElement, elementData);
 

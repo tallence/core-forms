@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.validator.TextValidator;
 import com.tallence.formeditor.elements.*;
@@ -43,19 +44,19 @@ public class TextFieldParser extends AbstractFormElementParser<TextField> {
 
 
   @Override
-  public TextField instantiateType(Struct elementData) {
+  public TextField instantiateType(Struct elementData, Content formEditor) {
     String type = elementData.getString(FORM_DATA_KEY_TYPE);
     switch (type) {
       case KEY_TEXT_FIELD:
-        return new TextField();
+        return new TextField(formEditor);
       case KEY_ZIP_FIELD:
-        return new ZipField();
+        return new ZipField(formEditor);
       case KEY_PHONE_FIELD:
-        return new PhoneField();
+        return new PhoneField(formEditor);
       case KEY_FAX_FIELD:
-        return new FaxField();
+        return new FaxField(formEditor);
       case KEY_STREET_NUMBER_FIELD:
-        return new StreetNumberField();
+        return new StreetNumberField(formEditor);
       default:
         throw new IllegalStateException("Cannot instantiate a field for type " + type);
     }

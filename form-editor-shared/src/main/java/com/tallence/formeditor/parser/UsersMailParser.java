@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.UsersMail;
 import com.tallence.formeditor.validator.UsersMailValidator;
@@ -37,8 +38,8 @@ public class UsersMailParser extends AbstractFormElementParser<UsersMail> {
 
 
   @Override
-  public UsersMail instantiateType(Struct elementData) {
-    return new UsersMail();
+  public UsersMail instantiateType(Struct elementData, Content formEditor) {
+    return new UsersMail(formEditor);
   }
 
 

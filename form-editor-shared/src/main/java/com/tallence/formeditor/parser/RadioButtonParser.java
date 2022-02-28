@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.RadioButtonGroup;
 import com.tallence.formeditor.validator.RadioButtonGroupValidator;
@@ -35,8 +36,8 @@ public class RadioButtonParser extends AbstractFormElementParser<RadioButtonGrou
 
 
   @Override
-  public RadioButtonGroup instantiateType(Struct elementData) {
-    return new RadioButtonGroup();
+  public RadioButtonGroup instantiateType(Struct elementData, Content formEditor) {
+    return new RadioButtonGroup(formEditor);
   }
 
 

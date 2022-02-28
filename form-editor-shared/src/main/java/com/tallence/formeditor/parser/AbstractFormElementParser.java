@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.parser;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.AdvancedSettings;
 import com.tallence.formeditor.elements.ComplexValue;
@@ -33,7 +34,7 @@ import static java.util.Optional.ofNullable;
  * The struct values are created in studio form.
  * <p>
  * Implementations have to implement:
- * {@link #instantiateType(Struct)}
+ * {@link #instantiateType(Struct, Content)}
  * {@link #getParserKey()} or {@link #getParserKeys()}
  * {@link #parseSpecialFields(FormElement, Struct)}
  */
@@ -66,8 +67,9 @@ public abstract class AbstractFormElementParser<T extends FormElement<?>> {
    * Creates an instance of the concrete parser class.
    *
    * @param elementData the element data from which to create the instance
+   * @param formEditor the form editor content for the form element
    */
-  public abstract T instantiateType(Struct elementData);
+  public abstract T instantiateType(Struct elementData, Content formEditor);
 
   /**
    * @return the string keys of the concrete parser, e.g. "CheckBoxes". One parser can be responsible for multiple

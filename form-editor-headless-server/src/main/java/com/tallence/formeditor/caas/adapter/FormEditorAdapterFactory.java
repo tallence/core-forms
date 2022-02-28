@@ -16,17 +16,16 @@
 package com.tallence.formeditor.caas.adapter;
 
 import com.coremedia.cap.content.Content;
-import com.coremedia.cap.multisite.SitesService;
-import com.tallence.formeditor.FormElementFactory;
+import com.tallence.formeditor.parser.form.FormEditorParserService;
 
 public class FormEditorAdapterFactory {
-  private final FormElementFactory formElementFactory;
+  private final FormEditorParserService formEditorParserService;
 
-  public FormEditorAdapterFactory(FormElementFactory formElementFactory) {
-    this.formElementFactory = formElementFactory;
+  public FormEditorAdapterFactory(FormEditorParserService formEditorParserService) {
+    this.formEditorParserService = formEditorParserService;
   }
 
   public FormEditorAdapter to(Content content) {
-    return new FormEditorAdapter(content, formElementFactory);
+    return new FormEditorAdapter(content, formEditorParserService);
   }
 }

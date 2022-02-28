@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.TextValidator;
 
 /**
@@ -26,8 +27,8 @@ public class TextArea extends AbstractFormElement<String, TextValidator> {
   private Integer columns;
   private Integer rows;
 
-  public TextArea() {
-    super(String.class);
+  public TextArea(Content formEditor) {
+    super(String.class, formEditor);
   }
 
   public Integer getColumns() {
