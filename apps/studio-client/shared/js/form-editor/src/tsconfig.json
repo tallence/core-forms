@@ -8,31 +8,31 @@
     "baseUrl": ".",
     "paths": {
       "@coremedia/studio-client.base-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.base-models@2201.1.0/node_modules/@coremedia/studio-client.base-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.base-models@2201.2.0/node_modules/@coremedia/studio-client.base-models/src/*"
       ],
       "@coremedia/studio-client.cap-base-models/*": [
         "../node_modules/@coremedia/studio-client.cap-base-models/src/*"
       ],
       "@coremedia/studio-client.cap-base-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-api@2201.1.0/node_modules/@coremedia/studio-client.cap-base-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-api@2201.2.0/node_modules/@coremedia/studio-client.cap-base-services-api/src/*"
       ],
       "@coremedia/studio-client.cap-rest-client/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client@2201.1.0/node_modules/@coremedia/studio-client.cap-rest-client/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client@2201.2.0/node_modules/@coremedia/studio-client.cap-rest-client/src/*"
       ],
       "@coremedia/studio-client.cap-rest-client-impl/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client-impl@2201.1.0/node_modules/@coremedia/studio-client.cap-rest-client-impl/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client-impl@2201.2.0/node_modules/@coremedia/studio-client.cap-rest-client-impl/src/*"
       ],
       "@coremedia/studio-client.client-core/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core@2201.1.0/node_modules/@coremedia/studio-client.client-core/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core@2201.2.0/node_modules/@coremedia/studio-client.client-core/src/*"
       ],
       "@coremedia/studio-client.client-core-impl/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core-impl@2201.1.0/node_modules/@coremedia/studio-client.client-core-impl/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core-impl@2201.2.0/node_modules/@coremedia/studio-client.client-core-impl/src/*"
       ],
       "@coremedia/studio-client.core-icons/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.core-icons@2201.1.0/node_modules/@coremedia/studio-client.core-icons/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.core-icons@2201.2.0/node_modules/@coremedia/studio-client.core-icons/src/*"
       ],
       "@jangaroo/jangaroo-net/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@jangaroo+jangaroo-net@1.0.3/node_modules/@jangaroo/jangaroo-net/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@jangaroo+jangaroo-net@1.1.1/node_modules/@jangaroo/jangaroo-net/src/*"
       ],
       "@jangaroo/runtime/*": [
         "../node_modules/@jangaroo/runtime/src/*"
