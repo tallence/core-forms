@@ -1,4 +1,4 @@
-import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
+import SvgIconUtil from "@coremedia/studio-client.base-models/util/SvgIconUtil";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";

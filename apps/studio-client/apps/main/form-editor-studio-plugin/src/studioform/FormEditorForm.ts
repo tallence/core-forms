@@ -11,7 +11,7 @@ import TeaserDocumentForm from "@coremedia-blueprint/studio-client.main.blueprin
 import ValidityDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ValidityDocumentForm";
 import ViewTypeSelectorForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ViewTypeSelectorForm";
 import MetaDataDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/media/MetaDataDocumentForm";
-import SvgIconUtil from "@coremedia/studio-client.cap-base-models/util/SvgIconUtil";
+import SvgIconUtil from "@coremedia/studio-client.base-models/util/SvgIconUtil";
 import LocalComboBox from "@coremedia/studio-client.ext.ui-components/components/LocalComboBox";
 import BindPropertyPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindPropertyPlugin";
 import DocumentForm from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentForm";

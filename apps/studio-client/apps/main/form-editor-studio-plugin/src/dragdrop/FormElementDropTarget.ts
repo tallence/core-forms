@@ -22,7 +22,7 @@ import Config from "@jangaroo/runtime/Config";
 import trace from "@jangaroo/runtime/trace";
 import FormElementsManager from "../helper/FormElementsManager";
 import FormElementDropContainerBase from "./FormElementDropContainerBase";
-import ExtElement from "@jangaroo/ext-ts/src/dom/Element";
+import ExtElement from "@jangaroo/ext-ts/dom/Element";
 
 /**
  * A drop target that handles drag / drop events of applied elements and new form elements. Overwritten methods update
