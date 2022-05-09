@@ -23,7 +23,7 @@ import { as, bind } from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import int from "@jangaroo/runtime/int";
 import FormElementStructWrapper from "../model/FormElementStructWrapper";
-import NodeInterface from "@jangaroo/ext-ts/src/data/NodeInterface";
+import NodeInterface from "@jangaroo/ext-ts/data/NodeInterface";
 
 class FormElementsManager {
 

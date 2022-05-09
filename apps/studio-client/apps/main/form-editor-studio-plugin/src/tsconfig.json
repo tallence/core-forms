@@ -17,169 +17,172 @@
         "../../../../../../../../../apps/studio-client/apps/main/blueprint-forms/src/*"
       ],
       "@coremedia/studio-client.app-context-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.app-context-models@2110.1.0/node_modules/@coremedia/studio-client.app-context-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.app-context-models@2201.2.0/node_modules/@coremedia/studio-client.app-context-models/src/*"
       ],
       "@coremedia/studio-client.base-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.base-models@2110.1.0/node_modules/@coremedia/studio-client.base-models/src/*"
+        "../node_modules/@coremedia/studio-client.base-models/src/*"
       ],
       "@coremedia/studio-client.cap-base-models/*": [
         "../node_modules/@coremedia/studio-client.cap-base-models/src/*"
       ],
       "@coremedia/studio-client.cap-base-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-api@2110.1.0/node_modules/@coremedia/studio-client.cap-base-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-api@2201.2.0/node_modules/@coremedia/studio-client.cap-base-services-api/src/*"
       ],
       "@coremedia/studio-client.cap-base-services-toolkit/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-toolkit@2110.1.0/node_modules/@coremedia/studio-client.cap-base-services-toolkit/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-base-services-toolkit@2201.2.0/node_modules/@coremedia/studio-client.cap-base-services-toolkit/src/*"
       ],
       "@coremedia/studio-client.cap-rest-client/*": [
         "../node_modules/@coremedia/studio-client.cap-rest-client/src/*"
       ],
       "@coremedia/studio-client.cap-rest-client-impl/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client-impl@2110.1.0/node_modules/@coremedia/studio-client.cap-rest-client-impl/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.cap-rest-client-impl@2201.2.0/node_modules/@coremedia/studio-client.cap-rest-client-impl/src/*"
       ],
       "@coremedia/studio-client.ckeditor-constants/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ckeditor-constants@2110.1.0/node_modules/@coremedia/studio-client.ckeditor-constants/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ckeditor-constants@2201.2.0/node_modules/@coremedia/studio-client.ckeditor-constants/src/*"
       ],
       "@coremedia/studio-client.ckeditor-factory/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ckeditor-factory@2110.1.0/node_modules/@coremedia/studio-client.ckeditor-factory/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ckeditor-factory@2201.2.0/node_modules/@coremedia/studio-client.ckeditor-factory/src/*"
       ],
       "@coremedia/studio-client.client-core/*": [
         "../node_modules/@coremedia/studio-client.client-core/src/*"
       ],
       "@coremedia/studio-client.client-core-impl/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core-impl@2110.1.0/node_modules/@coremedia/studio-client.client-core-impl/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.client-core-impl@2201.2.0/node_modules/@coremedia/studio-client.client-core-impl/src/*"
       ],
       "@coremedia/studio-client.collaboration-icons/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.collaboration-icons@2110.1.0/node_modules/@coremedia/studio-client.collaboration-icons/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.collaboration-icons@2201.2.0/node_modules/@coremedia/studio-client.collaboration-icons/src/*"
       ],
       "@coremedia/studio-client.content-link-list-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.content-link-list-models@2110.1.0/node_modules/@coremedia/studio-client.content-link-list-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.content-link-list-models@2201.2.0/node_modules/@coremedia/studio-client.content-link-list-models/src/*"
       ],
       "@coremedia/studio-client.core-icons/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.core-icons@2110.1.0/node_modules/@coremedia/studio-client.core-icons/src/*"
+        "../node_modules/@coremedia/studio-client.core-icons/src/*"
       ],
       "@coremedia/studio-client.embed-app-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.embed-app-services-api@2110.1.0/node_modules/@coremedia/studio-client.embed-app-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.embed-app-services-api@2201.2.0/node_modules/@coremedia/studio-client.embed-app-services-api/src/*"
       ],
       "@coremedia/studio-client.ext.base-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.base-components@2110.1.0/node_modules/@coremedia/studio-client.ext.base-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.base-components@2201.2.0/node_modules/@coremedia/studio-client.ext.base-components/src/*"
       ],
       "@coremedia/studio-client.ext.cap-base-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.cap-base-components@2110.1.0/node_modules/@coremedia/studio-client.ext.cap-base-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.cap-base-components@2201.2.0/node_modules/@coremedia/studio-client.ext.cap-base-components/src/*"
       ],
       "@coremedia/studio-client.ext.content-link-list-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.content-link-list-components@2110.1.0/node_modules/@coremedia/studio-client.ext.content-link-list-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.content-link-list-components@2201.2.0/node_modules/@coremedia/studio-client.ext.content-link-list-components/src/*"
       ],
       "@coremedia/studio-client.ext.errors-validation-components/*": [
         "../node_modules/@coremedia/studio-client.ext.errors-validation-components/src/*"
       ],
       "@coremedia/studio-client.ext.form-services-toolkit/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.form-services-toolkit@2110.1.0/node_modules/@coremedia/studio-client.ext.form-services-toolkit/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.form-services-toolkit@2201.2.0/node_modules/@coremedia/studio-client.ext.form-services-toolkit/src/*"
       ],
       "@coremedia/studio-client.ext.frame-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.frame-components@2110.1.0/node_modules/@coremedia/studio-client.ext.frame-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.frame-components@2201.2.0/node_modules/@coremedia/studio-client.ext.frame-components/src/*"
       ],
       "@coremedia/studio-client.ext.interaction-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.interaction-components@2110.1.0/node_modules/@coremedia/studio-client.ext.interaction-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.interaction-components@2201.2.0/node_modules/@coremedia/studio-client.ext.interaction-components/src/*"
       ],
       "@coremedia/studio-client.ext.library-services-toolkit/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.library-services-toolkit@2110.1.0/node_modules/@coremedia/studio-client.ext.library-services-toolkit/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.library-services-toolkit@2201.2.0/node_modules/@coremedia/studio-client.ext.library-services-toolkit/src/*"
       ],
       "@coremedia/studio-client.ext.link-list-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.link-list-components@2110.1.0/node_modules/@coremedia/studio-client.ext.link-list-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.link-list-components@2201.2.0/node_modules/@coremedia/studio-client.ext.link-list-components/src/*"
       ],
       "@coremedia/studio-client.ext.logger-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.logger-components@2110.1.0/node_modules/@coremedia/studio-client.ext.logger-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.logger-components@2201.2.0/node_modules/@coremedia/studio-client.ext.logger-components/src/*"
       ],
       "@coremedia/studio-client.ext.lottie-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.lottie-components@2110.1.0/node_modules/@coremedia/studio-client.ext.lottie-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.lottie-components@2201.2.0/node_modules/@coremedia/studio-client.ext.lottie-components/src/*"
       ],
       "@coremedia/studio-client.ext.multi-site-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.multi-site-components@2110.1.0/node_modules/@coremedia/studio-client.ext.multi-site-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.multi-site-components@2201.2.0/node_modules/@coremedia/studio-client.ext.multi-site-components/src/*"
+      ],
+      "@coremedia/studio-client.ext.richtext-components-toolkit/*": [
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.richtext-components-toolkit@2201.2.0/node_modules/@coremedia/studio-client.ext.richtext-components-toolkit/src/*"
       ],
       "@coremedia/studio-client.ext.split-main-view-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.split-main-view-components@2110.1.0/node_modules/@coremedia/studio-client.ext.split-main-view-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.split-main-view-components@2201.2.0/node_modules/@coremedia/studio-client.ext.split-main-view-components/src/*"
       ],
       "@coremedia/studio-client.ext.startup-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.startup-components@2110.1.0/node_modules/@coremedia/studio-client.ext.startup-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.startup-components@2201.2.0/node_modules/@coremedia/studio-client.ext.startup-components/src/*"
       ],
       "@coremedia/studio-client.ext.startup-plugins/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.startup-plugins@2110.1.0/node_modules/@coremedia/studio-client.ext.startup-plugins/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.startup-plugins@2201.2.0/node_modules/@coremedia/studio-client.ext.startup-plugins/src/*"
       ],
       "@coremedia/studio-client.ext.toast-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.toast-components@2110.1.0/node_modules/@coremedia/studio-client.ext.toast-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.toast-components@2201.2.0/node_modules/@coremedia/studio-client.ext.toast-components/src/*"
       ],
       "@coremedia/studio-client.ext.ui-components/*": [
         "../node_modules/@coremedia/studio-client.ext.ui-components/src/*"
       ],
       "@coremedia/studio-client.ext.workflow-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.workflow-components@2110.1.0/node_modules/@coremedia/studio-client.ext.workflow-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.workflow-components@2201.2.0/node_modules/@coremedia/studio-client.ext.workflow-components/src/*"
       ],
       "@coremedia/studio-client.ext.workflow-services-toolkit/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.workflow-services-toolkit@2110.1.0/node_modules/@coremedia/studio-client.ext.workflow-services-toolkit/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.ext.workflow-services-toolkit@2201.2.0/node_modules/@coremedia/studio-client.ext.workflow-services-toolkit/src/*"
       ],
       "@coremedia/studio-client.form-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.form-models@2110.1.0/node_modules/@coremedia/studio-client.form-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.form-models@2201.2.0/node_modules/@coremedia/studio-client.form-models/src/*"
       ],
       "@coremedia/studio-client.form-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.form-services-api@2110.1.0/node_modules/@coremedia/studio-client.form-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.form-services-api@2201.2.0/node_modules/@coremedia/studio-client.form-services-api/src/*"
       ],
       "@coremedia/studio-client.interaction-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.interaction-services-api@2110.1.0/node_modules/@coremedia/studio-client.interaction-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.interaction-services-api@2201.2.0/node_modules/@coremedia/studio-client.interaction-services-api/src/*"
       ],
       "@coremedia/studio-client.interaction-services-impl/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.interaction-services-impl@2110.1.0/node_modules/@coremedia/studio-client.interaction-services-impl/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.interaction-services-impl@2201.2.0/node_modules/@coremedia/studio-client.interaction-services-impl/src/*"
       ],
       "@coremedia/studio-client.kinetic-js/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.kinetic-js@2110.1.0/node_modules/@coremedia/studio-client.kinetic-js/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.kinetic-js@2201.2.0/node_modules/@coremedia/studio-client.kinetic-js/src/*"
       ],
       "@coremedia/studio-client.library-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.library-services-api@2110.1.0/node_modules/@coremedia/studio-client.library-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.library-services-api@2201.2.0/node_modules/@coremedia/studio-client.library-services-api/src/*"
       ],
       "@coremedia/studio-client.link-list-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.link-list-models@2110.1.0/node_modules/@coremedia/studio-client.link-list-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.link-list-models@2201.2.0/node_modules/@coremedia/studio-client.link-list-models/src/*"
       ],
       "@coremedia/studio-client.main.bpbase-pagegrid-studio-plugin/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.bpbase-pagegrid-studio-plugin@2110.1.0/node_modules/@coremedia/studio-client.main.bpbase-pagegrid-studio-plugin/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.bpbase-pagegrid-studio-plugin@2201.2.0/node_modules/@coremedia/studio-client.main.bpbase-pagegrid-studio-plugin/src/*"
       ],
       "@coremedia/studio-client.main.bpbase-studio-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.bpbase-studio-components@2110.1.0/node_modules/@coremedia/studio-client.main.bpbase-studio-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.bpbase-studio-components@2201.2.0/node_modules/@coremedia/studio-client.main.bpbase-studio-components/src/*"
       ],
       "@coremedia/studio-client.main.bpbase-studio-dynamic-query-list/*": [
         "../node_modules/@coremedia/studio-client.main.bpbase-studio-dynamic-query-list/src/*"
       ],
       "@coremedia/studio-client.main.ckeditor4-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.ckeditor4-components@2110.1.0/node_modules/@coremedia/studio-client.main.ckeditor4-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.ckeditor4-components@2201.2.0/node_modules/@coremedia/studio-client.main.ckeditor4-components/src/*"
       ],
       "@coremedia/studio-client.main.editor-components/*": [
         "../node_modules/@coremedia/studio-client.main.editor-components/src/*"
       ],
       "@coremedia/studio-client.main.image-editor-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.image-editor-components@2110.1.0/node_modules/@coremedia/studio-client.main.image-editor-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.image-editor-components@2201.2.0/node_modules/@coremedia/studio-client.main.image-editor-components/src/*"
       ],
       "@coremedia/studio-client.main.image-map-editor-components/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.image-map-editor-components@2110.1.0/node_modules/@coremedia/studio-client.main.image-map-editor-components/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.main.image-map-editor-components@2201.2.0/node_modules/@coremedia/studio-client.main.image-map-editor-components/src/*"
       ],
       "@coremedia/studio-client.multi-site-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.multi-site-models@2110.1.0/node_modules/@coremedia/studio-client.multi-site-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.multi-site-models@2201.2.0/node_modules/@coremedia/studio-client.multi-site-models/src/*"
       ],
       "@coremedia/studio-client.workflow-issues-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-issues-services-api@2110.1.0/node_modules/@coremedia/studio-client.workflow-issues-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-issues-services-api@2201.2.0/node_modules/@coremedia/studio-client.workflow-issues-services-api/src/*"
       ],
       "@coremedia/studio-client.workflow-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-models@2110.1.0/node_modules/@coremedia/studio-client.workflow-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-models@2201.2.0/node_modules/@coremedia/studio-client.workflow-models/src/*"
       ],
       "@coremedia/studio-client.workflow-plugin-models/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-plugin-models@2110.1.0/node_modules/@coremedia/studio-client.workflow-plugin-models/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-plugin-models@2201.2.0/node_modules/@coremedia/studio-client.workflow-plugin-models/src/*"
       ],
       "@coremedia/studio-client.workflow-services-api/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-services-api@2110.1.0/node_modules/@coremedia/studio-client.workflow-services-api/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@coremedia+studio-client.workflow-services-api@2201.2.0/node_modules/@coremedia/studio-client.workflow-services-api/src/*"
       ],
       "@jangaroo/ext-ts/*": [
         "../node_modules/@jangaroo/ext-ts/src/*"
       ],
       "@jangaroo/jangaroo-net/*": [
-        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@jangaroo+jangaroo-net@1.0.0/node_modules/@jangaroo/jangaroo-net/src/*"
+        "../../../../../../../../../apps/studio-client/node_modules/.pnpm/@jangaroo+jangaroo-net@1.1.1/node_modules/@jangaroo/jangaroo-net/src/*"
       ],
       "@jangaroo/runtime/*": [
         "../node_modules/@jangaroo/runtime/src/*"
