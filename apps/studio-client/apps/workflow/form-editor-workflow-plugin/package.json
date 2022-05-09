@@ -10,7 +10,7 @@
     "@jangaroo/core": "^1.1.1",
     "@jangaroo/eslint-config": "^1.1.1",
     "@jangaroo/publish": "^1.1.1",
-    "eslint": "7.27.0",
+    "eslint": "^7.27.0",
     "rimraf": "^3.0.2"
   },
   "scripts": {
