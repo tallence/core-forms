@@ -5,7 +5,6 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "../dist/src",
-    "baseUrl": ".",
     "paths": {
       "@coremedia-blueprint/studio-client.blueprint-doctypes/*": [
         "../../../../../../../../../apps/studio-client/shared/js/blueprint-doctypes/src/*"
