@@ -14,6 +14,7 @@ import ElementGroupEntry from "../elements/ElementGroupEntry";
 import ShowFormIssuesPlugin from "../plugins/ShowFormIssuesPlugin";
 import AddOptionFieldBase from "./AddOptionFieldBase";
 import CoreIcons_properties from "@coremedia/studio-client.core-icons/CoreIcons_properties";
+import FormUtils from "../FormUtils";
 
 interface AddOptionFieldConfig extends Config<AddOptionFieldBase> {
 }
@@ -63,6 +64,11 @@ class AddOptionField extends AddOptionFieldBase {
                     Config(BindDisablePlugin, {
                       bindTo: config.bindTo,
                       forceReadOnlyValueExpression: this.getAddOptionButtonDisabledVE(),
+                    }),
+                    Config(BindPropertyPlugin, {
+                      componentProperty: "tooltip",
+                      transformer: function(disabled:Boolean):String { return FormUtils.getOptionRemoveButtonToolTip(disabled); },
+                      bindTo: this.getAddOptionButtonDisabledVE(),
                     }),
                   ],
                 }),

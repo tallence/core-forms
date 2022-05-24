@@ -32,6 +32,7 @@ interface FormEditor_properties {
   FormEditor_text_add_element: string;
   FormEditor_text_label_option: string;
   FormEditor_text_add_option: string;
+  FormEditor_text_add_option_disabled: string;
   FormEditor_text_edit_option: string;
   FormEditor_text_save_option: string;
   FormEditor_text_move_option_up: string;
@@ -143,6 +144,7 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_text_add_element: "Drop a form element here.",
   FormEditor_text_label_option: "Options",
   FormEditor_text_add_option: "Add new option",
+  FormEditor_text_add_option_disabled: "The option text must not be empty or contain dots",
   FormEditor_text_edit_option: "Edit option",
   FormEditor_text_save_option: "Save option",
   FormEditor_text_move_option_up: "Move option up",

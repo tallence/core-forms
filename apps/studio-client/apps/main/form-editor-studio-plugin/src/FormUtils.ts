@@ -19,6 +19,7 @@ import PreviewPanel from "@coremedia/studio-client.main.editor-components/sdk/pr
 import Panel from "@jangaroo/ext-ts/panel/Panel";
 import { as, cast } from "@jangaroo/runtime";
 import FormEditor_properties from "./bundles/FormEditor_properties";
+import Format from "@jangaroo/ext-ts/util/Format";
 
 class FormUtils {
 
@@ -41,6 +42,28 @@ class FormUtils {
     let keyToUse = key.replace(".", "_");
     keyToUse = keyToUse.charAt(0).toLowerCase() + keyToUse.substring(1);
     return FormEditor_properties["FormEditor_label_element_" + keyToUse] || key;
+  }
+
+  /**
+   * Resolves the matching delete button tooltip based on the given disabled state.
+   */
+  public static getOptionRemoveButtonToolTip(disabled:Boolean):String {
+    return disabled ? FormEditor_properties['FormEditor_text_add_option_disabled']
+            : FormEditor_properties['FormEditor_text_add_option'];
+  }
+
+  /**
+   * Validates the option, it must not be empty and must not contain dots.
+   * Regarding the dots:<br>
+   * the option name is currently used as the struct-property key and it can't be used for Property ValueExpressions if
+   * it contain dots. A better solution would be:
+   * <ol>
+   *   <li>escaping the dots, or if it does not work</li>
+   *   <li>save all new options in a new structure (the displayName is not used as the key of the structProperty) but stay compatible with the old structure to avoid a content-migration</li>
+   * <ol>
+   */
+  public static validateOptionValue(option:string):Boolean {
+    return option != null && Format.trim(option).length && option.indexOf(".") == -1;
   }
 
 }

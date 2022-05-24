@@ -18,6 +18,7 @@ import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import resourceManager from "@jangaroo/runtime/l10n/resourceManager";
 import FormEditor_properties from "../bundles/FormEditor_properties";
 import EditOptionWindowBase from "./EditOptionWindowBase";
+import FormUtils from "../FormUtils";
 
 interface EditOptionWindowConfig extends Config<EditOptionWindowBase> {
 }
@@ -117,6 +118,11 @@ class EditOptionWindow extends EditOptionWindowBase {
             plugins: [
               Config(BindPropertyPlugin, {
                 componentProperty: "disabled",
+                bindTo: this.getSaveButtonDisabledVE(),
+              }),
+              Config(BindPropertyPlugin, {
+                componentProperty: "tooltip",
+                transformer: function(disabled:Boolean):String { return FormUtils.getOptionRemoveButtonToolTip(disabled); },
                 bindTo: this.getSaveButtonDisabledVE(),
               }),
             ],
