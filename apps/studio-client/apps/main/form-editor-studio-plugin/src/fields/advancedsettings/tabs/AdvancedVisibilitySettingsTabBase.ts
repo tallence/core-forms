@@ -90,9 +90,13 @@ class AdvancedVisibilitySettingsTabBase extends AdvancedSettingsTab {
       if (selected && selected.length > 0) {
         const options: Struct = as(selected[0], FormElementStructWrapper).getFormElementVE().extendBy("groupElements").getValue();
         if (options) {
-          return options.getType().getPropertyNames().map((value: string): any =>
-            AdvancedVisibilitySettingsTabBase.#createComboBoxEntry(value, value),
-          );
+          return options.getType().getPropertyNames().map((displayValue: string): any => {
+
+            //Field with options, e.g. checkboxes/selectboxes/radiogroups may have an (optional) value set for each
+            //option entry. If so, use this one, otherwise use the displayed label
+            const internalValue: string = options.get(displayValue).get("value");
+            return AdvancedVisibilitySettingsTabBase.#createComboBoxEntry(internalValue != null ? internalValue : displayValue, displayValue);
+          });
         }
       }
       return [];
