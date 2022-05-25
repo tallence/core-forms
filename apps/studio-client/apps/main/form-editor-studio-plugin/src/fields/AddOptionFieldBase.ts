@@ -184,7 +184,7 @@ class AddOptionFieldBase extends FormEditorField {
   protected getAddOptionButtonDisabledVE(): ValueExpression {
     return ValueExpressionFactory.createFromFunction((): boolean => {
       const optionName: string = this.getAddOptionVE().getValue();
-      return this.forceReadOnlyValueExpression.getValue() || optionName == null || !Format.trim(optionName).length;
+      return this.forceReadOnlyValueExpression.getValue() || !FormUtils.validateOptionValue(optionName);
     });
   }
 

@@ -33,6 +33,7 @@ ResourceBundleUtil.override(FormEditor_properties, {
   FormEditor_text_add_element: "Ziehen Sie ein Formularelement hierher.",
   FormEditor_text_label_option: "Optionen",
   FormEditor_text_add_option: "Neue Option hinzufügen",
+  FormEditor_text_add_option_disabled: "Der Optionstext darf nicht leer sein und keine Punkte enthalten.",
   FormEditor_text_edit_option: "Option bearbeiten",
   FormEditor_text_save_option: "Option löschen",
   FormEditor_text_move_option_up: "Option nach oben",

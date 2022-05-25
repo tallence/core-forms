@@ -16,12 +16,12 @@
 
 import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpression";
 import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
-import Format from "@jangaroo/ext-ts/util/Format";
 import Window from "@jangaroo/ext-ts/window/Window";
 import Config from "@jangaroo/runtime/Config";
 import {AnyFunction} from "@jangaroo/runtime/types";
 import GroupElementStructWrapper from "../model/GroupElementStructWrapper";
 import EditOptionWindow from "./EditOptionWindow";
+import FormUtils from "../FormUtils";
 
 interface EditOptionWindowBaseConfig extends Config<Window>, Partial<Pick<EditOptionWindow,
         "option" | "onSaveCallback" | "onRemoveCallback">> {
@@ -100,7 +100,7 @@ class EditOptionWindowBase extends Window {
   protected getSaveButtonDisabledVE(): ValueExpression {
     return ValueExpressionFactory.createFromFunction((): boolean => {
       const displayName: string = this.getOptionNameVE().getValue();
-      return displayName == null || !Format.trim(displayName).length;
+      return !FormUtils.validateOptionValue(displayName);
     });
   }
 
