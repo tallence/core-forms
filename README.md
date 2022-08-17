@@ -19,12 +19,11 @@ Form-Actions and -fields can be customized and added by your need.
 
 # Getting started
 
-The extension runs with CoreMedia 11 (v2201.2). And also runs with:
-- v2110.1. See the release [cmcc-11-2110.1](https://github.com/tallence/core-forms/releases/tag/cmcc-11-2110.1).
-- v2107.1. See the release [cmcc-10-2107.1](https://github.com/tallence/core-forms/releases/tag/cmcc-10-2107.1).
+See the [releases](https://github.com/tallence/core-forms/releases) for tested compatibilities.
+For earlier versions, have a look into these branches:
 - v2010.2. See the branch [2010.2-compatible](https://github.com/tallence/core-forms/tree/2010.2-compatible).
 - CoreMedia 9 (v19.04). See the branch: [1904.2-compatible](https://github.com/tallence/core-forms/tree/1904.2-compatible).
-  It is in general compatible with the versions 17.10 and 18.10, but some small changes could be required (import paths, names of artifacts)
+- Other CoreMedia 9 versions: It is in general compatible with the versions 17.10 and 18.10, but some small changes could be required (import paths, names of artifacts)
 
 This repo covers the studio- and the backend-cae part. If you are looking for an example implementation for the frontend part (a Vue.js-App wrapped in a CoreMedia-Frontend-Workspace-Theme) have a look here: [core-forms-frontend](https://github.com/tallence/core-forms-frontend)
 

@@ -18,7 +18,6 @@ package com.tallence.formeditor.parser;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.ConsentFormCheckBox;
 import com.tallence.formeditor.validator.ConsentFormCheckboxValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.coremedia.cap.util.CapStructUtil.*;
