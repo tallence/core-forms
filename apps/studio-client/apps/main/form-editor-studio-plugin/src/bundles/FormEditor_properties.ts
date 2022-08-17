@@ -60,6 +60,8 @@ interface FormEditor_properties {
   FormEditor_element_collapsiblePanel_label: string;
   FormEditor_element_textField_emptyText: string;
   FormEditor_element_numberField_emptyText: string;
+  FormEditor_element_hiddenField_value_label: string;
+  FormEditor_element_hiddenField_value_emptyText: string;
   FormEditor_element_dateField_autoToday: string;
   FormEditor_element_name_label: string;
   FormEditor_element_name_emptyText: string;
@@ -172,6 +174,8 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_element_collapsiblePanel_label: "Collapsible form element.",
   FormEditor_element_textField_emptyText: "Please enter a text.",
   FormEditor_element_numberField_emptyText: "Please enter a number.",
+  FormEditor_element_hiddenField_value_label: "Hidden value",
+  FormEditor_element_hiddenField_value_emptyText: "Please enter the hidden value.",
   FormEditor_element_dateField_autoToday: "Always set to current date",
   FormEditor_element_name_label: "Name",
   FormEditor_element_name_emptyText: "Name of the form field.",

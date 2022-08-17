@@ -380,6 +380,14 @@
         </Struct>
       </StructProperty>
 
+      <StructProperty Name="HiddenField">
+        <Struct>
+          <StringProperty Name="type">HiddenField</StringProperty>
+          <StringProperty Name="name">HiddenFieldName</StringProperty>
+          <StringProperty Name="value">HiddenValue</StringProperty>
+        </Struct>
+      </StructProperty>
+
       <StructProperty Name="ConsentFormCheckBox">
         <Struct>
           <StringProperty Name="type">ConsentFormCheckBox</StringProperty>

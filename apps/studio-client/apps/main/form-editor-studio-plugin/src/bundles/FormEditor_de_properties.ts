@@ -60,6 +60,8 @@ ResourceBundleUtil.override(FormEditor_properties, {
   FormEditor_element_collapsiblePanel_label: "Einklappbares Formularelement.",
   FormEditor_element_textField_emptyText: "Bitte einen Text eingeben.",
   FormEditor_element_numberField_emptyText: "Bitte eine Nummer eingeben.",
+  FormEditor_element_hiddenField_value_label: "Versteckter Wert",
+  FormEditor_element_hiddenField_value_emptyText: "Bitte den versteckten Wert eingeben.",
   FormEditor_element_name_label: "Name",
   FormEditor_element_name_emptyText: "Der Name des Feldes.",
   FormEditor_element_hint_label: "Hinweis",

@@ -88,6 +88,7 @@ public class FormControllerTest {
           "DateField max: December 31, 1999<br/>" +
           "TextOnly: Das ist ein langer Text zur Erklärung des Formulars<br/>" +
           "UsersMail: " + MAIL_ADDRESS_TEST + "<br/>" +
+          "HiddenFieldName: HiddenValue<br/>" +
           "Data protection consent form: true<br/>";
 
   @After
@@ -111,6 +112,7 @@ public class FormControllerTest {
         .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
         .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("HiddenField_HiddenField", "HiddenValue")
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
@@ -169,6 +171,7 @@ public class FormControllerTest {
         .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
         .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("HiddenField_HiddenField", "HiddenValue")
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
@@ -256,6 +259,7 @@ public class FormControllerTest {
         .param("DateField_DateFieldMin", "2099-12-31T00:00:00.000Z")
         .param("DateField_DateFieldMax", "1999-12-31T00:00:00.000Z")
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
+        .param("HiddenField_HiddenField", "HiddenValue")
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
         .andExpect(status().is2xxSuccessful())
