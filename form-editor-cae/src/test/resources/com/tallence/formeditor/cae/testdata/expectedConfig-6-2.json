@@ -358,6 +358,13 @@
       }
     },
     {
+      "id" : "HiddenField",
+      "technicalName" : "HiddenField_HiddenField",
+      "name" : "HiddenFieldName",
+      "type" : "HiddenField",
+      "value" : "HiddenValue"
+    },
+    {
       "id": "ConsentFormCheckBox",
       "technicalName": "ConsentFormCheckBox_ConsentFormCheckBox",
       "name": "Data protection consent form",

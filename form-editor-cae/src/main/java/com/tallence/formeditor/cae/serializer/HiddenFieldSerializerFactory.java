@@ -1,0 +1,40 @@
+package com.tallence.formeditor.cae.serializer;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.tallence.formeditor.elements.HiddenField;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.function.BiFunction;
+
+
+@Component
+public class HiddenFieldSerializerFactory implements FormElementSerializerFactory<HiddenFieldSerializerFactory.HiddenFieldSerializer> {
+
+  @Override
+  public HiddenFieldSerializer createInstance(BiFunction<String, Object[], String> messageResolver,
+                                              HttpServletRequest request, HttpServletResponse response) {
+    return new HiddenFieldSerializer(messageResolver);
+  }
+
+  /**
+   * Serializer for the {@link HiddenField}
+   */
+  public static class HiddenFieldSerializer extends FormElementSerializerBase<HiddenField> {
+
+    public HiddenFieldSerializer(BiFunction<String, Object[], String> messageResolver) {
+      super(HiddenField.class, messageResolver);
+    }
+
+    @Override
+    public void serializeTypeSpecificFields(HiddenField field, JsonGenerator gen) throws IOException {
+      if (StringUtils.isNotEmpty(field.getValue())) {
+        gen.writeStringField("value", field.getValue());
+      }
+    }
+
+  }
+}
