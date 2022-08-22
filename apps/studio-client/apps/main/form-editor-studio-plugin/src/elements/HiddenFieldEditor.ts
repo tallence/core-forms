@@ -4,7 +4,7 @@ import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import FormEditor_properties from "../bundles/FormEditor_properties";
 import TextField from "../fields/TextField";
 import AdvancedSettingsField from "../fields/advancedsettings/AdvancedSettingsField";
-import Icon from "../icons/text-area.svg";
+import Icon from "../icons/input-hidden.svg";
 import AbstractFormElement from "./AbstractFormElement";
 
 interface HiddenFieldEditorConfig extends Config<AbstractFormElement> {

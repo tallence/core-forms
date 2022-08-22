@@ -141,6 +141,12 @@ interface ZipField @inherit(from: ["FormElement"]) {
 type ZipFieldImpl implements ZipField @inherit(from: ["AbstractFormElement"]) {
 }
 
+interface HiddenField @inherit(from: ["FormElement"]) {
+}
+
+type HiddenFieldImpl implements HiddenField @inherit(from: ["AbstractFormElement"]) {
+}
+
 type ComplexValue {
   displayName: String
   value: String
