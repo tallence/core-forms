@@ -9,6 +9,7 @@ import com.tallence.formeditor.elements.FormElement;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,7 +47,7 @@ public class FormEditorHelper {
   }
 
   /**
-   * Resolves the {@link #FORM_ELEMENTS} Struct and transforms the element data into {@link FormElement}s.
+   * Delegating to {@link #parseFormElements(Map, FormElementFactory)}
    * @param form the document containing all form elements data
    * @param formElementFactory the factory to create {@link FormElement}
    * @return a list of parsed {@link FormElement}s
@@ -56,6 +57,17 @@ public class FormEditorHelper {
     var formData = getFormElements(form)
             .map(CapStruct::getProperties)
             .orElse(Collections.emptyMap());
+    return parseFormElements(formData, formElementFactory);
+  }
+
+  /**
+   * Resolves the {@link #FORM_ELEMENTS} Struct and transforms the element data into {@link FormElement}s.
+   * @param formData the document containing all form elements data
+   * @param formElementFactory the factory to create {@link FormElement}
+   * @return a list of parsed {@link FormElement}s
+   */
+  public static List<FormElement<?>> parseFormElements(Map<String, Object> formData, FormElementFactory formElementFactory) {
+
     return formData.entrySet().stream()
             .filter(e -> e.getValue() instanceof Struct)
             .map(e -> parseElement((Struct) e.getValue(), e.getKey(), formElementFactory))

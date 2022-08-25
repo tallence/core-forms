@@ -23,19 +23,27 @@ import com.coremedia.blueprint.common.contentbeans.CMChannel;
 import com.coremedia.blueprint.common.navigation.Navigation;
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.cache.Cache;
+import com.coremedia.objectserver.view.View;
+import com.coremedia.objectserver.view.XmlMarkupView;
 import com.coremedia.objectserver.web.links.Link;
 import com.coremedia.objectserver.web.links.LinkFormatter;
+import com.coremedia.xml.Markup;
+import com.coremedia.xml.MarkupFactory;
 import com.tallence.formeditor.cae.FormFreemarkerFacade;
-import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.cae.serializer.FormConfigCacheKey;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.elements.PageElement;
 import com.tallence.formeditor.parser.CurrentFormSupplier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponents;
@@ -43,7 +51,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.StringWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.coremedia.objectserver.web.HandlerHelper.MODEL_ROOT;
 
@@ -67,18 +77,21 @@ public class FormConfigController {
   private final ResourceBundleInterceptor pageResourceBundlesInterceptor;
   private final Cache cache;
   private final List<FormElementSerializerFactory<?>> formElementSerializerFactories;
+  private final View richtextMarkupView;
 
   public FormConfigController(CurrentContextService currentContextService,
                               FormFreemarkerFacade formFreemarkerFacade,
                               LinkFormatter linkFormatter,
                               RequestMessageSource messageSource,
                               ResourceBundleInterceptor pageResourceBundlesInterceptor,
+                              View richtextMarkupView,
                               Cache cache, List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
     this.currentContextService = currentContextService;
     this.formFreemarkerFacade = formFreemarkerFacade;
     this.linkFormatter = linkFormatter;
     this.messageSource = messageSource;
     this.pageResourceBundlesInterceptor = pageResourceBundlesInterceptor;
+    this.richtextMarkupView = richtextMarkupView;
     this.cache = cache;
     this.formElementSerializerFactories = formElementSerializerFactories;
   }
@@ -121,7 +134,24 @@ public class FormConfigController {
     //prepare form config
     FormEditorConfig formEditorConfig = new FormEditorConfig();
     formEditorConfig.setFormActionUrl(linkFormatter.formatLink(editor, FormController.FORM_EDITOR_SUBMIT_VIEW, request, response, false));
-    formEditorConfig.setFormElements(formElements);
+
+    var pageElements = formElements.stream()
+            .filter(e -> e instanceof PageElement)
+            .map(e -> (PageElement) e)
+            .collect(Collectors.toList());
+    if (pageElements.isEmpty()) {
+      formEditorConfig.setPage(new FormEditorConfig.Page(formElements));
+    } else {
+      var pages = pageElements.stream()
+              .map(p -> new FormEditorConfig.Page(p.getId(),
+                      transformMarkup(p.getPageDescription(), request, response),
+                      p.getName(),
+                      p.getPageType(),
+                      p.getSubElements()))
+              .collect(Collectors.toList());
+      formEditorConfig.setPages(pages);
+    }
+
     return this.cache.get(new FormConfigCacheKey(
             editor,
             request, response,
@@ -129,6 +159,19 @@ public class FormConfigController {
             formEditorConfig,
             formElementSerializerFactories));
 
+  }
+
+  private String transformMarkup(Markup pageDescription, HttpServletRequest request, HttpServletResponse response) {
+    if (pageDescription == null) {
+      return null;
+    }
+
+    StringWriter out = new StringWriter();
+    var serializer = MarkupFactory.newSerializer(out);
+    ((XmlMarkupView) richtextMarkupView).render(pageDescription, null, serializer, request, response);
+
+
+    return out.toString();
   }
 
 }

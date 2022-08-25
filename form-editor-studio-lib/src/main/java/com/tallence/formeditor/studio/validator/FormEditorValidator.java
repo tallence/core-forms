@@ -24,6 +24,7 @@ import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.elements.OrderingElement;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -58,8 +59,14 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
     // Validate form fields
     localeThreadLocal.set(sitesService.getContentSiteAspect(content).getLocale());
-    FormEditorHelper.parseFormElements(content, formElementFactory)
-            .forEach(formElement -> validateFormElement(issues, action, formElement));
+    var formElements = FormEditorHelper.parseFormElements(content, formElementFactory);
+    formElements.forEach(formElement -> validateFormElement(issues, action, formElement));
+
+    if (formElements.stream().anyMatch(f -> f instanceof OrderingElement) &&
+            formElements.stream().anyMatch(f -> !(f instanceof OrderingElement))) {
+      //Expect only OrderingElements or no OrderingElement
+      issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_DATA, "formField_ordering_error");
+    }
 
     // Further validations
     if (FormEditorHelper.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditorHelper.ADMIN_MAILS))) {

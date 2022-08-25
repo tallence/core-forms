@@ -1,0 +1,67 @@
+{
+  "formActionUrl": "/dynamic/forms/formEditorSubmit/8/20",
+  "pages": [
+    {
+      "id": "uniquePageId1",
+      "title": "TestPage 1",
+      "pageType": "DEFAULT_PAGE",
+      "formElements": [
+        {
+          "id": "SubTextArea",
+          "technicalName": "TextArea_SubTextArea",
+          "name": "SubTextArea",
+          "hint": "Geben Sie nochmal etwas ein!",
+          "type": "TextArea",
+          "rows": 5,
+          "columns": 4,
+          "validator": {
+            "maxSize": 10,
+            "mandatory": true,
+            "errorMessages": {
+              "maxSize": "mockedValue, arg1: SubTextArea, arg2: 10",
+              "mandatory": "mockedValue, arg1: SubTextArea, arg2: true"
+            }
+          }
+        },
+        {
+          "id": "HiddenField",
+          "technicalName": "HiddenField_HiddenField",
+          "name": "HiddenFieldName",
+          "type": "HiddenField",
+          "value": "HiddenValue"
+        }
+      ]
+    },
+    {
+      "id": "uniquePageId2",
+      "title": "TestPage 2",
+      "pageType": "SUMMARY_PAGE",
+      "description" : "<div><p>Description of the page</p></div>",
+      "formElements": [
+        {
+          "id": "FileUpload",
+          "technicalName": "FileUpload_FileUpload",
+          "name": "TestName",
+          "hint": "Laden Sie etwas hoch!",
+          "type": "FileUpload",
+          "validator": {
+            "maxSize": 42,
+            "minSize": 0,
+            "mandatory": false,
+            "errorMessages": {
+              "maxSize": "mockedValue, arg1: TestName, arg2: 42",
+              "minSize": "mockedValue, arg1: TestName, arg2: 0",
+              "mandatory": "mockedValue, arg1: TestName, arg2: false"
+            }
+          }
+        },
+        {
+          "id": "TextOnly",
+          "technicalName": "TextOnly_TextOnly",
+          "name": "Das ist ein langer Text zur Erklärung des PageTab 2",
+          "type": "TextOnly"
+        }
+      ]
+    }
+  ]
+}
