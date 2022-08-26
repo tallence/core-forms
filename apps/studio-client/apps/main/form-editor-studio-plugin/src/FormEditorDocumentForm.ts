@@ -6,9 +6,9 @@ import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import ApplicableElements from "./ApplicableElements";
 import ApplicableElementsHelpContainer from "./ApplicableElementsHelpContainer";
-import AppliedElementsContainer from "./AppliedElementsContainer";
 import FormEditorDocumentFormBase from "./FormEditorDocumentFormBase";
 import FormEditor_properties from "./bundles/FormEditor_properties";
+import PagesWrapperContainer from "./pages/PagesWrapperContainer";
 
 interface FormEditorDocumentFormConfig extends Config<FormEditorDocumentFormBase>, Partial<Pick<FormEditorDocumentForm,
   "formElements" |
@@ -84,8 +84,8 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                 layout: "anchor",
                 autoScroll: true,
                 items: [
-                  /* applied form Elements */
-                  Config(AppliedElementsContainer, {
+                  /* applied form pages */
+                  Config(PagesWrapperContainer, {
                     bindTo: config.bindTo,
                     forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
                     formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),

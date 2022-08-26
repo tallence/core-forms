@@ -112,6 +112,14 @@ interface FormEditor_properties {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: string;
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: string;
   FormEditor_advancedSettings_tabs_layout_description: string;
+  FormEditor_pages_default_title: string;
+  FormEditor_pages_new_title: string;
+  FormEditor_page_type_field_label: string;
+  FormEditor_page_type_empty_text: string;
+  FormEditor_page_type_default_label: string;
+  FormEditor_page_type_summary_label: string;
+  FormEditor_page_title_field_label: string;
+  FormEditor_page_title_empty_text: string;
 }
 
 /**
@@ -226,6 +234,14 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: "Please enter a custom column width.",
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: "Break after this element.",
   FormEditor_advancedSettings_tabs_layout_description: "This setting can be used to modify the layout of the form element.",
+  FormEditor_pages_default_title: "Default",
+  FormEditor_pages_new_title: "New Page",
+  FormEditor_page_type_field_label: "Page typ",
+  FormEditor_page_type_empty_text: "Select page type",
+  FormEditor_page_type_default_label: "Default",
+  FormEditor_page_type_summary_label: "Summary",
+  FormEditor_page_title_field_label: "Page title",
+  FormEditor_page_title_empty_text: "Enter page title"
 };
 
 export default FormEditor_properties;

@@ -4,6 +4,8 @@
   $_group_container: $_block + "--element-group-container";
   $_applicable_element_container: $_block + "--applicable-element-container";
 
+  $form_page_block: "form-page-container";
+
   $form_element_block: "form-element-drop-container";
   $form_element_drag_active: $form_element_block + "--drag-active";
   $form_element_drop_active: $form_element_block + "--drop-active";
@@ -23,6 +25,14 @@
   .#{$form_element_block} {
     margin: 10px 15px 0 10px;
     background: rgba(0, 0, 0, 0.04);
+    border: 2px solid rgba(0, 0, 0, 0.04);
+    padding: 6px;
+    color: rgba(0, 0, 0, 0.27);
+  }
+
+  .#{$form_page_block} {
+    margin: 10px 15px 0 10px;
+    background: transparent;
     border: 2px solid rgba(0, 0, 0, 0.04);
     padding: 6px;
     color: rgba(0, 0, 0, 0.27);

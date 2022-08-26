@@ -26,4 +26,5 @@ ResourceBundleUtil.override(FormValidation_properties, {
   Validator_formfield_validator_invalid_maxsize_text: "Der Validator des Formular-Elements '{0}' hat eine invalide maximale Größe: '{1}'.",
   Validator_formfield_validator_maxsize_smaller_minsize_text: "Der Validator des Formular-Elements '{0}' nutzt eine minimale Größe, die größer als die maximale Größe ist.",
   Validator_formfield_validator_invalid_regexp_text: "Der Validator des Formular-Elements '{0}' nutzt einen invaliden regulären Ausdruck.",
+  //TODO: localize missing properties
 });

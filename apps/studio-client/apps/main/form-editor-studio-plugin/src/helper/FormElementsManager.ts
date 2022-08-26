@@ -18,12 +18,15 @@ import Struct from "@coremedia/studio-client.cap-rest-client/struct/Struct";
 import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpression";
 import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
 import StructTreeNode from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/struct/StructTreeNode";
-import StructTreeStore from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/struct/StructTreeStore";
-import { as, bind } from "@jangaroo/runtime";
+import StructTreeStore
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/struct/StructTreeStore";
+import {as, bind} from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import int from "@jangaroo/runtime/int";
 import FormElementStructWrapper from "../model/FormElementStructWrapper";
 import NodeInterface from "@jangaroo/ext-ts/data/NodeInterface";
+import PageElementEditor from "../elements/PageElementEditor";
+import FormEditor_properties from "../bundles/FormEditor_properties";
 
 class FormElementsManager {
 
@@ -44,8 +47,8 @@ class FormElementsManager {
   #formElementsStruct: StructTreeNode = null;
 
   constructor(contentVE: ValueExpression,
-    forceReadOnlyValueExpression: ValueExpression,
-    formDataStructPropertyName: string) {
+              forceReadOnlyValueExpression: ValueExpression,
+              formDataStructPropertyName: string) {
     this.#contentVE = contentVE;
     this.#formDataStructPropertyName = formDataStructPropertyName;
     this.#dragActiveVE = ValueExpressionFactory.createFromValue(false);
@@ -60,13 +63,31 @@ class FormElementsManager {
     return this.#formElementWrappersVE;
   }
 
+  static getPageInitialData(title: string): Record<string, any> {
+    return {
+      title: title,
+      type: PageElementEditor.FIELD_TYPE,
+      pageType: PageElementEditor.DEFAULT_PAGE,
+      formElements: {}
+    };
+
+  }
+
+  addFormPage(afterFormElementId: string): void {
+    this.addElement(afterFormElementId, FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_new_title));
+  }
+
   addFormElement(afterFormElementId: string, formElementType: string): void {
     const initialData: Record<string, any> = {
       validator: {},
       type: formElementType,
     };
 
-    const id = FormElementsManager.#generateRandomId().toString();
+    this.addElement(afterFormElementId, initialData);
+  }
+
+  addElement(afterFormElementId: string, initialData: Record<string, any>): void {
+    const id = FormElementsManager.generateRandomId().toString();
     this.#getRootNodeStruct().getType().addStructProperty(id, initialData);
     this.moveFormElement(afterFormElementId, id);
 
@@ -93,7 +114,7 @@ class FormElementsManager {
     this.#getRootNodeStruct().getType().removeProperty(elementId);
   }
 
-  static #generateRandomId(): number {
+  static generateRandomId(): number {
     return Math.floor(Math.random() * (int.MAX_VALUE - 0 + 1)) + 23;
   }
 
@@ -140,6 +161,12 @@ class FormElementsManager {
     this.#formElementsWrapperStore.addListener("nodeappend", bind(this, this.#nodeAppended));
     this.#formElementsWrapperStore.addListener("nodeinsert", bind(this, this.#nodeInserted));
     this.#formElementsWrapperStore.addListener("noderemove", bind(this, this.#nodeRemoved));
+    let formElements = this.#formElementsWrapperStore.getRoot().findChild("text", FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    if (formElements != null) {
+      this.#formElementsStruct = formElements;
+      this.#updateFormElements();
+    }
+
   }
 
   #nodeRemoved(_store: NodeInterface, record: NodeInterface): void {
@@ -161,6 +188,7 @@ class FormElementsManager {
   #nodeAppended(store: NodeInterface, record: NodeInterface, _index: number): any {
     return this.#addNodeInternal(store, record);
   }
+
   #addNodeInternal(_store: NodeInterface, record: NodeInterface): any {
     const depth = record.getDepth();
     if (depth == 1 && record instanceof StructTreeNode) {
@@ -174,14 +202,18 @@ class FormElementsManager {
   }
 
   #updateFormElements(): void {
-    const elements = this.#formElementsStruct.childNodes.map((node: StructTreeNode): FormElementStructWrapper =>
-      new FormElementStructWrapper(
-        node,
-        this.#formDataStructPropertyName,
-        this.#contentVE,
-        this.#forceReadOnlyValueExpression),
-    );
+    const elements = this.generateWrapper(this.#formElementsStruct.childNodes);
     this.getFormElementsVE().setValue(elements);
+  }
+
+  generateWrapper(childNodes: NodeInterface[]): Array<FormElementStructWrapper> {
+    return childNodes.map((node: StructTreeNode): FormElementStructWrapper =>
+            new FormElementStructWrapper(
+                    node,
+                    this.#formDataStructPropertyName,
+                    this.#contentVE,
+                    this.#forceReadOnlyValueExpression)
+    );
   }
 
 }

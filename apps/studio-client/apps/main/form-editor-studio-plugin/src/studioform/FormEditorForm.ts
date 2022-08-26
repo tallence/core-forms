@@ -46,6 +46,8 @@ import InputFax from "../icons/input-fax.svg";
 import InputPhone from "../icons/input-phone.svg";
 import InputStreet from "../icons/input-street-nr.svg";
 import HiddenFieldEditor from "../elements/HiddenFieldEditor";
+import PageElementEditor from "../elements/PageElementEditor";
+import FormsStudioPlugin from "../FormsStudioPlugin";
 
 interface FormEditorFormConfig extends Config<DocumentTabPanel> {
 }
@@ -132,7 +134,7 @@ class FormEditorForm extends DocumentTabPanel {
         Config(FormEditorDocumentForm, {
           bindTo: config.bindTo,
           forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
-          structPropertyName: "formData",
+          structPropertyName: FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY,
           formElements: [
             Config(NumberFieldEditor),
             Config(TextAreaEditor),
@@ -162,6 +164,7 @@ class FormEditorForm extends DocumentTabPanel {
             }),
             Config(TextOnlyEditor),
             Config(UsersMailEditor),
+            Config(PageElementEditor),
             Config(ConsentFormCheckBoxEditor),
             Config(FileUploadEditor),
             Config(SelectBoxEditor),
@@ -191,7 +194,7 @@ class FormEditorForm extends DocumentTabPanel {
 
               items: [
                 Config(StructPropertyField, {
-                  propertyName: "formData",
+                  propertyName: FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY,
                   hideLabel: true,
                   itemId: "formData",
                 }),

@@ -79,6 +79,10 @@ class FormElementStructWrapper {
     return this.#type;
   }
 
+  getNode(): StructTreeNode {
+    return this.#node;
+  }
+
   /**
    * Returns the property path of the applied form element.
    * e.g. 'formData.formElements.320798398'
