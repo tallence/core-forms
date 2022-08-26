@@ -24,7 +24,8 @@ import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
-import com.tallence.formeditor.elements.OrderingElement;
+import com.tallence.formeditor.elements.PageElement;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -55,6 +56,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
   @Override
   public void validate(Content content, Issues issues) {
 
+    CurrentFormSupplier.setCurrentForm(content);
+
     String action = content.getString(formActionProperty);
 
     // Validate form fields
@@ -62,9 +65,9 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     var formElements = FormEditorHelper.parseFormElements(content, formElementFactory);
     formElements.forEach(formElement -> validateFormElement(issues, action, formElement));
 
-    if (formElements.stream().anyMatch(f -> f instanceof OrderingElement) &&
-            formElements.stream().anyMatch(f -> !(f instanceof OrderingElement))) {
-      //Expect only OrderingElements or no OrderingElement
+    if (formElements.stream().anyMatch(f -> f instanceof PageElement) &&
+            formElements.stream().anyMatch(f -> !(f instanceof PageElement))) {
+      //Expect only PageElements or no PageElement
       issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_DATA, "formField_ordering_error");
     }
 

@@ -1,7 +1,5 @@
 package com.tallence.formeditor.elements;
 
-import java.util.List;
-
 /**
  * Marker interface for Ordering elements like a PageElement.
  * <br/>
@@ -9,5 +7,4 @@ import java.util.List;
  */
 public interface OrderingElement {
 
-  List<FormElement<?>> flattenFormElements();
 }

@@ -39,27 +39,34 @@
       "description" : "<div><p>Description of the page</p></div>",
       "formElements": [
         {
-          "id": "FileUpload",
-          "technicalName": "FileUpload_FileUpload",
-          "name": "TestName",
-          "hint": "Laden Sie etwas hoch!",
-          "type": "FileUpload",
-          "validator": {
-            "maxSize": 42,
-            "minSize": 0,
-            "mandatory": false,
-            "errorMessages": {
-              "maxSize": "mockedValue, arg1: TestName, arg2: 42",
-              "minSize": "mockedValue, arg1: TestName, arg2: 0",
-              "mandatory": "mockedValue, arg1: TestName, arg2: false"
-            }
-          }
+          "id" : "StreetFieldTest",
+          "technicalName" : "StreetNumberField_StreetFieldTest",
+          "name" : "Street and number",
+          "type" : "StreetNumberField"
         },
         {
           "id": "TextOnly",
           "technicalName": "TextOnly_TextOnly",
           "name": "Das ist ein langer Text zur Erklärung des PageTab 2",
           "type": "TextOnly"
+        },
+        {
+          "id" : "NumberField",
+          "technicalName" : "NumberField_NumberField",
+          "name" : "Alter",
+          "hint" : "Geben Sie etwas ein!",
+          "type" : "NumberField",
+          "validator" : {
+            "minSize" : 5,
+            "maxSize" : 200,
+            "mandatory" : true,
+            "errorMessages" : {
+              "number" : "mockedValue, arg1: Alter, arg2: {1}",
+              "minSize" : "mockedValue, arg1: Alter, arg2: 5",
+              "maxSize" : "mockedValue, arg1: Alter, arg2: 200",
+              "mandatory" : "mockedValue, arg1: Alter, arg2: true"
+            }
+          }
         }
       ]
     }

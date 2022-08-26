@@ -132,7 +132,9 @@ public class FormController  {
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
     CurrentFormSupplier.setCurrentForm(target.getContent());
 
-    List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(target);
+    List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(target)
+            .stream().flatMap(e -> e.flattenFormElements().stream())
+            .collect(Collectors.toList());
     if (formElements.isEmpty()) {
       return new FormProcessingResult(
               false,
