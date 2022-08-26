@@ -15,16 +15,13 @@
  */
 
 import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpression";
-import CollapsiblePanel from "@coremedia/studio-client.ext.ui-components/components/panel/CollapsiblePanel";
-import reusableComponentsService from "@coremedia/studio-client.ext.ui-components/util/reusableComponentsService";
 import PropertyEditorUtil from "@coremedia/studio-client.main.editor-components/sdk/util/PropertyEditorUtil";
-import Component from "@jangaroo/ext-ts/Component";
 import Container from "@jangaroo/ext-ts/container/Container";
-import {as} from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
-import FormElement from "./elements/FormElement";
 import FormElementsManager from "./helper/FormElementsManager";
 import FormElementStructWrapper from "./model/FormElementStructWrapper";
+import PageElementEditor from "./elements/PageElementEditor";
+import createComponentSelector from "@coremedia/studio-client.ext.ui-components/util/createComponentSelector";
 
 interface AppliedFormPageContainerBaseConfig extends Config<Container>, Partial<Pick<AppliedFormPageContainerBase,
         "bindTo" |
@@ -33,60 +30,34 @@ interface AppliedFormPageContainerBaseConfig extends Config<Container>, Partial<
         "formElementsManager">> {
 }
 
-/**
- * TODO: cleanup duplicated code from: AppliedFormElementsContainerBaseConfig
- */
 class AppliedFormPageContainerBase extends Container {
   declare Config: AppliedFormPageContainerBaseConfig;
 
   protected static readonly FORM_ELEMENT_PANEL: string = "form-element-collapsible-panel";
-
   protected static readonly FORM_ELEMENT_HEADER: string = "form-element-header";
+  protected static readonly FORM_PAGE_EDITOR: string = "pageEditor";
 
   #bindTo: ValueExpression = null;
-
-  get bindTo(): ValueExpression {
-    return this.#bindTo;
-  }
+  #forceReadOnlyValueExpression: ValueExpression = null;
+  #formElement: FormElementStructWrapper = null;
+  #formElementsManager: FormElementsManager = null;
+  #readOnlyVE: ValueExpression = null;
 
   set bindTo(value: ValueExpression) {
     this.#bindTo = value;
-  }
-
-  #forceReadOnlyValueExpression: ValueExpression = null;
-
-  get forceReadOnlyValueExpression(): ValueExpression {
-    return this.#forceReadOnlyValueExpression;
   }
 
   set forceReadOnlyValueExpression(value: ValueExpression) {
     this.#forceReadOnlyValueExpression = value;
   }
 
-  #formElement: FormElementStructWrapper = null;
-
-  get formElement(): FormElementStructWrapper {
-    return this.#formElement;
-  }
-
   set formElement(value: FormElementStructWrapper) {
     this.#formElement = value;
-  }
-
-  #formElementsManager: FormElementsManager = null;
-
-  get formElementsManager(): FormElementsManager {
-    return this.#formElementsManager;
   }
 
   set formElementsManager(value: FormElementsManager) {
     this.#formElementsManager = value;
   }
-
-
-  #readOnlyVE: ValueExpression = null;
-
-  #panel: CollapsiblePanel = null;
 
   constructor(config: Config<AppliedFormPageContainerBase> = null) {
     super(config);
@@ -98,48 +69,14 @@ class AppliedFormPageContainerBase extends Container {
     this.#readOnlyVE = PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression);
   }
 
-  getFormElementsVE(): ValueExpression {
-    return this.formElementsManager.getFormElementsVE();
-  }
-
   protected override afterRender(): void {
     super.afterRender();
-    const panel = as(this.queryById(AppliedFormPageContainerBase.FORM_ELEMENT_PANEL), CollapsiblePanel);
-
-    const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
+    const formElementEditor = this.query(createComponentSelector().itemId(AppliedFormPageContainerBase.FORM_PAGE_EDITOR).build())[0] as PageElementEditor;
     if (this.formElement != formElementEditor.getFormElementStructWrapper()) {
       formElementEditor.updateFormElementStructWrapper(this.formElement);
-      const component = as(formElementEditor, Component);
-      if (component.isInstance) {
-        panel.add(component);
-      }
     }
-
-    this.#panel = panel;
   }
 
-  override destroy(...params): void {
-    this.#removeReusableFormElement();
-    super.destroy(params);
-  }
-
-  iconClassTransformer(elementType: string): string {
-    const formElementEditor = as(reusableComponentsService.requestComponentForReuse(elementType), FormElement);
-    return formElementEditor.getFormElementIconCls() || "";
-  }
-
-  removeElementHandler(): void {
-    this.#removeReusableFormElement();
-    this.formElementsManager.removeFormElement(this.formElement.getId());
-  }
-
-  /**
-   * Before the applied form elements container is destroyed, the reusable form element must be removed from the
-   * container. This means that the component can still be reused and is not destroyed itself.
-   */
-  #removeReusableFormElement(): void {
-    reusableComponentsService.removeReusableComponentCleanly(reusableComponentsService.requestComponentForReuse(this.formElement.getType()));
-  }
 }
 
 export default AppliedFormPageContainerBase;

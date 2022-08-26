@@ -164,7 +164,6 @@ class FormEditorForm extends DocumentTabPanel {
             }),
             Config(TextOnlyEditor),
             Config(UsersMailEditor),
-            Config(PageElementEditor),
             Config(ConsentFormCheckBoxEditor),
             Config(FileUploadEditor),
             Config(SelectBoxEditor),

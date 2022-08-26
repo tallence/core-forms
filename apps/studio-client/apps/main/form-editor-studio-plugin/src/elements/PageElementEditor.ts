@@ -20,9 +20,7 @@ class PageElementEditor extends AbstractFormElement {
   constructor(config: Config<PageElementEditor> = null) {
     super(ConfigUtils.apply(Config(PageElementEditor, {
       formElementType: PageElementEditor.FIELD_TYPE,
-      //TODO: hidden field should not be listed in the applicable form elements list
       formElementGroup: "hidden",
-
       items: [
         Config(TextField, {
           fieldLabel: FormEditor_properties.FormEditor_page_title_field_label,
