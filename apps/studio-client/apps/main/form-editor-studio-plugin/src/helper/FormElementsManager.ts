@@ -68,6 +68,7 @@ class FormElementsManager {
       title: title,
       type: PageElementEditor.FIELD_TYPE,
       pageType: PageElementEditor.DEFAULT_PAGE,
+      validator: {},
       formElements: {}
     };
 
