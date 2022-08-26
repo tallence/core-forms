@@ -43,11 +43,14 @@ public class IbanFieldValidator implements Validator<String> {
       return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_IBANFIELD_MANDATORY));
     }
 
-    try {
-      IbanUtil.validate(value);
-    } catch (IbanFormatException | InvalidCheckDigitException | UnsupportedCountryException e) {
-      return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_IBANFIELD_PATTERN));
+    if (!StringUtils.isBlank(value)) {
+      try {
+        IbanUtil.validate(value.replaceAll("\\s+",""));
+      } catch (IbanFormatException | InvalidCheckDigitException | UnsupportedCountryException e) {
+        return Collections.singletonList(new ValidationFieldError(MESSAGE_KEY_IBANFIELD_PATTERN));
+      }
     }
+
 
     return Collections.emptyList();
   }
