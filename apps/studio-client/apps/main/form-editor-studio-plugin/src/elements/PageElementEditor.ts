@@ -13,7 +13,7 @@ class PageElementEditor extends AbstractFormElement {
 
   static override readonly xtype: string = "com.tallence.formeditor.studio.elements.pageElementEditor";
 
-  static readonly FIELD_TYPE: string = "Page";
+  static readonly FIELD_TYPE: string = "PageElement";
   static readonly DEFAULT_PAGE: string = "DEFAULT_PAGE";
   static readonly SUMMARY_PAGE: string = "SUMMARY_PAGE";
 
