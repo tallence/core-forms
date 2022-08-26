@@ -24,6 +24,8 @@ interface FormValidation_properties {
   Validator_selectbox_missing_options_text: string;
   Validator_formField_missing_name_text: string;
   Validator_formField_ordering_error_text: string;
+  formField_summaryPage_multiple_error: string;
+  formField_summaryPage_middle_error: string;
   Validator_formfield_validator_invalid_minsize_text: string;
   Validator_formfield_validator_invalid_maxsize_text: string;
   Validator_formfield_validator_maxsize_smaller_minsize_text: string;
@@ -50,7 +52,9 @@ const FormValidation_properties: FormValidation_properties = {
   Validator_checkboxes_options_max_lower_min_text: "Please check the field '{0}'. The min. selection should be lower than max. selection.",
   Validator_selectbox_missing_options_text: "The DropDown '{0}' must have at least one option.",
   Validator_formField_missing_name_text: "The FormField of the type '{0}' must have a name, please enter one.",
-  Validator_formField_ordering_error_text: "An error occured in the data structure. Please contact an administrator.",
+  Validator_formField_ordering_error_text: "An error occurred in the data structure. Please contact an administrator.",
+  formField_summaryPage_multiple_error: "A summary page cannot be used more than once",
+  formField_summaryPage_middle_error: "A summary page must be the last page",
   Validator_formfield_validator_invalid_minsize_text: "The validator of the FormField '{0}' has an invalid minSize: '{1}'.",
   Validator_formfield_validator_invalid_maxsize_text: "The validator of the FormField '{0}' has an invalid maxSize: '{1}'.",
   Validator_formfield_validator_maxsize_smaller_minsize_text: "The validator of the FormField '{0}' has a minSize which is greater than the maxSize.",
