@@ -59,12 +59,12 @@ class FormPageTab extends Panel {
 
   constructor(config: Config<FormPageTab> = null) {
     super((() => ConfigUtils.apply(Config(FormPageTab, {
-      title: config.page.getNode().getValueAsStruct().get("title"),
+      title: config.page.getNode().getValueAsStruct().get("name"),
       plugins: [
         Config(BindPropertyPlugin, {
           bidirectional: false,
           componentProperty: "title",
-          bindTo: config.page.getFormElementVE().extendBy("title"),
+          bindTo: config.page.getFormElementVE().extendBy("name"),
         })
       ],
       dockedItems: [

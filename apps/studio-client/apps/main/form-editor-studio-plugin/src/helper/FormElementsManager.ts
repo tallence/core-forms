@@ -65,7 +65,7 @@ class FormElementsManager {
 
   static getPageInitialData(title: string): Record<string, any> {
     return {
-      title: title,
+      name: title,
       type: PageElementEditor.FIELD_TYPE,
       pageType: PageElementEditor.DEFAULT_PAGE,
       validator: {},

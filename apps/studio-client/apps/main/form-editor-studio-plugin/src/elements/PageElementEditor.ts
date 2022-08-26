@@ -25,7 +25,7 @@ class PageElementEditor extends AbstractFormElement {
         Config(TextField, {
           fieldLabel: FormEditor_properties.FormEditor_page_title_field_label,
           emptyText: FormEditor_properties.FormEditor_page_title_empty_text,
-          propertyName: "title"
+          propertyName: "name"
         }),
         Config(ComboBoxField, {
           fieldLabel: FormEditor_properties.FormEditor_page_type_field_label,
