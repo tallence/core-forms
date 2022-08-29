@@ -25,6 +25,7 @@ ResourceBundleUtil.override(FormEditor_properties, {
   FormEditor_label_element_phoneField: "Telefon",
   FormEditor_label_element_streetNumberField: "Straße & Haus-Nr.",
   FormEditor_label_element_zipField: "Postleitzahl",
+  FormEditor_label_element_ibanField: "IBAN-Feld",
   FormEditor_label_query_title: "Gewählte Formularelemente",
   FormEditor_tooltip_deletethis: "Dieses Formularelement löschen",
   FormEditor_label_delete_all_elements: "Alle Elemente löschen",

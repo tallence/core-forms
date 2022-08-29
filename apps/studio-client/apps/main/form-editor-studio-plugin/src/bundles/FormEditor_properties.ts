@@ -24,6 +24,7 @@ interface FormEditor_properties {
   FormEditor_label_element_phoneField: string;
   FormEditor_label_element_streetNumberField: string;
   FormEditor_label_element_zipField: string;
+  FormEditor_label_element_ibanField: string;
   FormEditor_label_query_title: string;
   FormEditor_tooltip_deletethis: string;
   FormEditor_label_delete_all_elements: string;
@@ -138,6 +139,7 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_label_element_phoneField: "Phone",
   FormEditor_label_element_streetNumberField: "Street & HouseNr.",
   FormEditor_label_element_zipField: "Zip",
+  FormEditor_label_element_ibanField: "IBAN field",
   FormEditor_label_query_title: "Selected form elements",
   FormEditor_tooltip_deletethis: "Delete this element",
   FormEditor_label_delete_all_elements: "Delete all elements",
