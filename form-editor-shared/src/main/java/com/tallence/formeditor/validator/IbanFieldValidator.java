@@ -16,6 +16,7 @@
 
 package com.tallence.formeditor.validator;
 
+import com.tallence.formeditor.elements.IbanField;
 import com.tallence.formeditor.validator.annotation.ValidationMessage;
 import com.tallence.formeditor.validator.annotation.ValidationProperty;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,10 @@ import org.iban4j.UnsupportedCountryException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Validator for elements of type {@link IbanField}. IBAN Validation is done with iban4j
+ * (https://github.com/arturmkrtchyan/iban4j) and is ISO_13616 and ISO_9362 compatible.
+ */
 @ValidationMessage(name = "iban", messageKey = IbanFieldValidator.MESSAGE_KEY_IBANFIELD_PATTERN)
 public class IbanFieldValidator implements Validator<String> {
 
