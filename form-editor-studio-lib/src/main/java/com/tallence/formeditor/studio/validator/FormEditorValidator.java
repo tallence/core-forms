@@ -24,8 +24,8 @@ import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.studio.validator.field.ComplexValidator;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -39,15 +39,18 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
   private final ThreadLocal<Locale> localeThreadLocal;
   private final FormElementFactory formElementFactory;
   private final SitesService sitesService;
+  private final List<FieldValidator> fieldValidators;
+  private final List<ComplexValidator> complexValidators;
 
-  public FormEditorValidator(ThreadLocal<Locale> localeThreadLocal, FormElementFactory formElementFactory, SitesService sitesService) {
+  public FormEditorValidator(ThreadLocal<Locale> localeThreadLocal, FormElementFactory formElementFactory, SitesService sitesService,
+                             List<FieldValidator> fieldValidators, List<ComplexValidator> complexValidators) {
     this.localeThreadLocal = localeThreadLocal;
     this.formElementFactory = formElementFactory;
     this.sitesService = sitesService;
+    this.fieldValidators = fieldValidators;
+    this.complexValidators = complexValidators;
   }
 
-  @Autowired
-  private List<FieldValidator> fieldValidators;
   //Can be overwritten, see the setters below
   private String formActionProperty = FormEditorHelper.FORM_ACTION;
 
@@ -58,8 +61,10 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
 
     // Validate form fields
     localeThreadLocal.set(sitesService.getContentSiteAspect(content).getLocale());
-    FormEditorHelper.parseFormElements(content, formElementFactory)
-            .forEach(formElement -> validateFormElement(issues, action, formElement));
+    var formElements = FormEditorHelper.parseFormElements(content, formElementFactory);
+    formElements.forEach(formElement -> validateFormElement(issues, action, formElement));
+
+    complexValidators.forEach(complexValidator -> complexValidator.validateFieldIfResponsible(formElements, action, issues, content));
 
     // Further validations
     if (FormEditorHelper.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditorHelper.ADMIN_MAILS))) {
