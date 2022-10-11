@@ -27,6 +27,7 @@ interface FormValidation_properties {
   Validator_formfield_validator_invalid_maxsize_text: string;
   Validator_formfield_validator_maxsize_smaller_minsize_text: string;
   Validator_formfield_validator_invalid_regexp_text: string;
+  Validator_formfield_validator_duplicate_id_text: string;
 }
 
 /**
@@ -53,6 +54,7 @@ const FormValidation_properties: FormValidation_properties = {
   Validator_formfield_validator_invalid_maxsize_text: "The validator of the FormField '{0}' has an invalid maxSize: '{1}'.",
   Validator_formfield_validator_maxsize_smaller_minsize_text: "The validator of the FormField '{0}' has a minSize which is greater than the maxSize.",
   Validator_formfield_validator_invalid_regexp_text: "The validator of the FormField '{0}' uses an invalid regular expression to validate the input.",
+  Validator_formfield_validator_duplicate_id_text: "Two fields with the same Id '{0}' are not valid! Please remind the customIds (AdvancedSettings).",
 };
 
 export default FormValidation_properties;

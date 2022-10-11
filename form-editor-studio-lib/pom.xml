@@ -76,6 +76,8 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
+      <!-- used for compiling and testing. It's not directly used, but required for the access to org.springframework.beans.factory.InitializingBean  -->
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
