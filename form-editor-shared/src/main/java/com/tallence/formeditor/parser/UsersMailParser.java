@@ -20,6 +20,7 @@ import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.elements.UsersMail;
 import com.tallence.formeditor.validator.UsersMailValidator;
 import org.springframework.stereotype.Component;
+import org.apache.commons.lang3.StringUtils;
 
 import static com.coremedia.cap.util.CapStructUtil.*;
 import static java.util.Optional.ofNullable;
@@ -35,17 +36,17 @@ public class UsersMailParser extends AbstractFormElementParser<UsersMail> {
 
   public static final String parserKey = "UsersMail";
 
-
   @Override
   public UsersMail instantiateType(Struct elementData) {
     return new UsersMail();
   }
 
-
   @Override
   public void parseSpecialFields(UsersMail formElement, Struct elementData) {
-    if (elementData.get(COPY_TYPE) != null) {
-      formElement.setCopyBoxOption(UsersMail.CopyBoxOption.valueOf(elementData.getString(COPY_TYPE)));
+
+    String copyType = getString(elementData, COPY_TYPE);
+    if (StringUtils.isNotBlank(copyType)) {
+      formElement.setCopyBoxOption(UsersMail.CopyBoxOption.valueOf(copyType));
     } else if (elementData.get(LEGACY_COPY) != null && elementData.getBoolean(LEGACY_COPY)) {
       formElement.setCopyBoxOption(UsersMail.CopyBoxOption.CHECKBOX);
     }
