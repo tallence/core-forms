@@ -55,6 +55,7 @@ class UsersMailEditor extends AbstractFormElement {
         Config(ComboBoxField, {
           fieldLabel: FormEditor_properties.FormEditor_usersMail_mailType_label,
           emptyText: FormEditor_properties.FormEditor_usersMail_mailType_label,
+          defaultValue: UsersMailEditor.COMBO_VALUE_NEVER,
           propertyName: "copyType",
           store: [
             [ UsersMailEditor.COMBO_VALUE_CHECKBOX, FormEditor_properties.FormEditor_usersMail_mailType_checkbox ],
