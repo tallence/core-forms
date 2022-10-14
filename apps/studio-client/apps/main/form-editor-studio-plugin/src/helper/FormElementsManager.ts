@@ -74,8 +74,8 @@ class FormElementsManager {
 
   }
 
-  addFormPage(afterFormElementId: string): String {
-    return this.addElement(afterFormElementId, FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_new_title));
+  addFormPage(referenceElementId: string, insertAfter: boolean = true): String {
+    return this.addElement(referenceElementId, FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_new_title), insertAfter);
   }
 
   addFormElement(afterFormElementId: string, formElementType: string): void {
@@ -87,10 +87,10 @@ class FormElementsManager {
     this.addElement(afterFormElementId, initialData);
   }
 
-  addElement(afterFormElementId: string, initialData: Record<string, any>): String {
+  addElement(afterFormElementId: string, initialData: Record<string, any>, insertAfter: boolean = true): String {
     const id = FormElementsManager.generateRandomId().toString();
     this.#getRootNodeStruct().getType().addStructProperty(id, initialData);
-    this.moveFormElement(afterFormElementId, id);
+    this.moveFormElement(afterFormElementId, id, insertAfter);
 
     //collapse all other FormElements and show the new one
     this.getCollapsedElementVE().setValue(id);
@@ -98,15 +98,43 @@ class FormElementsManager {
   }
 
   /**
-   * Moves the struct of the given formElementId to the new position. The element is moved after the struct of the
-   * given afterFormElementId.
+   * Move the formElement, identified by the given id.
+   * @param formElementId the formElement to be moved
+   * @param moveUp true, if the element has to be move to the next index, false otherwise
    */
-  moveFormElement(afterFormElementId: string, formElementId: string): void {
-    if (formElementId != afterFormElementId) {
+  moveFormElementRelative(formElementId: string, moveUp: boolean = true): void {
+    const formElements = this.#getRootNodeStruct().getType();
+    const formElementIds:string[] = formElements.getPropertyNames();
+    let currentIndex = formElementIds.indexOf(formElementId);
+
+    let referenceElementIndex = 0;
+    if (!moveUp) {
+      referenceElementIndex = currentIndex > 0 ? (currentIndex - 1) : 0;
+    } else {
+      referenceElementIndex = ((currentIndex + 1) == formElementIds.length) ? currentIndex : (currentIndex + 1)
+    }
+    this.moveFormElement(formElementIds[referenceElementIndex], formElementId, moveUp);
+
+  }
+
+  /**
+   * Moves the struct of the given formElementId to the new position. The element is moved after the struct of the
+   * given referenceElement.
+   */
+  moveFormElement(referenceElement: string, formElementId: string, insertAfter: boolean = true): void {
+
+    if (formElementId != referenceElement) {
       const formElements = this.#getRootNodeStruct().getType();
       const formElementIds = formElements.getPropertyNames();
       formElementIds.splice(formElementIds.indexOf(formElementId), 1);
-      const position: number = afterFormElementId != undefined ? formElementIds.indexOf(afterFormElementId) + 1 : 0;
+
+      let position = 0;
+      if (referenceElement != undefined) {
+        let referenceIndex = formElementIds.indexOf(referenceElement);
+        referenceIndex = referenceIndex + (insertAfter ? 1 : 0);
+        position = referenceIndex >= 0 ? referenceIndex : 0;
+      }
+
       formElementIds.splice(position, 0, formElementId);
       formElements.rearrangeProperties(formElementIds);
     }

@@ -120,6 +120,11 @@ interface FormEditor_properties {
   FormEditor_page_type_summary_label: string;
   FormEditor_page_title_field_label: string;
   FormEditor_page_title_empty_text: string;
+  FormEditor_page_tab_moveUp_text: string;
+  FormEditor_page_tab_moveDown_text: string;
+  FormEditor_page_tab_delete_text: string;
+  FormEditor_page_tab_insertBefore_text: string;
+  FormEditor_page_tab_insertAfter_text: string;
 }
 
 /**
@@ -241,7 +246,12 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_page_type_default_label: "Default",
   FormEditor_page_type_summary_label: "Summary",
   FormEditor_page_title_field_label: "Page title",
-  FormEditor_page_title_empty_text: "Enter page title"
+  FormEditor_page_title_empty_text: "Enter page title",
+  FormEditor_page_tab_moveUp_text: "Move the current Page to the right",
+  FormEditor_page_tab_moveDown_text: "Move the current Page to the left",
+  FormEditor_page_tab_delete_text: "Delete the current page",
+  FormEditor_page_tab_insertBefore_text: "Insert a new page on the left",
+  FormEditor_page_tab_insertAfter_text: "Insert a new page on the right",
 };
 
 export default FormEditor_properties;

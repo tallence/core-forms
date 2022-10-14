@@ -12,6 +12,7 @@ import HBoxLayout from "@jangaroo/ext-ts/layout/container/HBox";
 import {bind} from "@jangaroo/runtime";
 import IconButton from "@coremedia/studio-client.ext.ui-components/components/IconButton";
 import CoreIcons_properties from "@coremedia/studio-client.core-icons/CoreIcons_properties";
+import FormEditor_properties from "../bundles/FormEditor_properties";
 
 
 interface FormPageTabConfig extends Config<Panel>, Partial<Pick<FormPageTab,
@@ -56,9 +57,33 @@ class FormPageTab extends Panel {
   }
 
   addPage() {
-    let newPageId:String = this.#formElementsManager.addFormPage(this.page.getId());
+    this.#addPageInternal();
+  }
+
+  addPageBefore() {
+    this.#addPageInternal(false);
+  }
+
+  #addPageInternal(insertAfter: boolean = true) {
+    let newPageId:String = this.#formElementsManager.addFormPage(this.page.getId(), insertAfter);
     if (this.#activeTabValueExpression){
       this.#activeTabValueExpression.setValue(this.buildPageId(newPageId));
+    }
+  }
+
+  movePageUp() {
+    let currentPageId = this.page.getId();
+    this.#formElementsManager.moveFormElementRelative(currentPageId);
+    if (this.#activeTabValueExpression){
+      this.#activeTabValueExpression.setValue(this.buildPageId(currentPageId));
+    }
+  }
+
+  movePageDown() {
+    let currentPageId = this.page.getId();
+    this.#formElementsManager.moveFormElementRelative(currentPageId, false);
+    if (this.#activeTabValueExpression){
+      this.#activeTabValueExpression.setValue(this.buildPageId(currentPageId));
     }
   }
 
@@ -89,24 +114,27 @@ class FormPageTab extends Panel {
               items: [
                 Config(IconButton, {
                   iconCls: CoreIcons_properties.add,
-                  text: "<",
-                  handler: bind(this, this.addPage)
+                  tooltip: FormEditor_properties.FormEditor_page_tab_insertBefore_text,
+                  handler: bind(this, this.addPageBefore)
                 }),
                 Config(IconButton, {
                   iconCls: CoreIcons_properties.arrow_left,
-                  handler: bind(this, this.addPage)
+                  tooltip: FormEditor_properties.FormEditor_page_tab_moveDown_text,
+                  handler: bind(this, this.movePageDown)
                 }),
                 Config(IconButton, {
                   iconCls: CoreIcons_properties.remove,
+                  tooltip: FormEditor_properties.FormEditor_page_tab_delete_text,
                   handler: bind(this, this.removePage)
                 }),
                 Config(IconButton, {
                   iconCls: CoreIcons_properties.arrow_right,
-                  handler: bind(this, this.addPage)
+                  tooltip: FormEditor_properties.FormEditor_page_tab_moveUp_text,
+                  handler: bind(this, this.movePageUp)
                 }),
                 Config(IconButton, {
                   iconCls: CoreIcons_properties.add,
-                  text: ">",
+                  tooltip: FormEditor_properties.FormEditor_page_tab_insertAfter_text,
                   handler: bind(this, this.addPage)
                 })
               ]
