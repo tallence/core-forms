@@ -69,6 +69,7 @@ import Button from "@jangaroo/ext-ts/button/Button";
 import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
 import FormsStudioPluginBase from "../FormsStudioPluginBase";
 import BindVisibilityPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindVisibilityPlugin";
+import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
 
 interface FormEditorFormConfig extends Config<DocumentTabPanel> {
 }
@@ -164,7 +165,7 @@ class FormEditorForm extends DocumentTabPanel {
                   ...ConfigUtils.append({
                     plugins: [
                       Config(BindVisibilityPlugin, {
-                        bindTo: config.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED),
+                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED),
                         transformer: this.showActivateButton
                       }),
                     ]
@@ -176,7 +177,7 @@ class FormEditorForm extends DocumentTabPanel {
                   ...ConfigUtils.append({
                     plugins: [
                       Config(BindVisibilityPlugin, {
-                        bindTo: config.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED),
+                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED),
                       }),
                     ]
                   })
