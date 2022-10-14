@@ -65,7 +65,6 @@ class FormElementDropTarget extends DropTarget {
       return true;
     }
 
-    trace("[ERROR] - Form element drop mode: " + mode + " not supported.");
     return false;
   }
 

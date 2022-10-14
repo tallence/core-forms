@@ -89,6 +89,7 @@ class FormPageTab extends Panel {
 
   removePage() {
     this.#formElementsManager.removeFormElement(this.page.getId())
+    this.#activeTabValueExpression.setValue(null);
   }
 
   buildPageId(structId: String): string {

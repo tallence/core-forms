@@ -1,29 +1,44 @@
 import BlueprintTabs_properties from "@coremedia-blueprint/studio-client.main.blueprint-forms/BlueprintTabs_properties";
-import DetailsDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/DetailsDocumentForm";
-import ExternallyVisibleDateForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ExternallyVisibleDateForm";
-import LinkedSettingsForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/LinkedSettingsForm";
-import LocalSettingsForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/LocalSettingsForm";
-import MediaDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/MediaDocumentForm";
-import MultiLanguageDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/MultiLanguageDocumentForm";
-import RelatedDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/RelatedDocumentForm";
+import DetailsDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/DetailsDocumentForm";
+import ExternallyVisibleDateForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ExternallyVisibleDateForm";
+import LinkedSettingsForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/LinkedSettingsForm";
+import LocalSettingsForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/LocalSettingsForm";
+import MediaDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/MediaDocumentForm";
+import MultiLanguageDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/MultiLanguageDocumentForm";
+import RelatedDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/RelatedDocumentForm";
 import SearchableForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/SearchableForm";
-import TeaserDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/TeaserDocumentForm";
-import ValidityDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ValidityDocumentForm";
-import ViewTypeSelectorForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ViewTypeSelectorForm";
-import MetaDataDocumentForm from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/media/MetaDataDocumentForm";
+import TeaserDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/TeaserDocumentForm";
+import ValidityDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ValidityDocumentForm";
+import ViewTypeSelectorForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/containers/ViewTypeSelectorForm";
+import MetaDataDocumentForm
+  from "@coremedia-blueprint/studio-client.main.blueprint-forms/forms/media/MetaDataDocumentForm";
 import SvgIconUtil from "@coremedia/studio-client.base-models/util/SvgIconUtil";
 import LocalComboBox from "@coremedia/studio-client.ext.ui-components/components/LocalComboBox";
 import BindPropertyPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindPropertyPlugin";
 import DocumentForm from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentForm";
 import DocumentInfo from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentInfo";
-import DocumentMetaDataFormDispatcher from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentMetaDataFormDispatcher";
+import DocumentMetaDataFormDispatcher
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentMetaDataFormDispatcher";
 import DocumentTabPanel from "@coremedia/studio-client.main.editor-components/sdk/premular/DocumentTabPanel";
 import PropertyFieldGroup from "@coremedia/studio-client.main.editor-components/sdk/premular/PropertyFieldGroup";
 import ReferrerListPanel from "@coremedia/studio-client.main.editor-components/sdk/premular/ReferrerListPanel";
 import VersionHistory from "@coremedia/studio-client.main.editor-components/sdk/premular/VersionHistory";
-import BooleanPropertyField from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/BooleanPropertyField";
-import StringPropertyField from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/StringPropertyField";
-import StructPropertyField from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/struct/StructPropertyField";
+import BooleanPropertyField
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/BooleanPropertyField";
+import StringPropertyField
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/StringPropertyField";
+import StructPropertyField
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/struct/StructPropertyField";
 import JsonStore from "@jangaroo/ext-ts/data/JsonStore";
 import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
@@ -46,14 +61,22 @@ import InputFax from "../icons/input-fax.svg";
 import InputPhone from "../icons/input-phone.svg";
 import InputStreet from "../icons/input-street-nr.svg";
 import HiddenFieldEditor from "../elements/HiddenFieldEditor";
-import PageElementEditor from "../elements/PageElementEditor";
 import FormsStudioPlugin from "../FormsStudioPlugin";
+import BindDisablePlugin
+  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/plugins/BindDisablePlugin";
+import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
+import Button from "@jangaroo/ext-ts/button/Button";
+import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
+import FormsStudioPluginBase from "../FormsStudioPluginBase";
+import BindVisibilityPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindVisibilityPlugin";
 
 interface FormEditorFormConfig extends Config<DocumentTabPanel> {
 }
 
 class FormEditorForm extends DocumentTabPanel {
   declare Config: FormEditorFormConfig;
+
+  static readonly PAGEABLE_ENABLED: string = "pageableFormEnabled";
 
   static override readonly xtype: string = "com.tallence.formeditor.studio.config.formEditorForm";
 
@@ -68,24 +91,42 @@ class FormEditorForm extends DocumentTabPanel {
     },
   ];
 
+  activatePageableForms():void {
+    this.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED).setValue(1);
+    this.bindTo.loadValue(function (content: Content):void {
+      FormsStudioPluginBase.initInitialPage(content);
+    });
+  }
+
+  deActivatePageableForms():void {
+    this.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED).setValue(0);
+    this.bindTo.loadValue(function (content: Content):void {
+      FormsStudioPluginBase.initInitialElements(content);
+    });
+  }
+
+  showActivateButton(setting: number): boolean {
+    return !setting || setting == 0;
+  }
+
   constructor(config: Config<FormEditorForm> = null) {
-    super(ConfigUtils.apply(Config(FormEditorForm, {
+    super((() => ConfigUtils.apply(Config(FormEditorForm, {
 
       items: [
         Config(DocumentForm, {
           title: FormEditor_properties.FormEditor_tab_content_title,
           items: [
-            Config(DetailsDocumentForm, { bindTo: config.bindTo }),
+            Config(DetailsDocumentForm, {bindTo: config.bindTo}),
 
             Config(TeaserDocumentForm, {
               bindTo: config.bindTo,
               collapsed: true,
             }),
-            Config(MediaDocumentForm, { bindTo: config.bindTo }),
-            Config(RelatedDocumentForm, { bindTo: config.bindTo }),
-            Config(ViewTypeSelectorForm, { bindTo: config.bindTo }),
-            Config(ExternallyVisibleDateForm, { bindTo: config.bindTo }),
-            Config(ValidityDocumentForm, { bindTo: config.bindTo }),
+            Config(MediaDocumentForm, {bindTo: config.bindTo}),
+            Config(RelatedDocumentForm, {bindTo: config.bindTo}),
+            Config(ViewTypeSelectorForm, {bindTo: config.bindTo}),
+            Config(ExternallyVisibleDateForm, {bindTo: config.bindTo}),
+            Config(ValidityDocumentForm, {bindTo: config.bindTo}),
           ],
         }),
         Config(DocumentForm, {
@@ -97,7 +138,49 @@ class FormEditorForm extends DocumentTabPanel {
               collapsed: false,
               itemId: "spamProtectionGroup",
               items: [
-                Config(BooleanPropertyField, { propertyName: "spamProtectionEnabled" }),
+                Config(BooleanPropertyField, {propertyName: "spamProtectionEnabled"}),
+              ],
+            }),
+            Config(PropertyFieldGroup, {
+              title: FormContentTypes_properties.FormEditor_pageableFormEnabled_group_text,
+              collapsed: false,
+              itemId: "pageableFormGroup",
+              items: [
+                Config(BooleanPropertyField, {
+                  propertyName: FormEditorForm.PAGEABLE_ENABLED,
+                  ...ConfigUtils.append({
+                    plugins: [
+                      Config(BindDisablePlugin, {
+                        bindTo: config.bindTo,
+                        forceReadOnlyValueExpression: ValueExpressionFactory.createFromValue(true),
+                      }),
+                    ]
+                  })
+                }),
+                //TODO: labels + dialog -> really want to change?
+                Config(Button, {
+                  text: "Multi page aktivieren",
+                  handler: this.activatePageableForms,
+                  ...ConfigUtils.append({
+                    plugins: [
+                      Config(BindVisibilityPlugin, {
+                        bindTo: config.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED),
+                        transformer: this.showActivateButton
+                      }),
+                    ]
+                  })
+                }),
+                Config(Button, {
+                  text: "Multi page deaktivieren",
+                  handler: this.deActivatePageableForms,
+                  ...ConfigUtils.append({
+                    plugins: [
+                      Config(BindVisibilityPlugin, {
+                        bindTo: config.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED),
+                      }),
+                    ]
+                  })
+                }),
               ],
             }),
             Config(PropertyFieldGroup, {
@@ -125,7 +208,7 @@ class FormEditorForm extends DocumentTabPanel {
                     data: FormEditorForm.#FORM_ACTIONS,
                   }),
                 }),
-                Config(StringPropertyField, { propertyName: "adminMails" }),
+                Config(StringPropertyField, {propertyName: "adminMails"}),
               ],
             }),
 
@@ -173,7 +256,7 @@ class FormEditorForm extends DocumentTabPanel {
             Config(HiddenFieldEditor),
           ],
         }),
-        Config(MultiLanguageDocumentForm, { bindTo: config.bindTo }),
+        Config(MultiLanguageDocumentForm, {bindTo: config.bindTo}),
         Config(MetaDataDocumentForm),
         Config(DocumentForm, {
           title: BlueprintTabs_properties.Tab_system_title,
@@ -183,9 +266,9 @@ class FormEditorForm extends DocumentTabPanel {
             Config(DocumentInfo),
             Config(VersionHistory),
             Config(ReferrerListPanel),
-            Config(SearchableForm, { collapsed: true }),
-            Config(LinkedSettingsForm, { collapsed: true }),
-            Config(LocalSettingsForm, { collapsed: true }),
+            Config(SearchableForm, {collapsed: true}),
+            Config(LinkedSettingsForm, {collapsed: true}),
+            Config(LocalSettingsForm, {collapsed: true}),
             Config(PropertyFieldGroup, {
               title: FormContentTypes_properties.FormEditor_formData_text,
               collapsed: true,
@@ -206,7 +289,7 @@ class FormEditorForm extends DocumentTabPanel {
         }),
       ],
 
-    }), config));
+    }), config))());
   }
 }
 

@@ -129,11 +129,6 @@ class AppliedFormElementsContainerBase extends Container {
     this.#panel = panel;
   }
 
-  override destroy(...params): void {
-    this.#removeReusableFormElement();
-    super.destroy(params);
-  }
-
   #collapsedElementChangeListener(ve: ValueExpression): void {
     if (ve.getValue() == this.formElement.getId()) {
       const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
@@ -167,7 +162,7 @@ class AppliedFormElementsContainerBase extends Container {
 
   iconClassTransformer(elementType: string): string {
     const formElementEditor = as(reusableComponentsService.requestComponentForReuse(elementType), FormElement);
-    return formElementEditor.getFormElementIconCls() || "";
+    return formElementEditor ? formElementEditor.getFormElementIconCls() : "";
   }
 
   static getTitleUndefinedValue(formElement: FormElementStructWrapper): string {

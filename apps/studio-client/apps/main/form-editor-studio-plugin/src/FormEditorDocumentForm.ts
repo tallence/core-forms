@@ -8,18 +8,26 @@ import ApplicableElements from "./ApplicableElements";
 import ApplicableElementsHelpContainer from "./ApplicableElementsHelpContainer";
 import FormEditorDocumentFormBase from "./FormEditorDocumentFormBase";
 import FormEditor_properties from "./bundles/FormEditor_properties";
+import AppliedElementsContainer from "./AppliedElementsContainer";
+import SwitchingContainer from "@coremedia/studio-client.ext.ui-components/components/SwitchingContainer";
+import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
 import PagesWrapperContainer from "./pages/PagesWrapperContainer";
+import ContentTypeNames from "@coremedia/studio-client.cap-rest-client/content/ContentTypeNames";
+import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
+import FormEditorForm from "./studioform/FormEditorForm";
 
 interface FormEditorDocumentFormConfig extends Config<FormEditorDocumentFormBase>, Partial<Pick<FormEditorDocumentForm,
-  "formElements" |
-  "structPropertyName"
->> {
+        "formElements" |
+        "structPropertyName">> {
 }
 
 class FormEditorDocumentForm extends FormEditorDocumentFormBase {
   declare Config: FormEditorDocumentFormConfig;
 
   static override readonly xtype: string = "com.tallence.formeditor.studio.config.formEditor";
+
+  static readonly APPLIED_FORM_ELEMENTS: string = "appliedFormElements";
+  static readonly APPLIED_FORM_PAGES: string = "appliedFormPages";
 
   #formElements: Array<any> = null;
 
@@ -52,8 +60,12 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
     this.initReusableComponents(config.formElements);
   }
 
+  getActiveAppliedContainer(pageableFeatureEnabled: Boolean): string {
+    return pageableFeatureEnabled ? FormEditorDocumentForm.APPLIED_FORM_PAGES : FormEditorDocumentForm.APPLIED_FORM_ELEMENTS;
+  }
+
   constructor(config: Config<FormEditorDocumentForm> = null) {
-    super((()=>{
+    super((() => {
       this.#__initialize__(config);
       return ConfigUtils.apply(Config(FormEditorDocumentForm, {
         title: FormEditor_properties.FormEditor_tab_formFields_title,
@@ -75,7 +87,7 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                     dragActiveVE: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName).getDragActiveVE(),
                     readOnlyVE: PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression),
                   }),
-                  Config(ApplicableElementsHelpContainer, { helpTextUrl: ConfigUtils.asString(Ext.manifest.globalResources[FormEditor_properties.FormEditor_window_html_content_key]) }),
+                  Config(ApplicableElementsHelpContainer, {helpTextUrl: ConfigUtils.asString(Ext.manifest.globalResources[FormEditor_properties.FormEditor_window_html_content_key])}),
                 ],
               }),
               /* right column, applied form elements */
@@ -84,18 +96,31 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                 layout: "anchor",
                 autoScroll: true,
                 items: [
-                  /* applied form pages */
-                  Config(PagesWrapperContainer, {
-                    bindTo: config.bindTo,
-                    forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
-                    formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                  Config(SwitchingContainer, {
+                    activeItemValueExpression: ValueExpressionFactory.createTransformingValueExpression(config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED), this.getActiveAppliedContainer),
+                    items: [
+                      /* applied form pages */
+                      Config(AppliedElementsContainer, {
+                        bindTo: config.bindTo,
+                        itemId: FormEditorDocumentForm.APPLIED_FORM_ELEMENTS,
+                        forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
+                        formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                      }),
+                      /* applied form elements */
+                      Config(PagesWrapperContainer, {
+                        itemId: FormEditorDocumentForm.APPLIED_FORM_PAGES,
+                        bindTo: config.bindTo,
+                        forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
+                        formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                      })
+                    ],
                   }),
                 ],
               }),
               /* end right column */
             ],
             /*Hbox layout for the main content beneath the header */
-            layout: Config(HBoxLayout, { align: "stretch" }),
+            layout: Config(HBoxLayout, {align: "stretch"}),
           }),
         ],
 
