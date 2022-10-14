@@ -25,8 +25,7 @@ import ContentInitializer from "@coremedia-blueprint/studio-client.main.blueprin
 import FormElementsManager from "./helper/FormElementsManager";
 import FormEditor_properties from "./bundles/FormEditor_properties";
 import FormElementStructWrapper from "./model/FormElementStructWrapper";
-import FormEditorForm
-  from "@coremedia-blueprint/studio-client.main.form-editor-studio-plugin/studioform/FormEditorForm";
+import FormEditorForm from "./studioform/FormEditorForm";
 
 interface FormsStudioPluginBaseConfig extends Config<StudioPlugin> {
 }
