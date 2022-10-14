@@ -135,14 +135,9 @@ public class FormConfigController {
     FormEditorConfig formEditorConfig = new FormEditorConfig();
     formEditorConfig.setFormActionUrl(linkFormatter.formatLink(editor, FormController.FORM_EDITOR_SUBMIT_VIEW, request, response, false));
 
-    var pageElements = formElements.stream()
-            .filter(e -> e instanceof PageElement)
-            .map(e -> (PageElement) e)
-            .collect(Collectors.toList());
-    if (pageElements.isEmpty()) {
-      formEditorConfig.setPage(new FormEditorConfig.Page(formElements));
-    } else {
-      var pages = pageElements.stream()
+    if (editor.isPageableFormEnabled()) {
+      var pages = formElements.stream()
+              .map(f -> (PageElement) f)
               .map(p -> new FormEditorConfig.Page(p.getId(),
                       transformMarkup(p.getPageDescription(), request, response),
                       p.getName(),
@@ -150,6 +145,9 @@ public class FormConfigController {
                       p.getSubElements()))
               .collect(Collectors.toList());
       formEditorConfig.setPages(pages);
+    } else {
+      //Create a virtual page, to produce the same json structure
+      formEditorConfig.setPage(new FormEditorConfig.Page(formElements));
     }
 
     return this.cache.get(new FormConfigCacheKey(

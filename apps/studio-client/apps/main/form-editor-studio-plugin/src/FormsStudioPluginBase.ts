@@ -49,7 +49,7 @@ class FormsStudioPluginBase extends StudioPlugin {
   static #initForm(content: Content): void {
     ContentInitializer.initCMLinkable(content);
 
-    content.set(FormEditorForm.PAGEABLE_ENABLED, 1);
+    ContentInitializer.setProperty(content, FormEditorForm.PAGEABLE_ENABLED, 1);
     FormsStudioPluginBase.initInitialPage(content);
   }
 
