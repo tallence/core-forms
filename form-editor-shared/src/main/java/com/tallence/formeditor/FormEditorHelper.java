@@ -29,6 +29,8 @@ public class FormEditorHelper {
 
   public static String FORM_SPAM_PROTECTION = "spamProtectionEnabled";
 
+  public static String FORM_PAGEABLE_ENABLED = "pageableFormEnabled";
+
   public static String MAIL_ACTION = "mailAction";
 
   public static Optional<Struct> getFormElements(Content content) {

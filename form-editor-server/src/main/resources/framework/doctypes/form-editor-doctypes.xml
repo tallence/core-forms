@@ -13,6 +13,7 @@
     <StringProperty Name="formAction" Length="128"/>
     <StringProperty Name="adminMails" Length="512"/>
     <IntProperty Name="spamProtectionEnabled"/>
+    <IntProperty Name="pageableFormEnabled"/>
     <XmlProperty Name="formData" Grammar="coremedia-struct-2008"/>
   </DocType>
 
