@@ -18,6 +18,7 @@ interface FormPageTabConfig extends Config<Panel>, Partial<Pick<FormPageTab,
         "bindTo" |
         "forceReadOnlyValueExpression" |
         "page" |
+        "activeTabValueExpression" |
         "formElementsManager">> {
 }
 
@@ -32,9 +33,14 @@ class FormPageTab extends Panel {
   #forceReadOnlyValueExpression: ValueExpression = null;
   #formElementsManager: FormElementsManager = null;
   #page: FormElementStructWrapper = null;
+  #activeTabValueExpression: ValueExpression = null;
 
   get page(): FormElementStructWrapper {
     return this.#page;
+  }
+
+  get activeTabValueExpression(): ValueExpression {
+    return this.#activeTabValueExpression;
   }
 
   get bindTo(): ValueExpression {
@@ -50,16 +56,24 @@ class FormPageTab extends Panel {
   }
 
   addPage() {
-    this.#formElementsManager.addFormPage(this.page.getId());
+    let newPageId:String = this.#formElementsManager.addFormPage(this.page.getId());
+    if (this.#activeTabValueExpression){
+      this.#activeTabValueExpression.setValue(this.buildPageId(newPageId));
+    }
   }
 
   removePage() {
     this.#formElementsManager.removeFormElement(this.page.getId())
   }
 
+  buildPageId(structId: String): string {
+    return "page-" + structId;
+  }
+
   constructor(config: Config<FormPageTab> = null) {
     super((() => ConfigUtils.apply(Config(FormPageTab, {
       title: config.page.getNode().getValueAsStruct().get("name"),
+      itemId: this.buildPageId(config.page.getId()),
       plugins: [
         Config(BindPropertyPlugin, {
           bidirectional: false,
@@ -117,6 +131,7 @@ class FormPageTab extends Panel {
     }), config))());
     this.#formElementsManager = config.formElementsManager;
     this.#page = config.page;
+    this.#activeTabValueExpression = config.activeTabValueExpression;
   }
 }
 

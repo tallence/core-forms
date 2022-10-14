@@ -74,8 +74,8 @@ class FormElementsManager {
 
   }
 
-  addFormPage(afterFormElementId: string): void {
-    this.addElement(afterFormElementId, FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_new_title));
+  addFormPage(afterFormElementId: string): String {
+    return this.addElement(afterFormElementId, FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_new_title));
   }
 
   addFormElement(afterFormElementId: string, formElementType: string): void {
@@ -87,13 +87,14 @@ class FormElementsManager {
     this.addElement(afterFormElementId, initialData);
   }
 
-  addElement(afterFormElementId: string, initialData: Record<string, any>): void {
+  addElement(afterFormElementId: string, initialData: Record<string, any>): String {
     const id = FormElementsManager.generateRandomId().toString();
     this.#getRootNodeStruct().getType().addStructProperty(id, initialData);
     this.moveFormElement(afterFormElementId, id);
 
     //collapse all other FormElements and show the new one
     this.getCollapsedElementVE().setValue(id);
+    return id;
   }
 
   /**

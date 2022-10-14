@@ -25,6 +25,7 @@ class PagesWrapperContainer extends TabPanel {
   #bindTo: ValueExpression = null;
   #forceReadOnlyValueExpression: ValueExpression = null;
   #formElementsManager: FormElementsManager = null;
+  #activeTabVE: ValueExpression = null;
 
   get bindTo(): ValueExpression {
     return this.#bindTo;
@@ -44,6 +45,13 @@ class PagesWrapperContainer extends TabPanel {
     ))
   }
 
+  getActiveTabVE(): ValueExpression {
+    if (!this.#activeTabVE) {
+      this.#activeTabVE = ValueExpressionFactory.createFromValue(null);
+    }
+    return this.#activeTabVE;
+  }
+
   constructor(config: Config<PagesWrapperContainer> = null) {
     super((() => ConfigUtils.apply(Config(PagesWrapperContainer, {
       bodyPadding: 20,
@@ -55,10 +63,12 @@ class PagesWrapperContainer extends TabPanel {
           configBeanParameterName: "page",
           clearBeforeUpdate: true,
           valueExpression: this.getPages(config),
+          afterUpdateCallback: this.onPageUpdate,
           template: Config(FormPageTab, {
             forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
             bindTo: config.bindTo,
             formElementsManager: config.formElementsManager,
+            activeTabValueExpression: this.getActiveTabVE(),
           }),
         }),
       ],
@@ -69,6 +79,14 @@ class PagesWrapperContainer extends TabPanel {
     }), config))());
   }
 
+  onPageUpdate(): void {
+    let activeTab = this.getActiveTabVE().getValue();
+    if (activeTab) {
+      this.setActiveTab(activeTab);
+    } else {
+      this.setActiveTab(0);
+    }
+  }
 }
 
 export default PagesWrapperContainer;
