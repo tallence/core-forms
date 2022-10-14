@@ -93,14 +93,14 @@ class FormEditorForm extends DocumentTabPanel {
   ];
 
   activatePageableForms():void {
-    this.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED).setValue(1);
+    this.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED).setValue(1);
     this.bindTo.loadValue(function (content: Content):void {
       FormsStudioPluginBase.initInitialPage(content);
     });
   }
 
   deActivatePageableForms():void {
-    this.bindTo.extendBy(FormEditorForm.PAGEABLE_ENABLED).setValue(0);
+    this.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED).setValue(0);
     this.bindTo.loadValue(function (content: Content):void {
       FormsStudioPluginBase.initInitialElements(content);
     });
