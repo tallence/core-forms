@@ -17,15 +17,34 @@
 import Config from "@jangaroo/runtime/Config";
 import FormEditorField from "./FormEditorField";
 import TextFieldBase from "./TextFieldBase";
+import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpression";
 
-interface ComboBoxFieldBaseConfig extends Config<FormEditorField> {
+interface ComboBoxFieldBaseConfig extends Config<FormEditorField>, Partial<Pick<ComboBoxFieldBase,
+        "defaultValue"
+        >> {
 }
 
 class ComboBoxFieldBase extends FormEditorField {
   declare Config: ComboBoxFieldBaseConfig;
 
-  constructor(config: Config<TextFieldBase> = null) {
+  #defaultValue: string = "";
+
+  get defaultValue(): string {
+    return this.#defaultValue;
+  }
+
+  set defaultValue(value: string) {
+    this.#defaultValue = value;
+  }
+
+  constructor(config: Config<ComboBoxFieldBase> = null) {
     super(config);
+  }
+
+  protected override initWithDefault(ve: ValueExpression): void {
+    if (this.defaultValue != undefined) {
+      ve.setValue(this.defaultValue);
+    }
   }
 
 }
