@@ -18,8 +18,10 @@ package com.tallence.formeditor.validator;
 
 import com.tallence.formeditor.elements.FileUpload;
 import com.tallence.formeditor.validator.annotation.ValidationProperty;
+import org.apache.tika.Tika;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class FileUploadValidator implements SizeValidator<MultipartFile> {
   private static final String MESSAGE_KEY_FILEUPLOAD_MAX = "com.tallence.forms.fileupload.max";
 
   private final FileUpload fileUpload;
+  private final Tika tika;
 
   @ValidationProperty(messageKey = MESSAGE_KEY_FILEUPLOAD_REQUIRED)
   private boolean mandatory;
@@ -46,6 +49,7 @@ public class FileUploadValidator implements SizeValidator<MultipartFile> {
 
   public FileUploadValidator(FileUpload fileUpload) {
     this.fileUpload = fileUpload;
+    this.tika = new Tika();
   }
 
   @Override
@@ -62,6 +66,18 @@ public class FileUploadValidator implements SizeValidator<MultipartFile> {
     }
     if (!empty && (value.getSize() / 1024) > this.maxSize) {
       errors.add(new ValidationFieldError(MESSAGE_KEY_FILEUPLOAD_MAX, this.maxSize));
+    }
+
+    if (value != null) {
+      //Check if the file-name extension is equal to the mimeType, based on the file data (magic numbers). If not, the file should be blocked for security reasons
+      try {
+        var result = tika.detect(value.getBytes());
+        if (!result.equalsIgnoreCase(value.getContentType())) {
+          errors.add(new ValidationFieldError("com.tallence.forms.fileupload.mimetypeMismatch"));
+        }
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     return errors;
