@@ -111,7 +111,7 @@ class AppliedFormElementsContainerBase extends Container {
     const panel = as(this.queryById(AppliedFormElementsContainerBase.FORM_ELEMENT_PANEL), CollapsiblePanel);
 
     const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
-    if (this.formElement != formElementEditor.getFormElementStructWrapper()) {
+    if (formElementEditor && this.formElement != formElementEditor.getFormElementStructWrapper()) {
       formElementEditor.updateFormElementStructWrapper(this.formElement);
       const component = as(formElementEditor, Component);
       if (component.isInstance) {
@@ -132,7 +132,7 @@ class AppliedFormElementsContainerBase extends Container {
   #collapsedElementChangeListener(ve: ValueExpression): void {
     if (ve.getValue() == this.formElement.getId()) {
       const formElementEditor = as(reusableComponentsService.requestComponentForReuse(this.formElement.getType()), FormElement);
-      if (this.formElement != formElementEditor.getFormElementStructWrapper()) {
+      if (formElementEditor && this.formElement != formElementEditor.getFormElementStructWrapper()) {
         formElementEditor.updateFormElementStructWrapper(this.formElement);
         const component = as(formElementEditor, Component);
         if (component.isInstance) {
@@ -176,11 +176,22 @@ class AppliedFormElementsContainerBase extends Container {
 
   /**
    * Before the applied form elements container is destroyed, the reusable form element must be removed from the
-   * container. This means that the component can still be reused and is not destroyed itself.
+   * container. This means that the component can still be reused and is not destroyed itself. It is checked whether a
+   * reusable component can be found for the given form element. This is not possible for a page as form element,
+   * because the container is not reusable as switching between pageable and a single page form is possible.
    */
   #removeReusableFormElement(): void {
     this.formElementsManager.getCollapsedElementVE().removeChangeListener(bind(this, this.#collapsedElementChangeListener));
-    reusableComponentsService.removeReusableComponentCleanly(reusableComponentsService.requestComponentForReuse(this.formElement.getType()));
+    let requestComponentForReuse = reusableComponentsService.requestComponentForReuse(this.formElement.getType());
+    if (requestComponentForReuse) {
+      reusableComponentsService.removeReusableComponentCleanly(requestComponentForReuse);
+    }
+  }
+
+
+  override destroy(...args): any {
+    this.#removeReusableFormElement();
+    return super.destroy(...args);
   }
 }
 
