@@ -63,13 +63,13 @@ class FormElementsManager {
     return this.#formElementWrappersVE;
   }
 
-  static getPageInitialData(title: string): Record<string, any> {
+  static getPageInitialData(title: string, newElements: Record<string, any> = null): Record<string, any> {
     return {
       name: title,
       type: PageElementEditor.FIELD_TYPE,
       pageType: PageElementEditor.DEFAULT_PAGE,
       validator: {},
-      formElements: {}
+      formElements: newElements ? newElements : {}
     };
 
   }

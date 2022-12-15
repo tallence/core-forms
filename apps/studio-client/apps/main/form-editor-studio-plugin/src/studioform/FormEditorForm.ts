@@ -62,22 +62,24 @@ import InputPhone from "../icons/input-phone.svg";
 import InputStreet from "../icons/input-street-nr.svg";
 import HiddenFieldEditor from "../elements/HiddenFieldEditor";
 import FormsStudioPlugin from "../FormsStudioPlugin";
-import BindDisablePlugin
-  from "@coremedia/studio-client.main.editor-components/sdk/premular/fields/plugins/BindDisablePlugin";
-import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
-import Button from "@jangaroo/ext-ts/button/Button";
 import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
-import FormsStudioPluginBase from "../FormsStudioPluginBase";
-import BindVisibilityPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindVisibilityPlugin";
 import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
+import IconButton from "@coremedia/studio-client.ext.ui-components/components/IconButton";
+import {bind} from "@jangaroo/runtime";
+import CoreIcons_properties from "@coremedia/studio-client.core-icons/CoreIcons_properties";
+import Container from "@jangaroo/ext-ts/container/Container";
+import HBoxLayout from "@jangaroo/ext-ts/layout/container/HBox";
+import BindVisibilityPlugin from "@coremedia/studio-client.ext.ui-components/plugins/BindVisibilityPlugin";
+import DisplayField from "@jangaroo/ext-ts/form/field/Display";
+import DisplayFieldSkin from "@coremedia/studio-client.ext.ui-components/skins/DisplayFieldSkin";
+import MessageBoxUtil from "@coremedia/studio-client.ext.ui-components/messagebox/MessageBoxUtil";
+import FormUtils from "../FormUtils";
 
 interface FormEditorFormConfig extends Config<DocumentTabPanel> {
 }
 
 class FormEditorForm extends DocumentTabPanel {
   declare Config: FormEditorFormConfig;
-
-  static readonly PAGEABLE_ENABLED: string = "pageableFormEnabled";
 
   static override readonly xtype: string = "com.tallence.formeditor.studio.config.formEditorForm";
 
@@ -92,17 +94,28 @@ class FormEditorForm extends DocumentTabPanel {
     },
   ];
 
-  activatePageableForms():void {
-    this.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED).setValue(1);
-    this.bindTo.loadValue(function (content: Content):void {
-      FormsStudioPluginBase.initInitialPage(content);
+  activatePageableForms(): void {
+    let self = this.bindTo;
+    this.bindTo.loadValue(function (content: Content): void {
+      MessageBoxUtil.showConfirmation(FormEditor_properties.FormEditor_pages_mode_switch_title,
+              FormEditor_properties.FormEditor_pages_mode_switch_text_multi, "Ok", buttonId => {
+                if (buttonId === "ok") {
+                  FormUtils.migrateToMultiPageForm(content, self);
+                }
+              });
     });
   }
 
-  deActivatePageableForms():void {
-    this.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED).setValue(0);
-    this.bindTo.loadValue(function (content: Content):void {
-      FormsStudioPluginBase.initInitialElements(content);
+  deActivatePageableForms(): void {
+
+    let self = this.bindTo;
+    this.bindTo.loadValue(function (content: Content): void {
+      MessageBoxUtil.showConfirmation(FormEditor_properties.FormEditor_pages_mode_switch_title,
+              FormEditor_properties.FormEditor_pages_mode_switch_text_single, "Ok", buttonId => {
+                if (buttonId === "ok") {
+                  FormUtils.migrateToSinglePageForm(content, self);
+                }
+              });
     });
   }
 
@@ -147,37 +160,45 @@ class FormEditorForm extends DocumentTabPanel {
               collapsed: false,
               itemId: "pageableFormGroup",
               items: [
-                Config(BooleanPropertyField, {
-                  propertyName: FormEditorForm.PAGEABLE_ENABLED,
+                Config(Container, {
+                  layout: Config(HBoxLayout),
+                  items: [
+                    Config(IconButton, {
+                      iconCls: CoreIcons_properties.type_object,
+                      tooltip: FormEditor_properties.FormEditor_pages_mode_single,
+                      handler: bind(this, this.deActivatePageableForms),
+                    }),
+                    Config(DisplayField, {
+                      value: FormEditor_properties.FormEditor_pages_mode_single,
+                      ui: DisplayFieldSkin.ITALIC.getSkin(),
+                    }),
+                  ],
                   ...ConfigUtils.append({
                     plugins: [
-                      Config(BindDisablePlugin, {
-                        bindTo: config.bindTo,
-                        forceReadOnlyValueExpression: ValueExpressionFactory.createFromValue(true),
+                      Config(BindVisibilityPlugin, {
+                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED),
                       }),
                     ]
                   })
                 }),
-                //TODO: labels + dialog -> really want to change?
-                Config(Button, {
-                  text: "Multi page aktivieren",
-                  handler: this.activatePageableForms,
+                Config(Container, {
+                  layout: Config(HBoxLayout),
+                  items: [
+                    Config(IconButton, {
+                      iconCls: CoreIcons_properties.copy,
+                      tooltip: FormEditor_properties.FormEditor_pages_mode_multi,
+                      handler: bind(this, this.activatePageableForms),
+                    }),
+                    Config(DisplayField, {
+                      value: FormEditor_properties.FormEditor_pages_mode_multi,
+                      ui: DisplayFieldSkin.ITALIC.getSkin(),
+                    }),
+                  ],
                   ...ConfigUtils.append({
                     plugins: [
                       Config(BindVisibilityPlugin, {
-                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED),
+                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED),
                         transformer: this.showActivateButton
-                      }),
-                    ]
-                  })
-                }),
-                Config(Button, {
-                  text: "Multi page deaktivieren",
-                  handler: this.deActivatePageableForms,
-                  ...ConfigUtils.append({
-                    plugins: [
-                      Config(BindVisibilityPlugin, {
-                        bindTo: config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED),
                       }),
                     ]
                   })

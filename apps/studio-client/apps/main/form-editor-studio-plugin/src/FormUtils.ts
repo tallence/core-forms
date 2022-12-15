@@ -20,6 +20,14 @@ import Panel from "@jangaroo/ext-ts/panel/Panel";
 import { as, cast } from "@jangaroo/runtime";
 import FormEditor_properties from "./bundles/FormEditor_properties";
 import Format from "@jangaroo/ext-ts/util/Format";
+import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
+import ValueExpression from "@coremedia/studio-client.client-core/data/ValueExpression";
+import Struct from "@coremedia/studio-client.cap-rest-client/struct/Struct";
+import FormsStudioPlugin from "./FormsStudioPlugin";
+import FormElementStructWrapper from "./model/FormElementStructWrapper";
+import PageElementEditor from "./elements/PageElementEditor";
+import FormsStudioPluginBase from "./FormsStudioPluginBase";
+import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
 
 class FormUtils {
 
@@ -64,6 +72,58 @@ class FormUtils {
    */
   public static validateOptionValue(option:string):Boolean {
     return option != null && Format.trim(option).length && option.indexOf(".") == -1;
+  }
+
+  /**
+   * Deactivate the multi-page mode and flatten the formElements of all pages into a single list.
+   * @param content the current content
+   * @param self the current contents value Expression
+   */
+  static migrateToSinglePageForm(content: Content, self: ValueExpression<any>) {
+    const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
+    if (formData.getType().getPropertyNames() && formData.getType().getPropertyNames().indexOf(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY) != -1) {
+
+      const formElements: Struct = formData.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+      const flattenedFormElements: Record<string, any> = {};
+      for (const propertyName of formElements.getType().getPropertyNames()) {
+        let formElement: Struct = formElements.get(propertyName);
+        if (formElement.get(FormElementStructWrapper.TYPE_PROPERTY) == PageElementEditor.FIELD_TYPE) {
+          FormUtils.buildFormElementsRecord(formElement.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY), flattenedFormElements);
+        }
+      }
+      FormsStudioPluginBase.initInitialElements(content, flattenedFormElements);
+
+    } else {
+      FormsStudioPluginBase.initInitialElements(content);
+    }
+    self.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED).setValue(0);
+  }
+
+  /**
+   * Activate the multi-page mode, create one page and move all formElements into it.
+   * @param content the current content
+   * @param self the current contents value Expression
+   */
+  static migrateToMultiPageForm(content: Content, self: ValueExpression<any>) {
+    const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
+    if (formData.getType().getPropertyNames() && formData.getType().getPropertyNames().indexOf(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY) != -1) {
+
+      const formElements: Struct = formData.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+      const newElements: Record<string, any> = {};
+      FormUtils.buildFormElementsRecord(formElements, newElements);
+      FormsStudioPluginBase.initInitialPage(content, newElements);
+    } else {
+      FormsStudioPluginBase.initInitialPage(content);
+    }
+    self.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED).setValue(1);
+  }
+
+  private static buildFormElementsRecord(formElements: Struct, newElements: Record<string, any>): void {
+    for (const [key, value] of Object.entries(formElements.toObject())) {
+      if (newElements[key] == undefined && !Array.isArray(value)) {
+        newElements[key] = value;
+      }
+    }
   }
 
 }

@@ -112,6 +112,11 @@ interface FormEditor_properties {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: string;
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: string;
   FormEditor_advancedSettings_tabs_layout_description: string;
+  FormEditor_pages_mode_single: string,
+  FormEditor_pages_mode_multi: string,
+  FormEditor_pages_mode_switch_title: string,
+  FormEditor_pages_mode_switch_text_multi: string,
+  FormEditor_pages_mode_switch_text_single: string,
   FormEditor_pages_default_title: string;
   FormEditor_pages_new_title: string;
   FormEditor_page_type_field_label: string;
@@ -239,6 +244,11 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: "Please enter a custom column width.",
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: "Break after this element.",
   FormEditor_advancedSettings_tabs_layout_description: "This setting can be used to modify the layout of the form element.",
+  FormEditor_pages_mode_single: "Switch to the single page mode",
+  FormEditor_pages_mode_multi: "Switch to the multi page mode",
+  FormEditor_pages_mode_switch_title: "Page mode",
+  FormEditor_pages_mode_switch_text_multi: "Activate the Multi-Page-Mode and move the current form fields into the first page.",
+  FormEditor_pages_mode_switch_text_single: "Activate the Single-Page-Mode and move all form fields into the single page.",
   FormEditor_pages_default_title: "Default",
   FormEditor_pages_new_title: "New Page",
   FormEditor_page_type_field_label: "Page typ",

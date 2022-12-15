@@ -12,9 +12,8 @@ import AppliedElementsContainer from "./AppliedElementsContainer";
 import SwitchingContainer from "@coremedia/studio-client.ext.ui-components/components/SwitchingContainer";
 import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
 import PagesWrapperContainer from "./pages/PagesWrapperContainer";
-import ContentTypeNames from "@coremedia/studio-client.cap-rest-client/content/ContentTypeNames";
 import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
-import FormEditorForm from "./studioform/FormEditorForm";
+import FormsStudioPlugin from "./FormsStudioPlugin";
 
 interface FormEditorDocumentFormConfig extends Config<FormEditorDocumentFormBase>, Partial<Pick<FormEditorDocumentForm,
         "formElements" |
@@ -97,7 +96,7 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                 autoScroll: true,
                 items: [
                   Config(SwitchingContainer, {
-                    activeItemValueExpression: ValueExpressionFactory.createTransformingValueExpression(config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormEditorForm.PAGEABLE_ENABLED), this.getActiveAppliedContainer),
+                    activeItemValueExpression: ValueExpressionFactory.createTransformingValueExpression(config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED), this.getActiveAppliedContainer),
                     items: [
                       /* applied form pages */
                       Config(AppliedElementsContainer, {

@@ -17,8 +17,6 @@ interface FormContentTypes_properties {
   FormEditor_spamProtectionEnabled_text: string;
   FormEditor_spamProtectionEnabled_true_text: string;
   FormEditor_spamProtectionEnabled_group_text: string;
-  FormEditor_pageableFormEnabled_text: string;
-  FormEditor_pageableFormEnabled_true_text: string;
   FormEditor_pageableFormEnabled_group_text: string;
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.name_text": string;
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.hint_text": string;
@@ -42,8 +40,6 @@ const FormContentTypes_properties: FormContentTypes_properties = {
   FormEditor_spamProtectionEnabled_text: "activate spam protection",
   FormEditor_spamProtectionEnabled_true_text: "activate spam protection",
   FormEditor_spamProtectionEnabled_group_text: "Spam protection",
-  FormEditor_pageableFormEnabled_text: "activate pageable form",
-  FormEditor_pageableFormEnabled_true_text: "activate pageable form",
   FormEditor_pageableFormEnabled_group_text: "Pageable form",
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.name_text": "Name",
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.hint_text": "Hint",

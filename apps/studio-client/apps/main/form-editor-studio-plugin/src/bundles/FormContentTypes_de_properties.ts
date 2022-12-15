@@ -15,8 +15,6 @@ ResourceBundleUtil.override(FormContentTypes_properties, {
   FormEditor_spamProtectionEnabled_text: "Spam-Schutz aktivieren",
   FormEditor_spamProtectionEnabled_true_text: "Spam-Schutz aktivieren",
   FormEditor_spamProtectionEnabled_group_text: "Spam-Schutz",
-  FormEditor_pageableFormEnabled_text: "Mehrseitigkeit aktivieren",
-  FormEditor_pageableFormEnabled_true_text: "Mehrseitigkeit aktivieren",
   FormEditor_pageableFormEnabled_group_text: "Mehrseitigkeit",
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.name_text": "Name",
   "FormEditor_formData.formElements.{formElementId:[0-9]+}.hint_text": "Hinweis",

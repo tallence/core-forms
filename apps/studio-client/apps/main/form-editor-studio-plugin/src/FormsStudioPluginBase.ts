@@ -25,7 +25,6 @@ import ContentInitializer from "@coremedia-blueprint/studio-client.main.blueprin
 import FormElementsManager from "./helper/FormElementsManager";
 import FormEditor_properties from "./bundles/FormEditor_properties";
 import FormElementStructWrapper from "./model/FormElementStructWrapper";
-import FormEditorForm from "./studioform/FormEditorForm";
 
 interface FormsStudioPluginBaseConfig extends Config<StudioPlugin> {
 }
@@ -49,26 +48,30 @@ class FormsStudioPluginBase extends StudioPlugin {
   static #initForm(content: Content): void {
     ContentInitializer.initCMLinkable(content);
 
-    ContentInitializer.setProperty(content, FormEditorForm.PAGEABLE_ENABLED, 1);
+    ContentInitializer.setProperty(content, FormsStudioPlugin.PAGEABLE_ENABLED, 1);
     FormsStudioPluginBase.initInitialPage(content);
   }
 
-  static initInitialPage(content: Content): void {
+  static initInitialPage(content: Content, newElements: Record<string, any> = null): void {
     FormsStudioPluginBase.initInitialElements(content);
     const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
     const formElements: Struct = formData.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
     formElements.getType().addStructProperty(
             FormElementsManager.generateRandomId().toString(),
-            FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_default_title));
+            FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_default_title, newElements));
 
   }
 
-  static initInitialElements(content: Content): void {
+  static initInitialElements(content: Content, initialElements: Record<string, any> = null): void {
     const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
     if (formData.getType().getPropertyNames() && formData.getType().getPropertyNames().indexOf(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY) != -1) {
       formData.getType().removeProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
     }
-    formData.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    if (initialElements) {
+      formData.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY, initialElements);
+    } else {
+      formData.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    }
   }
 
 }

@@ -25,6 +25,7 @@ class FormsStudioPlugin extends FormsStudioPluginBase {
 
   static readonly FORM_EDITOR_DOCTYPE: string = "FormEditor";
   static readonly FORM_ELEMENTS_STRUCT_PROPERTY: string = "formData";
+  static readonly PAGEABLE_ENABLED: string = "pageableFormEnabled";
   static readonly xtype: string = "com.tallence.formeditor.studio.config.formsStudioPlugin";
 
   constructor(config: Config<FormsStudioPlugin> = null) {

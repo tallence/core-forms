@@ -26,7 +26,7 @@ class FormElementStructWrapper {
 
   static readonly FORM_ELEMENTS_PROPERTY: string = "formElements";
 
-  static readonly #TYPE_PROPERTY: string = "type";
+  static readonly TYPE_PROPERTY: string = "type";
 
   #structPropertyName: string = null;
 
@@ -50,7 +50,7 @@ class FormElementStructWrapper {
     this.#structPropertyName = structPropertyName;
     this.#id = node.getPropertyName();
     this.#formElementVE = bindTo.extendBy(ContentPropertyNames.PROPERTIES, structPropertyName, FormElementStructWrapper.FORM_ELEMENTS_PROPERTY, this.#id);
-    this.#type = FormElementStructWrapper.#getStructStringProperty(node.getValueAsStruct(), FormElementStructWrapper.#TYPE_PROPERTY);
+    this.#type = FormElementStructWrapper.#getStructStringProperty(node.getValueAsStruct(), FormElementStructWrapper.TYPE_PROPERTY);
     this.#bindTo = bindTo;
     this.#forceReadOnlyValueExpression = forceReadOnlyValueExpression;
   }
