@@ -21,7 +21,7 @@ ResourceBundleUtil.override(FormValidation_properties, {
   Validator_checkboxes_options_max_lower_min_text: "Bei den Checkboxen '{0}' darf die 'Min. Auswahl' nicht größer als die 'Max. Auswahl' sein.",
   Validator_selectbox_missing_options_text: "Die DropDown-Liste '{0}' muss mindestens eine Option haben.",
   Validator_formField_missing_name_text: "Das Formular-Element vom Typ '{0}' muss einen Namen haben.",
-  Validator_formField_ordering_error_text: "Es gab einen Fehler in der Datenstruktur. Bitte konntaktieren Sie einen Administrator.",
+  Validator_formField_ordering_error_text: "Es gab einen Fehler in der Datenstruktur. Bitte kontaktieren Sie einen Administrator.",
   Validator_formField_summaryPage_multiple_error_text: "Eine Zusammenfassung kann nur einmal verwendet werden.",
   Validator_formField_summaryPage_middle_error_text: "Eine Zusammenfassung muss als letzte Seite konfiguriert werden.",
   Validator_formfield_validator_invalid_minsize_text: "Der Validator des Formular-Elements '{0}' hat eine invalide minimale Größe: '{1}'.",

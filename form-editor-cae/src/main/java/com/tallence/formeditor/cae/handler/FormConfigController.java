@@ -138,7 +138,7 @@ public class FormConfigController {
     if (editor.isPageableFormEnabled()) {
       var pages = formElements.stream()
               .map(f -> (PageElement) f)
-              .map(p -> new FormEditorConfig.Page(p.getId(),
+              .map(p -> new FormEditorConfig.FormPage(p.getId(),
                       transformMarkup(p.getPageDescription(), request, response),
                       p.getName(),
                       p.getPageType(),
@@ -147,7 +147,7 @@ public class FormConfigController {
       formEditorConfig.setPages(pages);
     } else {
       //Create a virtual page, to produce the same json structure
-      formEditorConfig.setPage(new FormEditorConfig.Page(formElements));
+      formEditorConfig.setPage(new FormEditorConfig.FormPage(formElements));
     }
 
     return this.cache.get(new FormConfigCacheKey(

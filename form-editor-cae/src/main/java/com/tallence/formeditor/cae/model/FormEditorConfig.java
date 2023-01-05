@@ -26,7 +26,7 @@ public class FormEditorConfig {
 
   private String formActionUrl;
 
-  private List<Page> pages;
+  private List<FormPage> pages;
 
   public String getFormActionUrl() {
     return formActionUrl;
@@ -36,19 +36,19 @@ public class FormEditorConfig {
     this.formActionUrl = formActionUrl;
   }
 
-  public void setPages(List<Page> pages) {
+  public void setPages(List<FormPage> pages) {
     this.pages = pages;
   }
 
-  public void setPage(Page page) {
+  public void setPage(FormPage page) {
     this.pages = Collections.singletonList(page);
   }
 
-  public List<Page> getPages() {
+  public List<FormPage> getPages() {
     return pages;
   }
 
-  public static class Page {
+  public static class FormPage {
 
     private final String id;
     private final String description;
@@ -56,7 +56,7 @@ public class FormEditorConfig {
     private final PageElement.PageType pageType;
     private final List<FormElement<?>> formElements;
 
-    public Page(List<FormElement<?>> formElements) {
+    public FormPage(List<FormElement<?>> formElements) {
       this.id = null;
       this.description = null;
       this.title = null;
@@ -64,7 +64,7 @@ public class FormEditorConfig {
       this.formElements = formElements;
     }
 
-    public Page(String id, String description, String title, PageElement.PageType pageType, List<FormElement<?>> formElements) {
+    public FormPage(String id, String description, String title, PageElement.PageType pageType, List<FormElement<?>> formElements) {
       this.id = id;
       this.description = description;
       this.title = title;

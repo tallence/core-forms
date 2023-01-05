@@ -119,6 +119,7 @@ interface FormEditor_properties {
   FormEditor_pages_mode_switch_text_single: string,
   FormEditor_pages_default_title: string;
   FormEditor_pages_new_title: string;
+  FormEditor_pages_properties_title: string;
   FormEditor_page_type_field_label: string;
   FormEditor_page_type_empty_text: string;
   FormEditor_page_type_default_label: string;
@@ -251,6 +252,7 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_pages_mode_switch_text_single: "Activate the Single-Page-Mode and move all form fields into the single page.",
   FormEditor_pages_default_title: "Default",
   FormEditor_pages_new_title: "New Page",
+  FormEditor_pages_properties_title: "Page properties",
   FormEditor_page_type_field_label: "Page typ",
   FormEditor_page_type_empty_text: "Select page type",
   FormEditor_page_type_default_label: "Default",

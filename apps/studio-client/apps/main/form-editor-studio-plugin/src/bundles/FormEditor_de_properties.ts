@@ -116,6 +116,7 @@ ResourceBundleUtil.override(FormEditor_properties, {
   FormEditor_pages_mode_switch_text_single: "Den Einseiten-Modus aktivieren und alle Elemente in diese Seite verschieben.",
   FormEditor_pages_default_title: "Default",
   FormEditor_pages_new_title: "Neue Seite",
+  FormEditor_pages_properties_title: "Seiten Eigenschaften",
   FormEditor_page_type_field_label: "Seiten Typ",
   FormEditor_page_type_empty_text: "Seitentyp auswählen",
   FormEditor_page_type_default_label: "Default",

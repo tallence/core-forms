@@ -5,6 +5,7 @@ import StateFulCollapsiblePanel from "./components/StateFulCollapsiblePanel";
 import ShowFormIssuesPlugin from "./plugins/ShowFormIssuesPlugin";
 import AppliedFormPageContainerBase from "./AppliedFormPageContainerBase";
 import PageElementEditor from "./elements/PageElementEditor";
+import FormEditor_properties from "./bundles/FormEditor_properties";
 
 interface AppliedFormPageContainerConfig extends Config<AppliedFormPageContainerBase> {
 }
@@ -25,7 +26,7 @@ class AppliedFormPageContainer extends AppliedFormPageContainerBase {
           itemId: AppliedFormPageContainerBase.FORM_ELEMENT_PANEL,
           collapsedCls: "collapsed-form-element",
           animCollapse: false,
-          title: "Page Eigenschaften",
+          title: FormEditor_properties.FormEditor_pages_properties_title,
           plugins: [
             Config(ShowFormIssuesPlugin, {
               issuesVE: config.bindTo.extendBy(["issues"]),
