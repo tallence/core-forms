@@ -26,6 +26,7 @@ import com.coremedia.cache.Cache;
 import com.coremedia.cap.test.xmlrepo.XmlUapiConfig;
 import com.coremedia.cms.delivery.configuration.DeliveryConfigurationProperties;
 import com.coremedia.objectserver.configuration.CaeConfigurationProperties;
+import com.coremedia.objectserver.view.View;
 import com.coremedia.objectserver.web.config.CaeHandlerServicesConfiguration;
 import com.coremedia.objectserver.web.links.LinkFormatter;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
@@ -136,12 +137,14 @@ public class FormTestConfiguration {
                                             LinkFormatter linkFormatter,
                                             RequestMessageSource messageSource,
                                             ResourceBundleInterceptor pageResourceBundlesInterceptor,
+                                            View richtextMarkupView,
                                             Cache cache, List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
     return new FormConfigController(currentContextService,
             formFreemarkerFacade,
             linkFormatter,
             messageSource,
             pageResourceBundlesInterceptor,
+            richtextMarkupView,
             cache,
             formElementSerializerFactories);
   }

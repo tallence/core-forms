@@ -67,7 +67,9 @@ class FormElementDropContainerBase extends Container {
   }
 
   override destroy(...params): void {
-    this.#dropTarget.unreg();
+    if (this.#dropTarget) {
+      this.#dropTarget.unreg();
+    }
     super.destroy(params);
   }
 

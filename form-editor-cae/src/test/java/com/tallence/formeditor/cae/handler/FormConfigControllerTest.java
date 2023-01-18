@@ -69,6 +69,20 @@ public class FormConfigControllerTest {
   }
 
   @Test
+  public void testPagedConfigJson() throws Exception {
+    URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "20").toUri();
+    String expectedConfig = IOUtils.toString(getClass().getResourceAsStream("/com/tallence/formeditor/cae/testdata/expectedConfig-6-20.json"), StandardCharsets.UTF_8);
+
+    MvcResult result = mvc.perform(MockMvcRequestBuilders.get(CONFIG_URL))
+            .andExpect(status().isOk())
+            .andReturn();
+
+    String responseBody = result.getResponse().getContentAsString();
+
+    JSONAssert.assertEquals(expectedConfig, responseBody, JSONCompareMode.LENIENT);
+  }
+
+  @Test
   public void testEmptyConfigJson() throws Exception {
     URI CONFIG_URL = UriComponentsBuilder.fromUriString(FORM_EDITOR_CONFIG_URL).buildAndExpand("8", "6").toUri();
 

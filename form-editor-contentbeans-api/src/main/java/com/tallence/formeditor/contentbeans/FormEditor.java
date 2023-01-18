@@ -81,4 +81,6 @@ public interface FormEditor extends CMTeasable {
 
   Boolean isSpamProtectionEnabled();
 
+  Boolean isPageableFormEnabled();
+
 }

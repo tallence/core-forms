@@ -22,6 +22,7 @@
       <property name="adminMails" type="string" length="512" encodedLength="1536"/>
       <property name="formAction" type="string" length="512" encodedLength="1536"/>
       <property name="spamProtectionEnabled" type="int"/>
+      <property name="pageableFormEnabled" type="int"/>
     </type>
   </schema>
 

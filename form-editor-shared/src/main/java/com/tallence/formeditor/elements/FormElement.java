@@ -21,6 +21,7 @@ import edu.umd.cs.findbugs.annotations.Nullable;
 import org.springframework.util.MultiValueMap;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -91,4 +92,12 @@ public interface FormElement<T> {
   void fillFormData(Map<String, String> formData);
 
   void setValue(MultiValueMap<String, String> postData, HttpServletRequest request);
+
+  /**
+   * Flattening the formElements of {@link OrderingElement}s before further handling (validation, serializing, etc.)
+   * @return the list of flattened elements for {@link OrderingElement}s or a singletonList of the element itself otherwise.
+   */
+  default List<FormElement<?>> flattenFormElements() {
+    return Collections.singletonList(this);
+  }
 }

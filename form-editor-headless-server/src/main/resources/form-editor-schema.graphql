@@ -3,6 +3,7 @@ interface FormEditor  @inherit(from: ["CMTeasable"]) {
   adminEmails: [String]
   formAction: String
   spamProtectionEnabled: Boolean
+  pageableFormEnabled: Boolean
 }
 
 type FormEditorImpl implements FormEditor @inherit(from: ["CMTeasableImpl"]) {
@@ -10,6 +11,7 @@ type FormEditorImpl implements FormEditor @inherit(from: ["CMTeasableImpl"]) {
   adminEmails: [String] @fetch(from: "@formEditorAdapter.to(#root).adminEmails()")
   formAction: String
   spamProtectionEnabled: Boolean
+  pageableFormEnabled: Boolean
 }
 
 interface FormElement{

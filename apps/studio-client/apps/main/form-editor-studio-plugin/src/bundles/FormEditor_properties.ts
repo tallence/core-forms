@@ -113,6 +113,25 @@ interface FormEditor_properties {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: string;
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: string;
   FormEditor_advancedSettings_tabs_layout_description: string;
+  FormEditor_pages_mode_single: string,
+  FormEditor_pages_mode_multi: string,
+  FormEditor_pages_mode_switch_title: string,
+  FormEditor_pages_mode_switch_text_multi: string,
+  FormEditor_pages_mode_switch_text_single: string,
+  FormEditor_pages_default_title: string;
+  FormEditor_pages_new_title: string;
+  FormEditor_pages_properties_title: string;
+  FormEditor_page_type_field_label: string;
+  FormEditor_page_type_empty_text: string;
+  FormEditor_page_type_default_label: string;
+  FormEditor_page_type_summary_label: string;
+  FormEditor_page_title_field_label: string;
+  FormEditor_page_title_empty_text: string;
+  FormEditor_page_tab_moveUp_text: string;
+  FormEditor_page_tab_moveDown_text: string;
+  FormEditor_page_tab_delete_text: string;
+  FormEditor_page_tab_insertBefore_text: string;
+  FormEditor_page_tab_insertAfter_text: string;
 }
 
 /**
@@ -228,6 +247,25 @@ const FormEditor_properties: FormEditor_properties = {
   FormEditor_advancedSettings_tabs_layout_columnWidth_emptyText: "Please enter a custom column width.",
   FormEditor_advancedSettings_tabs_layout_breakAfter_fieldLabel: "Break after this element.",
   FormEditor_advancedSettings_tabs_layout_description: "This setting can be used to modify the layout of the form element.",
+  FormEditor_pages_mode_single: "Switch to the single page mode",
+  FormEditor_pages_mode_multi: "Switch to the multi page mode",
+  FormEditor_pages_mode_switch_title: "Page mode",
+  FormEditor_pages_mode_switch_text_multi: "Activate the Multi-Page-Mode and move the current form fields into the first page.",
+  FormEditor_pages_mode_switch_text_single: "Activate the Single-Page-Mode and move all form fields into the single page.",
+  FormEditor_pages_default_title: "Default",
+  FormEditor_pages_new_title: "New Page",
+  FormEditor_pages_properties_title: "Page properties",
+  FormEditor_page_type_field_label: "Page typ",
+  FormEditor_page_type_empty_text: "Select page type",
+  FormEditor_page_type_default_label: "Default",
+  FormEditor_page_type_summary_label: "Summary",
+  FormEditor_page_title_field_label: "Page title",
+  FormEditor_page_title_empty_text: "Enter page title",
+  FormEditor_page_tab_moveUp_text: "Move the current Page to the right",
+  FormEditor_page_tab_moveDown_text: "Move the current Page to the left",
+  FormEditor_page_tab_delete_text: "Delete the current page",
+  FormEditor_page_tab_insertBefore_text: "Insert a new page on the left",
+  FormEditor_page_tab_insertAfter_text: "Insert a new page on the right",
 };
 
 export default FormEditor_properties;

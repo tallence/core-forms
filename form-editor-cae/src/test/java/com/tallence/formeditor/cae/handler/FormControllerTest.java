@@ -273,4 +273,20 @@ public class FormControllerTest {
     assertEquals(MAIL_ADDRESS_TEST, mailAdapterMock.usersRecipient);
   }
 
+  @Test
+  public void testPostWithPagedElements() throws Exception {
+    mvc.perform(multipart(UriComponentsBuilder.fromUriString(FORM_EDITOR_SUBMIT_URL).buildAndExpand("8", "20").toUri())
+                    .param("TextArea_SubTextArea", "Message")
+                    .param("HiddenField_HiddenField", "HiddenValue")
+                    .param("NumberField_NumberField", "18")
+            )
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(content().string(SUCCESS_RESPONSE))
+            .andDo(MockMvcResultHandlers.print());
+
+    String withNewField = "SubTextArea: Message<br/>HiddenFieldName: HiddenValue<br/>Street and number: <br/>TextOnly: Das ist ein langer Text zur Erklärung des PageTab 2<br/>Alter: 18<br/>";
+
+    assertEquals(withNewField, mailAdapterMock.adminFormData);
+  }
+
 }

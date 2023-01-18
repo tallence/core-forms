@@ -18,6 +18,13 @@ import StudioPlugin from "@coremedia/studio-client.main.editor-components/config
 import IEditorContext from "@coremedia/studio-client.main.editor-components/sdk/IEditorContext";
 import Config from "@jangaroo/runtime/Config";
 import FormsStudioPlugin from "./FormsStudioPlugin";
+import editorContext from "@coremedia/studio-client.main.editor-components/sdk/editorContext";
+import Content from "@coremedia/studio-client.cap-rest-client/content/Content";
+import Struct from "@coremedia/studio-client.cap-rest-client/struct/Struct";
+import ContentInitializer from "@coremedia-blueprint/studio-client.main.blueprint-forms/util/ContentInitializer";
+import FormElementsManager from "./helper/FormElementsManager";
+import FormEditor_properties from "./bundles/FormEditor_properties";
+import FormElementStructWrapper from "./model/FormElementStructWrapper";
 
 interface FormsStudioPluginBaseConfig extends Config<StudioPlugin> {
 }
@@ -31,7 +38,40 @@ class FormsStudioPluginBase extends StudioPlugin {
 
   override init(editorContext: IEditorContext): void {
     super.init(editorContext);
+    FormsStudioPluginBase.applyInitializers();
+  }
 
+  static applyInitializers(): void {
+    editorContext._.registerContentInitializer(FormsStudioPlugin.FORM_EDITOR_DOCTYPE, FormsStudioPluginBase.#initForm);
+  }
+
+  static #initForm(content: Content): void {
+    ContentInitializer.initCMLinkable(content);
+
+    ContentInitializer.setProperty(content, FormsStudioPlugin.PAGEABLE_ENABLED, 1);
+    FormsStudioPluginBase.initInitialPage(content);
+  }
+
+  static initInitialPage(content: Content, newElements: Record<string, any> = null): void {
+    FormsStudioPluginBase.initInitialElements(content);
+    const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
+    const formElements: Struct = formData.get(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    formElements.getType().addStructProperty(
+            FormElementsManager.generateRandomId().toString(),
+            FormElementsManager.getPageInitialData(FormEditor_properties.FormEditor_pages_default_title, newElements));
+
+  }
+
+  static initInitialElements(content: Content, initialElements: Record<string, any> = null): void {
+    const formData: Struct = content.getProperties().get(FormsStudioPlugin.FORM_ELEMENTS_STRUCT_PROPERTY);
+    if (formData.getType().getPropertyNames() && formData.getType().getPropertyNames().indexOf(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY) != -1) {
+      formData.getType().removeProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    }
+    if (initialElements) {
+      formData.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY, initialElements);
+    } else {
+      formData.getType().addStructProperty(FormElementStructWrapper.FORM_ELEMENTS_PROPERTY);
+    }
   }
 
 }

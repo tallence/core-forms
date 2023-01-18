@@ -1,3 +1,19 @@
+/*
+ * Copyright 2018 Tallence AG
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import PropertyEditorUtil from "@coremedia/studio-client.main.editor-components/sdk/util/PropertyEditorUtil";
 import Ext from "@jangaroo/ext-ts";
 import Container from "@jangaroo/ext-ts/container/Container";
@@ -6,20 +22,27 @@ import Config from "@jangaroo/runtime/Config";
 import ConfigUtils from "@jangaroo/runtime/ConfigUtils";
 import ApplicableElements from "./ApplicableElements";
 import ApplicableElementsHelpContainer from "./ApplicableElementsHelpContainer";
-import AppliedElementsContainer from "./AppliedElementsContainer";
 import FormEditorDocumentFormBase from "./FormEditorDocumentFormBase";
 import FormEditor_properties from "./bundles/FormEditor_properties";
+import AppliedElementsContainer from "./AppliedElementsContainer";
+import SwitchingContainer from "@coremedia/studio-client.ext.ui-components/components/SwitchingContainer";
+import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/ValueExpressionFactory";
+import PagesWrapperContainer from "./pages/PagesWrapperContainer";
+import ContentPropertyNames from "@coremedia/studio-client.cap-rest-client/content/ContentPropertyNames";
+import FormsStudioPlugin from "./FormsStudioPlugin";
 
 interface FormEditorDocumentFormConfig extends Config<FormEditorDocumentFormBase>, Partial<Pick<FormEditorDocumentForm,
-  "formElements" |
-  "structPropertyName"
->> {
+        "formElements" |
+        "structPropertyName">> {
 }
 
 class FormEditorDocumentForm extends FormEditorDocumentFormBase {
   declare Config: FormEditorDocumentFormConfig;
 
   static override readonly xtype: string = "com.tallence.formeditor.studio.config.formEditor";
+
+  static readonly APPLIED_FORM_ELEMENTS: string = "appliedFormElements";
+  static readonly APPLIED_FORM_PAGES: string = "appliedFormPages";
 
   #formElements: Array<any> = null;
 
@@ -52,8 +75,12 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
     this.initReusableComponents(config.formElements);
   }
 
+  getActiveAppliedContainer(pageableFeatureEnabled: Boolean): string {
+    return pageableFeatureEnabled ? FormEditorDocumentForm.APPLIED_FORM_PAGES : FormEditorDocumentForm.APPLIED_FORM_ELEMENTS;
+  }
+
   constructor(config: Config<FormEditorDocumentForm> = null) {
-    super((()=>{
+    super((() => {
       this.#__initialize__(config);
       return ConfigUtils.apply(Config(FormEditorDocumentForm, {
         title: FormEditor_properties.FormEditor_tab_formFields_title,
@@ -75,7 +102,7 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                     dragActiveVE: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName).getDragActiveVE(),
                     readOnlyVE: PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression),
                   }),
-                  Config(ApplicableElementsHelpContainer, { helpTextUrl: ConfigUtils.asString(Ext.manifest.globalResources[FormEditor_properties.FormEditor_window_html_content_key]) }),
+                  Config(ApplicableElementsHelpContainer, {helpTextUrl: ConfigUtils.asString(Ext.manifest.globalResources[FormEditor_properties.FormEditor_window_html_content_key])}),
                 ],
               }),
               /* right column, applied form elements */
@@ -84,18 +111,31 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                 layout: "anchor",
                 autoScroll: true,
                 items: [
-                  /* applied form Elements */
-                  Config(AppliedElementsContainer, {
-                    bindTo: config.bindTo,
-                    forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
-                    formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                  Config(SwitchingContainer, {
+                    activeItemValueExpression: ValueExpressionFactory.createTransformingValueExpression(config.bindTo.extendBy(ContentPropertyNames.PROPERTIES, FormsStudioPlugin.PAGEABLE_ENABLED), this.getActiveAppliedContainer),
+                    items: [
+                      /* applied form pages */
+                      Config(AppliedElementsContainer, {
+                        bindTo: config.bindTo,
+                        itemId: FormEditorDocumentForm.APPLIED_FORM_ELEMENTS,
+                        forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
+                        formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                      }),
+                      /* applied form elements */
+                      Config(PagesWrapperContainer, {
+                        itemId: FormEditorDocumentForm.APPLIED_FORM_PAGES,
+                        bindTo: config.bindTo,
+                        forceReadOnlyValueExpression: config.forceReadOnlyValueExpression,
+                        formElementsManager: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName),
+                      })
+                    ],
                   }),
                 ],
               }),
               /* end right column */
             ],
             /*Hbox layout for the main content beneath the header */
-            layout: Config(HBoxLayout, { align: "stretch" }),
+            layout: Config(HBoxLayout, {align: "stretch"}),
           }),
         ],
 

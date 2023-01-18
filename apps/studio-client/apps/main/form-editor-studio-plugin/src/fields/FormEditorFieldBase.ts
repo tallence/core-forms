@@ -39,6 +39,8 @@ class FormEditorFieldBase extends Container {
 
   #propertyName: string = null;
 
+  #formElementStructVE: ValueExpression = null;
+
   constructor(config: Config<FormEditorField> = null) {
     super(config);
     this.#initFormEditorField(config);
@@ -53,9 +55,9 @@ class FormEditorFieldBase extends Container {
       this.#propertyName = config.propertyName;
       this.#bindTo = config.bindTo;
       this.#forceReadOnlyVE = config.forceReadOnlyValueExpression;
-      const formElementStructVE = config.formElementStructVE;
-      formElementStructVE.addChangeListener(bind(this, this.#onFormElementStructChange));
-      this.#updatePropertyVE(formElementStructVE);
+      this.#formElementStructVE = config.formElementStructVE;
+      this.#formElementStructVE.addChangeListener(bind(this, this.#onFormElementStructChange));
+      this.#updatePropertyVE(this.#formElementStructVE);
     }
   }
 
@@ -127,6 +129,12 @@ class FormEditorFieldBase extends Container {
     if (!struct.get("validator")) {
       struct.getType().addStructProperty("validator");
     }
+  }
+
+
+  override destroy(...args): any {
+    this.#formElementStructVE.removeChangeListener(this.#onFormElementStructChange);
+    return super.destroy(...args);
   }
 }
 

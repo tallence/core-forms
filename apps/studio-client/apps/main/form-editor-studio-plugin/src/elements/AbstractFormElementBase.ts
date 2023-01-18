@@ -19,11 +19,13 @@ import ValueExpressionFactory from "@coremedia/studio-client.client-core/data/Va
 import ValueExpressionValueHolder from "@coremedia/studio-client.client-core/data/ValueExpressionValueHolder";
 import ObservableUtil from "@coremedia/studio-client.ext.ui-components/util/ObservableUtil";
 import Container from "@jangaroo/ext-ts/container/Container";
-import { mixin } from "@jangaroo/runtime";
+import {mixin} from "@jangaroo/runtime";
 import Config from "@jangaroo/runtime/Config";
 import FormElementStructWrapper from "../model/FormElementStructWrapper";
 import AbstractFormElement from "./AbstractFormElement";
 import FormElement from "./FormElement";
+import Bean from "@coremedia/studio-client.client-core/data/Bean";
+import beanFactory from "@coremedia/studio-client.client-core/data/beanFactory";
 
 interface AbstractFormElementBaseConfig extends Config<Container> {
 }
@@ -32,6 +34,11 @@ class AbstractFormElementBase extends Container implements FormElement {
   declare Config: AbstractFormElementBaseConfig;
 
   static readonly #FORM_ELEMENT_UPDATE_EVT: string = "formElementUpdated";
+  static readonly FORM_ELEMENTS_STRUCT: string = "formElementStructVE";
+  static readonly BIND_TO: string = "bindTo";
+  static readonly FORCE_READ_ONLY_VE: string = "forceReadOnlyVE";
+  static readonly FORM_ISSUES_VE: string = "formIssuesVE";
+  static readonly PROPERTY_PATH_VE: string = "propertyPathVE";
 
   #group: string = null;
 
@@ -41,21 +48,13 @@ class AbstractFormElementBase extends Container implements FormElement {
 
   #structWrapper: FormElementStructWrapper = null;
 
-  #formElementStructVE: ValueExpression = null;
-
-  #bindTo: ValueExpression = null;
-
-  #forceReadOnlyValueExpression: ValueExpression = null;
-
-  #formIssuesVE: ValueExpression = null;
-
-  #propertyPathVE: ValueExpression = null;
+  #localBean: Bean = null;
 
   constructor(config: Config<AbstractFormElement> = null) {
     if (!config.formElementType) {
       throw new Error("Config formElementType is missing.");
     }
-    super((()=>{
+    super((() => {
       this.#elementType = config.formElementType;
       this.#iconCls = config.formElementIconCls;
       //using the default value "other".
@@ -78,10 +77,10 @@ class AbstractFormElementBase extends Container implements FormElement {
 
   updateFormElementStructWrapper(wrapper: FormElementStructWrapper): void {
     this.#structWrapper = wrapper;
-    this.#formElementStructVE = wrapper.getFormElementVE();
-    this.#bindTo = wrapper.getBindTo();
-    this.#forceReadOnlyValueExpression = wrapper.getForceReadOnlyValueExpression();
-    this.#propertyPathVE = ValueExpressionFactory.createFromValue(wrapper.getPropertyPath());
+    this.getLocalBean().set(AbstractFormElementBase.FORM_ELEMENTS_STRUCT, wrapper.getFormElementVE());
+    this.getLocalBean().set(AbstractFormElementBase.BIND_TO, wrapper.getBindTo());
+    this.getLocalBean().set(AbstractFormElementBase.FORCE_READ_ONLY_VE, wrapper.getForceReadOnlyValueExpression());
+    this.getLocalBean().set(AbstractFormElementBase.PROPERTY_PATH_VE, ValueExpressionFactory.createFromValue(wrapper.getPropertyPath()));
     this.fireEvent(AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
   }
 
@@ -89,89 +88,53 @@ class AbstractFormElementBase extends Container implements FormElement {
     return this.#structWrapper;
   }
 
-  /**
-   * Since the editors for form elements are reused, the component is created without a form element struct value
-   * expression. As soon as the method updateFormElementStructWrapper is called and the form element is updated, a new
-   * value expression is returned. This is necessary so that the binding to the correct struct works after the update.
-   */
+  getLocalBean(): Bean {
+    if (!this.#localBean) {
+      this.#localBean = beanFactory._.createLocalBean();
+      this.#localBean.set(AbstractFormElementBase.FORM_ELEMENTS_STRUCT, ValueExpressionFactory.createFromValue());
+      this.#localBean.set(AbstractFormElementBase.BIND_TO, ValueExpressionFactory.createFromValue());
+      this.#localBean.set(AbstractFormElementBase.FORCE_READ_ONLY_VE, ValueExpressionFactory.createFromValue());
+      this.#localBean.set(AbstractFormElementBase.PROPERTY_PATH_VE, ValueExpressionFactory.createFromValue(""));
+      this.#localBean.set(AbstractFormElementBase.FORM_ISSUES_VE, this.getBindTo().extendBy(["issues", "byProperty"]));
+    }
+    return this.#localBean;
+  }
+
   getFormElementStructVE(): ValueExpression {
-    if (!this.#formElementStructVE) {
-      this.#formElementStructVE = ValueExpressionFactory.createFromValue();
-    }
-    const self = this;
-    return ValueExpressionFactory.createFromFunction((): ValueExpressionValueHolder => {
-      ObservableUtil.dependOn(self, AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
-      return new ValueExpressionValueHolder(this.#formElementStructVE);
-    });
+    return this.getValueExpression(AbstractFormElementBase.FORM_ELEMENTS_STRUCT);
   }
 
-  /**
-   * Since the editors for form elements are reused, the component is created without a bindTo value expression. As
-   * soon as the method updateFormElementStructWrapper is called and the form element is updated, a new
-   * value expression is returned. This is necessary so that the binding to the correct bindTo works after the update.
-   */
   getBindTo(): ValueExpression {
-    if (!this.#bindTo) {
-      this.#bindTo = ValueExpressionFactory.createFromValue();
-    }
-    const self = this;
-    return ValueExpressionFactory.createFromFunction((): ValueExpressionValueHolder => {
-      ObservableUtil.dependOn(self, AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
-      return new ValueExpressionValueHolder(this.#bindTo);
-    });
+    return this.getValueExpression(AbstractFormElementBase.BIND_TO);
   }
 
-  /**
-   * Since the editors for form elements are reused, the component is created without a forceReadOnlyValueExpression
-   * value expression. As soon as the method updateFormElementStructWrapper is called and the form element is updated,
-   * a new value expression is returned. This is necessary so that the binding to the correct
-   * forceReadOnlyValueExpression works after the update.
-   */
   getForceReadOnlyVE(): ValueExpression {
-    if (!this.#forceReadOnlyValueExpression) {
-      this.#forceReadOnlyValueExpression = ValueExpressionFactory.createFromValue();
-    }
-    const self = this;
-    return ValueExpressionFactory.createFromFunction((): ValueExpressionValueHolder => {
-      ObservableUtil.dependOn(self, AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
-      return new ValueExpressionValueHolder(this.#forceReadOnlyValueExpression);
-    });
+    return this.getValueExpression(AbstractFormElementBase.FORCE_READ_ONLY_VE);
   }
 
-  /**
-   * Since the editors for form elements are reused, the component is created without a
-   * form issues value expression. As soon as the method updateFormElementStructWrapper is called and
-   * the form element is updated, a new value expression is returned. This is necessary so that the binding to the
-   * correct formIssuesVE works after the update.
-   */
   getFormIssuesVE(): ValueExpression {
-    if (!this.#formIssuesVE) {
-      this.#formIssuesVE = this.getBindTo().extendBy(["issues", "byProperty"]);
-    }
-    const self = this;
-    return ValueExpressionFactory.createFromFunction((): ValueExpressionValueHolder => {
-      ObservableUtil.dependOn(self, AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
-      return new ValueExpressionValueHolder(this.#formIssuesVE);
-    });
+    return this.getValueExpression(AbstractFormElementBase.FORM_ISSUES_VE);
+  }
+
+  getPropertyPathVE(): ValueExpression {
+    return this.getValueExpression(AbstractFormElementBase.PROPERTY_PATH_VE);
   }
 
   /**
-   * Since the editors for form elements are reused, the component is created without a
-   * form issues value expression. As soon as the method updateFormElementStructWrapper is called and
-   * the form element is updated, a new value expression is returned. This is necessary so that the binding to the
-   * correct propertyPathVE works after the update.
+   * Since the editors for form elements are reused, the component is created with default values for all value
+   * expressions (see #getLocalBean() creation). As soon as the method updateFormElementStructWrapper is called and the
+   * form element is updated, a new value expression is returned. This is necessary so that the binding to the correct
+   * value expression works after the update.
    */
-  getPropertyPathVE(): ValueExpression {
-    if (!this.#propertyPathVE) {
-      this.#propertyPathVE = ValueExpressionFactory.createFromValue("");
-    }
-    const self = this;
+  getValueExpression(key: String): ValueExpression {
+    var self = this;
     return ValueExpressionFactory.createFromFunction((): ValueExpressionValueHolder => {
       ObservableUtil.dependOn(self, AbstractFormElementBase.#FORM_ELEMENT_UPDATE_EVT);
-      return new ValueExpressionValueHolder(this.#propertyPathVE);
+      return new ValueExpressionValueHolder(this.getLocalBean().get(key));
     });
   }
 }
+
 mixin(AbstractFormElementBase, FormElement);
 
 export default AbstractFormElementBase;

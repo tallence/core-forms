@@ -55,4 +55,9 @@ public abstract class FormEditorBase extends CMTeasableImpl implements FormEdito
   public Boolean isSpamProtectionEnabled() {
     return getContent().getBoolean(FormEditorHelper.FORM_SPAM_PROTECTION);
   }
+
+  @Override
+  public Boolean isPageableFormEnabled() {
+    return getContent().getBoolean(FormEditorHelper.FORM_PAGEABLE_ENABLED);
+  }
 }

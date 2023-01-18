@@ -1,0 +1,74 @@
+{
+  "formActionUrl": "/dynamic/forms/formEditorSubmit/8/20",
+  "pages": [
+    {
+      "id": "uniquePageId1",
+      "title": "TestPage 1",
+      "pageType": "DEFAULT_PAGE",
+      "formElements": [
+        {
+          "id": "SubTextArea",
+          "technicalName": "TextArea_SubTextArea",
+          "name": "SubTextArea",
+          "hint": "Geben Sie nochmal etwas ein!",
+          "type": "TextArea",
+          "rows": 5,
+          "columns": 4,
+          "validator": {
+            "maxSize": 10,
+            "mandatory": true,
+            "errorMessages": {
+              "maxSize": "mockedValue, arg1: SubTextArea, arg2: 10",
+              "mandatory": "mockedValue, arg1: SubTextArea, arg2: true"
+            }
+          }
+        },
+        {
+          "id": "HiddenField",
+          "technicalName": "HiddenField_HiddenField",
+          "name": "HiddenFieldName",
+          "type": "HiddenField",
+          "value": "HiddenValue"
+        }
+      ]
+    },
+    {
+      "id": "uniquePageId2",
+      "title": "TestPage 2",
+      "pageType": "SUMMARY_PAGE",
+      "description" : "<div><p>Description of the page</p></div>",
+      "formElements": [
+        {
+          "id" : "StreetFieldTest",
+          "technicalName" : "StreetNumberField_StreetFieldTest",
+          "name" : "Street and number",
+          "type" : "StreetNumberField"
+        },
+        {
+          "id": "TextOnly",
+          "technicalName": "TextOnly_TextOnly",
+          "name": "Das ist ein langer Text zur Erklärung des PageTab 2",
+          "type": "TextOnly"
+        },
+        {
+          "id" : "NumberField",
+          "technicalName" : "NumberField_NumberField",
+          "name" : "Alter",
+          "hint" : "Geben Sie etwas ein!",
+          "type" : "NumberField",
+          "validator" : {
+            "minSize" : 5,
+            "maxSize" : 200,
+            "mandatory" : true,
+            "errorMessages" : {
+              "number" : "mockedValue, arg1: Alter, arg2: {1}",
+              "minSize" : "mockedValue, arg1: Alter, arg2: 5",
+              "maxSize" : "mockedValue, arg1: Alter, arg2: 200",
+              "mandatory" : "mockedValue, arg1: Alter, arg2: true"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

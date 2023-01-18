@@ -24,12 +24,17 @@ import com.coremedia.rest.validation.Severity;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.elements.PageElement;
+import com.tallence.formeditor.parser.CurrentFormSupplier;
 import com.tallence.formeditor.studio.validator.field.ComplexValidator;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+
+import static com.tallence.formeditor.elements.PageElement.PageType.SUMMARY_PAGE;
 
 /**
  * Validates, that a form with form action "mailAction" does not have a fileUpload-field and has a mail-address entered.
@@ -57,6 +62,8 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
   @Override
   public void validate(Content content, Issues issues) {
 
+    CurrentFormSupplier.setCurrentForm(content);
+
     String action = content.getString(formActionProperty);
 
     // Validate form fields
@@ -65,6 +72,21 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
     formElements.forEach(formElement -> validateFormElement(issues, action, formElement));
 
     complexValidators.forEach(complexValidator -> complexValidator.validateFieldIfResponsible(formElements, action, issues, content));
+
+    if (formElements.stream().anyMatch(f -> f instanceof PageElement) &&
+            formElements.stream().anyMatch(f -> !(f instanceof PageElement))) {
+      //Expect only PageElements or no PageElement
+      issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_DATA, "formField_ordering_error");
+    }
+
+    var pageElements = formElements.stream().filter(e -> e instanceof PageElement).map(e -> ((PageElement) e)).collect(Collectors.toList());
+    var summaryPages = pageElements.stream().filter(p -> p.getPageType().equals(SUMMARY_PAGE)).collect(Collectors.toList());
+    if (summaryPages.size() > 1) {
+      issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_DATA, "formField_summaryPage_multiple_error");
+    } else if (!summaryPages.isEmpty() && pageElements.indexOf(summaryPages.get(0)) != (pageElements.size() - 1)) {
+      issues.addIssue(Severity.ERROR, FormEditorHelper.FORM_DATA, "formField_summaryPage_middle_error");
+    }
+
 
     // Further validations
     if (FormEditorHelper.MAIL_ACTION.equals(action) && !StringUtils.hasText(content.getString(FormEditorHelper.ADMIN_MAILS))) {
