@@ -26,6 +26,7 @@ import com.coremedia.rest.validation.impl.IssuesImpl;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
 import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormEditorHelper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -57,6 +61,11 @@ public class FormEditorValidatorTest {
 
   @Autowired
   private FormEditorValidator formEditorValidator;
+
+  @Before
+  public void setUp() {
+    RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(new MockHttpServletRequest()));
+  }
 
   @Test
   public void testValidDoc() {

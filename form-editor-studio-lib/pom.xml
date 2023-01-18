@@ -88,6 +88,13 @@
       <artifactId>spring-context</artifactId>
     </dependency>
 
+    <!-- Other -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- Testing -->
     <dependency>
       <groupId>com.coremedia.cms</groupId>
@@ -117,6 +124,11 @@
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-client-xml</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
       <scope>test</scope>
     </dependency>
 

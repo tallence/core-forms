@@ -37,6 +37,10 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-multisite</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-xml</artifactId>
+    </dependency>
 
     <!-- Spring -->
     <dependency>
@@ -61,6 +65,11 @@
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
       <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>

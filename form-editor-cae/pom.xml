@@ -75,6 +75,14 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>coremedia-cache</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>cae-viewservices</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-xml</artifactId>
+    </dependency>
 
     <!-- Spring -->
     <dependency>

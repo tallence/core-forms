@@ -42,6 +42,7 @@
           <stringProperty name="formAction" value="mailAction"/>
           <stringProperty name="adminMails" value="admin@example.com"/>
           <markupProperty name="formData" url="20formElements.xml" grammar="coremedia-struct-2008"/>
+          <intProperty name="pageableFormEnabled" value="1"/>
         </version>
       </document>
       <document id="8" type="CMChannel" name="NavContext" modificationDate="2009-06-01T20:59:42.000+01:00">
