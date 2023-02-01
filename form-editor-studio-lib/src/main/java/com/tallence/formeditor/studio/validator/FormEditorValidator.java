@@ -62,8 +62,6 @@ public class FormEditorValidator extends ContentTypeValidatorBase {
   @Override
   public void validate(Content content, Issues issues) {
 
-    CurrentFormSupplier.setCurrentForm(content);
-
     String action = content.getString(formActionProperty);
 
     // Validate form fields
