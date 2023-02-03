@@ -59,7 +59,7 @@ public class FormEditorHelper {
     var formData = getFormElements(form)
             .map(CapStruct::getProperties)
             .orElse(Collections.emptyMap());
-    return parseFormElements(formData, formElementFactory);
+    return parseFormElements(form, formData, formElementFactory);
   }
 
   /**
@@ -68,15 +68,15 @@ public class FormEditorHelper {
    * @param formElementFactory the factory to create {@link FormElement}
    * @return a list of parsed {@link FormElement}s
    */
-  public static List<FormElement<?>> parseFormElements(Map<String, Object> formData, FormElementFactory formElementFactory) {
+  public static List<FormElement<?>> parseFormElements(Content form, Map<String, Object> formData, FormElementFactory formElementFactory) {
 
     return formData.entrySet().stream()
             .filter(e -> e.getValue() instanceof Struct)
-            .map(e -> parseElement((Struct) e.getValue(), e.getKey(), formElementFactory))
+            .map(e -> parseElement(form, (Struct) e.getValue(), e.getKey(), formElementFactory))
             .collect(Collectors.toList());
   }
 
-  private static FormElement<?> parseElement(Struct value, String key, FormElementFactory formElementFactory) {
-    return formElementFactory.createFormElement(value, key);
+  private static FormElement<?> parseElement(Content form, Struct value, String key, FormElementFactory formElementFactory) {
+    return formElementFactory.createFormElement(form, value, key);
   }
 }

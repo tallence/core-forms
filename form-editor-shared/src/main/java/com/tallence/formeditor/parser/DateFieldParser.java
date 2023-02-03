@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import static com.coremedia.cap.util.CapStructUtil.getBoolean;
 import static com.coremedia.cap.util.CapStructUtil.getSubstruct;
@@ -36,21 +35,24 @@ import static java.util.Optional.ofNullable;
  * Parser for elements of type {@link DateField}
  */
 @Component
-public class DateFieldParser extends AbstractFormElementParser<DateField> {
+public class DateFieldParser extends AbstractFormElementParser<DateField> implements CurrentFormAwareParser<DateField> {
 
   public static final String parserKey = "DateField";
 
-  private final Supplier<Content> currentFormSupplier;
   private final SitesService sitesService;
 
-  public DateFieldParser(Supplier<Content> currentFormSupplier, SitesService sitesService) {
-    this.currentFormSupplier = currentFormSupplier;
+  public DateFieldParser(SitesService sitesService) {
     this.sitesService = sitesService;
   }
 
   @Override
   public DateField instantiateType(Struct elementData) {
-    return new DateField(getCurrentLocale());
+    throw new IllegalStateException("This should not be called, because we need the currentForm");
+  }
+
+  @Override
+  public DateField instantiateType(Content currentForm, Struct elementData) {
+    return new DateField(getCurrentLocale(currentForm));
   }
 
   @Override
@@ -75,9 +77,9 @@ public class DateFieldParser extends AbstractFormElementParser<DateField> {
     return parserKey;
   }
 
-  private Locale getCurrentLocale() {
+  private Locale getCurrentLocale(Content currentForm) {
 
-    return Optional.ofNullable(currentFormSupplier.get())
+    return Optional.of(currentForm)
             .map(c -> sitesService.getContentSiteAspect(c).getLocale())
             .orElse(Locale.GERMANY);
   }

@@ -19,7 +19,6 @@ import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
-import com.tallence.formeditor.parser.CurrentFormSupplier;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,10 +35,6 @@ public class FormEditorAdapter {
 
   @SuppressWarnings("unused")
   public List<FormElement<?>> formElements() {
-
-    //The formElements parsers might need the locale of the current site.
-    CurrentFormSupplier.setCurrentForm(content);
-
     return FormEditorHelper.parseFormElements(content, formElementFactory);
   }
 

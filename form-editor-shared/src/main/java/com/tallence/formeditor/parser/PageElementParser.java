@@ -1,6 +1,7 @@
 package com.tallence.formeditor.parser;
 
 import com.coremedia.cap.common.CapStruct;
+import com.coremedia.cap.content.Content;
 import com.coremedia.cap.struct.Struct;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
@@ -16,7 +17,7 @@ import static com.coremedia.cap.common.CapStructHelper.getStruct;
 import static com.tallence.formeditor.FormEditorHelper.FORM_ELEMENTS;
 
 @Component
-public class PageElementParser extends AbstractFormElementParser<PageElement> {
+public class PageElementParser extends AbstractFormElementParser<PageElement> implements CurrentFormAwareParser<PageElement> {
 
   public static final String parserKey = "PageElement";
 
@@ -29,7 +30,12 @@ public class PageElementParser extends AbstractFormElementParser<PageElement> {
 
   @Override
   public PageElement instantiateType(Struct elementData) {
-    return new PageElement();
+    throw new IllegalStateException("This should not be called, because we need the currentForm");
+  }
+
+  @Override
+  public PageElement instantiateType(Content currentForm, Struct elementData) {
+    return new PageElement(currentForm);
   }
 
   /**
@@ -44,7 +50,7 @@ public class PageElementParser extends AbstractFormElementParser<PageElement> {
             .map(CapStruct::getProperties)
             .orElse(Collections.emptyMap());
 
-    var formElements = FormEditorHelper.parseFormElements(formData, formElementFactory);
+    var formElements = FormEditorHelper.parseFormElements(formElement.getCurrentForm(), formData, formElementFactory);
     formElement.setSubElements(formElements);
 
     var pageDescription = elementData.get("pageDescription") != null ? elementData.getMarkup("pageDescription") : null;
