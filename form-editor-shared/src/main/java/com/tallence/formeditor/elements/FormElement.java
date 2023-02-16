@@ -30,9 +30,17 @@ import java.util.Map;
  */
 public interface FormElement<T> {
 
+  /**
+   * @return id of the field, gets replaced with customId if available
+   */
   String getId();
 
   void setId(String id);
+
+  /**
+   * @return id of the field, always the generated struct key value, not replaced by customId.
+   */
+  String getStructId();
 
   String getName();
 
