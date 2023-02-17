@@ -121,6 +121,11 @@ public abstract class AbstractFormElement<T, V extends Validator<T>> implements 
   }
 
   @Override
+  public String getStructId() {
+    return this.id;
+  }
+
+  @Override
   public String getName() {
     return this.name;
   }

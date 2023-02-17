@@ -38,7 +38,7 @@ public class OptionsNotEmptyValidator extends AbstractFormValidator<FieldWithOpt
     if (formElement.getOptions().isEmpty()) {
 
       String messageKey = formElement.getClass().getSimpleName().toLowerCase() + "_missing_options";
-      addErrorIssue(issues, formElement.getId(), FORM_GROUP_ELEMENTS_PROPERTY_NAME, messageKey, formElement.getName());
+      addErrorIssue(issues, formElement.getStructId(), FORM_GROUP_ELEMENTS_PROPERTY_NAME, messageKey, formElement.getName());
     }
 
   }

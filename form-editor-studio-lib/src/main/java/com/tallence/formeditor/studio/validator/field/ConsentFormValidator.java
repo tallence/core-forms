@@ -39,14 +39,14 @@ public class ConsentFormValidator extends AbstractFormValidator<ConsentFormCheck
 
     String name = formElement.getName();
     if (formElement.getLinkTarget() == null) {
-      addErrorIssue(issues, formElement.getId(), FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
+      addErrorIssue(issues, formElement.getStructId(), FORM_LINK_TARGET, "consentForm_missing_linkTarget", name);
     }
 
     String hint = formElement.getHint();
     if (StringUtils.isEmpty(hint)) {
-      addErrorIssue(issues, formElement.getId(), FORM_DATA_HINT, "consentForm_missing_hint", name);
+      addErrorIssue(issues, formElement.getStructId(), FORM_DATA_HINT, "consentForm_missing_hint", name);
     } else if (!hint.matches(".*%.+%.*")) {
-      addErrorIssue(issues, formElement.getId(), FORM_DATA_HINT, "consentForm_invalid_hint", name);
+      addErrorIssue(issues, formElement.getStructId(), FORM_DATA_HINT, "consentForm_invalid_hint", name);
     }
   }
 }
