@@ -36,7 +36,6 @@ import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.elements.PageElement;
-import com.tallence.formeditor.parser.CurrentFormSupplier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -119,7 +118,6 @@ public class FormConfigController {
 
     Navigation navigation = currentContext.getRootNavigation();
     request.setAttribute(NavigationLinkSupport.ATTR_NAME_CMNAVIGATION, navigation);
-    CurrentFormSupplier.setCurrentForm(editor.getContent());
 
     List<FormElement<?>> formElements = formFreemarkerFacade.parseFormElements(editor);
     if (formElements.isEmpty()) {

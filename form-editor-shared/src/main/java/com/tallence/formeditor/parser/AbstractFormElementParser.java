@@ -64,6 +64,7 @@ public abstract class AbstractFormElementParser<T extends FormElement<?>> {
 
   /**
    * Creates an instance of the concrete parser class.
+   * Implement {@link CurrentFormAwareParser} if the currentForm content is relevant for the {@link FormElement}.
    *
    * @param elementData the element data from which to create the instance
    */

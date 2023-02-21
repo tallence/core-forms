@@ -1,5 +1,6 @@
 package com.tallence.formeditor.elements;
 
+import com.coremedia.cap.content.Content;
 import com.coremedia.xml.Markup;
 import com.tallence.formeditor.validator.PageElementValidator;
 import com.tallence.formeditor.validator.ValidationFieldError;
@@ -20,10 +21,12 @@ public class PageElement extends AbstractFormElement<List, PageElementValidator>
   private PageType pageType;
 
   private List<FormElement<?>> subElements;
+  private final Content currentForm;
 
 
-  public PageElement() {
+  public PageElement(Content currentForm) {
     super(List.class);
+    this.currentForm = currentForm;
   }
 
 
@@ -84,6 +87,10 @@ public class PageElement extends AbstractFormElement<List, PageElementValidator>
 
   public void setPageType(String pageType) {
     setPageType(PageType.valueOf(pageType));
+  }
+
+  public Content getCurrentForm() {
+    return currentForm;
   }
 
   public enum PageType {

@@ -25,7 +25,6 @@ import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.elements.PageElement;
-import com.tallence.formeditor.parser.CurrentFormSupplier;
 import com.tallence.formeditor.studio.validator.field.ComplexValidator;
 import com.tallence.formeditor.studio.validator.field.FieldValidator;
 import org.springframework.util.StringUtils;

@@ -98,7 +98,7 @@ public class FormElementFactoryTest {
     if (element == null) {
       return null;
     }
-    return this.factory.createFormElement(element, id);
+    return this.factory.createFormElement(form, element, id);
   }
 
   @Test
