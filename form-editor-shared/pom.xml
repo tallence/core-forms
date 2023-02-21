@@ -159,6 +159,7 @@
       <groupId>org.skyscreamer</groupId>
       <artifactId>jsonassert</artifactId>
       <scope>test</scope>
+      <version>1.2.1</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>

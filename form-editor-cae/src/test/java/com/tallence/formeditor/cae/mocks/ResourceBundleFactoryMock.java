@@ -1,8 +1,11 @@
 package com.tallence.formeditor.cae.mocks;
 
 import com.coremedia.blueprint.cae.web.i18n.LinklistPageResourceBundleFactory;
+import com.coremedia.blueprint.coderesources.ThemeService;
 import com.coremedia.blueprint.common.contentbeans.Page;
 import com.coremedia.blueprint.common.navigation.Navigation;
+import com.coremedia.blueprint.localization.LocalizationService;
+import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.cap.user.User;
 import edu.umd.cs.findbugs.annotations.Nullable;
 
@@ -11,6 +14,12 @@ import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 public class ResourceBundleFactoryMock extends LinklistPageResourceBundleFactory {
+
+  public ResourceBundleFactoryMock(SitesService sitesService, LocalizationService localizationService, ThemeService themeService) {
+    setLocalizationService(localizationService);
+    setSitesService(sitesService);
+    setThemeService(themeService);
+  }
 
   @Override
   public ResourceBundle resourceBundle(Page page, @Nullable User developer) {
