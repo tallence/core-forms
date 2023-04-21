@@ -36,7 +36,13 @@ The studio-frontend has been migrated into the new studio-pnpm-workspace structu
 The form-editor-studio-plugin can still be part of this external extensions repo and does not need to be moved into `apps/studio-client/apps/main/extensions/`. But it needs to be registered as an extension with the extensions-tool: Call `mvn extensions:sync -Denable=core-forms` in the folder `workspace-configuration/extensions`   
 
 ## Integrate the Code in your CoreMedia Blueprint Workspace
-You can integrate the extension in three ways:
+You can integrate the extension in three ways. For all of them, you have to keep in mind:
+* The formEditor uses maven-dependencies of the blueprint-workspace, keep the versions and groupIds in sync, e.g. "1-SNAPSHOT" and "com.coremedia.blueprint"
+* After integrating the code, use the extension tool in the root folder of the project to link the modules into your workspace:
+ ```
+mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-plugin:LATEST:sync -Denable=core-forms
+```
+
 
 **1. Git SubModule**
 
@@ -44,26 +50,32 @@ Add this repo or your fork as a Git Submodule to your existing CoreMedia Bluepri
  
 This way, you will be able to merge new commits made in this repo back to your fork.
 
-This is the recommended approach because you will also be able to develop quickly, performing a make on the sources with a running studio- or cae-webapp.
+Use this approach if you are planing to contribute changes to the GitHub-Repo.
 
 From the project's root folder, clone this repository as submodule into the extensions folder. Make sure to use the branch name that matches your workspace version. 
 ```
 git submodule add  https://github.com/tallence/core-forms.git modules/extensions/core-forms
 ```
 
-- Use the extension tool in the root folder of the project to link the modules into your workspace.
- ```
-mvn -f workspace-configuration/extensions com.coremedia.maven:extensions-maven-plugin:LATEST:sync -Denable=core-forms
-```
- 
-**2. Copy files**
+**2. Git Subtree**
+
+Add this repo or your fork as a Git Subtree to your existing CoreMedia Blueprint-Workspace in the extensions-folder.
+Use this approach if you are using the GitHub-Repo in a readOnly mode.
+
+To include the subtree into your project the following command line should be executed in the project root directory.
+
+```git subtree add --prefix modules/extensions/core-forms https://github.com/tallence/core-forms.git master --squash```
+
+Further information about git subtree in relation to the github repository can be found here:
+
+[Github Subtree-Documentation](https://gist.github.com/SKempin/b7857a6ff6bddb05717cc17a44091202)
+
+**3. Copy files**
 
 Download the repo and copy the files into your Blueprint-Workspace Extension-Folder.
 
-This way you won't be able to merge new commits made in this repo back to yours. But if you do not like Git Submodules, you don't have to deal with them. 
-
-However the formeditor uses maven-dependencies of the blueprint-workspace, so you have to keep the versions in sync.
-    
+This way you won't be able to merge new commits made in this repo back to yours. So this way is not recommended.  
+ 
 
 ## Required modifications
 To getting started you need to make some modifications and write some code:
