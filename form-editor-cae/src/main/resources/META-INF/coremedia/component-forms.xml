@@ -21,15 +21,6 @@
   </bean>
 
 
-  <bean name="reCaptchaService" class="com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl">
-    <constructor-arg name="defaultCredentials" ref="reCaptchaDefaultCredentials"/>
-  </bean>
-
-  <bean id="reCaptchaDefaultCredentials" class="com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl$ReCaptchaAuthentication">
-    <constructor-arg value="${google.reCaptcha.website-secret}"/>
-    <constructor-arg value="${google.reCaptcha.server-secret}"/>
-  </bean>
-
   <bean id="formEditorCacheCapacityConfigurer" class="com.coremedia.cache.CacheCapacityConfigurer" init-method="init">
     <property name="cache" ref="cache"/>
     <property name="capacities">
