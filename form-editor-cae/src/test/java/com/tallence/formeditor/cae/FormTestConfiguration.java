@@ -33,10 +33,10 @@ import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
+import com.tallence.formeditor.cae.handler.CaptchaService;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.handler.FormController;
-import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.parser.AbstractFormElementParser;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
@@ -99,18 +99,18 @@ public class FormTestConfiguration {
   }
 
   /**
-   * Mocking the {@link ReCaptchaService} it is not yet tested.
+   * Mocking the {@link CaptchaService} it is not yet tested.
    */
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public ReCaptchaService reCaptchaService() {
+  public CaptchaService captchaService() {
     return new ReCaptchaServiceImpl(new ReCaptchaServiceImpl.ReCaptchaAuthentication(null, null));
   }
 
   @Bean
   @Scope(SCOPE_SINGLETON)
-  public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService reCaptchaService, CurrentContextService currentContextService) {
-    return new FormFreemarkerFacade(formElementFactory, reCaptchaService, currentContextService);
+  public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, CaptchaService captchaService, CurrentContextService currentContextService) {
+    return new FormFreemarkerFacade(formElementFactory, captchaService, currentContextService);
   }
 
   @Bean
@@ -121,13 +121,13 @@ public class FormTestConfiguration {
   @Bean
   FormController formController(List<FormAction> formActions,
                                 DefaultFormAction defaultFormAction,
-                                ReCaptchaService recaptchaService,
+                                CaptchaService captchaService,
                                 FormFreemarkerFacade formFreemarkerFacade,
                                 CurrentContextService currentContextService,
                                 RequestMessageSource messageSource,
                                 ResourceBundleInterceptor pageResourceBundlesInterceptor,
                                 @Value("${formEditor.cae.encodeData:true}") boolean encodeFormData) {
-    return new FormController(formActions, defaultFormAction, recaptchaService, formFreemarkerFacade, currentContextService, messageSource, pageResourceBundlesInterceptor, encodeFormData);
+    return new FormController(formActions, defaultFormAction, captchaService, formFreemarkerFacade, currentContextService, messageSource, pageResourceBundlesInterceptor, encodeFormData);
   }
 
   @Bean

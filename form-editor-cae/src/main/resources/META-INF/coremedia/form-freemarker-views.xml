@@ -18,7 +18,7 @@
   <bean name="formFreemarkerFacade" class="com.tallence.formeditor.cae.FormFreemarkerFacade">
     <constructor-arg name="formElementFactory" ref="formElementFactory"/>
     <constructor-arg name="currentContextService" ref="currentContextService"/>
-    <constructor-arg name="pReCaptchaService" ref="reCaptchaService"/>
+    <constructor-arg name="pCaptchaService" ref="captchaService"/>
   </bean>
 
   <customize:append id="formFreemarkerConfigurerAutoImportsCustomizer" bean="freemarkerConfigurer"
