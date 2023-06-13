@@ -6,10 +6,10 @@
     "@coremedia-blueprint/studio-client.form-editor": "1.0.0-SNAPSHOT"
   },
   "devDependencies": {
-    "@jangaroo/build": "^1.4.1",
-    "@jangaroo/core": "^1.4.1",
-    "@jangaroo/eslint-config": "^1.4.1",
-    "@jangaroo/publish": "^1.4.1",
+    "@jangaroo/build": "^1.4.2",
+    "@jangaroo/core": "^1.4.2",
+    "@jangaroo/eslint-config": "^1.4.2",
+    "@jangaroo/publish": "^1.4.2",
     "eslint": "^7.32.0",
     "rimraf": "^3.0.2"
   },
