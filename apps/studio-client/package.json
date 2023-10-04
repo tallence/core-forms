@@ -4,7 +4,7 @@
   "private": true,
   "engines": {
     "node": "18",
-    "pnpm": "^8.1"
+    "pnpm": "^8.6"
   },
   "devDependencies": {
     "@coremedia/set-version": "^1.1.1"
