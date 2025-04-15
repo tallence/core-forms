@@ -1,8 +1,9 @@
 package com.tallence.formeditor.cae.serializer;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.function.BiFunction;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Creates an instance of a {@link FormElementSerializerBase} with the given context related objects. Custom

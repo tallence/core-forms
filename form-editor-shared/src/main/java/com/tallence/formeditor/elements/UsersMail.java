@@ -19,7 +19,8 @@ package com.tallence.formeditor.elements;
 import com.tallence.formeditor.validator.UsersMailValidator;
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 /**
  * Model bean for a configured Field for user's mail.

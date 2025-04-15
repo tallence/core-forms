@@ -26,12 +26,13 @@ import com.tallence.formeditor.elements.AbstractFormElement;
 import com.tallence.formeditor.cae.model.FormEditorConfig;
 import com.tallence.formeditor.contentbeans.FormEditor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Building a string, representing the form config for a formEditor document.

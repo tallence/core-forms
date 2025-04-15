@@ -21,11 +21,12 @@ import com.tallence.formeditor.validator.Validator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Abstract Element used by all {@link FormElement}s.

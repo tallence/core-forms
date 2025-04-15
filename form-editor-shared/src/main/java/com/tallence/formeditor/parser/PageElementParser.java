@@ -9,10 +9,10 @@ import com.tallence.formeditor.elements.PageElement;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.Optional;
 
+import jakarta.inject.Inject;
 import static com.coremedia.cap.common.CapStructHelper.getStruct;
 import static com.tallence.formeditor.FormEditorHelper.FORM_ELEMENTS;
 

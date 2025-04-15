@@ -20,8 +20,9 @@ import com.coremedia.cap.content.Content;
 import com.tallence.formeditor.validator.ConsentFormCheckboxValidator;
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Model bean for a configured Consent form checkBox.

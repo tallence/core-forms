@@ -18,9 +18,10 @@ package com.tallence.formeditor.elements;
 
 import com.tallence.formeditor.validator.ValidationFieldError;
 import edu.umd.cs.findbugs.annotations.Nullable;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

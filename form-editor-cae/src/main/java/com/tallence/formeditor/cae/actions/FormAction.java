@@ -21,10 +21,11 @@ import com.tallence.formeditor.cae.model.FormProcessingResult;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Action Interface for Form-Framework
@@ -33,7 +34,7 @@ import java.util.List;
 public interface FormAction {
 
   FormProcessingResult handleFormSubmit(FormEditor target, List<MultipartFile> files, List<FormElement<?>> formElements,
-                                                       HttpServletRequest request, HttpServletResponse response) throws IOException;
+                                        HttpServletRequest request, HttpServletResponse response) throws IOException;
 
   boolean isResponsible(String key);
 }

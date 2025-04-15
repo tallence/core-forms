@@ -6,11 +6,12 @@ import com.tallence.formeditor.validator.PageElementValidator;
 import com.tallence.formeditor.validator.ValidationFieldError;
 import org.springframework.util.MultiValueMap;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Ordering formElement, which is used to structure formFields in Pages. Cannot have a value.

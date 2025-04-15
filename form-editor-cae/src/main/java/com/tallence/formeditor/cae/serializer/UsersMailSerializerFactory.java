@@ -20,10 +20,11 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.tallence.formeditor.elements.UsersMail;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.function.BiFunction;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import static com.tallence.formeditor.cae.serializer.FormElementSerializerConstants.FORM_SERIALIZER_FIELDS_DISPLAY_BOX;
 
