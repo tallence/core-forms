@@ -16,55 +16,52 @@
 
 package com.tallence.formeditor.cae;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.*;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
 import com.coremedia.blueprint.cae.config.BlueprintI18nCaeBaseLibConfiguration;
+import com.coremedia.blueprint.cae.config.LocaleResolverAutoConfiguration;
 import com.coremedia.blueprint.cae.web.i18n.RequestMessageSource;
 import com.coremedia.blueprint.cae.web.i18n.ResourceBundleInterceptor;
+import com.coremedia.blueprint.coderesources.ThemeService;
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
+import com.coremedia.blueprint.localization.LocalizationService;
 import com.coremedia.blueprint.testing.ContentTestConfiguration;
 import com.coremedia.blueprint.testing.ContentTestHelper;
 import com.coremedia.cache.Cache;
+import com.coremedia.cap.multisite.SitesService;
 import com.coremedia.cap.test.xmlrepo.XmlUapiConfig;
 import com.coremedia.cms.delivery.configuration.DeliveryConfigurationProperties;
 import com.coremedia.objectserver.configuration.CaeConfigurationProperties;
 import com.coremedia.objectserver.view.View;
 import com.coremedia.objectserver.web.config.CaeHandlerServicesConfiguration;
 import com.coremedia.objectserver.web.links.LinkFormatter;
-import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
+import com.coremedia.springframework.customizer.Customize;
 import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
-import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.handler.FormController;
 import com.tallence.formeditor.cae.handler.ReCaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
-import com.tallence.formeditor.parser.AbstractFormElementParser;
+import com.tallence.formeditor.cae.mocks.ResourceBundleFactoryMock;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.util.List;
+import com.tallence.formeditor.elements.FormElement;
+import com.tallence.formeditor.parser.AbstractFormElementParser;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
 
 /**
  * Configuration class to set up form test infrastructure.
  */
-@ImportResource(
-        value = {
-                "classpath:/META-INF/coremedia/component-forms.xml",
-                "classpath:/com/tallence/formeditor/cae/testdata/bundle-replace-context.xml",}
-        , reader = ResourceAwareXmlBeanDefinitionReader.class)
 @PropertySource("classpath:com/tallence/formeditor/cae/test.properties")
 @EnableConfigurationProperties({
         DeliveryConfigurationProperties.class,
@@ -74,12 +71,15 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SING
         BlueprintI18nCaeBaseLibConfiguration.class,
         CaeHandlerServicesConfiguration.class,
         ContentTestConfiguration.class,
+        LocaleResolverAutoConfiguration.class,
         WebMvcAutoConfiguration.class,
-        FormEditorConfiguration.class
+        FormEditorConfiguration.class,
+        FormEditorCaeConfig.class
 })
 public class FormTestConfiguration {
 
   private static final String CONTENT_REPOSITORY = "classpath:/com/tallence/formeditor/testdata/contenttest.xml";
+
 
   @Bean
   @Scope(SCOPE_SINGLETON)
@@ -87,17 +87,20 @@ public class FormTestConfiguration {
     return new XmlUapiConfig(CONTENT_REPOSITORY);
   }
 
+
   @Bean
   @Scope(SCOPE_SINGLETON)
   public ContentTestHelper contentTestHelper() {
     return new ContentTestHelper();
   }
 
+
   @Bean
   @Scope(SCOPE_SINGLETON)
   public FormElementFactory formElementFactory(List<AbstractFormElementParser<? extends FormElement<?>>> parsers) {
     return new FormElementFactory(parsers);
   }
+
 
   /**
    * Mocking the {@link ReCaptchaService} it is not yet tested.
@@ -108,16 +111,19 @@ public class FormTestConfiguration {
     return new ReCaptchaServiceImpl(new ReCaptchaServiceImpl.ReCaptchaAuthentication(null, null));
   }
 
+
   @Bean
   @Scope(SCOPE_SINGLETON)
   public FormFreemarkerFacade freemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService reCaptchaService, CurrentContextService currentContextService) {
     return new FormFreemarkerFacade(formElementFactory, reCaptchaService, currentContextService);
   }
 
+
   @Bean
   MockMvc mockMvc(WebApplicationContext wac) {
     return MockMvcBuilders.webAppContextSetup(wac).build();
   }
+
 
   @Bean
   FormController formController(List<FormAction> formActions,
@@ -131,6 +137,7 @@ public class FormTestConfiguration {
     return new FormController(formActions, defaultFormAction, recaptchaService, formFreemarkerFacade, currentContextService, messageSource, pageResourceBundlesInterceptor, encodeFormData);
   }
 
+
   @Bean
   FormConfigController formConfigController(CurrentContextService currentContextService,
                                             FormFreemarkerFacade formFreemarkerFacade,
@@ -138,7 +145,8 @@ public class FormTestConfiguration {
                                             RequestMessageSource messageSource,
                                             ResourceBundleInterceptor pageResourceBundlesInterceptor,
                                             View richtextMarkupView,
-                                            Cache cache, List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
+                                            Cache cache,
+                                            List<FormElementSerializerFactory<?>> formElementSerializerFactories) {
     return new FormConfigController(currentContextService,
             formFreemarkerFacade,
             linkFormatter,
@@ -150,4 +158,10 @@ public class FormTestConfiguration {
   }
 
 
+  @Bean()
+  @Customize(value = "pageResourceBundleFactory", mode = Customize.Mode.REPLACE)
+  @Primary
+  public ResourceBundleFactoryMock bundleReplacement(SitesService sitesService, LocalizationService localizationService, ThemeService themeService) {
+    return new ResourceBundleFactoryMock(sitesService, localizationService, themeService);
+  }
 }

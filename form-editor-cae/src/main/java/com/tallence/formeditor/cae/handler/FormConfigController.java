@@ -39,6 +39,7 @@ import com.tallence.formeditor.elements.PageElement;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +63,7 @@ import static com.coremedia.objectserver.web.HandlerHelper.MODEL_ROOT;
  */
 @Link
 @RequestMapping
-@Component
+@Controller
 public class FormConfigController {
 
   private static final String FORMS_ROOT_URL_SEGMENT = "/dynamic/forms";

@@ -15,9 +15,8 @@
  */
 package com.tallence.formeditor.cae.handler;
 
-import com.tallence.formeditor.cae.FormTestConfiguration;
-import com.tallence.formeditor.cae.mocks.MailAdapterMock;
-import com.tallence.formeditor.cae.mocks.StorageAdapterMock;
+import java.net.URI;
+
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,12 +32,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
+import com.tallence.formeditor.cae.FormTestConfiguration;
+import com.tallence.formeditor.cae.mocks.MailAdapterMock;
+import com.tallence.formeditor.cae.mocks.StorageAdapterMock;
 
 import jakarta.servlet.http.HttpServletResponse;
-
 import static com.tallence.formeditor.cae.handler.FormController.FORM_EDITOR_SUBMIT_URL;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -98,6 +101,7 @@ public class FormControllerTest {
     storageAdapterMock.clear();
   }
 
+
   @Test
   public void testValidPost() throws Exception {
 
@@ -144,7 +148,7 @@ public class FormControllerTest {
         .param("UsersMail_UsersMail", MAIL_ADDRESS_TEST)
         .param("ConsentFormCheckBox_ConsentFormCheckBox", "on")
     )
-//        .andExpect(status().is2xxSuccessful())
+        .andExpect(status().is2xxSuccessful())
         .andExpect(content().string(SUCCESS_RESPONSE))
         .andDo(MockMvcResultHandlers.print());
 
@@ -289,5 +293,4 @@ public class FormControllerTest {
 
     assertEquals(withNewField, mailAdapterMock.adminFormData);
   }
-
 }

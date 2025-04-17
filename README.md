@@ -31,8 +31,7 @@ This repo covers the studio- and the backend-cae part. If you are looking for an
 The Core-Forms Studio-Integration has a performance issue, related to the HideService. It registers a lot of Listeners, which won't be destroyed, so the studio will get slower and slower with each opened form-element.
 The current workaround: Disable the HideService in the studio-server `application.properties`: `studio.hideservice.enabled=false`
 
-## CM11 Getting started
-The studio-frontend has been migrated into the new studio-pnpm-workspace structure. 
+## CM12 Getting started
 The form-editor-studio-plugin can still be part of this external extensions repo and does not need to be moved into `apps/studio-client/apps/main/extensions/`. But it needs to be registered as an extension with the extensions-tool: Call `mvn extensions:sync -Denable=core-forms` in the folder `workspace-configuration/extensions`   
 
 ## Integrate the Code in your CoreMedia Blueprint Workspace

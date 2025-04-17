@@ -83,8 +83,22 @@
       <groupId>com.coremedia.cms</groupId>
       <artifactId>coremedia-xml</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coremedia.cms</groupId>
+      <artifactId>coremedia-spring</artifactId>
+    </dependency>
 
     <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot</artifactId>
+      <scope>provided</scope>
+    </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
@@ -157,16 +171,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -204,11 +208,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.coremedia.cms</groupId>
-      <artifactId>coremedia-spring</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>image-transformation</artifactId>
       <version>${project.version}</version>
@@ -217,6 +216,11 @@
     <dependency>
       <groupId>com.coremedia.cms</groupId>
       <artifactId>cap-transform</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-test-autoconfigure</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -242,6 +246,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
