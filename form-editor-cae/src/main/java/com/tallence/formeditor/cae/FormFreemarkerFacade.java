@@ -19,7 +19,7 @@ package com.tallence.formeditor.cae;
 import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.tallence.formeditor.FormEditorHelper;
 import com.tallence.formeditor.FormElementFactory;
-import com.tallence.formeditor.cae.handler.ReCaptchaService;
+import com.tallence.formeditor.cae.handler.CaptchaService;
 import com.tallence.formeditor.contentbeans.FormEditor;
 import com.tallence.formeditor.elements.FormElement;
 
@@ -33,12 +33,12 @@ public class FormFreemarkerFacade {
 
   private final FormElementFactory formElementFactory;
 
-  private final ReCaptchaService reCaptchaService;
+  private final CaptchaService captchaService;
 
   private final CurrentContextService currentContextService;
 
-  public FormFreemarkerFacade(FormElementFactory formElementFactory, ReCaptchaService pReCaptchaService, CurrentContextService currentContextService) {
-    this.reCaptchaService = pReCaptchaService;
+  public FormFreemarkerFacade(FormElementFactory formElementFactory, CaptchaService pCaptchaService, CurrentContextService currentContextService) {
+    this.captchaService = pCaptchaService;
     this.formElementFactory = formElementFactory;
     this.currentContextService = currentContextService;
   }
@@ -48,6 +48,6 @@ public class FormFreemarkerFacade {
   }
 
   public String getReCaptchaWebsiteSecretForSite() {
-    return reCaptchaService.getWebsiteSecretForSite(currentContextService.getContext());
+    return captchaService.getWebsiteSecretForSite(currentContextService.getContext());
   }
 }
