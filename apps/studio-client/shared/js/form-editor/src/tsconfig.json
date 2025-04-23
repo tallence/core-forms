@@ -4,7 +4,6 @@
   "extends": "@jangaroo/build/tsconfig-jangaroo.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "../dist/src",
-    "moduleResolution": "nodenext"
+    "outDir": "../dist/src"
   }
 }

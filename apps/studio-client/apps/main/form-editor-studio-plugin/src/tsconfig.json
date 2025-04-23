@@ -5,17 +5,11 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "../dist/src",
-    "moduleResolution": "nodenext",
     "types": [
-      "@coremedia/studio-client.client-core",
-      "@coremedia/studio-client.main.editor-components",
       "@jangaroo/ext-ts"
     ]
   },
   "references": [
-    {
-      "path": "../../../../shared/js/form-editor/src"
-    },
     {
       "path": "../../../../../../../../../apps/studio-client/apps/main/blueprint-forms/src"
     }

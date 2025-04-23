@@ -5,25 +5,25 @@
   "dependencies": {
     "@coremedia-blueprint/studio-client.form-editor": "1.0.0-SNAPSHOT",
     "@coremedia-blueprint/studio-client.main.blueprint-forms": "1.0.0-SNAPSHOT",
-    "@coremedia/studio-client.base-models": "2304.1.0",
-    "@coremedia/studio-client.cap-base-models": "2304.1.0",
-    "@coremedia/studio-client.cap-rest-client": "2304.1.0",
-    "@coremedia/studio-client.client-core": "2304.1.0",
-    "@coremedia/studio-client.core-icons": "2304.1.0",
-    "@coremedia/studio-client.ext.errors-validation-components": "2304.1.0",
-    "@coremedia/studio-client.ext.ui-components": "2304.1.0",
-    "@coremedia/studio-client.main.bpbase-studio-dynamic-query-list": "2304.1.0",
-    "@coremedia/studio-client.main.editor-components": "2304.1.0",
-    "@jangaroo/ext-ts": "^1.0.3",
-    "@jangaroo/runtime": "^1.4.2"
+    "@coremedia/studio-client.base-models": "2406.0.4",
+    "@coremedia/studio-client.cap-base-models": "2406.0.4",
+    "@coremedia/studio-client.cap-rest-client": "2406.0.4",
+    "@coremedia/studio-client.client-core": "2406.0.4",
+    "@coremedia/studio-client.core-icons": "2406.0.4",
+    "@coremedia/studio-client.ext.errors-validation-components": "2406.0.4",
+    "@coremedia/studio-client.ext.ui-components": "2406.0.4",
+    "@coremedia/studio-client.main.bpbase-studio-dynamic-query-list": "2406.0.4",
+    "@coremedia/studio-client.main.editor-components": "2406.0.4",
+    "@jangaroo/ext-ts": "^2.0.0",
+    "@jangaroo/runtime": "^3.0.1"
   },
   "devDependencies": {
-    "@jangaroo/build": "^1.4.2",
-    "@jangaroo/core": "^1.4.2",
-    "@jangaroo/eslint-config": "^1.4.2",
-    "@jangaroo/publish": "^1.4.2",
-    "eslint": "^7.32.0",
-    "rimraf": "^3.0.2"
+    "@jangaroo/build": "^3.0.1",
+    "@jangaroo/core": "^3.0.1",
+    "@jangaroo/eslint-config": "^2.0.1",
+    "@jangaroo/publish": "^3.0.1",
+    "eslint": "^8.57.0",
+    "rimraf": "^6.0.1"
   },
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./build",

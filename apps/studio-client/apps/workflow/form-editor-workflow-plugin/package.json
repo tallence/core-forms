@@ -6,12 +6,12 @@
     "@coremedia-blueprint/studio-client.form-editor": "1.0.0-SNAPSHOT"
   },
   "devDependencies": {
-    "@jangaroo/build": "^1.4.2",
-    "@jangaroo/core": "^1.4.2",
-    "@jangaroo/eslint-config": "^1.4.2",
-    "@jangaroo/publish": "^1.4.2",
-    "eslint": "^7.32.0",
-    "rimraf": "^3.0.2"
+    "@jangaroo/build": "^3.0.1",
+    "@jangaroo/core": "^3.0.1",
+    "@jangaroo/eslint-config": "^2.0.1",
+    "@jangaroo/publish": "^3.0.1",
+    "eslint": "^8.57.0",
+    "rimraf": "^6.0.1"
   },
   "scripts": {
     "clean": "rimraf ./dist && rimraf ./build",

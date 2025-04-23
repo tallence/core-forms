@@ -102,7 +102,6 @@ class FormEditorDocumentForm extends FormEditorDocumentFormBase {
                     dragActiveVE: this.getFormElementsManager(config.bindTo, config.forceReadOnlyValueExpression, config.structPropertyName).getDragActiveVE(),
                     readOnlyVE: PropertyEditorUtil.createReadOnlyValueExpression(config.bindTo, config.forceReadOnlyValueExpression),
                   }),
-                  Config(ApplicableElementsHelpContainer, {helpTextUrl: ConfigUtils.asString(Ext.manifest.globalResources[FormEditor_properties.FormEditor_window_html_content_key])}),
                 ],
               }),
               /* right column, applied form elements */
