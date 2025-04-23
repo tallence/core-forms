@@ -1,4 +1,4 @@
-package com.tallence.formeditor.cae;
+package com.tallence.formeditor.cae.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

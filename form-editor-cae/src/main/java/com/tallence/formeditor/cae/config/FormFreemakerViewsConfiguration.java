@@ -1,4 +1,4 @@
-package com.tallence.formeditor.cae;
+package com.tallence.formeditor.cae.config;
 
 import java.util.Map;
 
@@ -10,7 +10,8 @@ import com.coremedia.blueprint.common.services.context.CurrentContextService;
 import com.coremedia.springframework.customizer.Customize;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
 import com.tallence.formeditor.FormElementFactory;
-import com.tallence.formeditor.cae.handler.ReCaptchaService;
+import com.tallence.formeditor.cae.FormFreemarkerFacade;
+import com.tallence.formeditor.cae.handler.CaptchaService;
 
 @Configuration(proxyBeanMethods = false)
 
@@ -23,8 +24,8 @@ public class FormFreemakerViewsConfiguration {
     @Bean
     public FormFreemarkerFacade formFreemarkerFacade(FormElementFactory formElementFactory,
                                                      CurrentContextService currentContextService,
-                                                     ReCaptchaService reCaptchaService) {
-          return new FormFreemarkerFacade(formElementFactory,reCaptchaService,currentContextService);
+                                                     CaptchaService captchaService) {
+          return new FormFreemarkerFacade(formElementFactory,captchaService,currentContextService);
     }
 
 
@@ -35,8 +36,8 @@ public class FormFreemakerViewsConfiguration {
     }
 
 
-    @Customize("freemarkerConfigurer.autoImports")
     @Bean(autowireCandidate = false)
+    @Customize("freemarkerConfigurer.autoImports")
     public Map<String, String> amFreemarkerConfigurerAutoImportsCustomizer() {
         return Map.of("form", "/lib/form/form.ftl");
     }

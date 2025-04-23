@@ -1,7 +1,8 @@
-package com.tallence.formeditor.cae;
+package com.tallence.formeditor.cae.config;
 
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.*;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -9,7 +10,7 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import com.coremedia.cache.Cache;
 import com.coremedia.cache.CacheCapacityConfigurer;
 import com.coremedia.springframework.xml.ResourceAwareXmlBeanDefinitionReader;
-import com.tallence.formeditor.cae.handler.ReCaptchaService;
+import com.tallence.formeditor.cae.handler.CaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 
 import jakarta.servlet.annotation.MultipartConfig;
@@ -56,7 +57,8 @@ public class FormEditorCaeConfig {
 
 
   @Bean
-  public ReCaptchaService reCaptchaService() {
+  @ConditionalOnMissingBean(CaptchaService.class)
+  public CaptchaService captchaService() {
     ReCaptchaServiceImpl.ReCaptchaAuthentication authentication = new ReCaptchaServiceImpl.ReCaptchaAuthentication(
             formEditorConfigurationProperties.getWebsiteSecret(),
             formEditorConfigurationProperties.getServerSecret()

@@ -48,6 +48,7 @@ import com.tallence.formeditor.FormEditorConfiguration;
 import com.tallence.formeditor.FormElementFactory;
 import com.tallence.formeditor.cae.actions.DefaultFormAction;
 import com.tallence.formeditor.cae.actions.FormAction;
+import com.tallence.formeditor.cae.config.FormEditorCaeConfig;
 import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.cae.handler.FormConfigController;
 import com.tallence.formeditor.cae.handler.FormController;
@@ -55,7 +56,6 @@ import com.tallence.formeditor.cae.handler.CaptchaService;
 import com.tallence.formeditor.cae.handler.ReCaptchaServiceImpl;
 import com.tallence.formeditor.cae.mocks.ResourceBundleFactoryMock;
 import com.tallence.formeditor.cae.serializer.FormElementSerializerFactory;
-import com.tallence.formeditor.elements.FormElement;
 import com.tallence.formeditor.parser.AbstractFormElementParser;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_SINGLETON;
